@@ -24,7 +24,8 @@
 
 .login_container_form_internal{
     -fx-spacing: 15;
-    -fx-alignment: top_center;
+    -fx-alignment: center;
+
 }
 
 /*stile per i box interattivi login */
@@ -36,27 +37,38 @@
 }
 
 .login_container_form_internal .input_field{
-    -fx-background-color: #FFFFFF;
-    -fx-border-color: #FF7A29;
+    -fx-border-color: #FFFFFF;
+    -fx-background-color: transparent;
+    -fx-text-fill: #FFFFFF;
     -fx-padding: 10px;
     -fx-font-size: 1.2em;
     -fx-pref-height: 25;
     -fx-font-family: "Arial";
+    -fx-border-radius: 50%;
 }
 
-.login_container_form_internal Button{
+.login_container_form_internal .login_button{
     -fx-background-color: #011548;
     -fx-text-fill: #FFFFFF;
-    -fx-font-size: 1.2em;
+    -fx-font-size: 1em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
-    -fx-border-radius: 70%;
+    -fx-border-radius: 20%;
+    -fx-background-radius: 20%;
+    -fx-opacity:0.6;
     -fx-padding: 10px 20px;
-    -fx-pref-width: 350;
-    -fx-pref-height: 30;
+    -fx-pref-width: 120;
+    -fx-pref-height: 70;
+    -fx-alignment: center;
 }
 
 .login_container_form_internal Button:hover{
     -fx-cursor: hand;
 }
 
+
+.login_container_form_internal .label_login{
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 4em;
+    -fx-font-weight: bold;
+    -fx-font-family: "Arial";}
