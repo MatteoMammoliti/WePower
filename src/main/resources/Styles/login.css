@@ -1,0 +1,62 @@
+.login_container {
+    -fx-background-image: url("../Images/background_login_form.png");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-padding: 20px;
+    -fx-border-radius: 10px;
+}
+
+/*stile per il logo*/
+.login_container_logo{
+    -fx-background-image: url("../Images/LOGO.png");
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-padding: 20px;}
+
+ /*Container per il login form*/
+.login_container_form{
+    -fx-background-color: #FF7A29;
+    -fx-background-radius: 20px;
+    -fx-opacity:0.4;
+}
+
+.login_container_form_internal{
+    -fx-spacing: 15;
+    -fx-alignment: top_center;
+}
+
+/*stile per i box interattivi login */
+.login_container_form_internal Label{
+    -fx-text-fill: #011548;
+    -fx-font-size: 1.1em;
+    -fx-font-weight: bold;
+    -fx-font-family: "Arial";
+}
+
+.login_container_form_internal .input_field{
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #FF7A29;
+    -fx-padding: 10px;
+    -fx-font-size: 1.2em;
+    -fx-pref-height: 25;
+    -fx-font-family: "Arial";
+}
+
+.login_container_form_internal Button{
+    -fx-background-color: #011548;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 1.2em;
+    -fx-font-weight: bold;
+    -fx-font-family: "Arial";
+    -fx-border-radius: 70%;
+    -fx-padding: 10px 20px;
+    -fx-pref-width: 350;
+    -fx-pref-height: 30;
+}
+
+.login_container_form_internal Button:hover{
+    -fx-cursor: hand;
+}
+

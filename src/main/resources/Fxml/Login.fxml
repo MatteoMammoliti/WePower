@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.LoginController">
+<AnchorPane prefHeight="550.0" prefWidth="400.0" styleClass="login_container" stylesheets="@../Styles/login.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.LoginController">
    <children>
-      <VBox prefHeight="400.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <VBox layoutX="99.0" layoutY="92.0" prefHeight="350.0" prefWidth="240.0" styleClass="login_container_form" stylesheets="@../Styles/login.css" />
+      <VBox layoutX="105.0" layoutY="96.0" prefHeight="374.0" prefWidth="246.0" styleClass="login_container_form_internal" stylesheets="@../Styles/login.css" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="70.0">
+         <children>
+            <Label text="LOGIN" textFill="WHITE">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <TextField promptText="Inserisci il tuo username: " styleClass="input_field" />
+            <PasswordField promptText="Inserisci la tua password: " styleClass="input_field" />
+            <Button id="Bottone_Login" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Button" />
+            <Button id="Bottone_Login" mnemonicParsing="false" text="Button" />
+            <Button id="Bottone_Login" mnemonicParsing="false" text="Button" />
+         </children></VBox>
+      <ImageView fitHeight="90.0" fitWidth="90.0" layoutX="14.0" layoutY="466.0" pickOnBounds="true" preserveRatio="true" styleClass="login_container_logo" AnchorPane.bottomAnchor="-15.0" AnchorPane.leftAnchor="-10.0">
+         <image>
+            <Image url="@../Images/LOGO.png" />
+         </image></ImageView>
    </children>
 </AnchorPane>
