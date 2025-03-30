@@ -1,74 +1,48 @@
-/* Stile per il container principale del login */
-.login_container {
+.right_side_pane{
     -fx-background-image: url("../Images/background_login_form.png");
-    -fx-background-size: cover;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-padding: 20px;
-    -fx-border-radius: 10px;
+
 }
 
-/* Stile per il logo */
-.login_container_logo{
-    -fx-background-image: url("../Images/LOGO.png");
-    -fx-background-size: cover;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-padding: 20px;}
 
- /* Container per il background del login form */
-.login_container_form{
-    -fx-background-color: #FF7A29;
-    -fx-background-radius: 20px;
-    -fx-opacity:0.4;
-}
-
-.login_container_form_internal{
-    -fx-spacing: 15;
-    -fx-alignment: center;
-}
-
-/* Stile per i box interattivi del form login  */
-.login_container_form_internal Label{
-    -fx-text-fill: #011548;
-    -fx-font-size: 1.1em;
-    -fx-font-weight: bold;
-    -fx-font-family: "Arial";
-}
-
-.login_container_form_internal .input_field{
-    -fx-border-color: #FFFFFF;
+.input_login{
     -fx-background-color: transparent;
-    -fx-text-fill: #FFFFFF;
-    -fx-padding: 10px;
-    -fx-font-size: 1.2em;
-    -fx-pref-height: 25;
-    -fx-font-family: "Arial";
-    -fx-border-radius: 50%;
+    -fx-border-color: transparent transparent black transparent;
+    -fx-border-width: 0 0 1.5 0;
+    -fx-text-fill: black;
+    -fx-font-size: 1.0em;
+    -fx-pref-height: 38;
 }
 
-.login_container_form_internal .login_button{
-    -fx-background-color: #011548;
-    -fx-text-fill: #FFFFFF;
-    -fx-font-size: 1em;
+.my_button_login {
+    -fx-background-color: #ff7a29;
+    -fx-opacity:0.9;
+    -fx-text-fill: white;
+    -fx-font-size: 1.0em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
-    -fx-border-radius: 20%;
-    -fx-background-radius: 20%;
-    -fx-opacity:0.6;
-    -fx-padding: 10px 20px;
-    -fx-pref-width: 120;
-    -fx-pref-height: 70;
-    -fx-alignment: center;
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-padding: 10px 30px;
+    -fx-min-width: 200px;
 }
 
-.login_container_form_internal Button:hover{
+.my_button_login:hover {
     -fx-cursor: hand;
+    -fx-opacity:1;
 }
 
-.login_container_form_internal .label_login {
-    -fx-text-fill: #FFFFFF;
-    -fx-font-size: 4em;
+.my_button_google {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: black;
+    -fx-font-size: 1.0em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-padding: 10px 30px;
+    -fx-min-width: 200px;
 }

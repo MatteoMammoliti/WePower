@@ -1,45 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
-<AnchorPane prefHeight="550.0" prefWidth="400.0" styleClass="login_container" stylesheets="@../Styles/login.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.LoginController">
-   <VBox layoutX="99.0" layoutY="92.0" prefHeight="350.0" prefWidth="240.0" styleClass="login_container_form" stylesheets="@../Styles/login.css" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="70.0" />
-   <VBox layoutX="105.0" layoutY="96.0" prefHeight="374.0" prefWidth="246.0" styleClass="login_container_form_internal" stylesheets="@../Styles/login.css" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="70.0">
-      <TextField fx:id="username_text_field" promptText="Inserisci il tuo username: " styleClass="input_field">
-         <VBox.margin>
-            <Insets top="60.0" />
-         </VBox.margin>
-      </TextField>
-      <PasswordField fx:id="password_field" promptText="Inserisci la tua password: " styleClass="input_field">
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-      </PasswordField>
-
-      <VBox alignment="CENTER" spacing="10" />
-      <Button fx:id="accedi_button" mnemonicParsing="false" styleClass="login_button" text="Accedi" />
-      <HBox alignment="CENTER" spacing="10">
-         <Region style="-fx-background-color: #FF7A29; -fx-pref-width: 10; -fx-pref-height: 2;" />
-
-         <Label style="-fx-font-size: 1em; -fx-font-weight: bold; -fx-text-fill: #FFFFFF;-fx-opacity: 0.7; -fx-background-color: transparent;" text="Oppure" textFill="WHITE" />
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 
-         <Region style="-fx-background-color: #FF7A29; -fx-pref-width: 10; -fx-pref-height: 2;" />
+<BorderPane id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <right>
+      <HBox prefHeight="500.0" prefWidth="330.0" styleClass="right_side_pane" stylesheets="@../Styles/login.css" BorderPane.alignment="CENTER" />
+   </right>
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane prefHeight="500.0" prefWidth="670.0">
+               <children>
+                  <Text layoutX="268.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bentornato,">
+                     <font>
+                        <Font name="Arial" size="26.0" />
+                     </font>
+                  </Text>
+                  <VBox alignment="TOP_CENTER" layoutX="170.0" layoutY="99.0" prefHeight="357.0" prefWidth="330.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="82.0" text="EMAIL">
+                           <font>
+                              <Font name="Arial Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField prefHeight="22.0" prefWidth="330.0" styleClass="input_login">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <VBox.margin>
+                              <Insets top="7.0" />
+                           </VBox.margin>
+                        </TextField>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
       </HBox>
-      <Button fx:id="signup_button" mnemonicParsing="false" styleClass="login_button" text="Registrati" onAction="#signup_button_click"/>
-   </VBox>
-   <ImageView fitHeight="90.0" fitWidth="90.0" layoutX="14.0" layoutY="466.0" pickOnBounds="true" preserveRatio="true" styleClass="login_container_logo" AnchorPane.bottomAnchor="-15.0" AnchorPane.leftAnchor="-10.0">
-      <image>
-         <Image url="@../Images/LOGO.png" />
-      </image>
-   </ImageView>
-   <Label fx:id="login_label" alignment="CENTER" layoutX="149.0" layoutY="20.0" styleClass="label_login" text="LOGIN" textFill="WHITE" AnchorPane.bottomAnchor="445.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="20.0">
-      <font>
-         <Font size="44.0" />
-      </font>
-   </Label>
-</AnchorPane>
+   </center>
+</BorderPane>
