@@ -5,15 +5,16 @@ import javafx.scene.control.Button;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class LoginController {
-    public TextField username_text_field;
-    public PasswordField password_field;
-    public Button accedi_button;
     public Button signup_button;
+    public PasswordField passwordF_field;
+    public TextField show_password;
+    public Button eyeButton;
 
     public void signup_button_click() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/SignUp.fxml"));
@@ -26,5 +27,18 @@ public class LoginController {
         stage.setResizable(false);
         stage.show();
     }
-}
 
+    public void nascondi_password()
+    {
+        boolean isVisible = show_password.isVisible();
+
+        // alterniamo la visibilità del campo password e del campo di testo
+        show_password.setVisible(!isVisible);
+        show_password.setManaged(!isVisible);
+        passwordF_field.setVisible(isVisible);
+        passwordF_field.setManaged(isVisible);
+
+        show_password.setText(passwordF_field.getText());
+        eyeButton.setText(isVisible ? "🔍" : "🔒");
+    }
+}

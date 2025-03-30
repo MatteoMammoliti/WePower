@@ -46,3 +46,8 @@
     -fx-padding: 10px 30px;
     -fx-min-width: 200px;
 }
+
+.my_button_toggle_pasword {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
