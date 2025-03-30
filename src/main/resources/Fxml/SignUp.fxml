@@ -1,13 +1,189 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="550.0" prefWidth="400.0" styleClass="login_container" stylesheets="@../Styles/login.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.LoginController">
-   <VBox layoutX="99.0" layoutY="92.0" prefHeight="350.0" prefWidth="240.0" styleClass="login_container_form" stylesheets="@../Styles/login.css" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="70.0" />
-   <ImageView fitHeight="90.0" fitWidth="90.0" layoutX="14.0" layoutY="466.0" pickOnBounds="true" preserveRatio="true" styleClass="login_container_logo" AnchorPane.bottomAnchor="-15.0" AnchorPane.leftAnchor="-10.0">
-      <image>
-         <Image url="@../Images/LOGO.png" />
-      </image>
-   </ImageView>
-</AnchorPane>
+<BorderPane id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <right>
+      <HBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="330.0" styleClass="right_side_pane" stylesheets="@../Styles/login.css" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="500.0" prefWidth="345.0">
+               <children>
+                  <ImageView fitHeight="79.0" fitWidth="79.0" layoutY="431.0">
+                     <image>
+                        <Image url="@../Images/LOGO.png" />
+                     </image>
+                  </ImageView>
+                  <Label contentDisplay="CENTER" layoutX="69.0" layoutY="157.0" text="Sei già registrato?" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="75.0" layoutY="205.0" text="Puoi accedere al tuo account&#10;da qui:" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="60.0" layoutY="290.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="210.0" styleClass="my_button_login" stylesheets="@../Styles/login.css" text="Accedi" />
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
+         </children></HBox>
+   </right>
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane prefHeight="500.0" prefWidth="670.0" stylesheets="@../Styles/login.css">
+               <children>
+                  <Text layoutX="268.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Benvenuto">
+                     <font>
+                        <Font name="Arial Bold" size="25.0" />
+                     </font>
+                  </Text>
+                  <VBox alignment="TOP_CENTER" layoutX="170.0" layoutY="295.0" prefHeight="162.0" prefWidth="330.0">
+                     <children>
+                        <VBox prefHeight="0.0" prefWidth="330.0">
+                           <VBox.margin>
+                              <Insets top="3.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="345.0" styleClass="my_button_login" stylesheets="@../Styles/login.css" text="Registrati">
+                           <VBox.margin>
+                              <Insets top="30.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="331.0" styleClass="my_button_google" stylesheets="@../Styles/login.css" text="Continua con Google">
+                           <VBox.margin>
+                              <Insets top="17.0" />
+                           </VBox.margin>
+                           <graphic>
+                              <FontAwesomeIconView glyphName="GOOGLE" size="16" text="" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <Pane prefHeight="500.0" prefWidth="670.0">
+                     <children>
+                        <VBox alignment="TOP_CENTER" layoutX="65.0" layoutY="91.0" prefHeight="410.0" prefWidth="270.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="20.0" prefWidth="82.0" text="Nome">
+                                 <font>
+                                    <Font name="Arial Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField prefWidth="330.0" styleClass="input_login" stylesheets="@../Styles/login.css">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Label alignment="CENTER" prefHeight="20.0" prefWidth="169.0" text="Data di nascita:">
+                                 <font>
+                                    <Font name="Arial Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="7.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <DatePicker prefWidth="333.0" styleClass="input_login" stylesheets="@../Styles/login.css">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </DatePicker>
+                              <Label alignment="CENTER" prefHeight="20.0" prefWidth="169.0" text="Password:">
+                                 <font>
+                                    <Font name="Arial Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="7.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <PasswordField prefWidth="330.0" styleClass="input_login" stylesheets="@../Styles/login.css">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </PasswordField>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" layoutX="335.0" layoutY="91.0" prefHeight="410.0" prefWidth="270.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="20.0" prefWidth="82.0" text="Cognome:">
+                                 <font>
+                                    <Font name="Arial Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField prefWidth="330.0" styleClass="input_login" stylesheets="@../Styles/login.css">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Label alignment="CENTER" prefHeight="20.0" prefWidth="82.0" text="Email:">
+                                 <font>
+                                    <Font name="Arial Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="7.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField prefWidth="330.0" styleClass="input_login" stylesheets="@../Styles/login.css">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Label alignment="CENTER" prefHeight="20.0" prefWidth="169.0" text="Ripeti password:">
+                                 <font>
+                                    <Font name="Arial Bold" size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="7.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <PasswordField prefWidth="330.0" styleClass="input_login" stylesheets="@../Styles/login.css">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </PasswordField>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>
