@@ -6,40 +6,47 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="550.0" prefWidth="400.0" styleClass="login_container" stylesheets="@../Styles/login.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.LoginController">
-   <children>
-      <VBox layoutX="99.0" layoutY="92.0" prefHeight="350.0" prefWidth="240.0" styleClass="login_container_form" stylesheets="@../Styles/login.css" />
-      <VBox layoutX="105.0" layoutY="96.0" prefHeight="374.0" prefWidth="246.0" styleClass="login_container_form_internal" stylesheets="@../Styles/login.css" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="70.0">
-         <children>
-            <TextField promptText="Inserisci il tuo username: " styleClass="input_field">
-               <VBox.margin>
-                  <Insets top="60.0" />
-               </VBox.margin></TextField>
-            <PasswordField promptText="Inserisci la tua password: " styleClass="input_field">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin></PasswordField>
+<AnchorPane prefHeight="550.0" prefWidth="400.0" styleClass="login_container" stylesheets="@../Styles/login.css"
+            xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.wepower.wepower.Controllers.LoginController">
+   <VBox layoutX="99.0" layoutY="92.0" prefHeight="350.0" prefWidth="240.0" styleClass="login_container_form"
+         stylesheets="@../Styles/login.css"/>
+   <VBox layoutX="105.0" layoutY="96.0" prefHeight="374.0" prefWidth="246.0" styleClass="login_container_form_internal"
+         stylesheets="@../Styles/login.css" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="80.0"
+         AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="70.0">
+      <TextField fx:id="username_text_field" promptText="Inserisci il tuo username: " styleClass="input_field">
+         <VBox.margin>
+            <Insets top="60.0"/>
+         </VBox.margin>
+      </TextField>
+      <PasswordField fx:id="password_field" promptText="Inserisci la tua password: " styleClass="input_field">
+         <VBox.margin>
+            <Insets/>
+         </VBox.margin>
+      </PasswordField>
 
-            <VBox alignment="CENTER" spacing="10" />
-            <Button mnemonicParsing="false" styleClass="login_button" text="Accedi" />
-            <HBox alignment="CENTER" spacing="10">
-               <Region style="-fx-background-color: #FF7A29; -fx-pref-width: 10; -fx-pref-height: 2;" />
+      <VBox alignment="CENTER" spacing="10"/>
+      <Button fx:id="accedi_button" mnemonicParsing="false" styleClass="login_button" text="Accedi"/>
+      <HBox alignment="CENTER" spacing="10">
+         <Region style="-fx-background-color: #FF7A29; -fx-pref-width: 10; -fx-pref-height: 2;"/>
 
-               <Label style="-fx-font-size: 1em; -fx-font-weight: bold; -fx-text-fill: #FFFFFF;-fx-opacity: 0.7; -fx-background-color: transparent;" text="Oppure" textFill="WHITE" />
+         <Label style="-fx-font-size: 1em; -fx-font-weight: bold; -fx-text-fill: #FFFFFF;-fx-opacity: 0.7; -fx-background-color: transparent;"
+                text="Oppure" textFill="WHITE"/>
 
 
-               <Region style="-fx-background-color: #FF7A29; -fx-pref-width: 10; -fx-pref-height: 2;" />
-            </HBox>
-            <Button mnemonicParsing="false" styleClass="login_button" text="Registrati" />
-         </children></VBox>
-      <ImageView fitHeight="90.0" fitWidth="90.0" layoutX="14.0" layoutY="466.0" pickOnBounds="true" preserveRatio="true" styleClass="login_container_logo" AnchorPane.bottomAnchor="-15.0" AnchorPane.leftAnchor="-10.0">
-         <image>
-            <Image url="@../Images/LOGO.png" />
-         </image></ImageView>
-      <Label layoutX="149.0" layoutY="20.0" styleClass="label_login" text="LOGIN" textFill="WHITE">
-         <font>
-            <Font size="44.0" />
-         </font>
-      </Label>
-   </children>
+         <Region style="-fx-background-color: #FF7A29; -fx-pref-width: 10; -fx-pref-height: 2;"/>
+      </HBox>
+      <Button fx:id="signup_button" mnemonicParsing="false" styleClass="login_button" text="Registrati"/>
+   </VBox>
+   <ImageView fitHeight="90.0" fitWidth="90.0" layoutX="14.0" layoutY="466.0" pickOnBounds="true" preserveRatio="true"
+              styleClass="login_container_logo" AnchorPane.bottomAnchor="-15.0" AnchorPane.leftAnchor="-10.0">
+      <image>
+         <Image url="@../Images/LOGO.png"/>
+      </image>
+   </ImageView>
+   <Label fx:id="login_label" layoutX="149.0" layoutY="20.0" styleClass="label_login" text="LOGIN" textFill="WHITE">
+      <font>
+         <Font size="44.0"/>
+      </font>
+   </Label>
 </AnchorPane>
