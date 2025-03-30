@@ -16,6 +16,7 @@ public class WePower extends Application
         stage.setScene(scene);
 
         stage.setResizable(false); // non permette di ridimensionare la finestra
+        stage.setTitle("WePower - Login Utente"); // titolo della finestra
         stage.show();
     }
 }

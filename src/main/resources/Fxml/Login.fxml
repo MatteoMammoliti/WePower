@@ -30,7 +30,7 @@
 
          <Region style="-fx-background-color: #FF7A29; -fx-pref-width: 10; -fx-pref-height: 2;" />
       </HBox>
-      <Button fx:id="signup_button" mnemonicParsing="false" styleClass="login_button" text="Registrati" />
+      <Button fx:id="signup_button" mnemonicParsing="false" styleClass="login_button" text="Registrati" onAction="#signup_button_click"/>
    </VBox>
    <ImageView fitHeight="90.0" fitWidth="90.0" layoutX="14.0" layoutY="466.0" pickOnBounds="true" preserveRatio="true" styleClass="login_container_logo" AnchorPane.bottomAnchor="-15.0" AnchorPane.leftAnchor="-10.0">
       <image>
