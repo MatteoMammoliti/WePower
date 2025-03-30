@@ -92,6 +92,11 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.dlsc.formsfx</groupId>
+            <artifactId>formsfx-core</artifactId>
+            <version>11.6.0</version>  <!-- Usa la versione corretta -->
+        </dependency>
     </dependencies>
 
     <build>

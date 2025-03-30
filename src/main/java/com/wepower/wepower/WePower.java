@@ -14,6 +14,8 @@ public class WePower extends Application
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
+
+        stage.setResizable(false); // non permette di ridimensionare la finestra
         stage.show();
     }
 }
