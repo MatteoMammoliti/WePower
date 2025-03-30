@@ -1,3 +1,4 @@
+/* Stile per il container principale del login */
 .login_container {
     -fx-background-image: url("../Images/background_login_form.png");
     -fx-background-size: cover;
@@ -7,7 +8,7 @@
     -fx-border-radius: 10px;
 }
 
-/*stile per il logo*/
+/* Stile per il logo */
 .login_container_logo{
     -fx-background-image: url("../Images/LOGO.png");
     -fx-background-size: cover;
@@ -15,7 +16,7 @@
     -fx-background-position: center;
     -fx-padding: 20px;}
 
- /*Container per il login form*/
+ /* Container per il background del login form */
 .login_container_form{
     -fx-background-color: #FF7A29;
     -fx-background-radius: 20px;
@@ -25,10 +26,9 @@
 .login_container_form_internal{
     -fx-spacing: 15;
     -fx-alignment: center;
-
 }
 
-/*stile per i box interattivi login */
+/* Stile per i box interattivi del form login  */
 .login_container_form_internal Label{
     -fx-text-fill: #011548;
     -fx-font-size: 1.1em;
@@ -66,9 +66,9 @@
     -fx-cursor: hand;
 }
 
-
-.login_container_form_internal .label_login{
+.login_container_form_internal .label_login {
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 4em;
     -fx-font-weight: bold;
-    -fx-font-family: "Arial";}
+    -fx-font-family: "Arial";
+}
