@@ -2,6 +2,7 @@ package com.wepower.wepower;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class WePower extends Application
@@ -17,6 +18,7 @@ public class WePower extends Application
 
         stage.setResizable(false); // non permette di ridimensionare la finestra
         stage.setTitle("WePower - Login Utente"); // titolo della finestra
+        stage.getIcons().add(new Image("file:src/main/resources/Images/LOGO_sfondo_arancione.png"));
         stage.show();
     }
 }
