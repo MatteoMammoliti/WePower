@@ -1,6 +1,7 @@
 package com.wepower.wepower.Controllers;
 
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -9,14 +10,32 @@ import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class SignUpController {
+public class SignUpController implements Initializable {
     public Button loginButton;
     public PasswordField PasswordField;
     public TextField passwordVisibile;
     public TextField RepeatPasswordVisibile;
     public PasswordField RepeatPasswordField;
     public Button eyeButton;
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loginButton.setOnAction(event -> {
+            try {
+                signinButtonClick();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        eyeButton.setOnAction(event -> {
+            nascondiPassword();
+        });
+    }
 
     public void signinButtonClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
@@ -40,9 +59,6 @@ public class SignUpController {
         PasswordField.setVisible(isVisible);
         RepeatPasswordField.setVisible(isVisible);
 
-
-
-
         if (isVisible) {
             PasswordField.setText(passwordVisibile.getText());
             RepeatPasswordField.setText(RepeatPasswordVisibile.getText());
@@ -57,9 +73,5 @@ public class SignUpController {
         RepeatPasswordField.setManaged(isVisible);
 
         eyeButton.setText(isVisible ? "🔍" : "🔒");
-
-
-
-
     }
 }

@@ -13,7 +13,7 @@ module com.wepower.wepower {
     requires org.kordamp.ikonli.javafx;
     requires java.desktop;
 
-    opens com.wepower.wepower to javafx.fxml;
+    opens com.wepower.wepower.Controllers to javafx.fxml;
 
     //Facciamo exports per rendere visibili le classi publiche di questi package agli altri moduli
     exports com.wepower.wepower;

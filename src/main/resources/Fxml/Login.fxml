@@ -38,7 +38,7 @@
                         <Font name="Arial Bold" size="13.0" />
                      </font>
                   </Label>
-                  <Button fx:id="signupButton" layoutX="60.0" layoutY="290.0" mnemonicParsing="false" onAction="#signupButtonClick" prefHeight="39.0" prefWidth="210.0" styleClass="my_button_login" stylesheets="@../Styles/login.css" text="Registrati" />
+                  <Button fx:id="signupButton" layoutX="60.0" layoutY="290.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="210.0" styleClass="my_button_login" stylesheets="@../Styles/login.css" text="Registrati" />
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </Pane>
@@ -113,7 +113,7 @@
                         </Button>
                      </children>
                   </VBox>
-                  <Button fx:id="eyeButton" layoutX="510.0" layoutY="217.0" mnemonicParsing="false" onAction="#nascondiPassword" styleClass="my_button_toggle_pasword" stylesheets="@../Styles/login.css" text="🔍" />
+                  <Button fx:id="eyeButton" layoutX="510.0" layoutY="217.0" mnemonicParsing="false" styleClass="my_button_toggle_pasword" stylesheets="@../Styles/login.css" text="🔍" />
                </children>
             </AnchorPane>
          </children>

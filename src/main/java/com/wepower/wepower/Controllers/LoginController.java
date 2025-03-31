@@ -1,20 +1,43 @@
 package com.wepower.wepower.Controllers;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class LoginController {
-    public Button signupButton;
-    public PasswordField passwordField;
-    public TextField showPassword;
-    public Button eyeButton;
+public class LoginController implements Initializable {
+    @FXML
+    private Button signupButton;
+
+    @FXML
+    private PasswordField passwordField;
+
+    @FXML
+    private TextField showPassword;
+
+    @FXML
+    private Button eyeButton;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // Assegna un EventHandler al bottone
+        eyeButton.setOnAction(event -> nascondiPassword());
+        signupButton.setOnAction(event -> {
+            try {
+                signupButtonClick();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
 
     public void signupButtonClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/SignUp.fxml"));
@@ -28,17 +51,19 @@ public class LoginController {
         stage.show();
     }
 
-    public void nascondiPassword()
-    {
+    private void nascondiPassword() {
         boolean isVisible = showPassword.isVisible();
 
-        // alterniamo la visibilità del campo password e del campo di testo
+        // Alterniamo la visibilità del campo password e del campo di testo
         showPassword.setVisible(!isVisible);
         showPassword.setManaged(!isVisible);
         passwordField.setVisible(isVisible);
         passwordField.setManaged(isVisible);
 
+        // Sincronizza il testo
         showPassword.setText(passwordField.getText());
+
+        // Cambia icona
         eyeButton.setText(isVisible ? "🔍" : "🔒");
     }
 }
