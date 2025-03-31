@@ -11,16 +11,16 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class LoginController {
-    public Button signup_button;
-    public PasswordField passwordF_field;
-    public TextField show_password;
+    public Button signupButton;
+    public PasswordField passwordField;
+    public TextField showPassword;
     public Button eyeButton;
 
-    public void signup_button_click() throws IOException {
+    public void signupButtonClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/SignUp.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
-        Stage stage = (Stage) signup_button.getScene().getWindow();
+        Stage stage = (Stage) signupButton.getScene().getWindow();
 
         stage.setScene(scene);
         stage.setTitle("WePower - Registrazione nuovo utente");
@@ -28,17 +28,17 @@ public class LoginController {
         stage.show();
     }
 
-    public void nascondi_password()
+    public void nascondiPassword()
     {
-        boolean isVisible = show_password.isVisible();
+        boolean isVisible = showPassword.isVisible();
 
         // alterniamo la visibilità del campo password e del campo di testo
-        show_password.setVisible(!isVisible);
-        show_password.setManaged(!isVisible);
-        passwordF_field.setVisible(isVisible);
-        passwordF_field.setManaged(isVisible);
+        showPassword.setVisible(!isVisible);
+        showPassword.setManaged(!isVisible);
+        passwordField.setVisible(isVisible);
+        passwordField.setManaged(isVisible);
 
-        show_password.setText(passwordF_field.getText());
+        showPassword.setText(passwordField.getText());
         eyeButton.setText(isVisible ? "🔍" : "🔒");
     }
 }

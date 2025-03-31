@@ -38,7 +38,7 @@
                         <Font name="Arial Bold" size="13.0" />
                      </font>
                   </Label>
-                  <Button layoutX="60.0" layoutY="290.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="210.0" styleClass="my_button_login" stylesheets="@../Styles/login.css" text="Accedi" fx:id="login_button" onAction="#signin_button_click"/>
+                  <Button layoutX="60.0" layoutY="290.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="210.0" styleClass="my_button_login" stylesheets="@../Styles/login.css" text="Accedi" fx:id="loginButton" onAction="#signinButtonClick"/>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </Pane>

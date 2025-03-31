@@ -8,13 +8,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class SignUpController {
-    public Button login_button;
+    public Button loginButton;
 
-    public void signin_button_click() throws IOException {
+    public void signinButtonClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
-        Stage stage = (Stage) login_button.getScene().getWindow();
+        Stage stage = (Stage) loginButton.getScene().getWindow();
 
         stage.setScene(scene);
         stage.setTitle("WePower - Login Utente");
