@@ -1,6 +1,5 @@
 .right_side_pane{
-    -fx-background-image: url("../Images/background_login_form.png");
-
+    -fx-background-image: url("../Images/background_login_form.png")
 }
 
 
