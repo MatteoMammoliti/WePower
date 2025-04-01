@@ -1,0 +1,33 @@
+.sfondo{
+    -fx-background-color: #FFFFFF;
+}
+
+
+.pane_offerte_dashboard{
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #FFFFFF #E1E1E1 #E1E1E1 #E1E1E1;
+    -fx-border-width: 3px;
+    -fx-background-radius: 15% ;
+    -fx-border-radius: 0px 0px 30px 30px;
+
+
+
+}
+
+
+.testo_offerte_dashboard{
+    -fx-text-fill: #000000;
+    -fx-font-size: 1.0em;
+    -fx-font-family: "Arial";
+}
+
+
+.pannellino_offerte_dashboard{
+    -fx-background-color: #ff7a29;
+    -fx-border-radius: 30px 30px 30px 30px;
+    -fx-background-radius: 30px 30px 30px 30px;
+    -fx-opacity:0.8;
+}
+.pannellino_offerte_dashboard:hover {
+    -fx-opacity: 1.0;
+}
