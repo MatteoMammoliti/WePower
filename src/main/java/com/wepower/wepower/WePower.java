@@ -16,7 +16,7 @@ public class WePower extends Application
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
 
-        stage.setResizable(false); // non permette di ridimensionare la finestra
+        // non permette di ridimensionare la finestra
         stage.setTitle("WePower - Login Utente"); // titolo della finestra
         stage.getIcons().add(new Image("file:src/main/resources/Images/LOGO_sfondo_arancione.png"));
         stage.show();

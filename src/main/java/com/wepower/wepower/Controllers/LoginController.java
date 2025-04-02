@@ -14,6 +14,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
+    public Button loginButton;
     @FXML
     private Button signupButton;
 
@@ -37,6 +38,13 @@ public class LoginController implements Initializable {
                 throw new RuntimeException(e);
             }
         });
+        loginButton.setOnAction(event -> {
+            try {
+                loginButtonClick();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     public void signupButtonClick() throws IOException {
@@ -48,6 +56,17 @@ public class LoginController implements Initializable {
         stage.setScene(scene);
         stage.setTitle("WePower - Registrazione nuovo utente");
         stage.setResizable(false);
+        stage.show();
+    }
+
+    public void loginButtonClick() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/Client/Dashboard.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+
+        Stage stage = (Stage) signupButton.getScene().getWindow();
+
+        stage.setScene(scene);
+        stage.setTitle("WePower - Dashboard Client");
         stage.show();
     }
 

@@ -1,0 +1,23 @@
+.bannerino {
+    -fx-background-color: trasparent;
+    -fx-alignment: center;
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+}
+
+.bannerino .label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+    -fx-font-weight: bold;
+}
+
+.DisplayBanner {
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgba(255,255,255,1) 0%, rgba(255,122,41,1) 99%);
+    -fx-padding: 50;
+    -fx-text-fill: #333;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+
+
+}

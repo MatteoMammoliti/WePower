@@ -98,7 +98,7 @@
                               <Insets top="3.0" />
                            </VBox.margin>
                         </VBox>
-                        <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="345.0" styleClass="my_button_login" stylesheets="@../Styles/login.css" text="Accedi">
+                        <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="345.0" styleClass="my_button_login" stylesheets="@../Styles/login.css" text="Accedi" fx:id="loginButton">
                            <VBox.margin>
                               <Insets top="30.0" />
                            </VBox.margin>

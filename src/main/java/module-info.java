@@ -14,6 +14,7 @@ module com.wepower.wepower {
     requires java.desktop;
 
     opens com.wepower.wepower.Controllers to javafx.fxml;
+    opens com.wepower.wepower.Controllers.Client to javafx.fxml;
 
     //Facciamo exports per rendere visibili le classi publiche di questi package agli altri moduli
     exports com.wepower.wepower;
