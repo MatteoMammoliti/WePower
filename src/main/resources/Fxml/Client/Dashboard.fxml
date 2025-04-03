@@ -3,6 +3,7 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -11,10 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.ScrollPane?>
 <BorderPane stylesheets="@../../Styles/Dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientDashboardController">
    <left>
-      <Pane prefHeight="1080.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+      <Pane prefHeight="1080.0" prefWidth="0.0" BorderPane.alignment="CENTER">
          <children>
             
          </children>
@@ -23,7 +23,7 @@
    <center>
       <AnchorPane BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="300.0" prefWidth="1540.0" styleClass="pane_offerte_dashboard" stylesheets="@../../Styles/Dashboard.css" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="0.0">
+            <VBox layoutX="12.0" layoutY="20.0" prefHeight="300.0" prefWidth="1250.0" styleClass="pane_offerte_dashboard" stylesheets="@../../Styles/Dashboard.css" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="358.0" AnchorPane.topAnchor="20.0">
                <children>
                   <HBox prefHeight="95.0" prefWidth="1534.0" styleClass="testo_offerte_dashboard" stylesheets="@../../Styles/Dashboard.css">
                      <children>
@@ -52,12 +52,7 @@
                         <Insets left="20.0" right="20.0" />
                      </VBox.margin>
                   </Separator>
-                  <ScrollPane fx:id="scrollPaneBanner"
-                              hbarPolicy="NEVER"
-                              vbarPolicy="NEVER"
-                              fitToHeight="true"
-                              fitToWidth="false"
-                              pannable="true">
+                  <ScrollPane fx:id="scrollPaneBanner" fitToHeight="true" fitToWidth="false" hbarPolicy="NEVER" pannable="true" vbarPolicy="NEVER">
                      <HBox fx:id="displayerBanner" spacing="20">
                      </HBox>
                   </ScrollPane>

@@ -1,5 +1,6 @@
 package com.wepower.wepower.Controllers;
 
+import com.wepower.wepower.Models.Model;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -20,33 +21,28 @@ public class SignUpController implements Initializable {
     public TextField RepeatPasswordVisibile;
     public PasswordField RepeatPasswordField;
     public Button eyeButton;
+    public Button signUpButton;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loginButton.setOnAction(event -> {
-            try {
-                signinButtonClick();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        loginButton.setOnAction(event -> onLogin());
 
-        eyeButton.setOnAction(event -> {
-            nascondiPassword();
-        });
+        signUpButton.setOnAction(event -> onSignUp());
+
+        eyeButton.setOnAction(event -> nascondiPassword());
     }
 
-    public void signinButtonClick() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-
+    public void onLogin() {
         Stage stage = (Stage) loginButton.getScene().getWindow();
+        Model.getInstance().getViewFactory().closeStage(stage);
+        Model.getInstance().getViewFactory().showLoginWindow();
+    }
 
-        stage.setScene(scene);
-        stage.setTitle("WePower - Login Utente");
-        stage.setResizable(false);
-        stage.show();
+    public void onSignUp() {
+        Stage stage = (Stage) signUpButton.getScene().getWindow();
+        Model.getInstance().getViewFactory().closeStage(stage);
+        Model.getInstance().getViewFactory().showDashboardClient();
     }
 
     public void nascondiPassword(){
@@ -66,6 +62,7 @@ public class SignUpController implements Initializable {
             passwordVisibile.setText(PasswordField.getText());
             RepeatPasswordVisibile.setText(RepeatPasswordField.getText());
         }
+
         passwordVisibile.setManaged(!isVisible);
         RepeatPasswordVisibile.setManaged(!isVisible);
 

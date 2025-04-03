@@ -43,6 +43,24 @@ public class ViewFactory {
         stage.show();
     }
 
+    public void showSignUpWindow() {
+
+        FXMLLoader loginWindow = new FXMLLoader(getClass().getResource("/Fxml/SignUp.fxml"));
+        Scene scene = null;
+
+        try {
+            scene = new Scene(loginWindow.load());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("WePower - Login");
+        stage.setResizable(false);
+        stage.show();
+    }
+
     // intera dashboard risercvata per il cliente (con menu)
     public void showDashboardClient() {
         FXMLLoader dashboardClient = new FXMLLoader(getClass().getResource("/Fxml/Client/Client.fxml"));
@@ -61,5 +79,12 @@ public class ViewFactory {
         stage.setScene(scene);
         stage.setTitle("WePower - Dashboard");
         stage.show();
+    }
+
+    // chiudiamo la finestra da cui stiamo provenendo (nella transazione Login -> Dashboard, chiudiamo la finestra di Login)
+    public void closeStage(Stage stage) {
+        if (stage != null) {
+            stage.close();
+        }
     }
 }

@@ -1,21 +1,24 @@
 package com.wepower.wepower.Controllers;
 
 import com.wepower.wepower.Models.Model;
+import com.wepower.wepower.Models.ModelAutenticazione;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.sql.SQLException;
 
 public class LoginController implements Initializable {
+
     public Button loginButton;
+
+    @FXML
+    private TextField textEmail;
+
     @FXML
     private Button signupButton;
 
@@ -30,16 +33,36 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Assegna un EventHandler al bottone
         eyeButton.setOnAction(event -> nascondiPassword());
-        signupButton.setOnAction(event -> {
-            try {
-                signupButtonClick();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        loginButton.setOnAction(event -> Model.getInstance().getViewFactory().showDashboardClient());
+
+        signupButton.setOnAction(event -> onSignUp());
+
+        loginButton.setOnAction(event -> onLogin());
+    }
+
+    public void onSignUp() {
+        Stage stage = (Stage) signupButton.getScene().getWindow();
+        Model.getInstance().getViewFactory().closeStage(stage);
+        Model.getInstance().getViewFactory().showSignUpWindow();
+    }
+
+    public void onLogin() {
+        Stage stage = (Stage) loginButton.getScene().getWindow();
+        Model.getInstance().getViewFactory().closeStage(stage);
+        Model.getInstance().getViewFactory().showDashboardClient();
+    }
+
+    /* FUNZIONI LOGIN CON CONNESSIONR AL DB
+    public void clickLogin() throws SQLException {
+        String email=textEmail.getText();
+        String password=passwordField.getText();
+        if(ModelAutenticazione.verificaCredenziali(email,password)){
+            System.out.println("Login effettuato con successo");
+            Model.getInstance().getViewFactory().showDashboardClient();
+        }
+        else{
+            System.out.println("Login fallito");
+        }
     }
 
     public void signupButtonClick() throws IOException {
@@ -52,7 +75,7 @@ public class LoginController implements Initializable {
         stage.setTitle("WePower - Registrazione nuovo utente");
         stage.setResizable(false);
         stage.show();
-    }
+    } */
 
     private void nascondiPassword() {
         boolean isVisible = showPassword.isVisible();
