@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.wepower.wepower.Controllers.Client.ClientDashboardController"
-            prefHeight="400.0" prefWidth="600.0">
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml" >
 
-</AnchorPane>
+    <left>
+        <fx:include source="ClientMenu.fxml"/>
+    </left>
+
+    <right>
+        <fx:include source="Dashboard.fxml"/>
+    </right>
+
+</BorderPane>

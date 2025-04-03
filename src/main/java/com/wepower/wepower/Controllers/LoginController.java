@@ -1,5 +1,6 @@
 package com.wepower.wepower.Controllers;
 
+import com.wepower.wepower.Models.Model;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -38,13 +39,7 @@ public class LoginController implements Initializable {
                 throw new RuntimeException(e);
             }
         });
-        loginButton.setOnAction(event -> {
-            try {
-                loginButtonClick();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        loginButton.setOnAction(event -> Model.getInstance().getViewFactory().showDashboardClient());
     }
 
     public void signupButtonClick() throws IOException {
@@ -56,17 +51,6 @@ public class LoginController implements Initializable {
         stage.setScene(scene);
         stage.setTitle("WePower - Registrazione nuovo utente");
         stage.setResizable(false);
-        stage.show();
-    }
-
-    public void loginButtonClick() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/Client/Dashboard.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-
-        Stage stage = (Stage) signupButton.getScene().getWindow();
-
-        stage.setScene(scene);
-        stage.setTitle("WePower - Dashboard Client");
         stage.show();
     }
 

@@ -1,8 +1,8 @@
 package com.wepower.wepower;
+
+import com.wepower.wepower.Models.Model;
+import com.wepower.wepower.Views.ViewFactory;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class WePower extends Application
@@ -10,14 +10,7 @@ public class WePower extends Application
 
     @Override
     public void start(Stage stage) throws Exception {
-
-        // creaimo un oggetto fxml loader per caricare la scena del login in memoria
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setScene(scene);
-
-        stage.setTitle("WePower - Login Utente"); // titolo della finestra
-        stage.getIcons().add(new Image("file:src/main/resources/Images/LOGO_sfondo_arancione.png"));
-        stage.show();
+        ViewFactory viewFactory = Model.getInstance().getViewFactory();
+        viewFactory.showLoginWindow();
     }
 }

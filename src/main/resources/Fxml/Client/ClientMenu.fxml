@@ -13,38 +13,38 @@
       <AnchorPane prefHeight="750.0" prefWidth="180.0" styleClass="client_menu_container" stylesheets="@../../Styles/clientMenu.css">
          <children>
             <VBox prefHeight="80.0" prefWidth="160.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            <VBox layoutY="108.0" prefHeight="400.0" prefWidth="160.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="108.0">
+            <VBox layoutY="108.0" prefHeight="400.0" prefWidth="160.0" styleClass="vbox" stylesheets="@../../Styles/clientMenu.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="108.0">
                <children>
-                  <Button mnemonicParsing="false" text="Dashboard">
+                  <Button mnemonicParsing="false" styleClass="my_button_window" stylesheets="@../../Styles/clientMenu.css" text="Dashboard">
                      <graphic>
-                        <FontAwesomeIconView glyphName="HOME" size="20" />
+                        <FontAwesomeIconView glyphName="HOME" size="18" />
                      </graphic></Button>
-                  <Button mnemonicParsing="false" text="Scheda di allenamento">
+                  <Button mnemonicParsing="false" styleClass="my_button_window" stylesheets="@../../Styles/clientMenu.css" text="Scheda">
                      <graphic>
-                        <FontAwesomeIconView glyphName="ARCHIVE" size="20" />
+                        <FontAwesomeIconView glyphName="ARCHIVE" size="18" />
                      </graphic></Button>
-                  <Button mnemonicParsing="false" text="Prenotazioni">
+                  <Button mnemonicParsing="false" styleClass="my_button_window" stylesheets="@../../Styles/clientMenu.css" text="Prenotazioni">
                      <graphic>
-                        <FontAwesomeIconView glyphName="CALENDAR" size="20" />
+                        <FontAwesomeIconView glyphName="CALENDAR" size="18" />
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" text="Parametri fisici">
+                  <Button mnemonicParsing="false" styleClass="my_button_window" stylesheets="@../../Styles/clientMenu.css" text="Parametri">
                      <graphic>
-                        <FontAwesomeIconView glyphName="" size="20" />
+                        <FontAwesomeIconView glyphName="" size="18" />
                      </graphic>
                   </Button>
                   <Line endX="120.0" />
-                  <Button mnemonicParsing="false" text="Profilo">
+                  <Button mnemonicParsing="false" styleClass="my_button_window" stylesheets="@../../Styles/clientMenu.css" text="Profilo">
                      <graphic>
-                        <FontAwesomeIconView glyphName="USER" size="20" />
+                        <FontAwesomeIconView glyphName="USER" size="18" />
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" text="Contattaci">
+                  <Button mnemonicParsing="false" styleClass="my_button_window" stylesheets="@../../Styles/clientMenu.css" text="Contattaci">
                      <graphic>
-                        <FontAwesomeIconView glyphName="PHONE" size="20" />
+                        <FontAwesomeIconView glyphName="PHONE" size="18" />
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" text="Logout">
+                  <Button mnemonicParsing="false" styleClass="my_button_window" stylesheets="@../../Styles/clientMenu.css" text="Logout">
                      <graphic>
                         <FontAwesomeIconView glyphName="EXTERNAL_LINK" size="20" />
                      </graphic>
@@ -62,6 +62,11 @@
                         </ImageView>
                      </graphic>
                   </Button>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Images/LOGO.png" />
+                     </image>
+                  </ImageView>
                </children>
             </VBox>
          </children>
