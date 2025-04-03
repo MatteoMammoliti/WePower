@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml" >
+<HBox spacing="0" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml">
+    <fx:include source="ClientMenu.fxml"/>
+    <fx:include source="Dashboard.fxml"/>
+</HBox>
 
-    <left>
-        <fx:include source="ClientMenu.fxml"/>
-    </left>
-
-    <right>
-        <fx:include source="Dashboard.fxml"/>
-    </right>
-
-</BorderPane>

@@ -23,7 +23,7 @@
    <center>
       <AnchorPane BorderPane.alignment="CENTER">
          <children>
-            <VBox layoutX="12.0" layoutY="20.0" prefHeight="300.0" prefWidth="1250.0" styleClass="pane_offerte_dashboard" stylesheets="@../../Styles/Dashboard.css" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="358.0" AnchorPane.topAnchor="20.0">
+            <VBox layoutX="12.0" layoutY="20.0" prefHeight="300.0" styleClass="pane_offerte_dashboard" stylesheets="@../../Styles/Dashboard.css" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="358.0" AnchorPane.topAnchor="20.0">
                <children>
                   <HBox prefHeight="95.0" prefWidth="1534.0" styleClass="testo_offerte_dashboard" stylesheets="@../../Styles/Dashboard.css">
                      <children>
