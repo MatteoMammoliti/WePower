@@ -6,6 +6,7 @@ public class Model {
 
     // unica istanza di Model (singleton)
     private static Model model;
+    private ConnessioneDatabase connessioneDatabase;
 
     // la classe Model (di business) è collegata alla gestione delle viste (viewFactory)
     private final ViewFactory viewFactory;
@@ -19,6 +20,10 @@ public class Model {
         return viewFactory;
     }
 
+    public void TestConnessione() {
+        connessioneDatabase = new ConnessioneDatabase();
+        connessioneDatabase.getConnection();
+    }
     // ottengo l'instanza di Model (singleton)
     // synchronized per evitare che più thread possano accedere a Model contemporaneamente
     public static synchronized Model getInstance() {
@@ -27,4 +32,5 @@ public class Model {
         }
         return model;
     }
+
 }
