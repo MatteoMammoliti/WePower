@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.ScrollPane?>
 <BorderPane stylesheets="@../../Styles/Dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientDashboardController">
    <left>
       <Pane prefHeight="1080.0" prefWidth="300.0" BorderPane.alignment="CENTER">
@@ -51,7 +52,15 @@
                         <Insets left="20.0" right="20.0" />
                      </VBox.margin>
                   </Separator>
-                  <HBox fx:id="displaybannerini" alignment="CENTER" prefHeight="298.0" prefWidth="1527.0" />
+                  <ScrollPane fx:id="scrollPaneBanner"
+                              hbarPolicy="NEVER"
+                              vbarPolicy="NEVER"
+                              fitToHeight="true"
+                              fitToWidth="false"
+                              pannable="true">
+                     <HBox fx:id="displaybannerini" spacing="20">
+                     </HBox>
+                  </ScrollPane>
                </children>
             </VBox>
          </children>

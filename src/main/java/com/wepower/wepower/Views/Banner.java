@@ -2,15 +2,18 @@
 
     import javafx.scene.control.Label;
     import javafx.scene.image.Image;
-    import javafx.scene.image.ImageView;
     import javafx.scene.layout.*;
 
 
-    public class Bannerino extends VBox {
+    public class Banner extends VBox {
         private Label titolo;
         private Label prezzo;
+        private double prefHieght = 200;
+        private double prefWidth = 350;
 
-        public Bannerino(String UrlImmagine, String nomeTitolo, double costo) {
+        public Banner() {}
+
+        public Banner(String UrlImmagine, String nomeTitolo, double costo) {
             Image background = new Image(UrlImmagine);
             BackgroundImage backgroundImage = new BackgroundImage(
                     background,
@@ -20,8 +23,8 @@
                     new BackgroundSize(1.0,1.0,true,true,true,true)
             );
 
-            this.setPrefHeight(200); // altezza del banner
-            this.setPrefWidth(350);
+            this.setPrefHeight(prefHieght); // altezza del banner
+            this.setPrefWidth(prefWidth);
 
             this.setBackground(new Background(backgroundImage));
 
@@ -35,8 +38,14 @@
             this.getChildren().addAll(titolo, prezzo);
 
             this.getStyleClass().add("bannerino");
-            this.getStylesheets().add(getClass().getResource("/styles/bannerStyle.css").toExternalForm());
+            this.getStylesheets().add(getClass().getResource("/Styles/bannerStyle.css").toExternalForm());
         }
 
+        public double getAltezza() {
+            return this.prefHieght;
+        }
 
+        public double getLarghezza() {
+            return this.prefWidth;
+        }
     }
