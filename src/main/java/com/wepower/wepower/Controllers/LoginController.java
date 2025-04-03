@@ -19,8 +19,11 @@ import java.sql.SQLException;
 
 public class LoginController implements Initializable {
 
-    public Button loginButton;
-    public Label labelLoginError;
+    @FXML
+    private Button loginButton;
+
+    @FXML
+    private Label labelLoginError;
 
     @FXML
     private TextField textEmail;
@@ -58,37 +61,24 @@ public class LoginController implements Initializable {
         Model.getInstance().getViewFactory().showSignUpWindow();
     }
 
-    public void onLogin() {
-        Stage stage = (Stage) loginButton.getScene().getWindow();
-        Model.getInstance().getViewFactory().closeStage(stage);
-        Model.getInstance().getViewFactory().showDashboardClient();
-    }
-
      //FUNZIONI LOGIN CON CONNESSIONR AL DB
     public void clickLogin() throws SQLException {
         String email=textEmail.getText();
         String password=passwordField.getText();
-        if(ModelAutenticazione.verificaCredenziali(email,password)){
+
+        if(ModelAutenticazione.verificaCredenziali(email,password)) {
             System.out.println("Login effettuato con successo");
             labelLoginError.setVisible(false);
+
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            Model.getInstance().getViewFactory().closeStage(stage);
             Model.getInstance().getViewFactory().showDashboardClient();
         }
-        else{
+        else
+        {
             labelLoginError.setVisible(true);
             System.out.println("Login fallito");
         }
-    }
-
-    public void signupButtonClick() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/SignUp.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-
-        Stage stage = (Stage) signupButton.getScene().getWindow();
-
-        stage.setScene(scene);
-        stage.setTitle("WePower - Registrazione nuovo utente");
-        stage.setResizable(false);
-        stage.show();
     }
 
     private void nascondiPassword() {

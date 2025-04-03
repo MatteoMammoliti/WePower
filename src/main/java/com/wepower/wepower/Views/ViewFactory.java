@@ -4,6 +4,7 @@ import com.wepower.wepower.Controllers.Client.ClientController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class ViewFactory {
@@ -79,6 +80,8 @@ public class ViewFactory {
         stage.setScene(scene);
         stage.setTitle("WePower - Dashboard");
         stage.show();
+        stage.setX(Screen.getPrimary().getVisualBounds().getMinX() + 100);
+        stage.setY(Screen.getPrimary().getVisualBounds().getMinY() + 100);
     }
 
     // chiudiamo la finestra da cui stiamo provenendo (nella transazione Login -> Dashboard, chiudiamo la finestra di Login)
