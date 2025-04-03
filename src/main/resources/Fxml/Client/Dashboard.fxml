@@ -58,7 +58,7 @@
                               fitToHeight="true"
                               fitToWidth="false"
                               pannable="true">
-                     <HBox fx:id="displaybannerini" spacing="20">
+                     <HBox fx:id="displayerBanner" spacing="20">
                      </HBox>
                   </ScrollPane>
                </children>
