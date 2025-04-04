@@ -42,6 +42,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        sincronizzaPassword();
         eyeButton.setOnAction(event -> nascondiPassword());
 
         signupButton.setOnAction(event -> onSignUp());
@@ -55,6 +56,19 @@ public class LoginController implements Initializable {
         });
     }
 
+
+    public void sincronizzaPassword(){
+        passwordField.textProperty().addListener((obs, oldText, newText) -> {
+            if (!showPassword.isVisible()) {
+                showPassword.setText(newText);
+            }
+        });
+        showPassword.textProperty().addListener((obs, oldText, newText) -> {
+            if (showPassword.isVisible()) {
+                passwordField.setText(newText);
+            }
+        });
+    }
     public void onSignUp() {
         Stage stage = (Stage) signupButton.getScene().getWindow();
         Model.getInstance().getViewFactory().closeStage(stage);

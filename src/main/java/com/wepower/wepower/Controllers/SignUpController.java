@@ -1,38 +1,98 @@
 package com.wepower.wepower.Controllers;
 
 import com.wepower.wepower.Models.Model;
+import com.wepower.wepower.Models.ModelRegistrazione;
+import com.wepower.wepower.Models.ModelValidazione;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class SignUpController implements Initializable {
-    public Button loginButton;
-    public PasswordField PasswordField;
-    public TextField passwordVisibile;
-    public TextField RepeatPasswordVisibile;
-    public PasswordField RepeatPasswordField;
-    public Button eyeButton;
-    public Button signUpButton;
+    @FXML
+    private Label labelErroreNome;
+    @FXML
+    private Label labelErroreCognome;
+    @FXML
+    private Label labelEmailNonValida;
+    @FXML
+    private Label labelDataErrata;
+    @FXML
+    private Label labelPasswordDiverse;
+    @FXML
+    private Button loginButton;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private TextField passwordVisibile;
+    @FXML
+    private TextField repeatPasswordVisibile;
+    @FXML
+    private PasswordField repeatPasswordField;
+    @FXML
+    private Button eyeButton;
+    @FXML
+    private Button signUpButton;
+    @FXML
+    private TextField emailText;
+    @FXML
+    private TextField textCognome;
+    @FXML
+    private DatePicker dataNascitaText;
+    @FXML
+    private TextField textNome;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        sincronizzaPassword();
         loginButton.setOnAction(event -> onLogin());
 
-        signUpButton.setOnAction(event -> onSignUp());
+        signUpButton.setOnAction(event -> {
+            try {
+                registrazione();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         eyeButton.setOnAction(event -> nascondiPassword());
     }
 
+    public  void sincronizzaPassword(){
+        //Utilizzo un "Osservatore" per sincronizzare i campi password e ripeti password
+        passwordVisibile.textProperty().addListener((obs, oldText, newText) -> {
+            if (!passwordField.isVisible()) {
+                passwordField.setText(newText);
+            }
+        });
+
+        passwordField.textProperty().addListener((obs, oldText, newText) -> {
+            if (!passwordVisibile.isVisible()) {
+                passwordVisibile.setText(newText);
+            }
+        });
+        repeatPasswordVisibile.textProperty().addListener((obs, oldText, newText) -> {
+            if (!repeatPasswordField.isVisible()) {
+                repeatPasswordField.setText(newText);
+            }
+        });
+
+        repeatPasswordField.textProperty().addListener((obs, oldText, newText) -> {
+            if (!repeatPasswordVisibile.isVisible()) {
+                repeatPasswordVisibile.setText(newText);
+            }
+        });
+    }
     public void onLogin() {
         Stage stage = (Stage) loginButton.getScene().getWindow();
         Model.getInstance().getViewFactory().closeStage(stage);
@@ -44,30 +104,90 @@ public class SignUpController implements Initializable {
         Model.getInstance().getViewFactory().closeStage(stage);
         Model.getInstance().getViewFactory().showDashboardClient();
     }
+    public void registrazione() throws SQLException {
+        if(ModelRegistrazione.verificaEmailEsistente(emailText.getText())){
+            JOptionPane.showMessageDialog(null,"Email già esistente");
+            return;
+        }
+        //Prendo i dati in input
+        String password;
+        String passwordRipetuta;
+        if(passwordField.isVisible()){
+            password= passwordVisibile.getText();
+            passwordRipetuta= repeatPasswordVisibile.getText();
+        }else {
+            password= passwordField.getText();
+            passwordRipetuta= repeatPasswordField.getText();
+        }
+
+
+        String nome = textNome.getText();
+        String cognome = textCognome.getText();
+        String email = emailText.getText();
+        LocalDate dataNascita = dataNascitaText.getValue();
+
+        if(password.isEmpty() || passwordRipetuta.isEmpty() || nome.isEmpty() || cognome.isEmpty() || email.isEmpty() || dataNascitaText.getValue() == null){
+            JOptionPane.showMessageDialog(null,"Compila tutti i campi");
+            return;
+        }
+
+        if(!ModelValidazione.controlloEmailvalida(email)){
+            labelEmailNonValida.setVisible(true);
+            return;
+        }else{
+            labelEmailNonValida.setVisible(false);
+        }
+        if(!password.equals(passwordRipetuta)){
+            labelPasswordDiverse.setVisible(true);
+            return;
+        }else {
+            labelPasswordDiverse.setVisible(false);}
+
+        if (!ModelValidazione.controlloNome(nome)) {
+            labelErroreNome.setVisible(true);
+            return;
+            } else {
+                labelErroreNome.setVisible(false);}
+
+        if(!ModelValidazione.controlloCognome(cognome)){
+            labelErroreCognome.setVisible(true);
+            return;
+            }else{
+                    labelErroreCognome.setVisible(false);}
+
+        if (ModelRegistrazione.registraUtente(nome,cognome,dataNascita,email,password)) {
+            System.out.println("Registrazione avvenuta con successo");
+            JOptionPane.showMessageDialog(null, "Registrazione avvenuta con successo");
+            onLogin();
+            } else {
+                System.out.println("Errore registrazione");
+                JOptionPane.showMessageDialog(null, "Registrazione fallita");
+                    }
+    }
 
     public void nascondiPassword(){
-        boolean isVisible = passwordVisibile.isVisible() && RepeatPasswordVisibile.isVisible();
+        boolean isVisible = passwordVisibile.isVisible() && repeatPasswordVisibile.isVisible();
 
         passwordVisibile.setVisible(!isVisible);
-        RepeatPasswordVisibile.setVisible(!isVisible);
+        repeatPasswordVisibile.setVisible(!isVisible);
 
 
-        PasswordField.setVisible(isVisible);
-        RepeatPasswordField.setVisible(isVisible);
+        passwordField.setVisible(isVisible);
+        repeatPasswordField.setVisible(isVisible);
 
         if (isVisible) {
-            PasswordField.setText(passwordVisibile.getText());
-            RepeatPasswordField.setText(RepeatPasswordVisibile.getText());
+            passwordField.setText(passwordVisibile.getText());
+            repeatPasswordField.setText(repeatPasswordVisibile.getText());
         } else {
-            passwordVisibile.setText(PasswordField.getText());
-            RepeatPasswordVisibile.setText(RepeatPasswordField.getText());
+            passwordVisibile.setText(passwordField.getText());
+            repeatPasswordVisibile.setText(repeatPasswordField.getText());
         }
 
         passwordVisibile.setManaged(!isVisible);
-        RepeatPasswordVisibile.setManaged(!isVisible);
+        repeatPasswordVisibile.setManaged(!isVisible);
 
-        PasswordField.setManaged(isVisible);
-        RepeatPasswordField.setManaged(isVisible);
+        passwordField.setManaged(isVisible);
+        repeatPasswordField.setManaged(isVisible);
 
         eyeButton.setText(isVisible ? "🔍" : "🔒");
     }
