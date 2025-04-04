@@ -1,8 +1,16 @@
 package com.wepower.wepower.Views;
 
+import com.wepower.wepower.Models.ConnessioneDatabase;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class BannerAbbonamenti extends VBox {
@@ -31,5 +39,28 @@ public class BannerAbbonamenti extends VBox {
 
         this.getStyleClass().add("bannerino");
         this.getStylesheets().add(getClass().getResource("/Styles/bannerStyle.css").toExternalForm());
+    }
+
+    static public ArrayList<BannerAbbonamenti> getBannerAbbonamentiDB(){
+        ArrayList<BannerAbbonamenti> bannerAbbonamenti=new ArrayList<>();
+        try (Connection conn= ConnessioneDatabase.getConnection()) {
+            String query = "SELECT * FROM TipoAbbonamento";
+            PreparedStatement dati = conn.prepareStatement(query);
+            ResultSet risultato = dati.executeQuery();
+
+            while(risultato.next()){
+                //String urlImmagine = risultato.getString("UrlImmagine");
+                String nomeTitolo = risultato.getString("NomeAbbonamento");
+                double costo = risultato.getDouble("Costo");
+                String path = BannerAbbonamenti.class.getResource("/Images/LOGO.png").toExternalForm();
+                BannerAbbonamenti banner = new BannerAbbonamenti(path, nomeTitolo, costo, 200, 300);
+                bannerAbbonamenti.add(banner);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return bannerAbbonamenti;
+
     }
 }

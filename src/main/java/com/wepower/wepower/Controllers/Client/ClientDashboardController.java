@@ -1,19 +1,23 @@
 package com.wepower.wepower.Controllers.Client;
 
+import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Views.BannerAbbonamenti;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ClientDashboardController implements Initializable {
-
+    @FXML
+    private Label labelNomeUtenteSaluto;
     private double prefHieght = 200; // altezza del banner
     private double prefWidth = 350;
 
@@ -44,7 +48,7 @@ public class ClientDashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        labelNomeUtenteSaluto.setText("Ciao,"+ DatiSessioneCliente.getNomeUtente());
         // max banner visibili per volta
         int maxBannerVisibili = 3;
 
@@ -55,14 +59,14 @@ public class ClientDashboardController implements Initializable {
         scrollPaneBanner.setPrefWidth((bannerWidth * maxBannerVisibili));
 
         // Crea i banner
-        BannerAbbonamenti b1 = new BannerAbbonamenti(getClass().getResource("/Images/LOGO.png").toExternalForm(), "Smartphone", 599.99, prefHieght, prefWidth);
-        BannerAbbonamenti b2 = new BannerAbbonamenti(getClass().getResource("/Images/LOGO.png").toExternalForm(), "Laptop", 1299.99, prefHieght, prefWidth);
-        BannerAbbonamenti b3 = new BannerAbbonamenti(getClass().getResource("/Images/LOGO.png").toExternalForm(), "Smartwatch", 299.99, prefHieght, prefWidth);
-        BannerAbbonamenti b4 = new BannerAbbonamenti(getClass().getResource("/Images/LOGO.png").toExternalForm(), "Smartwatch", 299.99, prefHieght, prefWidth);
-        BannerAbbonamenti b5 = new BannerAbbonamenti(getClass().getResource("/Images/LOGO.png").toExternalForm(), "Smartwatch", 299.99, prefHieght, prefWidth);
+        ArrayList<BannerAbbonamenti> bannerini = new  ArrayList<>();
+        bannerini=BannerAbbonamenti.getBannerAbbonamentiDB();
+        for(int i=0; i<bannerini.size(); i++){
+            // aggiungo i banner all'HBox
+            displayerBanner.getChildren().add(bannerini.get(i));
+        }
 
         // Aggiungo i banner all'HBox
-        displayerBanner.getChildren().addAll(b1, b2, b3, b4, b5);
         startAutoScroll();
     }
 }
