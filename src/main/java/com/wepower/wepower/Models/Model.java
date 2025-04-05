@@ -1,6 +1,6 @@
 package com.wepower.wepower.Models;
 
-import com.wepower.wepower.Views.ViewFactory;
+import com.wepower.wepower.Views.ViewFactoryClient;
 
 public class Model {
 
@@ -9,14 +9,14 @@ public class Model {
     private ConnessioneDatabase connessioneDatabase;
 
     // la classe Model (di business) è collegata alla gestione delle viste (viewFactory)
-    private final ViewFactory viewFactory;
+    private final ViewFactoryClient viewFactory;
 
     // il costruttore di Model DEVE essere privato (singleton)
     private Model() {
-        this.viewFactory = new ViewFactory();
+        this.viewFactory = new ViewFactoryClient();
     }
 
-    public ViewFactory getViewFactory() {
+    public ViewFactoryClient getViewFactory() {
         return viewFactory;
     }
 

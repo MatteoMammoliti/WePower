@@ -99,11 +99,6 @@ public class SignUpController implements Initializable {
         Model.getInstance().getViewFactory().showLoginWindow();
     }
 
-    public void onSignUp() {
-        Stage stage = (Stage) signUpButton.getScene().getWindow();
-        Model.getInstance().getViewFactory().closeStage(stage);
-        Model.getInstance().getViewFactory().showDashboardClient();
-    }
     public void registrazione() throws SQLException {
         if(ModelRegistrazione.verificaEmailEsistente(emailText.getText())){
             JOptionPane.showMessageDialog(null,"Email già esistente");
