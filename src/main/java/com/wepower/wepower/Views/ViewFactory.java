@@ -1,30 +1,39 @@
 package com.wepower.wepower.Views;
-
-import com.wepower.wepower.Controllers.Client.ClientController;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class ViewFactory {
 
-    private AnchorPane dashboard;
+    private final StringProperty currentMenuView;
+    private BorderPane dashboard;
 
-    public ViewFactory() {}
+    public ViewFactory() {
+        this.currentMenuView = new SimpleStringProperty("");
+    }
+
+    // otteniamo l'attuale view del menu (quella selezionata dal'utente)
+    public StringProperty getCurrentMenuView() {
+        return currentMenuView;
+    }
 
     // Visualizziamo l'intera dashboard (senza menu)
-    public AnchorPane getDashboard() {
+    public BorderPane getDashboard() {
         if (dashboard == null) {
             try {
                 dashboard = new FXMLLoader(getClass().getResource("/Fxml/Client/Dashboard.fxml")).load();
             } catch (Exception e) {
-                e.getStackTrace();
+                e.printStackTrace();
             }
         }
-
         return dashboard;
     }
+
 
     public void showLoginWindow() {
 
@@ -62,12 +71,10 @@ public class ViewFactory {
         stage.show();
     }
 
-    // intera dashboard risercvata per il cliente (con menu)
+    // intera dashboard riservata per il cliente (con menu)
     public void showDashboardClient() {
-        FXMLLoader dashboardClient = new FXMLLoader(getClass().getResource("/Fxml/Client/Client.fxml"));
-        ClientController controller = new ClientController();
-        dashboardClient.setController(controller);
 
+        FXMLLoader dashboardClient = new FXMLLoader(getClass().getResource("/Fxml/Client/ContainerClientView.fxml"));
         Scene scene = null;
 
         try {

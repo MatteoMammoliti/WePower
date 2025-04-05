@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:id="contenitore_client_view"
+            fx:controller="com.wepower.wepower.Controllers.Client.ClientController">
+    <left>
+        <fx:include source="ClientMenu.fxml"/>
+    </left>
+    <center>
+        <fx:include source="Dashboard.fxml"/>
+    </center>
+</BorderPane>

@@ -40,4 +40,12 @@ public class DatiSessioneCliente {
     public static void setCertificato(boolean valore) {
         certificato = valore;
     }
+
+    public static void logout() {
+        idUtente = 0;
+        email = null;
+        nome = null;
+        certificato = false;
+        telefono = null;
+    }
 }
