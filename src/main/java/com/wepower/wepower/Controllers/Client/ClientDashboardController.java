@@ -28,6 +28,25 @@ public class ClientDashboardController implements Initializable {
     // container dei banner
     private HBox displayerBanner;
 
+    private void loadBanner() {
+        // max banner visibili per volta
+        int maxBannerVisibili = 3;
+
+        // larghezza del banner e spazio tra i banner
+        int bannerWidth = (int) prefWidth;
+
+        // imposta la larghezza del conter dei banner tenendo conto degli spazi tra loro
+        scrollPaneBanner.setPrefWidth((bannerWidth * maxBannerVisibili));
+
+        // crea i banner
+        ArrayList<BannerAbbonamenti> bannerini = new  ArrayList<>();
+        bannerini=BannerAbbonamenti.getBannerAbbonamentiDB();
+        for(int i=0; i<bannerini.size(); i++){
+            // aggiungo i banner all'HBox
+            displayerBanner.getChildren().add(bannerini.get(i));
+        }
+    }
+
     // funzione per lo scroll automatico dei banner
     private void startAutoScroll() {
 
@@ -44,29 +63,18 @@ public class ClientDashboardController implements Initializable {
         );
         timeline.setCycleCount(Animation.INDEFINITE); // ripete l'animazione all'infinito
         timeline.play();
+
+        // ferma lo scroll quando il mouse entra nel banner
+        scrollPaneBanner.setOnMouseEntered(event -> timeline.stop());
+
+        // riprende lo scroll quando il mouse esce dal banner
+        scrollPaneBanner.setOnMouseExited(event -> timeline.play());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        labelNomeUtenteSaluto.setText("Ciao,"+ DatiSessioneCliente.getNomeUtente());
-        // max banner visibili per volta
-        int maxBannerVisibili = 3;
-
-        // larghezza del banner e spazio tra i banner
-        int bannerWidth = (int) prefWidth;
-
-        // imposta la larghezza del conter dei banner tenendo conto degli spazi tra loro
-        scrollPaneBanner.setPrefWidth((bannerWidth * maxBannerVisibili));
-
-        // Crea i banner
-        ArrayList<BannerAbbonamenti> bannerini = new  ArrayList<>();
-        bannerini=BannerAbbonamenti.getBannerAbbonamentiDB();
-        for(int i=0; i<bannerini.size(); i++){
-            // aggiungo i banner all'HBox
-            displayerBanner.getChildren().add(bannerini.get(i));
-        }
-
-        // Aggiungo i banner all'HBox
+        labelNomeUtenteSaluto.setText("Ciao, "+ DatiSessioneCliente.getNomeUtente() + "👋");
+        loadBanner();
         startAutoScroll();
     }
 }

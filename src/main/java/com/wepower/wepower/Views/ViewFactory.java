@@ -2,7 +2,6 @@ package com.wepower.wepower.Views;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
@@ -12,6 +11,11 @@ public class ViewFactory {
 
     private final StringProperty currentMenuView;
     private BorderPane dashboard;
+    private BorderPane scheda;
+    private BorderPane prenotazioni;
+    private BorderPane parametri;
+    private BorderPane myProfile;
+    private BorderPane contactUs;
 
     public ViewFactory() {
         this.currentMenuView = new SimpleStringProperty("");
@@ -21,19 +25,6 @@ public class ViewFactory {
     public StringProperty getCurrentMenuView() {
         return currentMenuView;
     }
-
-    // Visualizziamo l'intera dashboard (senza menu)
-    public BorderPane getDashboard() {
-        if (dashboard == null) {
-            try {
-                dashboard = new FXMLLoader(getClass().getResource("/Fxml/Client/Dashboard.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return dashboard;
-    }
-
 
     public void showLoginWindow() {
 
@@ -89,6 +80,89 @@ public class ViewFactory {
         stage.show();
         stage.setX(Screen.getPrimary().getVisualBounds().getMinX() + 100);
         stage.setY(Screen.getPrimary().getVisualBounds().getMinY() + 100);
+    }
+
+
+                                                    // -- FUNZIONI DI CAMBIO VIEW DEL MENU --
+
+    // Visualizziamo l'intera dashboard (senza menu)
+    public BorderPane getDashboard() {
+        if (dashboard == null) {
+            try {
+                dashboard = new FXMLLoader(getClass().getResource("/Fxml/Client/Dashboard.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if (dashboard.getParent() != null) {
+            ((javafx.scene.layout.Pane) dashboard.getParent()).getChildren().remove(dashboard);
+        }
+        return dashboard;
+    }
+
+    public BorderPane getSchedaView() {
+        if (scheda == null) {
+            try {
+                scheda = new FXMLLoader(getClass().getResource("/Fxml/Client/ClientMenuView/Scheda.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (scheda.getParent() != null) {
+            ((javafx.scene.layout.Pane) scheda.getParent()).getChildren().remove(scheda);
+        }
+        return scheda;
+    }
+
+    public BorderPane getPrenotazioniView() {
+        if (prenotazioni == null) {
+            try {
+                prenotazioni = new FXMLLoader(getClass().getResource("/Fxml/Client/ClientMenuView/Prenotazioni.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (prenotazioni.getParent() != null) {
+            ((javafx.scene.layout.Pane) prenotazioni.getParent()).getChildren().remove(prenotazioni);
+        }
+        return prenotazioni;
+    }
+
+    public BorderPane getParametriView() {
+        if (parametri == null) {
+            try {
+                parametri = new FXMLLoader(getClass().getResource("/Fxml/Client/ClientMenuView/Parametri.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (parametri.getParent() != null) {
+            ((javafx.scene.layout.Pane) parametri.getParent()).getChildren().remove(parametri);
+        }
+        return parametri;
+    }
+
+    public BorderPane getMyProfileView() {
+        if (myProfile == null) {
+            try {
+                myProfile = new FXMLLoader(getClass().getResource("/Fxml/Client/ClientMenuView/MyProfile.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (myProfile.getParent() != null) {
+            ((javafx.scene.layout.Pane) myProfile.getParent()).getChildren().remove(myProfile);
+        }
+        return myProfile;
+    }
+
+    public BorderPane getContactUsView() {
+        if (contactUs == null) {
+            try {
+                contactUs = new FXMLLoader(getClass().getResource("/Fxml/Client/ClientMenuView/ContactUs.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (contactUs.getParent() != null) {
+            ((javafx.scene.layout.Pane) contactUs.getParent()).getChildren().remove(contactUs);
+        }
+        return contactUs;
     }
 
     // chiudiamo la finestra da cui stiamo provenendo (nella transazione Login -> Dashboard, chiudiamo la finestra di Login)
