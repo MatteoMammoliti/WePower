@@ -1,8 +1,10 @@
 package com.wepower.wepower.Controllers.Client;
-
 import com.wepower.wepower.Models.Model;
+import com.wepower.wepower.Models.DatiSessioneCliente;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -15,10 +17,15 @@ public class ClientMenuController  implements Initializable {
     public Button contactUsButton;
     public Button logoutButton;
     public Button schedaButton;
+    public ImageView imageUtente;
+    public Label nomeCognomeUtente;
+    public Label emailUtente;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addListeners();
+        nomeCognomeUtente.setText(DatiSessioneCliente.getNomeUtente() + " " + DatiSessioneCliente.getCognome());
+        emailUtente.setText(DatiSessioneCliente.getEmail());
     }
 
     // LISTENERS DEI BOTTONI DEL MENU
