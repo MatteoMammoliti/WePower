@@ -54,6 +54,7 @@ public class LoginController implements Initializable {
     }
 
 
+
     public void sincronizzaPassword(){
         passwordField.textProperty().addListener((obs, oldText, newText) -> {
             if (!showPassword.isVisible()) {
@@ -66,11 +67,15 @@ public class LoginController implements Initializable {
             }
         });
     }
+
+
     public void onSignUp() {
         Stage stage = (Stage) signupButton.getScene().getWindow();
         Model.getInstance().getViewFactory().closeStage(stage);
         Model.getInstance().getViewFactory().showSignUpWindow();
     }
+
+
 
      //FUNZIONI LOGIN CON CONNESSIONR AL DB
     public void clickLogin() throws SQLException {
@@ -98,6 +103,7 @@ public class LoginController implements Initializable {
             System.out.println("Login fallito");
         }
     }
+
 
     private void nascondiPassword() {
         boolean isVisible = showPassword.isVisible();

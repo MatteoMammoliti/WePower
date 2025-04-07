@@ -1,7 +1,9 @@
 package com.wepower.wepower.Controllers.Client;
 
 import com.wepower.wepower.Models.DatiSessioneCliente;
+import com.wepower.wepower.Models.PrenotazioneSalaPesi;
 import com.wepower.wepower.Views.BannerAbbonamenti;
+import com.wepower.wepower.Views.Calendario;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -9,17 +11,22 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ClientDashboardController implements Initializable {
+    public AnchorPane containerCalendario;
     @FXML
     private Label labelNomeUtenteSaluto;
-    private double prefHieght = 200; // altezza del banner
-    private double prefWidth = 350;
+
 
     // container del displayer dei banner
     public ScrollPane scrollPaneBanner;
@@ -29,14 +36,10 @@ public class ClientDashboardController implements Initializable {
     private HBox displayerBanner;
 
     private void loadBanner() {
-        // max banner visibili per volta
-        int maxBannerVisibili = 3;
 
-        // larghezza del banner e spazio tra i banner
-        int bannerWidth = (int) prefWidth;
 
         // imposta la larghezza del conter dei banner tenendo conto degli spazi tra loro
-        scrollPaneBanner.setPrefWidth((bannerWidth * maxBannerVisibili));
+        scrollPaneBanner.setPrefWidth((100 * 200));
 
         // crea i banner
         ArrayList<BannerAbbonamenti> bannerini = new  ArrayList<>();
@@ -45,6 +48,9 @@ public class ClientDashboardController implements Initializable {
             // aggiungo i banner all'HBox
             displayerBanner.getChildren().add(bannerini.get(i));
         }
+        //Creo il calendario
+        VBox calendario= Calendario.creaCalendario();
+        containerCalendario.getChildren().add(calendario);
     }
 
     // funzione per lo scroll automatico dei banner
@@ -77,4 +83,6 @@ public class ClientDashboardController implements Initializable {
         loadBanner();
         startAutoScroll();
     }
+
+
 }
