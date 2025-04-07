@@ -11,7 +11,7 @@
 
 <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="client_menu_container" stylesheets="@../../Styles/clientMenu.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientMenuController">
    <content>
-      <VBox spacing="10" style="-fx-padding: 10 ;" styleClass="client_menu_container" stylesheets="@../../Styles/clientMenu.css">
+      <VBox spacing="10" style="-fx-padding: 10;" styleClass="client_menu_container" stylesheets="@../../Styles/clientMenu.css">
          <!-- Sezione Profilo -->
          <VBox stylesheets="@../../Styles/clientMenu.css">
             <children>

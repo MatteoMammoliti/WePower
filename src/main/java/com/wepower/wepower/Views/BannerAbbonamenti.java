@@ -53,7 +53,7 @@ public class BannerAbbonamenti extends VBox {
                 String nomeTitolo = risultato.getString("NomeAbbonamento");
                 double costo = risultato.getDouble("Costo");
                 String path = BannerAbbonamenti.class.getResource("/Images/LOGO.png").toExternalForm();
-                BannerAbbonamenti banner = new BannerAbbonamenti(path, nomeTitolo, costo, 100, 200);
+                BannerAbbonamenti banner = new BannerAbbonamenti(path, nomeTitolo, costo, 200, 300);
                 bannerAbbonamenti.add(banner);
             }
 

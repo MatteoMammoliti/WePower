@@ -1,12 +1,5 @@
 package com.wepower.wepower.Models;
 
-import javafx.util.Pair;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-
 public class DatiSessioneCliente {
     private static int idUtente;
     private static String email;
@@ -14,8 +7,6 @@ public class DatiSessioneCliente {
     private static String cognome;
     private static boolean certificato;
     private static String telefono;
-    private static ArrayList<PrenotazioneSalaPesi> dateOrariPrenotazioni = new ArrayList<>();
-    private static Set<String> datePrenotazioni=new HashSet<>();
 
     // GETTER
     public static int getIdUtente() {
@@ -33,12 +24,7 @@ public class DatiSessioneCliente {
     public static boolean Certificato() {
         return certificato;
     }
-    public static String getCognome() {
-        return cognome;
-    }
-    public static ArrayList<PrenotazioneSalaPesi> getDatePrenotazioni(){
-        return dateOrariPrenotazioni;
-    }
+    public static String getCognome() { return cognome; }
 
     // SETTER
     public static void setNomeUtente(String n) {
@@ -53,28 +39,7 @@ public class DatiSessioneCliente {
     public static void setCertificato(boolean valore) {
         certificato = valore;
     }
-    public static void setCognome(String c) {
-        cognome = c;
-    }
-    public static void setDateOrariPrenotazioni(ArrayList<PrenotazioneSalaPesi> d) {
-        dateOrariPrenotazioni = d;
-
-        datePrenotazioni.clear();
-        for (int i=0;i<dateOrariPrenotazioni.size();i++) {
-            datePrenotazioni.add(dateOrariPrenotazioni.get(i).getDataPrenotazione());
-        }
-    }
-
-
-
-    public static boolean controlloDataPrenotazione(LocalDate data){
-        String dataControllo=data.toString();
-        if (datePrenotazioni.contains(dataControllo)){
-            return true;
-        }
-        return false;
-
-    }
+    public static void setCognome(String c) { cognome = c; }
 
     // LOGOUT
     public static void logout() {

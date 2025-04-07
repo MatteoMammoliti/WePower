@@ -1,5 +1,4 @@
 package com.wepower.wepower.Views;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
@@ -78,9 +77,6 @@ public class ViewFactoryClient {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("WePower - Dashboard");
-        Platform.runLater(() -> {
-            stage.sizeToScene(); // forza il layout
-        });
         stage.show();
         stage.setX(Screen.getPrimary().getVisualBounds().getMinX() + 100);
         stage.setY(Screen.getPrimary().getVisualBounds().getMinY() + 100);
