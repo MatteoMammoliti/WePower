@@ -1,0 +1,20 @@
+.button{
+    -fx-background-color: transparent;
+    -fx-text-fill: blue;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+}
+.HBox .button{
+    -fx-background-color: transparent;
+    -fx-text-fill: blue;
+    -fx-font-size: 2em;
+    -fx-bold: true;
+
+}
+.AncorPane{
+    -fx-background-color: orange;
+    -fx-opacity: 0.7;
+    -fx-pref-height: 200;
+}
