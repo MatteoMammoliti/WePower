@@ -2,6 +2,7 @@ package com.wepower.wepower.Controllers.Client;
 
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Views.BannerAbbonamenti;
+import com.wepower.wepower.Views.Calendario;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -9,13 +10,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ClientDashboardController implements Initializable {
+    public AnchorPane containerCalendario;
     @FXML
     private Label labelNomeUtenteSaluto;
     private double prefHieght = 200; // altezza del banner
@@ -47,6 +51,11 @@ public class ClientDashboardController implements Initializable {
         }
     }
 
+    private void loadCalendario() {
+        VBox calendario = Calendario.creaCalendario();
+        containerCalendario.getChildren().add(calendario);
+    }
+
     // funzione per lo scroll automatico dei banner
     private void startAutoScroll() {
 
@@ -74,6 +83,7 @@ public class ClientDashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         labelNomeUtenteSaluto.setText("Ciao, "+ DatiSessioneCliente.getNomeUtente() + "👋");
+        loadCalendario();
         loadBanner();
         startAutoScroll();
     }
