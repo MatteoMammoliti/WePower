@@ -18,15 +18,16 @@ public class TabellaUtentiDashboardAdmin {
                 c.Cognome,
                 c.Sesso,
                 c.DataNascita,
-                a.StatoAbbonamento,
+                a.StatoAbbonatento,
                 c.CertificatoValido,
                 a.DataInizioAbbonamento,
                 a.DataFineAbbonamento,
-                t.NomeAbbonamento
+                t.NomeAbbonamento,
+                cc.Email
                 FROM Cliente c LEFT JOIN AbbonamentoCliente a
                 ON c.IdCliente = a.IdCliente
                 LEFT JOIN TipoAbbonamento t ON a.IdTipoAbbonamento = t.IdTipoAbbonamento
-                """;
+                LEFT JOIN CredenzialiCliente cc ON c.IdCliente = cc.IdCliente""";
         try (Connection conn = ConnessioneDatabase.getConnection()) {
             PreparedStatement datiClienti = conn.prepareStatement(query);
             ResultSet risultatoTuttiClienti = datiClienti.executeQuery();
@@ -37,11 +38,11 @@ public class TabellaUtentiDashboardAdmin {
                 String Cognome = risultatoTuttiClienti.getString("Cognome");
                 String DataNascita = risultatoTuttiClienti.getString("DataNascita");
                 int CertificatoValido = risultatoTuttiClienti.getInt("CertificatoValido");
-                int StatoAbbonamento = risultatoTuttiClienti.getInt("StatoAbbonamento");
+                int StatoAbbonamento = risultatoTuttiClienti.getInt("StatoAbbonatento");
                 String DataInizioAbbonamento = risultatoTuttiClienti.getString("DataInizioAbbonamento");
                 String DataFineAbbonamento = risultatoTuttiClienti.getString("DataFineAbbonamento");
                 String NomeAbbonamento = risultatoTuttiClienti.getString("NomeAbbonamento");
-                String email = "test@test.com";
+                String email = risultatoTuttiClienti.getString("Email");
                 String sesso = risultatoTuttiClienti.getString("Sesso");
 
                 RigaDashboardAdmin A = new RigaDashboardAdmin(IdCliente, Nome, Cognome, StatoAbbonamento, CertificatoValido, DataInizioAbbonamento, DataFineAbbonamento, email, sesso);

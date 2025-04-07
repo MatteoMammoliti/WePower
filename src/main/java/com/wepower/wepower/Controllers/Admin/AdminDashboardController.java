@@ -15,12 +15,17 @@ public class AdminDashboardController implements Initializable {
     public VBox containerUsers;
 
     private void loadUtenti() throws SQLException {
+
         ArrayList<RigaDashboardAdmin> A= TabellaUtentiDashboardAdmin.riempiRiga();
         containerUsers.getChildren().clear();
         containerUsers.getChildren().addAll(A);
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        try {
+            loadUtenti();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
