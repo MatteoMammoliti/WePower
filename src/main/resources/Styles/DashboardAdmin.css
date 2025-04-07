@@ -1,0 +1,39 @@
+.bottoneDashboardAdmin{
+
+
+
+    -fx-background-color: linear-gradient(to bottom, #ff7f2a, white);
+
+    -fx-text-fill: black;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-font-family: "Arial";
+    -fx-border-color: transparent;
+    -fx-border-width: 2px;
+    -fx-border-radius: 0px 0px 30px 30px;
+    -fx-background-radius: 0px 0px 30px 30px;
+    -fx-padding: 70px 0px 6px 0px;
+    -fx-pref-width: 150;
+    -fx-wrap-text: true;
+
+
+}
+
+.barraMenuAdmin{
+
+
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgba(255,122,41,1) 0%, rgba(255,255,255,1) 99%);
+
+}
+.sfondoD{
+    -fx-background-color: #FFFFFF;
+}
+
+
+
+.bottoneDashboardAdmin:hover {
+    -fx-cursor: hand;
+    -fx-background-color: white;
+}
+
+
