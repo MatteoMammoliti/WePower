@@ -1,9 +1,26 @@
 package com.wepower.wepower.Controllers.Admin;
 
-public class AdminDashboardController {
+import com.wepower.wepower.Models.TabellaUtentiDashboardAdmin;
+import com.wepower.wepower.Views.RigaDashboardAdmin;
+import javafx.fxml.Initializable;
+import javafx.scene.layout.VBox;
 
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
+public class AdminDashboardController implements Initializable {
 
+    public VBox containerUsers;
 
+    private void loadUtenti() throws SQLException {
+        ArrayList<RigaDashboardAdmin> A= TabellaUtentiDashboardAdmin.riempiRiga();
+        containerUsers.getChildren().clear();
+        containerUsers.getChildren().addAll(A);
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
 }
