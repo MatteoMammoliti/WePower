@@ -82,6 +82,24 @@ public class ViewFactoryClient {
         stage.setY(Screen.getPrimary().getVisualBounds().getMinY() + 100);
     }
 
+    public void showDashboardAdmin() {
+        FXMLLoader dashboardAdmin = new FXMLLoader(getClass().getResource("/Fxml/Admin/DashboardAdmin.fxml"));
+        Scene scene = null;
+
+        try {
+            scene = new Scene(dashboardAdmin.load());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("WePower - Dashboard");
+        stage.show();
+        stage.setX(Screen.getPrimary().getVisualBounds().getMinX() + 100);
+        stage.setY(Screen.getPrimary().getVisualBounds().getMinY() + 100);
+    }
+
 
                                                     // -- FUNZIONI DI CAMBIO VIEW DEL MENU --
 

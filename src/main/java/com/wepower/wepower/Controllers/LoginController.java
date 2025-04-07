@@ -11,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.sql.SQLException;
 
@@ -76,7 +77,6 @@ public class LoginController implements Initializable {
     public void clickLogin() throws SQLException {
         String email=textEmail.getText();
         String password=passwordField.getText();
-        String ruolo = DatiSessioneCliente.getNomeUtente();
 
         if(ModelAutenticazione.verificaCredenziali(email,password)) {
             System.out.println("Login effettuato con successo");
@@ -85,8 +85,11 @@ public class LoginController implements Initializable {
             Stage stage = (Stage) loginButton.getScene().getWindow();
             Model.getInstance().getViewFactory().closeStage(stage);
 
-            if (ruolo == "Admin") {
-                //Model.getInstance().getViewFactory().showDashboardAdmin();
+            String ruolo = DatiSessioneCliente.getNomeUtente();
+
+            System.out.println("ruolo" + ruolo);
+            if (Objects.equals(ruolo, "Admin")) {
+                Model.getInstance().getViewFactory().showDashboardAdmin();
             }
             else {
                 Model.getInstance().getViewFactory().showDashboardClient();
