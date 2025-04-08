@@ -65,18 +65,5 @@ public class RigaDashboardAdmin extends HBox {
         this.setSpacing(10);
         this.setPadding(new Insets(10));
 
-
-
-
-
-
-
-
-
-
-
     }
-
-
-
 }
