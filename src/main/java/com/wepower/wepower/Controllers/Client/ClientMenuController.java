@@ -41,30 +41,30 @@ public class ClientMenuController  implements Initializable {
 
     // FUNZIONI DI NAVIGAZIONE
     private void onDashboard() {
-        Model.getInstance().getViewFactory().getCurrentMenuView().set("Dashboard");
+        Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Dashboard");
     }
 
     private void onScheda() {
-        Model.getInstance().getViewFactory().getCurrentMenuView().set("Scheda");
+        Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Scheda");
     }
 
     private void onPrenotazione() {
-        Model.getInstance().getViewFactory().getCurrentMenuView().set("Prenotazione");
+        Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Prenotazione");
     }
 
     private void onParametri() {
-        Model.getInstance().getViewFactory().getCurrentMenuView().set("Parametri");
+        Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Parametri");
     }
 
     private void onMyProfile() {
-        Model.getInstance().getViewFactory().getCurrentMenuView().set("MyProfile");
+        Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("MyProfile");
     }
 
     private void onContactUs() {
-        Model.getInstance().getViewFactory().getCurrentMenuView().set("ContactUs");
+        Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("ContactUs");
     }
 
     private void onLogout() {
-        Model.getInstance().getViewFactory().getCurrentMenuView().set("Logout");
+        Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Logout");
     }
 }

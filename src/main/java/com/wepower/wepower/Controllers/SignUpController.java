@@ -4,14 +4,11 @@ import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.ModelRegistrazione;
 import com.wepower.wepower.Models.ModelValidazione;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import javax.swing.*;
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -95,8 +92,8 @@ public class SignUpController implements Initializable {
     }
     public void onLogin() {
         Stage stage = (Stage) loginButton.getScene().getWindow();
-        Model.getInstance().getViewFactory().closeStage(stage);
-        Model.getInstance().getViewFactory().showLoginWindow();
+        Model.getInstance().getViewFactoryClient().closeStage(stage);
+        Model.getInstance().getViewFactoryClient().showLoginWindow();
     }
 
     public void registrazione() throws SQLException {

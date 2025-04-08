@@ -15,29 +15,29 @@ public class ClientController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         // il listener resta in ascolto sul menu e quando si passa da una view all'altra, esegue le istruzioni fissate
-        Model.getInstance().getViewFactory().getCurrentMenuView().addListener((observable, attualeView, nuovaView) -> {
+        Model.getInstance().getViewFactoryClient().getCurrentMenuView().addListener((observable, attualeView, nuovaView) -> {
 
             switch (nuovaView) {
-                case "Dashboard" -> contenitore_client_view.setCenter(Model.getInstance().getViewFactory().getDashboard());
+                case "Dashboard" -> contenitore_client_view.setCenter(Model.getInstance().getViewFactoryClient().getDashboard());
 
                 case "Logout" -> {
                     DatiSessioneCliente.logout();
                     Stage currentStage = (Stage) contenitore_client_view.getScene().getWindow();
-                    Model.getInstance().getViewFactory().closeStage(currentStage);
-                    Model.getInstance().getViewFactory().showLoginWindow();
+                    Model.getInstance().getViewFactoryClient().closeStage(currentStage);
+                    Model.getInstance().getViewFactoryClient().showLoginWindow();
                 }
 
-                case "Scheda" -> contenitore_client_view.setCenter(Model.getInstance().getViewFactory().getSchedaView());
+                case "Scheda" -> contenitore_client_view.setCenter(Model.getInstance().getViewFactoryClient().getSchedaView());
 
-                case "Prenotazione" -> contenitore_client_view.setCenter(Model.getInstance().getViewFactory().getPrenotazioniView());
+                case "Prenotazione" -> contenitore_client_view.setCenter(Model.getInstance().getViewFactoryClient().getPrenotazioniView());
 
-                case "Parametri" -> contenitore_client_view.setCenter(Model.getInstance().getViewFactory().getParametriView());
+                case "Parametri" -> contenitore_client_view.setCenter(Model.getInstance().getViewFactoryClient().getParametriView());
 
-                case "MyProfile" -> contenitore_client_view.setCenter(Model.getInstance().getViewFactory().getMyProfileView());
+                case "MyProfile" -> contenitore_client_view.setCenter(Model.getInstance().getViewFactoryClient().getMyProfileView());
 
-                case "ContactUs" -> contenitore_client_view.setCenter(Model.getInstance().getViewFactory().getContactUsView());
+                case "ContactUs" -> contenitore_client_view.setCenter(Model.getInstance().getViewFactoryClient().getContactUsView());
 
-                default -> contenitore_client_view.setCenter(Model.getInstance().getViewFactory().getDashboard());
+                default -> contenitore_client_view.setCenter(Model.getInstance().getViewFactoryClient().getDashboard());
             }
         });
     }

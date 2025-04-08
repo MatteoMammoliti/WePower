@@ -69,8 +69,8 @@ public class LoginController implements Initializable {
     }
     public void onSignUp() {
         Stage stage = (Stage) signupButton.getScene().getWindow();
-        Model.getInstance().getViewFactory().closeStage(stage);
-        Model.getInstance().getViewFactory().showSignUpWindow();
+        Model.getInstance().getViewFactoryClient().closeStage(stage);
+        Model.getInstance().getViewFactoryClient().showSignUpWindow();
     }
 
      //FUNZIONI LOGIN CON CONNESSIONR AL DB
@@ -83,16 +83,16 @@ public class LoginController implements Initializable {
             labelLoginError.setVisible(false);
 
             Stage stage = (Stage) loginButton.getScene().getWindow();
-            Model.getInstance().getViewFactory().closeStage(stage);
+            Model.getInstance().getViewFactoryClient().closeStage(stage);
 
             String ruolo = DatiSessioneCliente.getNomeUtente();
 
             System.out.println("ruolo" + ruolo);
             if (Objects.equals(ruolo, "Admin")) {
-                Model.getInstance().getViewFactory().showDashboardAdmin();
+                Model.getInstance().getViewFactoryAdmin().showDashboardAdmin();
             }
             else {
-                Model.getInstance().getViewFactory().showDashboardClient();
+                Model.getInstance().getViewFactoryClient().showDashboardClient();
             }
         }
         else

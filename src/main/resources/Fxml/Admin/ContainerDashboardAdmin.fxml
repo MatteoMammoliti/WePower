@@ -2,10 +2,10 @@
 
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.AdminContainerViewController">
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.AdminController">
 
     <top>
-        <fx:include source="Menu.fxml" />
+        <fx:include source="MenuAdmin.fxml" />
     </top>
    <bottom>
         <fx:include source="DashboardAdmin.fxml" />

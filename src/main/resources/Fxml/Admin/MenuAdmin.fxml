@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1920.0" stylesheets="@../../Styles/DashboardAdmin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.AdminDashboardController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1920.0" stylesheets="@../../Styles/DashboardAdmin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.MenuAdminController">
    <top>
       <HBox styleClass="barraMenuAdmin" stylesheets="@../../Styles/DashboardAdmin.css" BorderPane.alignment="CENTER">
          <children>
@@ -20,24 +20,24 @@
                   <Insets bottom="50.0" right="10.0" />
                </HBox.margin>
             </ImageView>
-            <Button mnemonicParsing="false" prefHeight="105.0" styleClass="bottoneDashboardAdmin" stylesheets="@../../Styles/DashboardAdmin.css" text="Home">
+            <Button fx:id="dashboardButton" mnemonicParsing="false" prefHeight="105.0" styleClass="bottoneDashboardAdmin" stylesheets="@../../Styles/DashboardAdmin.css" text="Home">
                <HBox.margin>
                   <Insets right="15.0" />
                </HBox.margin>
                <font>
                   <Font name="Arial" size="12.0" />
                </font></Button>
-            <Button layoutX="188.0" layoutY="10.0" mnemonicParsing="false" prefHeight="100.0" styleClass="bottoneDashboardAdmin" stylesheets="@../../Styles/DashboardAdmin.css" text="Utenti" textOverrun="CENTER_ELLIPSIS">
+            <Button fx:id="usersButton" layoutX="188.0" layoutY="10.0" mnemonicParsing="false" prefHeight="100.0" styleClass="bottoneDashboardAdmin" stylesheets="@../../Styles/DashboardAdmin.css" text="Utenti" textOverrun="CENTER_ELLIPSIS">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="100.0" styleClass="bottoneDashboardAdmin" stylesheets="@../../Styles/DashboardAdmin.css" text="Schede" textOverrun="CENTER_ELLIPSIS">
+            <Button fx:id="schedeButton" mnemonicParsing="false" prefHeight="100.0" styleClass="bottoneDashboardAdmin" stylesheets="@../../Styles/DashboardAdmin.css" text="Schede" textOverrun="CENTER_ELLIPSIS">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="100.0" styleClass="bottoneDashboardAdmin" stylesheets="@../../Styles/DashboardAdmin.css" text="Certificati" textOverrun="CENTER_ELLIPSIS" />
+            <Button fx:id="certificatiButton" mnemonicParsing="false" prefHeight="100.0" styleClass="bottoneDashboardAdmin" stylesheets="@../../Styles/DashboardAdmin.css" text="Certificati" textOverrun="CENTER_ELLIPSIS" />
          </children>
       </HBox>
    </top>
