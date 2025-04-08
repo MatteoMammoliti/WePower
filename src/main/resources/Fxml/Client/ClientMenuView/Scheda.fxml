@@ -6,6 +6,15 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.wepower.wepower.Controllers.Client.ClientViewsController.SchedaController">
 
+    <top>
+        <ScrollPane prefHeight="660.0" prefWidth="1920.0" BorderPane.alignment="TOP_CENTER">
+            <content>
+                <VBox fx:id="containerSchedaAllenamento" prefHeight="659.0" prefWidth="1916.0" />
+            </content>
+        </ScrollPane>
+    </top>
+
+
     <center>
         <ScrollPane prefHeight="660.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
             <content>

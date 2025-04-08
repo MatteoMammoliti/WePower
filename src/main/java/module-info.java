@@ -28,4 +28,5 @@ module com.wepower.wepower {
     exports com.wepower.wepower.Views;
     exports com.wepower.wepower.Controllers.Client.ClientViewsController;
     exports com.wepower.wepower.Views.SchedaAllenamento;
+    exports com.wepower.wepower.Models.SchedaAllenamento;
 }
