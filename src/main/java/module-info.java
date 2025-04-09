@@ -18,7 +18,6 @@ module com.wepower.wepower {
     opens com.wepower.wepower.Controllers.Client.ClientViewsController to javafx.fxml;
 
     opens com.wepower.wepower.Controllers.Admin to javafx.fxml;
-    opens com.wepower.wepower.Controllers.Client.ClientViewsController to javafx.fxml;
 
 
     //Facciamo exports per rendere visibili le classi publiche di questi package agli altri moduli
