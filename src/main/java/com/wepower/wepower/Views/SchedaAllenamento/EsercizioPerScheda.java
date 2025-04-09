@@ -35,9 +35,14 @@ public class EsercizioPerScheda extends HBox {
         this.imageEsercizio.setPreserveRatio(true);
 
         this.rimuoviSchedaEsercizio = new Button("Rimuovi esercizio dalla scheda");
+        this.rimuoviSchedaEsercizio.setOnAction(event -> onRimuoviEsercizio());
 
         this.getChildren().addAll(this.nomeEsercizio, this.descrizioneEsercizio, this.muscoloAllenato, this.numeroSerie, this.numeroRipetizioni, this.imageEsercizio, this.rimuoviSchedaEsercizio);
         this.setSpacing(10);
         this.setPadding(new Insets(10));
+    }
+
+    private void onRimuoviEsercizio() {
+        String Query = "DELETE FROM ComposizioneSchedaAllenamento WHERE NomeEsercizio = ? AND idScheda = ?";
     }
 }
