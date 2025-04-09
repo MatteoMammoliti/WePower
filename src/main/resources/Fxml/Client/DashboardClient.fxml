@@ -25,21 +25,13 @@
          <children>
             <VBox layoutX="12.0" layoutY="20.0" prefHeight="200.0" styleClass="pane_offerte_dashboard" stylesheets="@../../Styles/Dashboard.css" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="20.0">
                <children>
+                  <Label fx:id="labelNomeUtenteSaluto" prefHeight="98.0" text="Ciao, Matteo">
+                     <font>
+                        <Font name="Arial Bold" size="30.0" />
+                     </font>
+                  </Label>
                   <HBox prefHeight="95.0" prefWidth="1534.0" styleClass="testo_offerte_dashboard" stylesheets="@../../Styles/Dashboard.css">
                      <children>
-                        <Label fx:id="labelNomeUtenteSaluto" prefHeight="98.0" text="Ciao, Matteo">
-                           <font>
-                              <Font name="Arial Bold" size="30.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="20.0" />
-                           </HBox.margin>
-                        </Label>
-                        <Separator orientation="VERTICAL" prefHeight="200.0">
-                           <HBox.margin>
-                              <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
-                           </HBox.margin>
-                        </Separator>
                         <Label prefHeight="98.0" text="Ecco alcune offerte riservate per te">
                            <font>
                               <Font name="Arial Bold" size="30.0" />
@@ -69,8 +61,8 @@
       <AnchorPane styleClass="client_menu_container" stylesheets="@../../Styles/clientMenu.css" BorderPane.alignment="CENTER">
          <children>
             <AnchorPane fx:id="containerCalendario" layoutX="15.0" layoutY="55.0" />
-            <Separator layoutX="-3.0" layoutY="-5.0" orientation="VERTICAL" />
-            <Separator layoutX="1.0" layoutY="334.0" prefWidth="511.0" />
+            <Separator layoutX="-2.0" layoutY="-5.0" orientation="VERTICAL" prefHeight="1088.0" prefWidth="0.0" />
+            <Separator layoutX="1.0" layoutY="373.0" prefHeight="0.0" prefWidth="511.0" />
          </children>
       </AnchorPane>
    </right>

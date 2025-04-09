@@ -1,11 +1,10 @@
 .sfondo{
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgba(255,255,255,1) 0%, rgba(255,122,41,1) 99%);
 }
 
 
 .pane_offerte_dashboard{
-    -fx-background-color: #FFFFFF;
-    -fx-border-color: #FFFFFF #E1E1E1 #E1E1E1 #E1E1E1;
+    -fx-background-color: transparent;
     -fx-border-width: 3px;
     -fx-background-radius: 15% ;
     -fx-border-radius: 0px 0px 30px 30px;

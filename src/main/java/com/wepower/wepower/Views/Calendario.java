@@ -8,6 +8,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.input.MouseEvent;
+
+
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -24,6 +27,7 @@ public class Calendario {
 
         Label meseLabel = new Label();
         meseLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        meseLabel.setAlignment(Pos.CENTER);
 
         GridPane grigliaGiorni = new GridPane();
         grigliaGiorni.setHgap(5);
@@ -60,7 +64,7 @@ public class Calendario {
 
             for (int i = 1; i <= giorniNelMese; i++) {
                 LocalDate data = yearMonth.atDay(i);
-                Button giorno= giornoBottone(String.valueOf(i));
+                GiornoCalendario giorno= new GiornoCalendario(String.valueOf(i), data.toString());
 
                 // Evidenzio la data di oggi
                 if (data.equals(LocalDate.now())) {
@@ -68,8 +72,9 @@ public class Calendario {
                 }
 
                 //Cerco le date dove il cliente ha prenotato la sala pesi per evidenziarla
-                if(DatiSessioneCliente.controlloDataPrenotazione(data)) {
+                if(DatiSessioneCliente.controlloDataPrenotazioneSalaPesi(data)) {
                     giorno.setStyle("-fx-background-color: #a8e6a3; -fx-font-weight: bold;");
+                    giorno.setPrenotato(true);
                 }
 
 
@@ -92,15 +97,7 @@ public class Calendario {
         aggiornaCalendario.accept(meseCorrente[0]);
         return calendarioBox;
     }
-    public static Button giornoBottone(String giornoValore){
-        Button giorno = new Button(giornoValore);
-        giorno.setPrefSize(70, 30);
-        giorno.getStyleClass().add("giornoBottone");
-        giorno.getStylesheets().add(Calendario.class.getResource("/Styles/giornoCalendario.css").toExternalForm());
 
-
-        return giorno;
-    }
     public static Button pulsantePrecSucc(String precedenteOSuccessivo){
         Button pulsante=new Button(precedenteOSuccessivo);
         pulsante.setAlignment(Pos.TOP_RIGHT);
@@ -111,4 +108,5 @@ public class Calendario {
         return pulsante;
 
     }
+
 }

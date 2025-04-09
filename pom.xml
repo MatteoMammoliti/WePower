@@ -12,6 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.10.2</junit.version>
+        <main.class>com.wepower.wepower.WePower</main.class>
     </properties>
 
     <dependencies>
@@ -124,7 +125,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.wepower.wepower/com.wepower.wepower.WePower</mainClass>
+                            <mainClass>com.wepower.wepower.WePower</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

@@ -18,3 +18,8 @@
     -fx-opacity: 0.7;
     -fx-pref-height: 200;
 }
+
+.button:hover{
+    -fx-background-color: blue;
+    -fx-text-fill: white;
+}

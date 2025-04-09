@@ -6,7 +6,10 @@ public class PrenotazioneSalaPesi {
     private String orarioPrenotazione;
 
     public PrenotazioneSalaPesi(String dataPrenotazione, String orarioPrenotazione) {
-
+        if (orarioPrenotazione.matches("\\d{1,2}")) {
+            int ora = Integer.parseInt(orarioPrenotazione);
+            orarioPrenotazione = String.format("%02d:00", ora);
+        }
         this.dataPrenotazione = dataPrenotazione;
         this.orarioPrenotazione = orarioPrenotazione;
     }
