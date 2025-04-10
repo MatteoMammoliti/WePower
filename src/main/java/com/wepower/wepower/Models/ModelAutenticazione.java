@@ -1,6 +1,5 @@
 package com.wepower.wepower.Models;
 
-import com.wepower.wepower.Models.DatiPalestra.Corso;
 import com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra;
 import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
 import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesiCliente;
@@ -33,7 +32,6 @@ public class ModelAutenticazione {
                     DatiSessioneCliente.setEmail(risultatoClienti.getString("Email"));
                     DatiSessioneCliente.setCertificato(risultatoClienti.getBoolean("CertificatoValido"));
                     DatiSessioneCliente.setDateOrariPrenotazioni(caricaDatePrenotazioniSalaPesi(risultatoClienti.getInt("idCliente")));
-                    DatiSessioneCliente.setDatePronotazioniCorsi(caricaCorsiCliente(risultatoClienti.getInt("idCliente")));
                     try(PreparedStatement statoAbbonamento=conn.prepareStatement(Query3)) {
                         statoAbbonamento.setInt(1, risultatoClienti.getInt("idCliente"));
                         ResultSet risultatoStato=statoAbbonamento.executeQuery();
@@ -74,7 +72,6 @@ public class ModelAutenticazione {
 
     public static void prelevaDatiPalestra() throws SQLException {
         String prelevaDatiPrenotazioniSalaPesi="SELECT * FROM PrenotazioneSalaPesi";
-        String prelevaDatiCorsi="SELECT * FROM Corso";
         try(Connection conn=ConnessioneDatabase.getConnection()){
             PreparedStatement datiPrenotazioni=conn.prepareStatement(prelevaDatiPrenotazioniSalaPesi);
             try(ResultSet risultato=datiPrenotazioni.executeQuery()){
@@ -84,13 +81,7 @@ public class ModelAutenticazione {
                     DatiSessionePalestra.aggiungiPrenotazioneSalaPesi(prenotazione);
                 }
             }
-            PreparedStatement datiCorsi=conn.prepareStatement(prelevaDatiCorsi);
-            try(ResultSet risultato=datiCorsi.executeQuery()){
-                while(risultato.next()){
-                    Corso corso=new Corso(risultato.getInt("idCorso"),risultato.getString("Nome"),risultato.getString("Durata"),risultato.getString("Descrizione"),risultato.getInt("Prezzo"));
-                    DatiSessionePalestra.aggiuntiCorso(corso);
-                }
-            }
+
         }
 
     };
@@ -112,26 +103,6 @@ public class ModelAutenticazione {
                     String orario = risultatoPrenotazioni.getString("OrarioPrenotazione");
                     PrenotazioneSalaPesi prenotazione=new PrenotazioneSalaPesi(data,orario);
                     datePrenotazioni.add(prenotazione);
-                }
-            }
-        }catch (SQLException e) {
-
-        }
-        return datePrenotazioni;
-    }
-
-    public static Set<String> caricaCorsiCliente(int idUtente) throws SQLException{
-        Set<String> datePrenotazioni = new HashSet<>();
-
-        String query ="SELECT idCorso FROM PrenotazioneCorsoCliente WHERE idCliente = ? AND Stato= 'Attivo'";
-        try (Connection conn=ConnessioneDatabase.getConnection()){
-            try (PreparedStatement datiCorso = conn.prepareStatement(query)) {
-                datiCorso.setInt(1,idUtente);
-                ResultSet risultato=datiCorso.executeQuery();
-
-                while(risultato.next()) {
-                    String idCorso=risultato.getString("idCorso");
-                    datePrenotazioni.add(idCorso);
                 }
             }
         }catch (SQLException e) {

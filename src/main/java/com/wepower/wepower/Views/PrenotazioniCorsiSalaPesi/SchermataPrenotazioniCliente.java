@@ -18,20 +18,23 @@ import java.util.Locale;
 
 import static com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra.getNumeroPrenotazioniDataOraResidue;
 
+
+
 public class SchermataPrenotazioniCliente extends VBox {
-    private static LocalDate data;
-    static Label giornoSettimana;
-    static Label giornoDelMese;
-    private static VBox contenitoreFascieOrario=new VBox(10);
-    private static Button btnGiornoPrecedente= new Button("← Giorno precedente");
-    private static Button btnGiornoSuccessivo= new Button("Giorno successivo →");
+    private  LocalDate data;
+    private Label giornoSettimana;
+    private Label giornoDelMese;
+    private VBox contenitoreFascieOrario=new VBox(10);
+    private Button btnGiornoPrecedente= new Button("← Giorno precedente");
+    private Button btnGiornoSuccessivo= new Button("Giorno successivo →");
+    VisualizzatoreStoricoPrenotazioni storico;
 
 
 
-    public SchermataPrenotazioniCliente(LocalDate dataGiorno){
+    public SchermataPrenotazioniCliente(LocalDate dataGiorno,VisualizzatoreStoricoPrenotazioni storico){
+        this.storico=storico;
         this.data=dataGiorno;
         this.setPrefWidth(500);
-
         //Parte superiore giorno settimana,mese e pulsanti precedente e successivo
         giornoSettimana=new Label();
         giornoDelMese=new Label();
@@ -62,7 +65,7 @@ public class SchermataPrenotazioniCliente extends VBox {
 
 
 
-    public static HBox creaRigaPrenotazione(String inizio, String fine, Boolean prenotato, LocalDate data, String ora){
+    public HBox creaRigaPrenotazione(String inizio, String fine, Boolean prenotato, LocalDate data, String ora){
         HBox rigaCompleta = new HBox(5);
 
         //Sezione orario-Parte sinistra della riga(Inizio e fine turno)
@@ -106,7 +109,9 @@ public class SchermataPrenotazioniCliente extends VBox {
                     System.out.println("Prenotazione effettuata");
                     DatiSessionePalestra.aggiungiPrenotazioneSalaPesi(temp);
                     DatiSessioneCliente.aggiungiPrenotazione(new PrenotazioneSalaPesi(data.toString(), ora));
+                    storico.aggiornaLista();
                     aggiornaFasceorarie();
+
                 }
 
 
@@ -126,7 +131,7 @@ public class SchermataPrenotazioniCliente extends VBox {
         return rigaCompleta;
     }
 
-    public static void aggiornaGiorno(LocalDate nuovaData){
+    public void aggiornaGiorno(LocalDate nuovaData){
         data=nuovaData;
         aggiornaLabel();
         aggiornaPrecSucc();
@@ -134,12 +139,12 @@ public class SchermataPrenotazioniCliente extends VBox {
 
     }
 
-    private static void aggiornaLabel(){
+    private void aggiornaLabel(){
         giornoSettimana.setText(data.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ITALIAN));
         giornoDelMese.setText(data.getMonth().getDisplayName(TextStyle.FULL, Locale.ITALIAN)+" "+data.getDayOfMonth());
     }
 
-    private static void aggiornaFasceorarie() {
+    private void aggiornaFasceorarie() {
         contenitoreFascieOrario.getChildren().clear();
         for(int ora=8;ora<=20;ora+=2){
             String inizio=String.format("%02d:00",ora);
@@ -150,7 +155,7 @@ public class SchermataPrenotazioniCliente extends VBox {
         }
     }
 
-    private static void aggiornaPrecSucc(){
+    private void aggiornaPrecSucc(){
 
 
         if (data.isBefore(LocalDate.now())){

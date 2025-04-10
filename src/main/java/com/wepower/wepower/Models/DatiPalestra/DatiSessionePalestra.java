@@ -7,7 +7,6 @@ import java.util.Map;
 public class DatiSessionePalestra {
     private static int numeroMassimePrenotazioniPerFascieOrarie=50;
     private static Map<PrenotazioneSalaPesiCliente, Integer> prenotazioniSalePesi= new HashMap<>();
-    private static ArrayList<Corso> corsi= new ArrayList<>();
 
 
 
@@ -28,10 +27,6 @@ public class DatiSessionePalestra {
 
     }
 
-    //Aggiungo un corso
-    public static void aggiuntiCorso(Corso corso){
-        corsi.add(corso);
-    }
 
     //Funzione che mi serve per capire quanti posti prenotabili rimangono per ogni fascia oraria/giorno
     public static int getNumeroPrenotazioniDataOraResidue(PrenotazioneSalaPesiCliente prenotazione) {
@@ -58,13 +53,6 @@ public class DatiSessionePalestra {
 
     }
 
-    public static boolean rimuoviCorso(Corso corso){
-        if (!corsi.contains(corso)){
-            return false;
-        }
-        corsi.remove(corso);
-        return true;
-    }
 
 
 }

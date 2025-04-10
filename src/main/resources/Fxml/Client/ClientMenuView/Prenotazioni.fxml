@@ -17,14 +17,14 @@
         </Pane>
     </left>
     <center>
-        <HBox BorderPane.alignment="CENTER">
+        <HBox BorderPane.alignment="CENTER" spacing="100">
          <children>
             <HBox fx:id="containerGiorniPrenotazione" prefWidth="500.0" />
-            <ScrollPane fx:id="contenitoreStoricoCliente"  hbarPolicy="NEVER" style="-fx-padding: 0; -fx-background-color: transparent; -fx-border-insets: 0; -fx-background-insets: 0;">
+            <ScrollPane fx:id="contenitoreStoricoCliente" fitToWidth="true" hbarPolicy="NEVER" style="-fx-padding: 0; -fx-background-color: transparent; -fx-border-insets: 0; -fx-background-insets: 0;">
                <content>
-                  <VBox fx:id="corpoStorico" >
+                  <VBox fx:id="corpoStorico">
                      <children>
-                        <Label text="ciaooo" />
+                        <Label text="Storico delle tue prenotazioni" />
                      </children></VBox>
                </content>
             </ScrollPane>
