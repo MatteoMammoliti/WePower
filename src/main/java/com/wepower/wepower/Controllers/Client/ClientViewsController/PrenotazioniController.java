@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 
@@ -22,9 +23,9 @@ public class PrenotazioniController implements Initializable {
 
 
     public void initialize(URL location, ResourceBundle resources) {
-        contenitoreStoricoCliente.setStyle("-fx-padding: 0;");
-        contenitoreStoricoCliente.setPrefWidth(500);
-        contenitoreStoricoCliente.setFitToWidth(true);
+        corpoStorico.setStyle("-fx-background-color: blue;");
+
+
         loadPrenotazioni();
     }
 
@@ -35,7 +36,9 @@ public class PrenotazioniController implements Initializable {
         SchermataPrenotazioniCliente schermata= new SchermataPrenotazioniCliente(LocalDate.now());
 
 
+
         containerGiorniPrenotazione.getChildren().add(schermata);
+
 
 
 

@@ -30,7 +30,7 @@ public class SchermataPrenotazioniCliente extends VBox {
 
     public SchermataPrenotazioniCliente(LocalDate dataGiorno){
         this.data=dataGiorno;
-
+        this.setPrefWidth(500);
 
         //Parte superiore giorno settimana,mese e pulsanti precedente e successivo
         giornoSettimana=new Label();
@@ -48,7 +48,9 @@ public class SchermataPrenotazioniCliente extends VBox {
         contenitoreCorpo.getChildren().add(contenitoreGiorno);
         this.getChildren().add(contenitoreCorpo);
 
-        contenitoreFascieOrario.setPrefWidth(800);
+        contenitoreFascieOrario.setPrefWidth(400);
+        contenitoreFascieOrario.setFillWidth(true);
+
 
         //Creo e aggiungo le fasce orarie per le prenotazioni
         this.getChildren().add(contenitoreFascieOrario);
@@ -70,14 +72,14 @@ public class SchermataPrenotazioniCliente extends VBox {
         Label labelFine = new Label(fine);
         labelFine.setStyle("-fx-font-weight: bold;-fx-text-fill: white;");
         labelInizio.setStyle("-fx-font-weight: bold; -fx-text-fill: white;");
-        sezioneOrario.setPrefWidth(100);
-        sezioneOrario.setPrefHeight(100);
+        sezioneOrario.setPrefWidth(150);
+        sezioneOrario.setPrefHeight(150);
         sezioneOrario.getChildren().addAll(labelInizio,labelFine);
         sezioneOrario.setStyle("-fx-background-color: blue; -fx-padding: 10;");
 
         //Sezione informazioni-parte destra della riga(Sala pesi,Posti liberi,bottone registrati)
         VBox dettagliRiga=new VBox(5);
-        dettagliRiga.setPrefWidth(400);
+        dettagliRiga.setPrefWidth(500);
         dettagliRiga.setPrefHeight(100);
         Label Sala=new Label("Sala Pesi");
         Sala.setAlignment(Pos.TOP_LEFT);
