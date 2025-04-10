@@ -1,0 +1,86 @@
+package com.wepower.wepower.Views.SchedaAllenamento;
+
+import com.wepower.wepower.Models.ConnessioneDatabase;
+import com.wepower.wepower.Models.DatiSessioneCliente;
+import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class RigaEsercizioLista extends HBox {
+    private Label nomeEsercizio;
+    private Label descrizioneEsercizio;
+    private Label muscoloAllenato;
+    private ImageView imageEsercizio;
+    private TextField numeroSerie;
+    private TextField numeroRipetizioni;
+    private Button aggiungiEsercizioScheda;
+
+    public RigaEsercizioLista(String nomeEsercizio, String descrizioneEsercizio, String muscoloAllenato, String percorsoImmagine, Runnable callbackUI) {
+
+        this.nomeEsercizio = new Label(nomeEsercizio);
+        this.descrizioneEsercizio = new Label(descrizioneEsercizio);
+        this.muscoloAllenato = new Label("Muscolo allenato: " + muscoloAllenato);
+
+        InputStream is = getClass().getResourceAsStream("/" + percorsoImmagine);
+        Image image = new Image(is);
+        this.imageEsercizio = new ImageView(image);
+        this.imageEsercizio.setFitHeight(100);
+        this.imageEsercizio.setFitWidth(100);
+        this.imageEsercizio.setPreserveRatio(true);
+
+        this.numeroSerie = new TextField();
+        this.numeroSerie.setPromptText("Numero serie");
+
+        this.numeroRipetizioni = new TextField();
+        this.numeroRipetizioni.setPromptText("Numero ripetizioni");
+
+        this.aggiungiEsercizioScheda = new Button("Aggiungi Esercizio");
+        this.aggiungiEsercizioScheda.setOnAction(e -> {
+            try {
+                onInserisci();
+                callbackUI.run();
+            } catch (SQLException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Errore");
+                alert.setHeaderText("Esercizio già presente nella scheda");
+                alert.showAndWait();
+            }
+        });
+
+        this.getChildren().addAll(this.nomeEsercizio, this.descrizioneEsercizio, this.muscoloAllenato, this.imageEsercizio, this.numeroSerie, this.numeroRipetizioni, this.aggiungiEsercizioScheda);
+        this.setSpacing(10);
+        this.setPadding(new Insets(10));
+    }
+
+    public void onInserisci() throws SQLException {
+
+        if (this.numeroSerie.getText().isEmpty() || this.numeroRipetizioni.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("Compila tutti i campi");
+            alert.showAndWait();
+            return;
+        }
+
+        String inserimentoEsercizio = "INSERT INTO ComposizioneSchedaAllenamento (NomeEsercizio, IdSchedaAllenamento, NumeroRipetizioni, NumeroSerie) " +
+                "VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = ConnessioneDatabase.getConnection()) {
+            PreparedStatement inserimentoScheda = conn.prepareStatement(inserimentoEsercizio);
+            inserimentoScheda.setString(1, this.nomeEsercizio.getText());
+            inserimentoScheda.setInt(2, DatiSessioneCliente.getIdSchedaAllenamento());
+            inserimentoScheda.setString(3, this.numeroRipetizioni.getText());
+            inserimentoScheda.setString(4, this.numeroSerie.getText());
+            inserimentoScheda.executeUpdate();
+        }
+    }
+}

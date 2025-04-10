@@ -38,4 +38,7 @@ public class Model {
         return model;
     }
 
+    public static synchronized void invalidate() {
+        model = null;
+    }
 }

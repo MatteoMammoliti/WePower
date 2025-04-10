@@ -2,8 +2,8 @@ package com.wepower.wepower.Models.SchedaAllenamento;
 
 import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.DatiSessioneCliente;
-import com.wepower.wepower.Views.SchedaAllenamento.EsercizioPerLista;
-import com.wepower.wepower.Views.SchedaAllenamento.EsercizioPerScheda;
+import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioLista;
+import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioScheda;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,9 +13,9 @@ import java.util.ArrayList;
 
 public class TabellaElencoEsercizi {
 
-    public static ArrayList<EsercizioPerLista> riempiRigaEsercizio() throws SQLException {
+    public static ArrayList<RigaEsercizioLista> riempiRigaEsercizio(Runnable aggiornaUI) throws SQLException {
 
-        ArrayList<EsercizioPerLista> ris = new ArrayList<EsercizioPerLista>();
+        ArrayList<RigaEsercizioLista> ris = new ArrayList<RigaEsercizioLista>();
 
         String query = "SELECT NomeEsercizio, DescrizioneEsercizio, MuscoloAllenato, PercorsoImmagine FROM Esercizio";
 
@@ -32,7 +32,7 @@ public class TabellaElencoEsercizi {
                 if (PercorsoImmagine == null || PercorsoImmagine.trim().isEmpty()) {
                     PercorsoImmagine = "images/LOGO.png";
                 }
-                EsercizioPerLista esercizio = new EsercizioPerLista(NomeEsercizio, DescrizioneEsercizio, MuscoloAllenato, PercorsoImmagine);
+                RigaEsercizioLista esercizio = new RigaEsercizioLista(NomeEsercizio, DescrizioneEsercizio, MuscoloAllenato, PercorsoImmagine, aggiornaUI);
                 ris.add(esercizio);
             }
         } catch (Exception e) {
@@ -41,9 +41,9 @@ public class TabellaElencoEsercizi {
         return ris;
     }
 
-    public static ArrayList<EsercizioPerScheda> riempiRigaEsercizioScheda() throws SQLException {
+    public static ArrayList<RigaEsercizioScheda> riempiRigaEsercizioScheda(Runnable aggiornaUI) throws SQLException {
 
-        ArrayList<EsercizioPerScheda> ris = new ArrayList<EsercizioPerScheda>();
+        ArrayList<RigaEsercizioScheda> ris = new ArrayList<RigaEsercizioScheda>();
 
         String query = "SELECT e.NomeEsercizio, e.DescrizioneEsercizio, e.MuscoloAllenato, e.PercorsoImmagine, " +
                 "csa.NumeroRipetizioni, csa.NumeroSerie " +
@@ -68,7 +68,7 @@ public class TabellaElencoEsercizi {
                 if (PercorsoImmagine == null || PercorsoImmagine.trim().isEmpty()) {
                     PercorsoImmagine = "images/LOGO.png";
                 }
-                EsercizioPerScheda esercizio = new EsercizioPerScheda(NomeEsercizio, DescrizioneEsercizio, MuscoloAllenato, NumeroSerie, NumeroRipetizioni, PercorsoImmagine);
+                RigaEsercizioScheda esercizio = new RigaEsercizioScheda(NomeEsercizio, DescrizioneEsercizio, MuscoloAllenato, NumeroSerie, NumeroRipetizioni, PercorsoImmagine, aggiornaUI);
                 ris.add(esercizio);
             }
         } catch (Exception e) {

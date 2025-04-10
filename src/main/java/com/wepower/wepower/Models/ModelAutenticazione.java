@@ -47,6 +47,18 @@ public class ModelAutenticazione {
                         }
                     }
 
+                    String querySchedaAllenamento = "SELECT IdScheda FROM SchedaAllenamento WHERE IdCliente = ?";
+
+                    try (PreparedStatement datiSchedaAllenamento = conn.prepareStatement(querySchedaAllenamento)) {
+                        datiSchedaAllenamento.setInt(1, DatiSessioneCliente.getIdUtente());
+                        ResultSet risultatoScheda = datiSchedaAllenamento.executeQuery();
+
+                        if (risultatoScheda.next()) {
+                            DatiSessioneCliente.setIdSchedaAbbonamento(risultatoScheda.getInt("IdScheda"));
+                        } else {
+                            DatiSessioneCliente.setIdSchedaAbbonamento(0);
+                        }
+                    }
                     return true;
                 }
                 //Se non trovo il cliente, vado a vedere se è un admin e prelevo i suoi dati
