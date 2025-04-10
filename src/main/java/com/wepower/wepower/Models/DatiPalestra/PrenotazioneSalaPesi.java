@@ -1,4 +1,4 @@
-package com.wepower.wepower.Models;
+package com.wepower.wepower.Models.DatiPalestra;
 
 public class PrenotazioneSalaPesi {
 

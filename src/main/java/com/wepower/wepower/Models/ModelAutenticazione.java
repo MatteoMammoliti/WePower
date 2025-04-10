@@ -1,5 +1,10 @@
 package com.wepower.wepower.Models;
 
+import com.wepower.wepower.Models.DatiPalestra.Corso;
+import com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra;
+import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
+import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesiCliente;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +24,7 @@ public class ModelAutenticazione {
                 datiCliente.setString(1, email);
                 datiCliente.setString(2, password);
                 ResultSet risultatoClienti = datiCliente.executeQuery();
+                //Prelevo i dati del cliente
                 if (risultatoClienti.next()) {
                     System.out.println("Login cliente effettuato con successo");
                     DatiSessioneCliente.setIdUtente(risultatoClienti.getInt("idCliente"));
@@ -45,6 +51,7 @@ public class ModelAutenticazione {
 
                     return true;
                 }
+                //Se non trovo il cliente, vado a vedere se è un admin e prelevo i suoi dati
                 try(PreparedStatement datiAdmin =conn.prepareStatement(Query2)) {
                     datiAdmin.setString(1, email);
                     datiAdmin.setString(2, password);
@@ -64,6 +71,29 @@ public class ModelAutenticazione {
         System.out.println("Login fallito");
         return false;
     }
+
+    public static void prelevaDatiPalestra() throws SQLException {
+        String prelevaDatiPrenotazioniSalaPesi="SELECT * FROM PrenotazioneSalaPesi";
+        String prelevaDatiCorsi="SELECT * FROM Corso";
+        try(Connection conn=ConnessioneDatabase.getConnection()){
+            PreparedStatement datiPrenotazioni=conn.prepareStatement(prelevaDatiPrenotazioniSalaPesi);
+            try(ResultSet risultato=datiPrenotazioni.executeQuery()){
+                while(risultato.next()){
+                    System.out.println("Trovata");
+                    PrenotazioneSalaPesiCliente prenotazione=new PrenotazioneSalaPesiCliente(risultato.getInt("IdCliente"),risultato.getString("DataPrenotazione"),risultato.getString("OrarioPrenotazione"));
+                    DatiSessionePalestra.aggiungiPrenotazioneSalaPesi(prenotazione);
+                }
+            }
+            PreparedStatement datiCorsi=conn.prepareStatement(prelevaDatiCorsi);
+            try(ResultSet risultato=datiCorsi.executeQuery()){
+                while(risultato.next()){
+                    Corso corso=new Corso(risultato.getInt("idCorso"),risultato.getString("Nome"),risultato.getString("Durata"),risultato.getString("Descrizione"),risultato.getInt("Prezzo"));
+                    DatiSessionePalestra.aggiuntiCorso(corso);
+                }
+            }
+        }
+
+    };
 
     //Vado a prendermi dal Database tutte le date in cui il cliente ha prenotato la salapesi per mostrarle nel calendario
 

@@ -30,4 +30,6 @@ module com.wepower.wepower {
     exports com.wepower.wepower.Controllers.Client.ClientViewsController;
     exports com.wepower.wepower.Views.SchedaAllenamento;
     exports com.wepower.wepower.Models.SchedaAllenamento;
+    exports com.wepower.wepower.Models.DatiPalestra;
+    exports com.wepower.wepower.Views.PrenotazioniCorsiSalaPesi;
 }

@@ -1,4 +1,6 @@
 package com.wepower.wepower.Models;
+import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,7 +14,9 @@ public class DatiSessioneCliente {
     private static String cognome;
     private static boolean certificato;
     private static String telefono;
+    //Tutto lo storico delle prenotazioni sala pesi dell'utente
     private static ArrayList<PrenotazioneSalaPesi> dateOrariPrenotazioni = new ArrayList<>();
+    //Set per accedere velocemente ad una dataPrenotazione per velocizzare e alleggerire i calcoli
     private static Set<String> datePrenotazioniSalaPesi = new HashSet<>();
     private static Set<String> datePrenotazioniCorsi = new HashSet<>();
 

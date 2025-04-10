@@ -79,9 +79,11 @@ public class LoginController implements Initializable {
         String password=passwordField.getText();
 
         if(ModelAutenticazione.verificaCredenziali(email,password)) {
+
             System.out.println("Login effettuato con successo");
             labelLoginError.setVisible(false);
 
+            ModelAutenticazione.prelevaDatiPalestra();
             Stage stage = (Stage) loginButton.getScene().getWindow();
             Model.getInstance().getViewFactoryClient().closeStage(stage);
 
