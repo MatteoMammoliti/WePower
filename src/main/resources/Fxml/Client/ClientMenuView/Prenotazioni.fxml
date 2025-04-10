@@ -17,7 +17,7 @@
         </Pane>
     </left>
     <center>
-        <HBox BorderPane.alignment="CENTER" spacing="100">
+        <HBox spacing="100" BorderPane.alignment="CENTER">
          <children>
             <HBox fx:id="containerGiorniPrenotazione" prefWidth="500.0" />
             <ScrollPane fx:id="contenitoreStoricoCliente" fitToWidth="true" hbarPolicy="NEVER" style="-fx-padding: 0; -fx-background-color: transparent; -fx-border-insets: 0; -fx-background-insets: 0;">
@@ -34,7 +34,7 @@
    <top>
           <VBox prefHeight="86.0" prefWidth="644.0" styleClass="pane_offerte_dashboard" BorderPane.alignment="CENTER">
               <children>
-                    <Label prefHeight="98.0" text="Prenota il tuo allenamento o il tuo corso">
+                    <Label alignment="CENTER" prefHeight="86.0" prefWidth="774.0" text="Prenota il tuo allenamento">
                         <font>
                             <Font name="Arial Bold" size="30.0" />
                         </font>

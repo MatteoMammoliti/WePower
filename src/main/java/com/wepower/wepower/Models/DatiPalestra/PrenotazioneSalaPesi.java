@@ -14,6 +14,14 @@ public class PrenotazioneSalaPesi {
         this.orarioPrenotazione = orarioPrenotazione;
     }
 
+    public boolean equals(Object obj){
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        PrenotazioneSalaPesi that = (PrenotazioneSalaPesi) obj;
+        return dataPrenotazione.equals(that.dataPrenotazione) && orarioPrenotazione.equals(that.orarioPrenotazione);
+    }
+
+
     public String getDataPrenotazione() {
         return dataPrenotazione;
     }

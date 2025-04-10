@@ -1,5 +1,8 @@
 package com.wepower.wepower.Models;
 
+import com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra;
+import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
+
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,8 +38,43 @@ public class ModelPrenotazioni {
                         return false;
                     }
                 } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null,"Prenotazione già effettuata in questa giornata");
                     throw new RuntimeException(e);
+
+
                 }
             }
         }
+    public static boolean rimuoviPrenotazioneSalaPesi(String data,String orario,int idUtente)  {
+        if (orario.matches("\\d{1,2}")) {
+            int ora = Integer.parseInt(orario);
+            orario = String.format("%02d:00", ora);
+        }
+        String rimuoviPrenotazione="DELETE FROM PrenotazioneSalaPesi WHERE IdCliente=? AND DataPrenotazione=? AND OrarioPrenotazione=?";
+        try (Connection conn = ConnessioneDatabase.getConnection()) {
+            try (PreparedStatement dati = conn.prepareStatement(rimuoviPrenotazione)) {
+                dati.setInt(1, idUtente);
+                dati.setString(2, data);
+                dati.setString(3, orario);
+
+                int righeAffette = dati.executeUpdate();
+
+                if (righeAffette > 0) {
+                    System.out.println("Eliminazione riuscita!");
+                    PrenotazioneSalaPesi temp=new PrenotazioneSalaPesi(data,orario);
+                    DatiSessioneCliente.rimuoviPrenotazione(temp);
+                    return true;
+                } else {
+                    System.out.println("Errore nell'eliminazione.");
+                    System.out.println(data + " " + orario);
+                    return false;
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+    }
+
+    }
     }

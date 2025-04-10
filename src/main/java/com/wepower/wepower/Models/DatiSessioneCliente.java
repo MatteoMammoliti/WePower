@@ -42,11 +42,16 @@ public class DatiSessioneCliente {
     public static ArrayList<PrenotazioneSalaPesi> getDateOrariPrenotazioni() {
         return dateOrariPrenotazioni;
     }
-    public static Set<String> getDatePrenotazioniSalaPesi() {
-        return datePrenotazioniSalaPesi;
-    }
     public static boolean getStatoAbbonamento(){return statoAbbonamento;}
     public static int getIdSchedaAllenamento() { return idSchedaAllenamento; }
+    public static String getOrarioPrenotazione(String data){
+        for (int i=0;i<dateOrariPrenotazioni.size();i++){
+            if (dateOrariPrenotazioni.get(i).getDataPrenotazione().equals(data)){
+                return dateOrariPrenotazioni.get(i).getOrarioPrenotazione();
+            }
+        }
+        return null;
+    }
 
     // SETTER
     public static void setStatoAbbonamento(boolean abbonamento){statoAbbonamento = abbonamento;}
@@ -65,7 +70,6 @@ public class DatiSessioneCliente {
     public static void setCognome(String c) { cognome = c; }
     public static void setTelefono(String t) {telefono = t; }
     public static void setIdSchedaAbbonamento(int id) { idSchedaAllenamento = id; }
-
     public static void setDateOrariPrenotazioni(ArrayList<PrenotazioneSalaPesi> d) {
         dateOrariPrenotazioni = d;
 
@@ -75,14 +79,6 @@ public class DatiSessioneCliente {
         }
     }
 
-    public static String getOrarioPrenotazione(String data){
-        for (int i=0;i<dateOrariPrenotazioni.size();i++){
-            if (dateOrariPrenotazioni.get(i).getDataPrenotazione().equals(data)){
-                return dateOrariPrenotazioni.get(i).getOrarioPrenotazione();
-            }
-        }
-        return null;
-    }
 
     // LOGOUT
     public static void logout() {
@@ -105,6 +101,17 @@ public class DatiSessioneCliente {
         }
         return false;
     }
+    // CONTROLLO DATA E ORARIO PRENOTAZIONE SALA PESI PER STORICO
+    public static boolean controlloDataPrenotazioneSalaPesi(LocalDate data,String ora) {
+        String dataControllo = data.toString();
+        PrenotazioneSalaPesi temp=new PrenotazioneSalaPesi(dataControllo,ora);
+
+        if (dateOrariPrenotazioni.contains(temp)) {
+            return true;
+        }
+        return false;
+    }
+
 
 
 
@@ -112,6 +119,14 @@ public class DatiSessioneCliente {
     public static void aggiungiPrenotazione(PrenotazioneSalaPesi p) {
         dateOrariPrenotazioni.add(p);
         datePrenotazioniSalaPesi.add(p.getDataPrenotazione());
+    }
+    //RIMUOVI UNA PRENOTAZIONE
+    public static void rimuoviPrenotazione(PrenotazioneSalaPesi p) {
+        dateOrariPrenotazioni.remove(p);
+        datePrenotazioniSalaPesi.remove(p.getDataPrenotazione());
+        for (int i=0;dateOrariPrenotazioni.size()>i;i++){
+            System.out.println(dateOrariPrenotazioni.get(i).getDataPrenotazione());
+        }
     }
 
 }

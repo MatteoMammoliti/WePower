@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ClientDashboardController implements Initializable {
+    private static ClientDashboardController instance;
     public AnchorPane containerCalendario;
     @FXML
     private Label labelNomeUtenteSaluto;
@@ -32,6 +33,9 @@ public class ClientDashboardController implements Initializable {
     // container dei banner
     private HBox displayerBanner;
 
+    public static ClientDashboardController getInstance() {
+        return instance;
+    }
     private void loadBanner() {
         // max banner visibili per volta
         int maxBannerVisibili = 3;
@@ -51,7 +55,8 @@ public class ClientDashboardController implements Initializable {
         }
     }
 
-    private void loadCalendario() {
+    public void loadCalendario() {
+        containerCalendario.getChildren().clear();
         VBox calendario = Calendario.creaCalendario();
         containerCalendario.getChildren().add(calendario);
     }
@@ -82,6 +87,7 @@ public class ClientDashboardController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        instance = this;
         labelNomeUtenteSaluto.setText("Ciao, "+ DatiSessioneCliente.getNomeUtente() + "👋");
         loadCalendario();
         loadBanner();

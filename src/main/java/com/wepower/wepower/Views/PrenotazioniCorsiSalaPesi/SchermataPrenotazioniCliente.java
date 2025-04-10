@@ -1,5 +1,6 @@
 package com.wepower.wepower.Views.PrenotazioniCorsiSalaPesi;
 
+import com.wepower.wepower.Controllers.Client.ClientDashboardController;
 import com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra;
 import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesiCliente;
 import com.wepower.wepower.Models.DatiSessioneCliente;
@@ -68,6 +69,8 @@ public class SchermataPrenotazioniCliente extends VBox {
     public HBox creaRigaPrenotazione(String inizio, String fine, Boolean prenotato, LocalDate data, String ora){
         HBox rigaCompleta = new HBox(5);
 
+
+
         //Sezione orario-Parte sinistra della riga(Inizio e fine turno)
         VBox sezioneOrario=new VBox();
         sezioneOrario.setAlignment(Pos.CENTER);
@@ -91,15 +94,31 @@ public class SchermataPrenotazioniCliente extends VBox {
         PostiLiberi.setAlignment(Pos.TOP_LEFT);
         Button btnPrenota=new Button("Prenotati");
 
+        Button btnEliminaPrenotazione=new Button("Elimina prenotazione");
+        btnEliminaPrenotazione.setVisible(false);
+        btnEliminaPrenotazione.setManaged(false);
+
         //Controllo se l'utente è già prenotato, se i posti sono tutti o prenotati o se è possibile prenotare
         if(prenotato){
             btnPrenota.setDisable(true);
             String orarioPrenotazione=DatiSessioneCliente.getOrarioPrenotazione(data.toString());
             btnPrenota.setStyle("-fx-background-color: green;-fx-text-fill: white;");
-
-
             btnPrenota.setText("Prenotazione già effettuata in questa data alle ore"+" "+orarioPrenotazione);
 
+            btnEliminaPrenotazione.setVisible(true);
+            btnEliminaPrenotazione.setManaged(true);
+            btnEliminaPrenotazione.setStyle("fx-background-color: red; -fx-text-fill: white;");
+            btnEliminaPrenotazione.setOnAction(e->{
+                boolean eliminazioneEffettuata= ModelPrenotazioni.rimuoviPrenotazioneSalaPesi(data.toString(),ora,DatiSessioneCliente.getIdUtente());
+                   if (eliminazioneEffettuata){
+                         System.out.println("Eliminazione effettuata");
+                         DatiSessionePalestra.rimuoviPrenotazioneSalaPesi(temp);
+                         DatiSessioneCliente.rimuoviPrenotazione(new PrenotazioneSalaPesi(data.toString(), ora));
+                         ClientDashboardController.getInstance().loadCalendario();
+                         storico.aggiornaLista();
+                         aggiornaFasceorarie();
+                        }
+                   });
         }
 
         btnPrenota.setOnAction(e -> {
@@ -110,6 +129,7 @@ public class SchermataPrenotazioniCliente extends VBox {
                     DatiSessionePalestra.aggiungiPrenotazioneSalaPesi(temp);
                     DatiSessioneCliente.aggiungiPrenotazione(new PrenotazioneSalaPesi(data.toString(), ora));
                     storico.aggiornaLista();
+                    ClientDashboardController.getInstance().loadCalendario();
                     aggiornaFasceorarie();
 
                 }
@@ -123,7 +143,7 @@ public class SchermataPrenotazioniCliente extends VBox {
         //Caso in cui è prenotabile
         btnPrenota.setAlignment(Pos.CENTER);
         dettagliRiga.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-pref-height: 100; -fx-width: 300;");
-        dettagliRiga.getChildren().addAll(Sala,PostiLiberi,btnPrenota);
+        dettagliRiga.getChildren().addAll(Sala,PostiLiberi,btnPrenota,btnEliminaPrenotazione);
 
         rigaCompleta.getChildren().addAll(sezioneOrario,dettagliRiga);
 
@@ -144,21 +164,24 @@ public class SchermataPrenotazioniCliente extends VBox {
         giornoDelMese.setText(data.getMonth().getDisplayName(TextStyle.FULL, Locale.ITALIAN)+" "+data.getDayOfMonth());
     }
 
+
     private void aggiornaFasceorarie() {
         contenitoreFascieOrario.getChildren().clear();
         for(int ora=8;ora<=20;ora+=2){
             String inizio=String.format("%02d:00",ora);
             String fine=String.format("%02d:00",ora+2);
 
-            HBox quadratino=creaRigaPrenotazione(inizio,fine, DatiSessioneCliente.controlloDataPrenotazioneSalaPesi(data),data, String.valueOf(ora));
+
+            HBox quadratino=creaRigaPrenotazione(inizio,fine, DatiSessioneCliente.controlloDataPrenotazioneSalaPesi(data,inizio),data, String.valueOf(ora));
             contenitoreFascieOrario.getChildren().add(quadratino);
         }
     }
 
+
     private void aggiornaPrecSucc(){
 
 
-        if (data.isBefore(LocalDate.now())){
+        if (data.isEqual(LocalDate.now()) || data.isBefore(LocalDate.now())){
             btnGiornoPrecedente.setDisable(true);
             btnGiornoPrecedente.setStyle("-fx-background-color: red;-fx-text-fill: white;");
         }else{
