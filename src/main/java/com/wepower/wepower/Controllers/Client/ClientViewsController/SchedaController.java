@@ -1,10 +1,11 @@
 package com.wepower.wepower.Controllers.Client.ClientViewsController;
 
 import com.wepower.wepower.Models.SchedaAllenamento.TabellaElencoEsercizi;
-import com.wepower.wepower.Views.SchedaAllenamento.EsercizioPerLista;
-import com.wepower.wepower.Views.SchedaAllenamento.EsercizioPerScheda;
+import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioLista;
+import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioScheda;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -20,14 +21,29 @@ public class SchedaController implements Initializable {
     @FXML
     private VBox containerEsercizi;
 
+    Runnable aggiornaUI = () -> {
+        try {
+            loadSchedaAllenamento();
+            loadEsercizi();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    };
+
     private void loadSchedaAllenamento() throws SQLException {
-        ArrayList<EsercizioPerScheda> schedaAllenamento = TabellaElencoEsercizi.riempiRigaEsercizioScheda();
+        ArrayList<RigaEsercizioScheda> schedaAllenamento = TabellaElencoEsercizi.riempiRigaEsercizioScheda(aggiornaUI);
         containerSchedaAllenamento.getChildren().clear();
-        containerSchedaAllenamento.getChildren().addAll(schedaAllenamento);
+
+        if (!schedaAllenamento.isEmpty()) {
+            containerSchedaAllenamento.getChildren().addAll(schedaAllenamento);
+        } else {
+            Label label = new Label("Nessuna scheda allenamento disponibile. Componila o richiedila all'admin");
+            containerSchedaAllenamento.getChildren().add(label);
+        }
     }
 
     private void loadEsercizi() throws SQLException {
-        ArrayList<EsercizioPerLista> esercizi = TabellaElencoEsercizi.riempiRigaEsercizio();
+        ArrayList<RigaEsercizioLista> esercizi = TabellaElencoEsercizi.riempiRigaEsercizio(aggiornaUI);
         containerEsercizi.getChildren().clear();
         containerEsercizi.getChildren().addAll(esercizi);
     }

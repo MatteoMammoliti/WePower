@@ -108,14 +108,6 @@
                               <Insets top="30.0" />
                            </VBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="331.0" styleClass="my_button_google" stylesheets="@../Styles/login.css" text="Continua con Google">
-                           <VBox.margin>
-                              <Insets top="17.0" />
-                           </VBox.margin>
-                           <graphic>
-                              <FontAwesomeIconView glyphName="GOOGLE" size="16" text="" />
-                           </graphic>
-                        </Button>
                      </children>
                   </VBox>
                   <Button fx:id="eyeButton" layoutX="510.0" layoutY="217.0" mnemonicParsing="false" styleClass="my_button_toggle_pasword" stylesheets="@../Styles/login.css" text="🔍" />

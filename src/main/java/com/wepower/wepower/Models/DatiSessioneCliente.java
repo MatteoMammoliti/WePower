@@ -1,6 +1,6 @@
 package com.wepower.wepower.Models;
-import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
 
+import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,8 +14,11 @@ public class DatiSessioneCliente {
     private static String cognome;
     private static boolean certificato;
     private static String telefono;
+    private static int idSchedaAllenamento;
+
     //Tutto lo storico delle prenotazioni sala pesi dell'utente
     private static ArrayList<PrenotazioneSalaPesi> dateOrariPrenotazioni = new ArrayList<>();
+
     //Set per accedere velocemente ad una dataPrenotazione per velocizzare e alleggerire i calcoli
     private static Set<String> datePrenotazioniSalaPesi = new HashSet<>();
     private static Set<String> datePrenotazioniCorsi = new HashSet<>();
@@ -44,6 +47,8 @@ public class DatiSessioneCliente {
         return datePrenotazioniSalaPesi;
     }
     public static boolean getStatoAbbonamento(){return statoAbbonamento;}
+    public static int getIdSchedaAllenamento() { return idSchedaAllenamento; }
+
     // SETTER
     public static void setStatoAbbonamento(boolean abbonamento){statoAbbonamento = abbonamento;}
     public static void setNomeUtente(String n) {
@@ -59,6 +64,9 @@ public class DatiSessioneCliente {
         certificato = valore;
     }
     public static void setCognome(String c) { cognome = c; }
+    public static void setTelefono(String t) {telefono = t; }
+    public static void setIdSchedaAbbonamento(int id) { idSchedaAllenamento = id; }
+
     public static void setDateOrariPrenotazioni(ArrayList<PrenotazioneSalaPesi> d) {
         dateOrariPrenotazioni = d;
 
@@ -90,7 +98,7 @@ public class DatiSessioneCliente {
         datePrenotazioniSalaPesi.clear();
         datePrenotazioniCorsi.clear();
         statoAbbonamento = false;
-
+        Model.invalidate();
     }
     // CONTROLLO DATA PRENOTAZIONE SALA PESI
     public static boolean controlloDataPrenotazioneSalaPesi(LocalDate data) {
