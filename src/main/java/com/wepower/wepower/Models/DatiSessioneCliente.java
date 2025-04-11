@@ -69,7 +69,7 @@ public class DatiSessioneCliente {
     }
     public static void setCognome(String c) { cognome = c; }
     public static void setTelefono(String t) {telefono = t; }
-    public static void setIdSchedaAbbonamento(int id) { idSchedaAllenamento = id; }
+    public static void setIdSchedaAllenamento(int id) { idSchedaAllenamento = id; }
     public static void setDateOrariPrenotazioni(ArrayList<PrenotazioneSalaPesi> d) {
         dateOrariPrenotazioni = d;
 

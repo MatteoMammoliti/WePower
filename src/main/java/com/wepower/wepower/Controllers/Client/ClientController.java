@@ -31,8 +31,6 @@ public class ClientController implements Initializable {
 
                 case "Prenotazione" -> contenitore_client_view.setCenter(Model.getInstance().getViewFactoryClient().getPrenotazioniView());
 
-                case "Parametri" -> contenitore_client_view.setCenter(Model.getInstance().getViewFactoryClient().getParametriView());
-
                 case "MyProfile" -> contenitore_client_view.setCenter(Model.getInstance().getViewFactoryClient().getMyProfileView());
 
                 case "ContactUs" -> contenitore_client_view.setCenter(Model.getInstance().getViewFactoryClient().getContactUsView());

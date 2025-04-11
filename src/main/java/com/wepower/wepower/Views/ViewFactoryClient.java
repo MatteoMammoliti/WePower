@@ -1,4 +1,5 @@
 package com.wepower.wepower.Views;
+import com.wepower.wepower.Models.DatiSessioneCliente;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +14,6 @@ public class ViewFactoryClient {
     private BorderPane dashboard;
     private BorderPane scheda;
     private BorderPane prenotazioni;
-    private BorderPane parametri;
     private BorderPane myProfile;
     private BorderPane contactUs;
 
@@ -102,7 +102,14 @@ public class ViewFactoryClient {
     public BorderPane getSchedaView() {
         if (scheda == null) {
             try {
-                scheda = new FXMLLoader(getClass().getResource("/Fxml/Client/ClientMenuView/Scheda.fxml")).load();
+                System.out.println("DatiSessioneCliente.getIdSchedaAllenamento() = " + DatiSessioneCliente.getIdSchedaAllenamento());
+                if (DatiSessioneCliente.getIdSchedaAllenamento() != 0) {
+                    scheda = new FXMLLoader(getClass().getResource("/Fxml/Client/ClientMenuView/Scheda.fxml")).load();
+                }
+                else
+                {
+                    scheda = new FXMLLoader(getClass().getResource("/Fxml/Client/ClientMenuView/SchermataCreazioneScheda.fxml")).load();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -123,19 +130,6 @@ public class ViewFactoryClient {
             ((javafx.scene.layout.Pane) prenotazioni.getParent()).getChildren().remove(prenotazioni);
         }
         return prenotazioni;
-    }
-
-    public BorderPane getParametriView() {
-        if (parametri == null) {
-            try {
-                parametri = new FXMLLoader(getClass().getResource("/Fxml/Client/ClientMenuView/Parametri.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if (parametri.getParent() != null) {
-            ((javafx.scene.layout.Pane) parametri.getParent()).getChildren().remove(parametri);
-        }
-        return parametri;
     }
 
     public BorderPane getMyProfileView() {
@@ -169,5 +163,9 @@ public class ViewFactoryClient {
         if (stage != null) {
             stage.close();
         }
+    }
+
+    public void invalidateSchedaView() { // dopo la creazione della scheda
+        this.scheda = null;
     }
 }

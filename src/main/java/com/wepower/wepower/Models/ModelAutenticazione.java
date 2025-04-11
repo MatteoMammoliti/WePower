@@ -9,8 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class ModelAutenticazione {
     public static boolean verificaCredenziali(String email, String password) throws SQLException {
@@ -47,16 +45,16 @@ public class ModelAutenticazione {
                         }
                     }
 
-                    String querySchedaAllenamento = "SELECT IdScheda FROM SchedaAllenamento WHERE IdCliente = ?";
+                    String querySchedaAllenamento = "SELECT IdScheda FROM SchedaAllenamento WHERE IdCliente = ? AND SchedaAncoraInUso = 1 LIMIT 1";
 
                     try (PreparedStatement datiSchedaAllenamento = conn.prepareStatement(querySchedaAllenamento)) {
                         datiSchedaAllenamento.setInt(1, DatiSessioneCliente.getIdUtente());
                         ResultSet risultatoScheda = datiSchedaAllenamento.executeQuery();
 
                         if (risultatoScheda.next()) {
-                            DatiSessioneCliente.setIdSchedaAbbonamento(risultatoScheda.getInt("IdScheda"));
+                            DatiSessioneCliente.setIdSchedaAllenamento(risultatoScheda.getInt("IdScheda"));
                         } else {
-                            DatiSessioneCliente.setIdSchedaAbbonamento(0);
+                            DatiSessioneCliente.setIdSchedaAllenamento(0);
                         }
                     }
                     return true;

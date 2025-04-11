@@ -41,11 +41,6 @@
                      <FontAwesomeIconView glyphName="CALENDAR" size="18" />
                   </graphic>
                </Button>
-               <Button fx:id="parametriButton" mnemonicParsing="false" styleClass="my_button_window" stylesheets="@../../Styles/clientMenu.css" text="Parametri">
-                  <graphic>
-                     <FontAwesomeIconView glyphName="" size="18" />
-                  </graphic>
-               </Button>
                <Line endX="120.0" />
                <Button fx:id="myProfileButton" mnemonicParsing="false" styleClass="my_button_window" stylesheets="@../../Styles/clientMenu.css" text="Profilo">
                   <graphic>

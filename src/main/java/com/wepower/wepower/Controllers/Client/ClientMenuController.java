@@ -12,7 +12,6 @@ public class ClientMenuController  implements Initializable {
 
     public Button dashboardButton;
     public Button prenotazioneButton;
-    public Button parametriButton;
     public Button myProfileButton;
     public Button contactUsButton;
     public Button logoutButton;
@@ -41,7 +40,6 @@ public class ClientMenuController  implements Initializable {
         dashboardButton.setOnAction(event -> onDashboard());
         schedaButton.setOnAction(event -> onScheda());
         prenotazioneButton.setOnAction(event -> onPrenotazione());
-        parametriButton.setOnAction(event -> onParametri());
         myProfileButton.setOnAction(event -> onMyProfile());
         contactUsButton.setOnAction(event -> onContactUs());
         logoutButton.setOnAction(event -> onLogout());
@@ -58,10 +56,6 @@ public class ClientMenuController  implements Initializable {
 
     private void onPrenotazione() {
         Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Prenotazione");
-    }
-
-    private void onParametri() {
-        Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Parametri");
     }
 
     private void onMyProfile() {
