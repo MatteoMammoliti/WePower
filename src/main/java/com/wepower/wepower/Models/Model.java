@@ -1,5 +1,6 @@
 package com.wepower.wepower.Models;
 
+import com.wepower.wepower.Controllers.Client.ClientMenuController;
 import com.wepower.wepower.Views.ViewFactoryAdmin;
 import com.wepower.wepower.Views.ViewFactoryClient;
 
@@ -8,6 +9,7 @@ public class Model {
     // unica istanza di Model (singleton)
     private static Model model;
     private ConnessioneDatabase connessioneDatabase;
+    private ClientMenuController clientMenuController;
 
     // la classe Model (di business) è collegata alla gestione delle viste (viewFactory)
     private final ViewFactoryClient viewFactoryClient;
@@ -24,6 +26,11 @@ public class Model {
         return viewFactoryClient;
     }
     public ViewFactoryAdmin getViewFactoryAdmin() { return viewFactoryAdmin; }
+    public ClientMenuController getClientMenuController() { return clientMenuController; }
+
+    public void setClientMenuController(ClientMenuController clientMenuController) {
+        this.clientMenuController = clientMenuController;
+    }
 
     public void TestConnessione() {
         connessioneDatabase = new ConnessioneDatabase();

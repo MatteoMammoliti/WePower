@@ -3,7 +3,9 @@ package com.wepower.wepower.Models;
 import com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra;
 import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
 import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesiCliente;
+import javafx.scene.image.Image;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 public class ModelAutenticazione {
     public static boolean verificaCredenziali(String email, String password) throws SQLException {
         String Query2 = "SELECT * FROM Admin WHERE Email = ? AND Password = ?";
-        String Query="SELECT c.IdCliente,c.CertificatoValido,c.Nome, c.Cognome,c.DataNascita, cc.Email,cc.Telefono FROM CredenzialiCliente cc JOIN Cliente c ON cc.idCliente=c.idCliente WHERE cc.Email = ? AND cc.Password = ?";
+        String Query="SELECT c.IdCliente,c.CertificatoValido,c.Nome, c.Cognome,c.DataNascita, cc.Email,cc.Telefono, c.ImmagineProfilo FROM CredenzialiCliente cc JOIN Cliente c ON cc.idCliente=c.idCliente WHERE cc.Email = ? AND cc.Password = ?";
         String Query3="SELECT a.StatoAbbonamento FROM AbbonamentoCliente a JOIN Cliente c ON a.IdCliente=c.IdCliente WHERE a.IdCliente = ?";
         try (Connection conn = ConnessioneDatabase.getConnection()) {
 
@@ -30,6 +32,18 @@ public class ModelAutenticazione {
                     DatiSessioneCliente.setEmail(risultatoClienti.getString("Email"));
                     DatiSessioneCliente.setCertificato(risultatoClienti.getInt("CertificatoValido"));
                     DatiSessioneCliente.setDataNascita(risultatoClienti.getString("DataNascita"));
+                    DatiSessioneCliente.setTelefono(risultatoClienti.getString("Telefono"));
+
+                    InputStream immagine = risultatoClienti.getBinaryStream("ImmagineProfilo");
+
+                    Image immagineProfilo;
+                    if (immagine != null) {
+                        immagineProfilo = new Image(immagine);
+                    } else {
+                        immagineProfilo = new Image(ModelAutenticazione.class.getResource("/Images/defaultImgProfilo.png").toExternalForm());
+                    }
+                    DatiSessioneCliente.setImmagineProfilo(immagineProfilo);
+
                     DatiSessioneCliente.setDateOrariPrenotazioni(caricaDatePrenotazioniSalaPesi(risultatoClienti.getInt("IdCliente")));
                     try(PreparedStatement statoAbbonamento=conn.prepareStatement(Query3)) {
                         statoAbbonamento.setInt(1, risultatoClienti.getInt("IdCliente"));

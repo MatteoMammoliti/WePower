@@ -14,7 +14,7 @@
             <children>
                <ImageView fx:id="imageUtente" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                   <image>
-                     <Image url="@../../Images/profile-icon-avatar-icon-user-icon-person-icon-free-png.png" />
+                     <Image url="@../../Images/defaultImgProfilo.png" />
                   </image>
                </ImageView>
                <Label fx:id="nomeCognomeUtente" text="Matteo Mamoliti" />

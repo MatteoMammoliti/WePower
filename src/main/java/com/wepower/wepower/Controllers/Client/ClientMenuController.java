@@ -21,9 +21,7 @@ public class ClientMenuController  implements Initializable {
     public Label emailUtente;
     public Label labelStatoAbbonamento;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        addListeners();
+    public void caricaMenu() {
         nomeCognomeUtente.setText(DatiSessioneCliente.getNomeUtente() + " " + DatiSessioneCliente.getCognome());
         emailUtente.setText(DatiSessioneCliente.getEmail());
         if (DatiSessioneCliente.getStatoAbbonamento()){
@@ -33,6 +31,14 @@ public class ClientMenuController  implements Initializable {
             labelStatoAbbonamento.setText("Abbonamento non attivo");
             labelStatoAbbonamento.setStyle("-fx-text-fill: red;");
         }
+        this.imageUtente.setImage(DatiSessioneCliente.getImmagineProfilo());
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Model.getInstance().setClientMenuController(this);
+        addListeners();
+        caricaMenu();
     }
 
     // LISTENERS DEI BOTTONI DEL MENU

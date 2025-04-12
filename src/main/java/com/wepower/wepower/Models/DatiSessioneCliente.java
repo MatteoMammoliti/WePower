@@ -27,6 +27,7 @@ public class DatiSessioneCliente {
     private static String altezza;
     private static String pesoAttuale;
     private static String percMassaGrassa;
+    private static Image immagineProfilo;
 
     //Tutto lo storico delle prenotazioni sala pesi dell'utente
     private static ArrayList<PrenotazioneSalaPesi> dateOrariPrenotazioni = new ArrayList<>();
@@ -68,6 +69,9 @@ public class DatiSessioneCliente {
         return null;
     }
     public static String getDataNascita(){return dataNascita;}
+    public static Image getImmagineProfilo() { return immagineProfilo; }
+
+
     // SETTER
     public static void setStatoAbbonamento(boolean abbonamento){statoAbbonamento = abbonamento;}
     public static void setDataNascita(String data){dataNascita=data;}
@@ -89,6 +93,7 @@ public class DatiSessioneCliente {
     public static void setCognome(String c) { cognome = c; }
     public static void setTelefono(String t) {telefono = t; }
     public static void setIdSchedaAllenamento(int id) { idSchedaAllenamento = id; }
+    public static void setImmagineProfilo(Image immagine) { immagineProfilo = immagine; }
     public static void setDateOrariPrenotazioni(ArrayList<PrenotazioneSalaPesi> d) {
         dateOrariPrenotazioni = d;
 

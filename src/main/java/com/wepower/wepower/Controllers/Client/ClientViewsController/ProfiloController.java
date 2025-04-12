@@ -1,6 +1,8 @@
 package com.wepower.wepower.Controllers.Client.ClientViewsController;
 
+import com.wepower.wepower.Controllers.Client.ClientMenuController;
 import com.wepower.wepower.Models.DatiSessioneCliente;
+import com.wepower.wepower.Models.Model;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -184,7 +186,9 @@ public class ProfiloController implements Initializable {
             Image immagine=new Image(imgProfilo.toURI().toString());
             contenitoreImmagine.setImage(immagine);
             DatiSessioneCliente.salvaImmagineProfiloUtente(DatiSessioneCliente.getIdUtente(),imgProfilo);
+            DatiSessioneCliente.setImmagineProfilo(immagine);
             caricaInterfacciaDatiUtente();
+            Model.getInstance().getClientMenuController().caricaMenu();
         }
     }
 
