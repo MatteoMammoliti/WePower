@@ -13,8 +13,8 @@ import java.util.ArrayList;
 public class ModelAutenticazione {
     public static boolean verificaCredenziali(String email, String password) throws SQLException {
         String Query2 = "SELECT * FROM Admin WHERE Email = ? AND Password = ?";
-        String Query="SELECT c.idCliente,c.CertificatoValido,c.nome, c.cognome, cc.Email,cc.Telefono FROM CredenzialiCliente cc JOIN Cliente c ON cc.idCliente=c.idCliente WHERE cc.Email = ? AND cc.Password = ?";
-        String Query3="SELECT a.StatoAbbonamento FROM AbbonamentoCliente a JOIN Cliente c ON a.idCliente=c.idCliente WHERE a.idCliente = ?";
+        String Query="SELECT c.IdCliente,c.CertificatoValido,c.Nome, c.Cognome,c.DataNascita, cc.Email,cc.Telefono FROM CredenzialiCliente cc JOIN Cliente c ON cc.idCliente=c.idCliente WHERE cc.Email = ? AND cc.Password = ?";
+        String Query3="SELECT a.StatoAbbonamento FROM AbbonamentoCliente a JOIN Cliente c ON a.IdCliente=c.IdCliente WHERE a.IdCliente = ?";
         try (Connection conn = ConnessioneDatabase.getConnection()) {
 
             try (PreparedStatement datiCliente = conn.prepareStatement(Query)) {
@@ -24,14 +24,15 @@ public class ModelAutenticazione {
                 //Prelevo i dati del cliente
                 if (risultatoClienti.next()) {
                     System.out.println("Login cliente effettuato con successo");
-                    DatiSessioneCliente.setIdUtente(risultatoClienti.getInt("idCliente"));
-                    DatiSessioneCliente.setNomeUtente(risultatoClienti.getString("nome"));
-                    DatiSessioneCliente.setCognome(risultatoClienti.getString("cognome"));
+                    DatiSessioneCliente.setIdUtente(risultatoClienti.getInt("IdCliente"));
+                    DatiSessioneCliente.setNomeUtente(risultatoClienti.getString("Nome"));
+                    DatiSessioneCliente.setCognome(risultatoClienti.getString("Cognome"));
                     DatiSessioneCliente.setEmail(risultatoClienti.getString("Email"));
-                    DatiSessioneCliente.setCertificato(risultatoClienti.getBoolean("CertificatoValido"));
-                    DatiSessioneCliente.setDateOrariPrenotazioni(caricaDatePrenotazioniSalaPesi(risultatoClienti.getInt("idCliente")));
+                    DatiSessioneCliente.setCertificato(risultatoClienti.getInt("CertificatoValido"));
+                    DatiSessioneCliente.setDataNascita(risultatoClienti.getString("DataNascita"));
+                    DatiSessioneCliente.setDateOrariPrenotazioni(caricaDatePrenotazioniSalaPesi(risultatoClienti.getInt("IdCliente")));
                     try(PreparedStatement statoAbbonamento=conn.prepareStatement(Query3)) {
-                        statoAbbonamento.setInt(1, risultatoClienti.getInt("idCliente"));
+                        statoAbbonamento.setInt(1, risultatoClienti.getInt("IdCliente"));
                         ResultSet risultatoStato=statoAbbonamento.executeQuery();
                         if(risultatoStato.next()) {
                             System.out.println(risultatoStato.getInt("StatoAbbonamento"));
@@ -120,6 +121,4 @@ public class ModelAutenticazione {
         }
         return datePrenotazioni;
     }
-
-
 }

@@ -4,7 +4,7 @@ import com.wepower.wepower.Controllers.Client.ClientDashboardController;
 import com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra;
 import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesiCliente;
 import com.wepower.wepower.Models.DatiSessioneCliente;
-import com.wepower.wepower.Models.ModelPrenotazioni;
+import com.wepower.wepower.Models.DatiPalestra.ModelPrenotazioni;
 import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

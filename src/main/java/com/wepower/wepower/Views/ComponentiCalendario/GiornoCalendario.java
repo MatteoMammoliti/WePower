@@ -1,9 +1,5 @@
-package com.wepower.wepower.Views;
+package com.wepower.wepower.Views.ComponentiCalendario;
 import javafx.scene.control.Button;
-
-import java.awt.*;
-
-import javafx.scene.input.MouseEvent;
 
 
 public class GiornoCalendario  extends Button {

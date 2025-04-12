@@ -1,7 +1,7 @@
-package com.wepower.wepower.Models;
+package com.wepower.wepower.Models.DatiPalestra;
 
-import com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra;
-import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
+import com.wepower.wepower.Models.ConnessioneDatabase;
+import com.wepower.wepower.Models.DatiSessioneCliente;
 
 import javax.swing.*;
 import java.sql.Connection;

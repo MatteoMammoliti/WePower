@@ -2,7 +2,7 @@ package com.wepower.wepower.Controllers.Client;
 
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Views.BannerAbbonamenti;
-import com.wepower.wepower.Views.Calendario;
+import com.wepower.wepower.Views.ComponentiCalendario.Calendario;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

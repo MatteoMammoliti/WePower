@@ -1,14 +1,11 @@
-package com.wepower.wepower.Views;
+package com.wepower.wepower.Views.ComponentiCalendario;
 
 import com.wepower.wepower.Models.DatiSessioneCliente;
-import javafx.geometry.Bounds;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import javafx.scene.input.MouseEvent;
 

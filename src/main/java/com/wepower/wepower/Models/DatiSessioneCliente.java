@@ -1,6 +1,14 @@
 package com.wepower.wepower.Models;
 
 import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
+import javafx.scene.image.Image;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,9 +20,13 @@ public class DatiSessioneCliente {
     private static String email;
     private static String nome;
     private static String cognome;
-    private static boolean certificato;
+    private static int certificato;
     private static String telefono;
     private static int idSchedaAllenamento;
+    private static String dataNascita;
+    private static String altezza;
+    private static String pesoAttuale;
+    private static String percMassaGrassa;
 
     //Tutto lo storico delle prenotazioni sala pesi dell'utente
     private static ArrayList<PrenotazioneSalaPesi> dateOrariPrenotazioni = new ArrayList<>();
@@ -32,10 +44,13 @@ public class DatiSessioneCliente {
     public static String getNomeUtente() {
         return nome;
     }
+    public static String getAltezza() {return altezza;}
+    public static String getPesoAttuale() {return pesoAttuale;}
+    public static String getPercMassaGrassa() {return percMassaGrassa;}
     public  static String getTelefono() {
         return telefono;
     }
-    public static boolean Certificato() {
+    public static int getCertificato() {
         return certificato;
     }
     public static String getCognome() { return cognome; }
@@ -52,9 +67,10 @@ public class DatiSessioneCliente {
         }
         return null;
     }
-
+    public static String getDataNascita(){return dataNascita;}
     // SETTER
     public static void setStatoAbbonamento(boolean abbonamento){statoAbbonamento = abbonamento;}
+    public static void setDataNascita(String data){dataNascita=data;}
     public static void setNomeUtente(String n) {
         nome=n;
     }
@@ -64,7 +80,10 @@ public class DatiSessioneCliente {
     public static void setEmail(String e_mail){
         email = e_mail;
     }
-    public static void setCertificato(boolean valore) {
+    public static void setAltezza(String a) {altezza = a;}
+    public static void setPesoAttuale(String p) {pesoAttuale = p;}
+    public static void setPercMassaGrassa(String p) {percMassaGrassa = p;}
+    public static void setCertificato(int valore) {
         certificato = valore;
     }
     public static void setCognome(String c) { cognome = c; }
@@ -85,11 +104,15 @@ public class DatiSessioneCliente {
         idUtente = 0;
         email = null;
         nome = null;
-        certificato = false;
+        certificato = 0;
         telefono = null;
         dateOrariPrenotazioni.clear();
         datePrenotazioniSalaPesi.clear();
         statoAbbonamento = false;
+        idSchedaAllenamento = 0;
+        altezza = null;
+        pesoAttuale = null;
+        percMassaGrassa = null;
         Model.invalidate();
     }
     // CONTROLLO DATA PRENOTAZIONE SALA PESI
@@ -101,6 +124,7 @@ public class DatiSessioneCliente {
         }
         return false;
     }
+
     // CONTROLLO DATA E ORARIO PRENOTAZIONE SALA PESI PER STORICO
     public static boolean controlloDataPrenotazioneSalaPesi(LocalDate data,String ora) {
         String dataControllo = data.toString();
@@ -112,8 +136,56 @@ public class DatiSessioneCliente {
         return false;
     }
 
+    public static String getTipoAbbonamentoAttivo(){
+        String abbonamentoAttivo;
+        String nomeTipoAbbonamento="SELECT t.NomeAbbonamento from TipoAbbonamento t join AbbonamentoCliente a on t.IdTipoAbbonamento=a.IdTipoAbbonamento where a.IdCliente=?";
+        try(Connection conn=ConnessioneDatabase.getConnection()){
+            try(PreparedStatement nomeAbbonamento=conn.prepareStatement(nomeTipoAbbonamento)){
+                nomeAbbonamento.setInt(1,idUtente);
+                ResultSet risultato=nomeAbbonamento.executeQuery();
+                if(risultato.next()){
+                    abbonamentoAttivo=risultato.getString("NomeAbbonamento");
+                    return abbonamentoAttivo;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 
+    public static String getDataInizioAbbonamentoAttivo(){
+        String dataInizioAbbonamento="SELECT ac.DataInizioAbbonamento from AbbonamentoCliente ac where ac.IdCliente=? and ac.StatoAbbonamento=1";
+        try(Connection conn=ConnessioneDatabase.getConnection()){
+            try(PreparedStatement dataInizio=conn.prepareStatement(dataInizioAbbonamento)){
+                dataInizio.setInt(1,idUtente);
+                ResultSet risultato=dataInizio.executeQuery();
+                if(risultato.next()){
+                    return risultato.getString("DataInizioAbbonamento");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 
+    public static String getDataFineAbbonamentoAttivo() throws SQLException {
+        String dataFineAbbonamentoAttivo="SELECT ac.DataFineAbbonamento from AbbonamentoCliente ac where ac.IdCliente= ? and ac.StatoAbbonamento=1";
+        try(Connection conn=ConnessioneDatabase.getConnection()){
+            try (PreparedStatement dataFine=conn.prepareStatement(dataFineAbbonamentoAttivo)){
+                dataFine.setInt(1, idUtente);
+                ResultSet risultato=dataFine.executeQuery();
+                if (risultato.next()) {
+                    return risultato.getString("DataFineAbbonamento");
+                }
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        System.out.println("no");
+        return null;
+    }
 
     //AGGIUNGI UNA PRENOTAZIONE
     public static void aggiungiPrenotazione(PrenotazioneSalaPesi p) {
@@ -129,4 +201,71 @@ public class DatiSessioneCliente {
         }
     }
 
+    //Salvo l'immagine profilo dell'utente nel DB
+    public static void salvaImmagineProfiloUtente(int idUtente, File immagine) throws SQLException, IOException {
+        String salvaImmagine = "UPDATE Cliente SET ImmagineProfilo=? where IdCliente=?";
+
+        //Leggo l'immagine e la converto come un array di byte ,questo array rappresenta l'immagine come un array di byte
+        //Questo perchè il database non "riconosce" i file, ma può salvare array di byte nei campi "Blob"
+        byte[] imageBytes = Files.readAllBytes(Paths.get(immagine.getAbsolutePath()));
+        //Files.readAllByte Apre un input Stream legge tutto il contenuto del file byte per byte in RAM e lo chiude automaticamente.
+        //Paths.get trasforma la String con il percorso del file in un oggetto path, un oggetto path rappresenta un percorso nel filesystem.
+        //Quindi, dato che la funzione richiede un oggetto di tipo Path, e con .getAbsolutePath otteniamo il percorso sotto forma di String
+        //dobbiamo convertire la stringa ottenuta in un Path.
+
+        try (Connection conn = ConnessioneDatabase.getConnection()) {
+            try (PreparedStatement immagineProfilo = conn.prepareStatement(salvaImmagine)) {
+                //Passo il contenuto dell'immagine,è uno stream binario
+                immagineProfilo.setBytes(1, imageBytes);
+                immagineProfilo.setInt(2, idUtente);
+                immagineProfilo.executeUpdate();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //Carico l'immagine profilo dell'utente dal db
+    public static Image caricaImmagineProfiloUtente(int idUtente) throws SQLException {
+        String caricaImmagine="Select ImmagineProfilo from Cliente where IdCliente=?";
+        try(Connection conn=ConnessioneDatabase.getConnection()){
+            PreparedStatement immagineProfilo=conn.prepareStatement(caricaImmagine);
+            immagineProfilo.setInt(1,idUtente);
+            ResultSet risultato=immagineProfilo.executeQuery();
+
+            if(risultato.next()){
+                //Usiamo un InputStream, rappresenta uno stream di byte in ingresso
+                //un "tubo" in cui scorrono byte da una fonte esterna.
+                InputStream stream=risultato.getBinaryStream("ImmagineProfilo");
+                // .getBinaryStream restituisce un InputStream
+                if(stream!=null){
+                    return new Image(stream);
+                }
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+
+        }
+        return null;
+    }
+
+    public static void salvaCertificatoMeidico(int idUtente,File certificato) throws SQLException, IOException {
+        String caricoCertificato="INSERT INTO Certificato (IdCliente,Stato,ImgCertificato,DataCaricamentoCertificato) VALUES (?,?,?,?)";
+        byte[] certificatoBytes = Files.readAllBytes(Paths.get(certificato.getAbsolutePath()));
+        try(Connection conn=ConnessioneDatabase.getConnection()){
+            try(PreparedStatement datiCertificato=conn.prepareStatement(caricoCertificato)){
+                datiCertificato.setInt(1, idUtente);
+                datiCertificato.setString(2,"Attesa");
+                datiCertificato.setBytes(3,certificatoBytes);
+                datiCertificato.setString(4, LocalDate.now().toString());
+                datiCertificato.executeUpdate();
+
+                if(datiCertificato.getUpdateCount()>0){
+                    System.out.println("Caricato certificato medico");
+                }
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
 }
