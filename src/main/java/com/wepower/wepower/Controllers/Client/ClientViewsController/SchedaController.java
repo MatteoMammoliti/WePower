@@ -37,7 +37,7 @@ public class SchedaController implements Initializable {
         if (!schedaAllenamento.isEmpty()) {
             containerSchedaAllenamento.getChildren().addAll(schedaAllenamento);
         } else {
-            Label label = new Label("Nessuna scheda allenamento disponibile. Componila o richiedila all'admin");
+            Label label = new Label("Nessun esercizio presente nella scheda. Componila!");
             containerSchedaAllenamento.getChildren().add(label);
         }
     }

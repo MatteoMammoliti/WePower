@@ -12,6 +12,8 @@ module com.wepower.wepower {
     requires com.dlsc.formsfx;
     requires org.kordamp.ikonli.javafx;
     requires java.desktop;
+    requires java.management;
+    requires org.json;
 
     opens com.wepower.wepower.Controllers to javafx.fxml;
     opens com.wepower.wepower.Controllers.Client to javafx.fxml;

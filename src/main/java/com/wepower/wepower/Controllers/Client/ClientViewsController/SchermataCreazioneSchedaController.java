@@ -31,7 +31,7 @@ public class SchermataCreazioneSchedaController {
                 if (resultSet.next()) {
                     DatiSessioneCliente.setIdSchedaAllenamento(resultSet.getInt("IdScheda"));
                     Model.getInstance().getViewFactoryClient().invalidateSchedaView();
-                    Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Dashboard"); // o un'altra qualsiasi temporanea
+                    Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Dashboard");
                     Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Scheda");
                 }
             } catch (SQLException e) {

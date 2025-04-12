@@ -1,19 +1,25 @@
 package com.wepower.wepower.Controllers.Client;
 
+import com.wepower.wepower.APIs.OpenAI;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Views.BannerAbbonamenti;
 import com.wepower.wepower.Views.ComponentiCalendario.Calendario;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -21,6 +27,11 @@ import java.util.ResourceBundle;
 public class ClientDashboardController implements Initializable {
     private static ClientDashboardController instance;
     public AnchorPane containerCalendario;
+
+    // cbhatbot
+    public Button inviaButton;
+    public TextField inputField;
+    public TextArea chatArea;
     @FXML
     private Label labelNomeUtenteSaluto;
     private double prefHieght = 200; // altezza del banner
@@ -85,6 +96,31 @@ public class ClientDashboardController implements Initializable {
         scrollPaneBanner.setOnMouseExited(event -> timeline.play());
     }
 
+    public void onChiediPowerino() {
+        inviaButton.setOnAction(event -> {
+            String userInput = inputField.getText().trim();
+            if (!userInput.isEmpty()) {
+                chatArea.appendText("Tu: " + userInput + "\n");
+                inputField.clear();
+
+                // Avvia un nuovo thread per lo streaming
+                new Thread(() -> {
+                    try {
+                        OpenAI.chiediPowerinoStreaming(userInput, token -> {
+                            Platform.runLater(() -> {
+                                chatArea.appendText(token);
+                            });
+                        });
+                        Platform.runLater(() -> chatArea.appendText("\n")); // Vai a capo alla fine
+                    } catch (IOException e) {
+                        Platform.runLater(() -> chatArea.appendText("\n⚠ Errore di connessione con Powerino\n"));
+                        e.printStackTrace();
+                    }
+                }).start();
+            }
+        });
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         instance = this;
@@ -92,5 +128,6 @@ public class ClientDashboardController implements Initializable {
         loadCalendario();
         loadBanner();
         startAutoScroll();
+        onChiediPowerino();
     }
 }
