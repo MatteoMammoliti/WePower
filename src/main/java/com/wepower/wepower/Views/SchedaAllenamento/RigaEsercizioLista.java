@@ -2,6 +2,7 @@ package com.wepower.wepower.Views.SchedaAllenamento;
 
 import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.DatiSessioneCliente;
+import com.wepower.wepower.Models.Model;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -24,7 +25,7 @@ public class RigaEsercizioLista extends HBox {
     private TextField numeroRipetizioni;
     private Button aggiungiEsercizioScheda;
 
-    public RigaEsercizioLista(String nomeEsercizio, String descrizioneEsercizio, String muscoloAllenato, String percorsoImmagine, Runnable callbackUI) {
+    public RigaEsercizioLista(String nomeEsercizio, String descrizioneEsercizio, String muscoloAllenato, String percorsoImmagine) {
 
         this.nomeEsercizio = new Label(nomeEsercizio);
         this.descrizioneEsercizio = new Label(descrizioneEsercizio);
@@ -47,13 +48,13 @@ public class RigaEsercizioLista extends HBox {
         this.aggiungiEsercizioScheda.setOnAction(e -> {
             try {
                 onInserisci();
-                callbackUI.run();
             } catch (SQLException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Errore");
                 alert.setHeaderText("Esercizio già presente nella scheda");
                 alert.showAndWait();
             }
+            aggiornaUI();
         });
 
         this.getChildren().addAll(this.nomeEsercizio, this.descrizioneEsercizio, this.muscoloAllenato, this.imageEsercizio, this.numeroSerie, this.numeroRipetizioni, this.aggiungiEsercizioScheda);
@@ -81,6 +82,15 @@ public class RigaEsercizioLista extends HBox {
             inserimentoScheda.setString(3, this.numeroRipetizioni.getText());
             inserimentoScheda.setString(4, this.numeroSerie.getText());
             inserimentoScheda.executeUpdate();
+        }
+    }
+
+    private void aggiornaUI() {
+        try {
+            Model.getInstance().getSchedaController().loadSchedaAllenamento();
+            Model.getInstance().getSchedaController().loadEsercizi();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

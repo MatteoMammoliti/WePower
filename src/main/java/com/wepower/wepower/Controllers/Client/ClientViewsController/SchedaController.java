@@ -1,5 +1,6 @@
 package com.wepower.wepower.Controllers.Client.ClientViewsController;
 
+import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.SchedaAllenamento.TabellaElencoEsercizi;
 import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioLista;
 import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioScheda;
@@ -21,17 +22,8 @@ public class SchedaController implements Initializable {
     @FXML
     private VBox containerEsercizi;
 
-    Runnable aggiornaUI = () -> {
-        try {
-            loadSchedaAllenamento();
-            loadEsercizi();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    };
-
-    private void loadSchedaAllenamento() throws SQLException {
-        ArrayList<RigaEsercizioScheda> schedaAllenamento = TabellaElencoEsercizi.riempiRigaEsercizioScheda(aggiornaUI);
+    public void loadSchedaAllenamento() throws SQLException {
+        ArrayList<RigaEsercizioScheda> schedaAllenamento = TabellaElencoEsercizi.riempiRigaEsercizioScheda();
         containerSchedaAllenamento.getChildren().clear();
 
         if (!schedaAllenamento.isEmpty()) {
@@ -42,14 +34,15 @@ public class SchedaController implements Initializable {
         }
     }
 
-    private void loadEsercizi() throws SQLException {
-        ArrayList<RigaEsercizioLista> esercizi = TabellaElencoEsercizi.riempiRigaEsercizio(aggiornaUI);
+    public void loadEsercizi() throws SQLException {
+        ArrayList<RigaEsercizioLista> esercizi = TabellaElencoEsercizi.riempiRigaEsercizio();
         containerEsercizi.getChildren().clear();
         containerEsercizi.getChildren().addAll(esercizi);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Model.getInstance().setSchedaController(this);
         try {
             loadEsercizi();
             loadSchedaAllenamento();

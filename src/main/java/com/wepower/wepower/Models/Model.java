@@ -1,6 +1,7 @@
 package com.wepower.wepower.Models;
 
 import com.wepower.wepower.Controllers.Client.ClientMenuController;
+import com.wepower.wepower.Controllers.Client.ClientViewsController.SchedaController;
 import com.wepower.wepower.Views.ViewFactoryAdmin;
 import com.wepower.wepower.Views.ViewFactoryClient;
 
@@ -10,6 +11,7 @@ public class Model {
     private static Model model;
     private ConnessioneDatabase connessioneDatabase;
     private ClientMenuController clientMenuController;
+    private SchedaController schedaController;
 
     // la classe Model (di business) è collegata alla gestione delle viste (viewFactory)
     private final ViewFactoryClient viewFactoryClient;
@@ -27,9 +29,13 @@ public class Model {
     }
     public ViewFactoryAdmin getViewFactoryAdmin() { return viewFactoryAdmin; }
     public ClientMenuController getClientMenuController() { return clientMenuController; }
+    public SchedaController getSchedaController() { return schedaController; }
 
     public void setClientMenuController(ClientMenuController clientMenuController) {
         this.clientMenuController = clientMenuController;
+    }
+    public void setSchedaController(SchedaController schedaController) {
+        this.schedaController = schedaController;
     }
 
     public void TestConnessione() {

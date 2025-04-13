@@ -2,6 +2,7 @@ package com.wepower.wepower.Views.SchedaAllenamento;
 
 import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.DatiSessioneCliente;
+import com.wepower.wepower.Models.Model;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,7 +28,7 @@ public class RigaEsercizioScheda extends HBox {
     private Button rimuoviSchedaEsercizio;
 
 
-    public RigaEsercizioScheda(String nomeEsercizio, String descrizioneEsercizio, String muscoloAllenato, String numeroSerie, String numeroRipetizioni, String percorsoImmagine, String massimaleAttuale, Runnable aggiornaUI) {
+    public RigaEsercizioScheda(String nomeEsercizio, String descrizioneEsercizio, String muscoloAllenato, String numeroSerie, String numeroRipetizioni, String percorsoImmagine, String massimaleAttuale) {
         this.nomeEsercizio = new Label(nomeEsercizio);
         this.descrizioneEsercizio = new Label(descrizioneEsercizio);
         this.muscoloAllenato = new Label("Muscolo allenato: " + muscoloAllenato);
@@ -50,20 +51,10 @@ public class RigaEsercizioScheda extends HBox {
         this.imageEsercizio.setPreserveRatio(true);
 
         this.aggiungiMassimale = new Button("Aggiungi massimale");
-        this.aggiungiMassimale.setOnAction(event -> {
-            onAggiungiNuovoMassimale();
-            aggiornaUI.run();
-        });
+        this.aggiungiMassimale.setOnAction(event -> onAggiungiNuovoMassimale());
 
         this.rimuoviSchedaEsercizio = new Button("Rimuovi esercizio dalla scheda");
-        this.rimuoviSchedaEsercizio.setOnAction(event -> {
-            try {
-                onRimuoviEsercizio();
-                aggiornaUI.run();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        this.rimuoviSchedaEsercizio.setOnAction(event -> onRimuoviEsercizio());
 
         this.getChildren().addAll(this.nomeEsercizio, this.descrizioneEsercizio, this.muscoloAllenato, this.numeroSerie, this.numeroRipetizioni, this.imageEsercizio, this.massimaleAttuale, this.aggiungiNuovoMassimale,
                 this.aggiungiMassimale,this.rimuoviSchedaEsercizio);
@@ -71,7 +62,7 @@ public class RigaEsercizioScheda extends HBox {
         this.setPadding(new Insets(10));
     }
 
-    private void onRimuoviEsercizio() throws SQLException {
+    private void onRimuoviEsercizio() {
         String eliminaEsercizio = "DELETE FROM ComposizioneSchedaAllenamento WHERE NomeEsercizio = ? AND IdSchedaAllenamento = ?";
         String eliminaMassimale = "DELETE FROM MassimaleImpostatoCliente WHERE NomeEsercizio = ? AND IdCliente = ?";
 
@@ -85,6 +76,11 @@ public class RigaEsercizioScheda extends HBox {
             eliminazioneMassimale.setString(1, this.nomeEsercizio.getText());
             eliminazioneMassimale.setInt(2, DatiSessioneCliente.getIdUtente());
             eliminazioneMassimale.executeUpdate();
+
+            Model.getInstance().getSchedaController().loadSchedaAllenamento();
+            Model.getInstance().getSchedaController().loadEsercizi();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -99,6 +95,9 @@ public class RigaEsercizioScheda extends HBox {
             inserimento.setDate(3, java.sql.Date.valueOf(java.time.LocalDate.now()));
             inserimento.setDouble(4, Double.parseDouble(this.aggiungiNuovoMassimale.getText()));
             inserimento.executeUpdate();
+
+            Model.getInstance().getSchedaController().loadSchedaAllenamento();
+            Model.getInstance().getSchedaController().loadEsercizi();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

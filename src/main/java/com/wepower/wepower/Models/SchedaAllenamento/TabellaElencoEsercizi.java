@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class TabellaElencoEsercizi {
 
-    public static ArrayList<RigaEsercizioLista> riempiRigaEsercizio(Runnable aggiornaUI) throws SQLException {
+    public static ArrayList<RigaEsercizioLista> riempiRigaEsercizio() throws SQLException {
 
         ArrayList<RigaEsercizioLista> ris = new ArrayList<RigaEsercizioLista>();
 
@@ -32,7 +32,7 @@ public class TabellaElencoEsercizi {
                 if (PercorsoImmagine == null || PercorsoImmagine.trim().isEmpty()) {
                     PercorsoImmagine = "images/LOGO.png";
                 }
-                RigaEsercizioLista esercizio = new RigaEsercizioLista(NomeEsercizio, DescrizioneEsercizio, MuscoloAllenato, PercorsoImmagine, aggiornaUI);
+                RigaEsercizioLista esercizio = new RigaEsercizioLista(NomeEsercizio, DescrizioneEsercizio, MuscoloAllenato, PercorsoImmagine);
                 ris.add(esercizio);
             }
         } catch (Exception e) {
@@ -41,7 +41,7 @@ public class TabellaElencoEsercizi {
         return ris;
     }
 
-    public static ArrayList<RigaEsercizioScheda> riempiRigaEsercizioScheda(Runnable aggiornaUI) throws SQLException {
+    public static ArrayList<RigaEsercizioScheda> riempiRigaEsercizioScheda() throws SQLException {
 
         ArrayList<RigaEsercizioScheda> ris = new ArrayList<RigaEsercizioScheda>();
 
@@ -84,7 +84,7 @@ public class TabellaElencoEsercizi {
                 if (PercorsoImmagine == null || PercorsoImmagine.trim().isEmpty()) {
                     PercorsoImmagine = "images/LOGO.png";
                 }
-                RigaEsercizioScheda esercizio = new RigaEsercizioScheda(NomeEsercizio, DescrizioneEsercizio, MuscoloAllenato, NumeroSerie, NumeroRipetizioni, PercorsoImmagine, massimaleAttuale, aggiornaUI);
+                RigaEsercizioScheda esercizio = new RigaEsercizioScheda(NomeEsercizio, DescrizioneEsercizio, MuscoloAllenato, NumeroSerie, NumeroRipetizioni, PercorsoImmagine, massimaleAttuale);
                 ris.add(esercizio);
             }
         } catch (Exception e) {
