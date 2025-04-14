@@ -12,6 +12,20 @@ public class ModelValidazione {
         return Pattern.matches("^[a-zA-Z]+",nome);
     }
     public static boolean controlloCognome(String cognome){
-        return Pattern.matches("^[a-zA-Z]+",cognome);
+        return Pattern.matches("^[a-zA-Z-]+",cognome);
+    }
+    public static boolean controllonomeCognome(String nomeCognome){
+        String regexNomeCognome="^[a-zA-Z]+(\\s[a-zA-Z]+)+$";
+        return Pattern.matches(regexNomeCognome,nomeCognome);
+    }
+    public static boolean controlloNumeroCarta(String nCarta){
+        return Pattern.matches("^\\d{13,19}$",nCarta);
+    }
+
+    public static boolean controlloNumeroCVC(String cvc){
+        return Pattern.matches("^\\d{3}$",cvc);
+    }
+    public static boolean controlloDataScadenzacarta(String data){
+        return Pattern.matches("^(0[1-9]|1[0-2])/(\\d{2})$",data);
     }
 }

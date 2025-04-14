@@ -16,7 +16,7 @@ public class ModelAutenticazione {
     public static boolean verificaCredenziali(String email, String password) throws SQLException {
         String Query2 = "SELECT * FROM Admin WHERE Email = ? AND Password = ?";
         String Query="SELECT c.IdCliente,c.CertificatoValido,c.Nome, c.Cognome,c.DataNascita, cc.Email,cc.Telefono, c.ImmagineProfilo FROM CredenzialiCliente cc JOIN Cliente c ON cc.idCliente=c.idCliente WHERE cc.Email = ? AND cc.Password = ?";
-        String Query3="SELECT a.StatoAbbonamento FROM AbbonamentoCliente a JOIN Cliente c ON a.IdCliente=c.IdCliente WHERE a.IdCliente = ?";
+        String Query3="SELECT a.StatoAbbonamento FROM AbbonamentoCliente a JOIN Cliente c ON a.IdCliente=c.IdCliente WHERE a.IdCliente = ? and a.StatoAbbonamento=1";
         try (Connection conn = ConnessioneDatabase.getConnection()) {
 
             try (PreparedStatement datiCliente = conn.prepareStatement(Query)) {
@@ -49,15 +49,14 @@ public class ModelAutenticazione {
                         statoAbbonamento.setInt(1, risultatoClienti.getInt("IdCliente"));
                         ResultSet risultatoStato=statoAbbonamento.executeQuery();
                         if(risultatoStato.next()) {
-                            System.out.println(risultatoStato.getInt("StatoAbbonamento"));
-                            if(risultatoStato.getInt("StatoAbbonamento")==1) {
-                                System.out.println("Abbonamento si");
-                                DatiSessioneCliente.setStatoAbbonamento(true);
+                            System.out.println("Abbonamento si");
+                            DatiSessioneCliente.setStatoAbbonamento(true);
                             }
-                            else{
+
+                        else{
                                 DatiSessioneCliente.setStatoAbbonamento(false);
                             }
-                        }
+
                     }
 
                     String querySchedaAllenamento = "SELECT IdScheda FROM SchedaAllenamento WHERE IdCliente = ? AND SchedaAncoraInUso = 1 LIMIT 1";

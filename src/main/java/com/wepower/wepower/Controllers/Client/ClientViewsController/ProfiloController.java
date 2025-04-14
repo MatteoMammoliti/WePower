@@ -68,6 +68,9 @@ public class ProfiloController implements Initializable {
     private BorderPane contenitoreMioProfilo;
     private File imgProfilo;
     private File imgCertificato;
+
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

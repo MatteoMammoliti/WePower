@@ -1,5 +1,7 @@
 package com.wepower.wepower.Views;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,7 +14,7 @@ public class BannerAbbonamentiInSeleziona extends HBox {
     private int prezzoAbbonamento;
     private String durataAbbonamento;
 
-    public BannerAbbonamentiInSeleziona(String nome,String descrizione,int prezzo,String durata) {
+    public BannerAbbonamentiInSeleziona(String nome, String descrizione, int prezzo, String durata, EventHandler<ActionEvent> clickAbbonati) {
         nomeAbbonamento = nome;
         descrizioneAbbonamento = descrizione;
         prezzoAbbonamento = prezzo;
@@ -39,6 +41,7 @@ public class BannerAbbonamentiInSeleziona extends HBox {
         prezzoEBtn.getStyleClass().add("labelPrezzo");
 
         Button abbonatiBtn=new Button("Abbonati");
+        abbonatiBtn.setOnAction(clickAbbonati);
         VBox.setMargin(abbonatiBtn,new Insets(15,0,0,90));
 
         prezzoEBtn.getChildren().addAll(prezzoAbb,abbonatiBtn);
