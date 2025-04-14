@@ -25,12 +25,13 @@ public class RigaEsercizioScheda extends HBox {
     private Label numeroRipetizioni;
     private ImageView imageEsercizio;
     private Label massimaleAttuale;
+    private Label dataImpostazioneMassimale;
     private TextField aggiungiNuovoMassimale;
     private Button aggiungiMassimale;
     private Button rimuoviSchedaEsercizio;
 
 
-    public RigaEsercizioScheda(String nomeEsercizio, String descrizioneEsercizio, String muscoloAllenato, String numeroSerie, String numeroRipetizioni, String percorsoImmagine, String massimaleAttuale) {
+    public RigaEsercizioScheda(String nomeEsercizio, String descrizioneEsercizio, String muscoloAllenato, String numeroSerie, String numeroRipetizioni, String percorsoImmagine, String massimaleAttuale, String dataImpostazioneMassimale) {
         this.nomeEsercizio = new Label(nomeEsercizio);
         this.descrizioneEsercizio = new Label(descrizioneEsercizio);
         this.muscoloAllenato = new Label("Muscolo allenato: " + muscoloAllenato);
@@ -38,7 +39,7 @@ public class RigaEsercizioScheda extends HBox {
         this.numeroRipetizioni = new Label(numeroRipetizioni);
 
         this.massimaleAttuale = new Label("Massimale attuale: " + massimaleAttuale);
-        // eventualmente inserire data
+        this.dataImpostazioneMassimale = new Label("Data: " + dataImpostazioneMassimale);
 
         this.aggiungiNuovoMassimale = new TextField();
         this.aggiungiNuovoMassimale.setPromptText("Aggiungi nuovo massimale");
@@ -58,7 +59,7 @@ public class RigaEsercizioScheda extends HBox {
         this.rimuoviSchedaEsercizio = new Button("Rimuovi esercizio dalla scheda");
         this.rimuoviSchedaEsercizio.setOnAction(event -> onRimuoviEsercizio());
 
-        this.getChildren().addAll(this.nomeEsercizio, this.descrizioneEsercizio, this.muscoloAllenato, this.numeroSerie, this.numeroRipetizioni, this.imageEsercizio, this.massimaleAttuale, this.aggiungiNuovoMassimale,
+        this.getChildren().addAll(this.nomeEsercizio, this.descrizioneEsercizio, this.muscoloAllenato, this.numeroSerie, this.numeroRipetizioni, this.imageEsercizio, this.massimaleAttuale, this.dataImpostazioneMassimale ,this.aggiungiNuovoMassimale,
                 this.aggiungiMassimale,this.rimuoviSchedaEsercizio);
         this.setSpacing(10);
         this.setPadding(new Insets(10));

@@ -18,7 +18,7 @@ public class SchermataCreazioneSchedaController {
         createScheda.setOnAction(event -> {
 
             String creazioneScheda = "INSERT INTO SchedaAllenamento (IdCliente) VALUES (?)";
-            String prelevaIDScheda = "SELECT IdScheda FROM SchedaAllenamento WHERE IdCliente = ?";
+            String prelevaIDScheda = "SELECT IdScheda FROM SchedaAllenamento WHERE IdCliente = ? AND SchedaAncoraInUso = 1 LIMIT 1";
 
             try(Connection conn = ConnessioneDatabase.getConnection()) {
                 PreparedStatement inserimentoScheda = conn.prepareStatement(creazioneScheda);
@@ -31,6 +31,7 @@ public class SchermataCreazioneSchedaController {
                 if (resultSet.next()) {
                     DatiSessioneCliente.setIdSchedaAllenamento(resultSet.getInt("IdScheda"));
                     Model.getInstance().getViewFactoryClient().invalidateSchedaView();
+                    Model.getInstance().getViewFactoryClient().invalidateMyProfileView();
                     Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Dashboard");
                     Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Scheda");
                 }
