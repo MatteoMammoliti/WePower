@@ -1,6 +1,7 @@
 package com.wepower.wepower.Controllers.Client;
 
-import com.wepower.wepower.APIs.OpenAI;
+import com.wepower.wepower.APIs.OpenRouter_AI;
+import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Views.BannerAbbonamenti;
 import com.wepower.wepower.Views.ComponentiCalendario.Calendario;
@@ -9,18 +10,21 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -32,6 +36,10 @@ public class ClientDashboardController implements Initializable {
     public Button inviaButton;
     public TextField inputField;
     public TextArea chatArea;
+
+    @FXML
+    private LineChart<String, Number> graficoMassimali;
+
     @FXML
     private Label labelNomeUtenteSaluto;
     private double prefHieght = 200; // altezza del banner
@@ -106,19 +114,45 @@ public class ClientDashboardController implements Initializable {
                 // Avvia un nuovo thread per lo streaming
                 new Thread(() -> {
                     try {
-                        OpenAI.chiediPowerinoStreaming(userInput, token -> {
+                        OpenRouter_AI.chiediPowerinoStreaming(userInput, token -> {
                             Platform.runLater(() -> {
                                 chatArea.appendText(token);
                             });
                         });
                         Platform.runLater(() -> chatArea.appendText("\n")); // Vai a capo alla fine
-                    } catch (IOException e) {
+                    } catch (IOException | SQLException e) {
                         Platform.runLater(() -> chatArea.appendText("\n⚠ Errore di connessione con Powerino\n"));
                         e.printStackTrace();
                     }
                 }).start();
             }
         });
+    }
+
+    public void controllerGraficoMassimali() throws SQLException {
+        XYChart.Series<String, Number> massimale = new XYChart.Series<>();
+        massimale.setName("Massimale");
+
+        String prelevaMassimale = "SELECT Peso, DataInserimento FROM MassimaleImpostatoCliente WHERE IDCliente = ? AND NomeEsercizio = ? ORDER BY DataInserimento";
+
+        try (Connection conn = ConnessioneDatabase.getConnection()) {
+            PreparedStatement prelevamento = conn.prepareStatement(prelevaMassimale);
+            prelevamento.setInt(1, DatiSessioneCliente.getIdUtente());
+            prelevamento.setString(2, "Squat");
+            ResultSet rs = prelevamento.executeQuery();
+
+            while(rs.next()) {
+                long dataInserimento = rs.getLong("DataInserimento");
+                double peso = rs.getDouble("Peso");
+
+                // Converti il timestamp in una stringa formattata
+                String data = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(dataInserimento));
+
+                // Aggiungi il punto al grafico
+                massimale.getData().add(new XYChart.Data<>(data, peso));
+            }
+            graficoMassimali.getData().add(massimale);
+        }
     }
 
     @Override
@@ -129,5 +163,10 @@ public class ClientDashboardController implements Initializable {
         loadBanner();
         startAutoScroll();
         onChiediPowerino();
+        try {
+            controllerGraficoMassimali();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
