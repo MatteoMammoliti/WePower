@@ -63,4 +63,5 @@ public class BannerAbbonamenti extends VBox {
         return bannerAbbonamenti;
 
     }
+
 }

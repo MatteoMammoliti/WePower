@@ -4,9 +4,7 @@ import com.wepower.wepower.Views.PrenotazioniCorsiSalaPesi.SchermataPrenotazioni
 import com.wepower.wepower.Views.PrenotazioniCorsiSalaPesi.VisualizzatoreStoricoPrenotazioni;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 

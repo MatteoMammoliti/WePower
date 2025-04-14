@@ -3,6 +3,13 @@ package com.wepower.wepower.Controllers.Client.ClientViewsController;
 import com.wepower.wepower.Controllers.Client.ClientMenuController;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
+import javafx.fxml.FXMLLoader;
+
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import com.wepower.wepower.Models.Model;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -73,15 +80,15 @@ public class ProfiloController implements Initializable {
     }
 
     public void caricaInterfacciaDatiUtente() throws SQLException {
-        String nome= DatiSessioneCliente.getNomeUtente();
-        String cognome=DatiSessioneCliente.getCognome();
-        String email=DatiSessioneCliente.getEmail();
-        String dataNascita=DatiSessioneCliente.getDataNascita();
-        String telefono=DatiSessioneCliente.getTelefono();
-        String altezza=DatiSessioneCliente.getAltezza();
-        String pesoAttuale=DatiSessioneCliente.getPesoAttuale();
-        String percMassaGrassa=DatiSessioneCliente.getPercMassaGrassa();
-        boolean statoAbbonamento=DatiSessioneCliente.getStatoAbbonamento();
+        String nome = DatiSessioneCliente.getNomeUtente();
+        String cognome = DatiSessioneCliente.getCognome();
+        String email = DatiSessioneCliente.getEmail();
+        String dataNascita = DatiSessioneCliente.getDataNascita();
+        String telefono = DatiSessioneCliente.getTelefono();
+        String altezza = DatiSessioneCliente.getAltezza();
+        String pesoAttuale = DatiSessioneCliente.getPesoAttuale();
+        String percMassaGrassa = DatiSessioneCliente.getPercMassaGrassa();
+        boolean statoAbbonamento = DatiSessioneCliente.getStatoAbbonamento();
         //Resetto gli eventi per un eventuale reload
         labelStatoCertificato.setOnMouseClicked(null);
         labelStatoCertificato.getStyleClass().removeAll("certificatoSi", "certificatoNo");
@@ -91,8 +98,8 @@ public class ProfiloController implements Initializable {
         labelDataNascita.setText(dataNascita);
         labelEmail.setText(email);
         contenitoreImmagine.setPreserveRatio(true);
-        Image fotoProfilo=DatiSessioneCliente.caricaImmagineProfiloUtente(DatiSessioneCliente.getIdUtente());
-        if(fotoProfilo!=null){
+        Image fotoProfilo = DatiSessioneCliente.caricaImmagineProfiloUtente(DatiSessioneCliente.getIdUtente());
+        if (fotoProfilo != null) {
             contenitoreImmagine.setImage(fotoProfilo);
         }
 
@@ -105,7 +112,7 @@ public class ProfiloController implements Initializable {
                 throw new RuntimeException(e);
             }
         });
-        if(statoAbbonamento){
+        if (statoAbbonamento) {
             statoAbbonamentoSuperiore.setText("Abbonamento: Attivo");
             statoAbbonamentoSuperiore.setStyle("-fx-text-fill: green");
             labelTipoAbbonamento.setText(DatiSessioneCliente.getTipoAbbonamentoAttivo());
@@ -113,17 +120,31 @@ public class ProfiloController implements Initializable {
             labelDataFineAbbonamento.setText(DatiSessioneCliente.getDataFineAbbonamentoAttivo());
             labelStatoPagamento.setText("Attivo");
             labelStatoPagamento.getStyleClass().add("abbonamentoSi");
-        }
-        else{
+        } else {
             statoAbbonamentoSuperiore.setText("Abbonamento: Non Attivo");
             statoAbbonamentoSuperiore.setStyle("-fx-text-fill: red");
             labelStatoPagamento.setText("Riattiva il tuo abbonamento");
             labelStatoPagamento.getStyleClass().add("abbonamentoNo");
+            labelStatoPagamento.setOnMouseClicked(event -> {
+                try {
+                    onClickLabelAbbonamenti();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
             labelTipoAbbonamento.setText("Non attivo");
             labelDataInizioAbbonamento.setText("Non attivo");
             labelDataFineAbbonamento.setText("Non attivo");
         }
-
+        if (DatiSessioneCliente.getIdSchedaAllenamento() == 0) {
+            labelSchedaAllenamento.setText("Componi o richiedi la tua scheda allenamento");
+            labelSchedaAllenamento.getStyleClass().add("schedaNo");
+        } else {
+            labelSchedaAllenamento.setText("Visualizza la tua scheda attiva");
+            labelSchedaAllenamento.getStyleClass().add("schedaSi");
+        }
+        labelSchedaAllenamento.setOnMouseClicked(event -> onClickLabelScheda());
         if(telefono!=null){
             labelTellefono.setText(telefono);
         }
@@ -200,5 +221,24 @@ public class ProfiloController implements Initializable {
         DatiSessioneCliente.salvaCertificatoMeidico(DatiSessioneCliente.getIdUtente(),imgCertificato);
         DatiSessioneCliente.setCertificato(1);
         caricaInterfacciaDatiUtente();
+    }
+    public void onClickLabelScheda(){
+        Model.getInstance().getViewFactoryClient().invalidateMyProfileView();
+        Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Scheda");
+    }
+
+    public void onClickLabelAbbonamenti() throws IOException {
+        FXMLLoader abbonamenti = new FXMLLoader(getClass().getResource("/Fxml/Client/ClientMenuView/SchermataSelezioneAbbonamento.fxml"));
+        Parent root = abbonamenti.load();
+
+        Stage stage=new Stage();
+        stage.setTitle("Schermata selezione abbonamento");
+
+        Scene scena=new Scene(root);
+        stage.setScene(scena);
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+
     }
 }

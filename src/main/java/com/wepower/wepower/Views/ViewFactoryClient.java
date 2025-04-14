@@ -168,4 +168,7 @@ public class ViewFactoryClient {
     public void invalidateSchedaView() { // dopo la creazione della scheda
         this.scheda = null;
     }
+    public void invalidateMyProfileView(){
+        this.myProfile = null;
+    }
 }

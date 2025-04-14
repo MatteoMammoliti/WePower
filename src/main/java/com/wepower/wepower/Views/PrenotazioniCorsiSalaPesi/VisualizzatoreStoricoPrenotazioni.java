@@ -7,7 +7,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
@@ -39,16 +38,15 @@ public class VisualizzatoreStoricoPrenotazioni extends VBox {
         dataPrenotazione.setPrefWidth(100);
         oraPrenotazione.setPrefWidth(100);
         oraPrenotazione.setPrefHeight(100);
+        HBox contenitoreRiga=new HBox(5);
 
         if(dataConvertita.isBefore(LocalDate.now())){
-            oraPrenotazione.setStyle("-fx-background-color: red;-fx-text-fill: white; -fx-alignment: center;");
-            dataPrenotazione.setStyle("-fx-background-color: red;-fx-text-fill: white; -fx-alignment: center;");
+
+            contenitoreRiga.setStyle("-fx-background-color: red;-fx-text-fill: white; -fx-alignment: center;");
         }
         else{
-            dataPrenotazione.setStyle("-fx-background-color: green;-fx-text-fill: white; -fx-alignment: center;");
-            oraPrenotazione.setStyle("-fx-background-color: green;-fx-text-fill: white; -fx-alignment: center;");
+            contenitoreRiga.setStyle("-fx-background-color: green;-fx-text-fill: white; -fx-alignment: center;");
         }
-        HBox contenitoreRiga=new HBox(5);
 
         contenitoreRiga.getChildren().addAll(dataPrenotazione,oraPrenotazione);
         return contenitoreRiga;

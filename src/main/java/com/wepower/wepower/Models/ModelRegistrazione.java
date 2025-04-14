@@ -2,6 +2,7 @@ package com.wepower.wepower.Models;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class ModelRegistrazione {
     public static boolean verificaEmailEsistente(String email) throws SQLException {
@@ -24,6 +25,7 @@ public class ModelRegistrazione {
     public static boolean registraUtente(String nome, String cognome, LocalDate dataNascita, String email, String password) throws SQLException {
         String insertCliente = "INSERT INTO Cliente (Nome, Cognome, DataNascita) VALUES (?, ?, ?)";
         String insertCredenziali = "INSERT INTO CredenzialiCliente (Email, Password, IdCliente) VALUES (?, ?, ?)";
+
 
         try (Connection conn = ConnessioneDatabase.getConnection()) {
             conn.setAutoCommit(false);

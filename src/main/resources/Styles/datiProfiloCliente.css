@@ -24,3 +24,17 @@
     -fx-text-fill: red;
     -fx-border-width: 5;
 }
+
+.schedaNo{
+    -fx-border-color: red;
+    -fx-text-fill: red;
+}
+.schedaNo:hover{
+    -fx-border-color: red;
+    -fx-text-fill: red;
+    -fx-border-width: 5;
+}
+
+.schedaSi{
+    -fx-text-fill: green;
+}
