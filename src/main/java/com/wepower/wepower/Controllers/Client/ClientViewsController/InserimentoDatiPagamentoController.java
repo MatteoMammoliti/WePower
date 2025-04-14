@@ -2,6 +2,7 @@ package com.wepower.wepower.Controllers.Client.ClientViewsController;
 
 import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.DatiSessioneCliente;
+import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.ModelValidazione;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,7 +21,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class PagamentoAbbonamentoController implements Initializable {
+public class InserimentoDatiPagamentoController implements Initializable {
+    private Stage finestraPrecedente;
     @FXML
     private Label labelNomeAbbonamento;
     @FXML
@@ -56,6 +58,9 @@ public class PagamentoAbbonamentoController implements Initializable {
             }
         });
     }
+
+    public void setFinestraPrecedente(Stage finestraPrecedente) {this.finestraPrecedente = finestraPrecedente;}
+
 
     public void setNomeEPrezzoAbb(String nomeAbbonamento,int PrezzoAbbonamento) {
         labelNomeAbbonamento.setText(nomeAbbonamento);
@@ -126,7 +131,12 @@ public class PagamentoAbbonamentoController implements Initializable {
                     System.out.println("Abbonamento aggiunto con successo");
                     conn.commit();
                     Stage stage=(Stage) btnPaga.getScene().getWindow();
+                    DatiSessioneCliente.setStatoAbbonamento(true);
+                    Model.getInstance().getProfiloController().caricaInterfacciaDatiUtente();
+                    Model.getInstance().getClientMenuController().caricaMenu();
                     stage.close();
+                    if(finestraPrecedente!=null){finestraPrecedente.close();}
+
                 }
                 else{
                     JOptionPane.showMessageDialog(null,"Errore nell'attivazione dell'abbonamento");

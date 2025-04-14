@@ -26,6 +26,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ProfiloController implements Initializable {
+    private static ProfiloController instance;
     @FXML
     private ImageView contenitoreImmagine;
     @FXML
@@ -73,7 +74,7 @@ public class ProfiloController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        Model.getInstance().setProfiloController(this);
         contenitoreMioProfilo.setFocusTraversable(false);
         try {
             caricaInterfacciaDatiUtente();
@@ -82,6 +83,11 @@ public class ProfiloController implements Initializable {
         }
     }
 
+    public ProfiloController(){}
+
+    public static ProfiloController getInstance(){
+        return instance;
+    }
     public void caricaInterfacciaDatiUtente() throws SQLException {
         String nome = DatiSessioneCliente.getNomeUtente();
         String cognome = DatiSessioneCliente.getCognome();
@@ -94,7 +100,10 @@ public class ProfiloController implements Initializable {
         boolean statoAbbonamento = DatiSessioneCliente.getStatoAbbonamento();
         //Resetto gli eventi per un eventuale reload
         labelStatoCertificato.setOnMouseClicked(null);
-        labelStatoCertificato.getStyleClass().removeAll("certificatoSi", "certificatoNo");
+        labelStatoCertificato.getStyleClass().removeAll("certificatoSi", "certificatoNo","certificatoAttesa");
+        labelStatoPagamento.setOnMouseClicked(null);
+        labelStatoPagamento.getStyleClass().removeAll("abbonamentoSi", "abbonamentoNo");
+
 
         labelNomeCognomeSuperiore.setText(nome + " " + cognome);
         labelNomeCognomeInferiore.setText(nome + " " + cognome);
@@ -116,6 +125,7 @@ public class ProfiloController implements Initializable {
             }
         });
         if (statoAbbonamento) {
+            System.out.println("sono qui si");
             statoAbbonamentoSuperiore.setText("Abbonamento: Attivo");
             statoAbbonamentoSuperiore.setStyle("-fx-text-fill: green");
             labelTipoAbbonamento.setText(DatiSessioneCliente.getTipoAbbonamentoAttivo());
@@ -124,6 +134,7 @@ public class ProfiloController implements Initializable {
             labelStatoPagamento.setText("Attivo");
             labelStatoPagamento.getStyleClass().add("abbonamentoSi");
         } else {
+            System.out.println("sono qui no");
             statoAbbonamentoSuperiore.setText("Abbonamento: Non Attivo");
             statoAbbonamentoSuperiore.setStyle("-fx-text-fill: red");
             labelStatoPagamento.setText("Riattiva il tuo abbonamento");
@@ -160,7 +171,7 @@ public class ProfiloController implements Initializable {
             labelStatoCertificato.getStyleClass().add("certificatoSi");
         }else if(DatiSessioneCliente.getCertificato()==1){
             labelStatoCertificato.setText("Certificato in attesa di approvazione");
-            labelStatoCertificato.getStyleClass().add("certificatoNo");
+            labelStatoCertificato.getStyleClass().add("certificatoAttesa");
         }else{
             labelStatoCertificato.setText("Carica il tuo certificato");
             labelStatoCertificato.getStyleClass().add("certificatoNo");
@@ -234,13 +245,19 @@ public class ProfiloController implements Initializable {
         FXMLLoader abbonamenti = new FXMLLoader(getClass().getResource("/Fxml/Client/ClientMenuView/SchermataSelezioneAbbonamento.fxml"));
         Parent root = abbonamenti.load();
 
+        //Ottengo il controller della schermata
+        SchermataSelezioneAbbonamentoController controller = abbonamenti.getController();
+
+        //Creo lo stage della finestra
         Stage stage=new Stage();
         stage.setTitle("Schermata selezione abbonamento");
-
         Scene scena=new Scene(root);
         stage.setScene(scena);
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
+
+        //Passo lo stage al controller
+        controller.setStage(stage);
         stage.showAndWait();
 
     }

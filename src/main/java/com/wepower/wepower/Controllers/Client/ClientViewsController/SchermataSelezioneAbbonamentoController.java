@@ -11,6 +11,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SchermataSelezioneAbbonamentoController implements Initializable {
+    private Stage stage;
     @FXML
     private AnchorPane anchorPaneContenitore;
     @FXML
@@ -36,6 +38,8 @@ public class SchermataSelezioneAbbonamentoController implements Initializable {
 
     }
 
+    public void setStage(Stage stage){this.stage=stage;}
+
     public void caricaAbbonamenti() throws SQLException {
         ArrayList<Abbonamento> abbonamenti= Abbonamento.getAbbonamentiDb();
         for(int i=0;i<abbonamenti.size();i++){
@@ -48,21 +52,30 @@ public class SchermataSelezioneAbbonamentoController implements Initializable {
     public EventHandler<ActionEvent> onClickAbbonati(String nomeAbb,int PrezzoAbb) {
         return e -> {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Client/ClientMenuView/InserimentoDatiPagamento.fxml"));
-            Stage stage = new Stage();
-            try {
-                Scene scene=new Scene(loader.load());
-                PagamentoAbbonamentoController controllerPagamentoAbbonamento = loader.getController();
-                controllerPagamentoAbbonamento.setNomeEPrezzoAbb(nomeAbb,PrezzoAbb);
 
-                stage.setScene(scene);
-                stage.setTitle("Seleziona Abbonamento");
+            try {
+                Scene scena=new Scene(loader.load());
+                InserimentoDatiPagamentoController controller = loader.getController();
+                controller.setNomeEPrezzoAbb(nomeAbb,PrezzoAbb);
+
+                //Passo il riferimento alla finestra corrente(In modo da chiuderla dopo il "pagamento")
+                controller.setFinestraPrecedente(stage);
+
+                Stage stage = new Stage();
+                stage.setScene(scena);
+                stage.setTitle("Pagamento abbonamento");
                 stage.setResizable(false);
+                stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
 
         };
+    }
+    public void chiudiFinestra(){
+        if(stage!=null){stage.close();}
+
     }
 
     }

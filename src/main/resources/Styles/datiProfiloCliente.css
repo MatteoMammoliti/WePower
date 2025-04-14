@@ -7,6 +7,10 @@
     -fx-border-color: red;
     -fx-text-fill: red;
 }
+.certificatoAttesa{
+    -fx-border-color: orange;
+    -fx-text-fill: orange;
+}
 
 .certificatoSi{
     -fx-text-fill: green;
