@@ -11,6 +11,7 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
@@ -32,17 +33,24 @@ public class ClientDashboardController implements Initializable {
     private static ClientDashboardController instance;
     public AnchorPane containerCalendario;
 
-    // cbhatbot
+    // chatbot
     public Button inviaButton;
     public TextField inputField;
     public TextArea chatArea;
 
+
+
+    // grafici
     @FXML
     private LineChart<String, Number> graficoMassimali;
+    @FXML
+    private BarChart<String, Number> graficoPresenzePalestra;
+    @FXML
+    private MenuButton choiceEsercizioScheda;
 
     @FXML
     private Label labelNomeUtenteSaluto;
-    private double prefHieght = 200; // altezza del banner
+    // private double prefHieght = 200;  altezza del banner
     private double prefWidth = 350;
 
     // container del displayer dei banner
@@ -55,6 +63,7 @@ public class ClientDashboardController implements Initializable {
     public static ClientDashboardController getInstance() {
         return instance;
     }
+
     private void loadBanner() {
         // max banner visibili per volta
         int maxBannerVisibili = 3;
@@ -129,16 +138,42 @@ public class ClientDashboardController implements Initializable {
         });
     }
 
-    public void controllerGraficoMassimali() throws SQLException {
+    public void caricaEserciziSchedaMenuGrafico() throws SQLException {
+        String fetchEsercizi = "SELECT c.NomeEsercizio FROM ComposizioneSchedaAllenamento c JOIN SchedaAllenamento s ON c.IdSchedaAllenamento = s.IdScheda WHERE s.IdCliente = ?";
+
+        try (Connection conn = ConnessioneDatabase.getConnection()) {
+            PreparedStatement fetch = conn.prepareStatement(fetchEsercizi);
+            fetch.setInt(1, DatiSessioneCliente.getIdUtente());
+            ResultSet rs = fetch.executeQuery();
+
+            while(rs.next()){
+                String esercizio = rs.getString("NomeEsercizio");
+                MenuItem menuItem = new MenuItem(esercizio);
+                menuItem.setOnAction(event -> {
+                    try {
+                        choiceEsercizioScheda.setText(menuItem.getText());
+                        loadGraficoMassimali(esercizio);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+                choiceEsercizioScheda.getItems().add(menuItem);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadGraficoMassimali(String esercizio) throws SQLException {
         XYChart.Series<String, Number> massimale = new XYChart.Series<>();
-        massimale.setName("Massimale");
+        massimale.setName("Andamento massimale dell'esercizio " + esercizio);
 
         String prelevaMassimale = "SELECT Peso, DataInserimento FROM MassimaleImpostatoCliente WHERE IDCliente = ? AND NomeEsercizio = ? ORDER BY DataInserimento";
 
         try (Connection conn = ConnessioneDatabase.getConnection()) {
             PreparedStatement prelevamento = conn.prepareStatement(prelevaMassimale);
             prelevamento.setInt(1, DatiSessioneCliente.getIdUtente());
-            prelevamento.setString(2, "Squat");
+            prelevamento.setString(2, esercizio);
             ResultSet rs = prelevamento.executeQuery();
 
             while(rs.next()) {
@@ -151,7 +186,30 @@ public class ClientDashboardController implements Initializable {
                 // Aggiungi il punto al grafico
                 massimale.getData().add(new XYChart.Data<>(data, peso));
             }
+            graficoMassimali.getData().clear();
             graficoMassimali.getData().add(massimale);
+        }
+    }
+
+    private void loadGraficoPrenotazioni() throws SQLException {
+        XYChart.Series<String, Number> prenotazioni = new XYChart.Series<>();
+        prenotazioni.setName("Andamento prenotazioni");
+
+        String prelevaPrenotazioni = "SELECT SUBSTR(DataPrenotazione, 1, 7) AS Mese, COUNT(*) AS numeroPrenotazioni FROM PrenotazioneSalaPesi WHERE IdCliente = ? GROUP BY Mese ORDER BY Mese";
+
+        try (Connection conn = ConnessioneDatabase.getConnection()) {
+            PreparedStatement prelevamento = conn.prepareStatement(prelevaPrenotazioni);
+            prelevamento.setInt(1, DatiSessioneCliente.getIdUtente());
+            ResultSet rs = prelevamento.executeQuery();
+
+            while(rs.next()) {
+                String mese = rs.getString("Mese");
+                int cont = rs.getInt("numeroPrenotazioni");
+
+                prenotazioni.getData().add(new XYChart.Data<>(mese, cont));
+            }
+            graficoPresenzePalestra.getData().clear();
+            graficoPresenzePalestra.getData().add(prenotazioni);
         }
     }
 
@@ -164,7 +222,8 @@ public class ClientDashboardController implements Initializable {
         startAutoScroll();
         onChiediPowerino();
         try {
-            controllerGraficoMassimali();
+            caricaEserciziSchedaMenuGrafico();
+            loadGraficoPrenotazioni();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
