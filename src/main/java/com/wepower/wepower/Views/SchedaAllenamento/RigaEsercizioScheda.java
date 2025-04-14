@@ -12,8 +12,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class RigaEsercizioScheda extends HBox {
     private Label nomeEsercizio;
@@ -64,18 +66,12 @@ public class RigaEsercizioScheda extends HBox {
 
     private void onRimuoviEsercizio() {
         String eliminaEsercizio = "DELETE FROM ComposizioneSchedaAllenamento WHERE NomeEsercizio = ? AND IdSchedaAllenamento = ?";
-        String eliminaMassimale = "DELETE FROM MassimaleImpostatoCliente WHERE NomeEsercizio = ? AND IdCliente = ?";
 
         try (Connection conn = ConnessioneDatabase.getConnection()) {
             PreparedStatement eliminazione = conn.prepareStatement(eliminaEsercizio);
             eliminazione.setString(1, this.nomeEsercizio.getText());
             eliminazione.setInt(2, DatiSessioneCliente.getIdSchedaAllenamento());
             eliminazione.executeUpdate();
-
-            PreparedStatement eliminazioneMassimale = conn.prepareStatement(eliminaMassimale);
-            eliminazioneMassimale.setString(1, this.nomeEsercizio.getText());
-            eliminazioneMassimale.setInt(2, DatiSessioneCliente.getIdUtente());
-            eliminazioneMassimale.executeUpdate();
 
             Model.getInstance().getSchedaController().loadSchedaAllenamento();
             Model.getInstance().getSchedaController().loadEsercizi();
@@ -92,7 +88,7 @@ public class RigaEsercizioScheda extends HBox {
             PreparedStatement inserimento = conn.prepareStatement(massimale);
             inserimento.setInt(1, DatiSessioneCliente.getIdUtente());
             inserimento.setString(2, this.nomeEsercizio.getText());
-            inserimento.setDate(3, java.sql.Date.valueOf(java.time.LocalDate.now()));
+            inserimento.setDate(3, Date.valueOf(LocalDate.now().toString()));
             inserimento.setDouble(4, Double.parseDouble(this.aggiungiNuovoMassimale.getText()));
             inserimento.executeUpdate();
 
