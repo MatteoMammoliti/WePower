@@ -5,8 +5,8 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientViewsController.SchermataCreazioneSchedaController">
-   <center>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientViewsController.SchermataCreazioneSchedaController">
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Nessuna scheda associata all'utente. Inizia a crearne una o richiedila all'admin" />
@@ -14,5 +14,4 @@
             <Button fx:id="askScheda" mnemonicParsing="false" text="Chiedi che te ne venga assegnata una" />
          </children>
       </VBox>
-   </center>
-</BorderPane>
+</AnchorPane>

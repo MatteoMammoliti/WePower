@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -12,7 +13,7 @@ public class ViewFactoryClient {
 
     private final StringProperty currentMenuView;
     private BorderPane dashboard;
-    private BorderPane scheda;
+    private AnchorPane scheda;
     private BorderPane prenotazioni;
     private BorderPane myProfile;
     private BorderPane contactUs;
@@ -99,7 +100,7 @@ public class ViewFactoryClient {
         return dashboard;
     }
 
-    public BorderPane getSchedaView() {
+    public AnchorPane getSchedaView() {
         if (scheda == null) {
             try {
                 System.out.println("DatiSessioneCliente.getIdSchedaAllenamento() = " + DatiSessioneCliente.getIdSchedaAllenamento());

@@ -9,6 +9,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 
 public class TabellaElencoEsercizi {
@@ -45,21 +48,24 @@ public class TabellaElencoEsercizi {
 
         ArrayList<RigaEsercizioScheda> ris = new ArrayList<RigaEsercizioScheda>();
 
-        String query = "SELECT e.NomeEsercizio, e.DescrizioneEsercizio, e.MuscoloAllenato, e.PercorsoImmagine, " +
-                "csa.NumeroRipetizioni, csa.NumeroSerie, m.Peso " +
-                "FROM SchedaAllenamento s " +
-                "JOIN ComposizioneSchedaAllenamento csa ON s.IdScheda = csa.IdSchedaAllenamento " +
-                "JOIN Esercizio e ON csa.NomeEsercizio = e.NomeEsercizio " +
-                "LEFT JOIN ( " +
-                "   SELECT mic.NomeEsercizio, mic.IdCliente, mic.Peso " +
-                "   FROM MassimaleImpostatoCliente mic " +
-                "   INNER JOIN ( " +
-                "       SELECT NomeEsercizio, IdCliente, MAX(DataInserimento) AS MaxData " +
-                "       FROM MassimaleImpostatoCliente " +
-                "       GROUP BY NomeEsercizio, IdCliente " +
-                "   ) latest ON mic.NomeEsercizio = latest.NomeEsercizio AND mic.IdCliente = latest.IdCliente AND mic.DataInserimento = latest.MaxData " +
-                ") m ON csa.NomeEsercizio = m.NomeEsercizio AND m.IdCliente = s.IdCliente " +
-                "WHERE s.IdCliente = ?";
+        String query = "SELECT e.NomeEsercizio, e.DescrizioneEsercizio, e.MuscoloAllenato, e.PercorsoImmagine,\n" +
+                "       csa.NumeroRipetizioni, csa.NumeroSerie, m.Peso, m.DataInserimento\n" +
+                "FROM SchedaAllenamento s\n" +
+                "JOIN ComposizioneSchedaAllenamento csa ON s.IdScheda = csa.IdSchedaAllenamento\n" +
+                "JOIN Esercizio e ON csa.NomeEsercizio = e.NomeEsercizio\n" +
+                "LEFT JOIN (\n" +
+                "    SELECT mic.NomeEsercizio, mic.IdCliente, mic.Peso, mic.DataInserimento\n" +
+                "    FROM MassimaleImpostatoCliente mic\n" +
+                "    INNER JOIN (\n" +
+                "        SELECT NomeEsercizio, IdCliente, MAX(DataInserimento) AS MaxData\n" +
+                "        FROM MassimaleImpostatoCliente\n" +
+                "        GROUP BY NomeEsercizio, IdCliente\n" +
+                "    ) latest\n" +
+                "    ON mic.NomeEsercizio = latest.NomeEsercizio\n" +
+                "       AND mic.IdCliente = latest.IdCliente\n" +
+                "       AND mic.DataInserimento = latest.MaxData\n" +
+                ") m ON csa.NomeEsercizio = m.NomeEsercizio AND m.IdCliente = s.IdCliente\n" +
+                "WHERE s.IdCliente = ? AND s.SchedaAncoraInUso = 1\n";
 
         try (Connection conn = ConnessioneDatabase.getConnection()) {
             PreparedStatement datiEsercizi = conn.prepareStatement(query);
@@ -74,9 +80,13 @@ public class TabellaElencoEsercizi {
                 String NumeroRipetizioni = risultatoTuttiEsercizi.getString("NumeroRipetizioni");
 
                 String massimaleAttuale = risultatoTuttiEsercizi.getString("Peso");
+                String dataImpostazioneMassimale = risultatoTuttiEsercizi.getString("DataInserimento");
+                LocalDate data = Instant.ofEpochMilli(Long.parseLong(dataImpostazioneMassimale)).atZone(ZoneId.systemDefault()).toLocalDate();
+                dataImpostazioneMassimale = data.toString();
 
                 if (massimaleAttuale == null) {
                     massimaleAttuale = "0";
+                    dataImpostazioneMassimale = "Nessun massimale impostato";
                 }
 
                 String PercorsoImmagine = risultatoTuttiEsercizi.getString("PercorsoImmagine");
@@ -84,7 +94,7 @@ public class TabellaElencoEsercizi {
                 if (PercorsoImmagine == null || PercorsoImmagine.trim().isEmpty()) {
                     PercorsoImmagine = "images/LOGO.png";
                 }
-                RigaEsercizioScheda esercizio = new RigaEsercizioScheda(NomeEsercizio, DescrizioneEsercizio, MuscoloAllenato, NumeroSerie, NumeroRipetizioni, PercorsoImmagine, massimaleAttuale);
+                RigaEsercizioScheda esercizio = new RigaEsercizioScheda(NomeEsercizio, DescrizioneEsercizio, MuscoloAllenato, NumeroSerie, NumeroRipetizioni, PercorsoImmagine, massimaleAttuale, dataImpostazioneMassimale);
                 ris.add(esercizio);
             }
         } catch (Exception e) {
