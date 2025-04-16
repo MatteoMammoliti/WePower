@@ -62,7 +62,7 @@ public class InserimentoDatiPagamentoController implements Initializable {
     public void setFinestraPrecedente(Stage finestraPrecedente) {this.finestraPrecedente = finestraPrecedente;}
 
 
-    public void setNomeEPrezzoAbb(String nomeAbbonamento,int PrezzoAbbonamento) {
+    public void setNomeEPrezzoAbb(String nomeAbbonamento,double PrezzoAbbonamento) {
         labelNomeAbbonamento.setText(nomeAbbonamento);
         labelPrezzoAbbonamento.setText("Prezzo: "+PrezzoAbbonamento+"€");
     }

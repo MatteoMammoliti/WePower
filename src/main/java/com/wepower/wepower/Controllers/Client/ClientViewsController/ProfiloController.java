@@ -1,6 +1,5 @@
 package com.wepower.wepower.Controllers.Client.ClientViewsController;
 
-import com.wepower.wepower.Controllers.Client.ClientMenuController;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import com.wepower.wepower.Models.Model;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -74,6 +72,7 @@ public class ProfiloController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        instance=this;
         Model.getInstance().setProfiloController(this);
         contenitoreMioProfilo.setFocusTraversable(false);
         try {

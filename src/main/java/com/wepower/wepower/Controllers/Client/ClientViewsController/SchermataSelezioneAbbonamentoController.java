@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SchermataSelezioneAbbonamentoController implements Initializable {
+    private static SchermataSelezioneAbbonamentoController instance;
     private Stage stage;
     @FXML
     private AnchorPane anchorPaneContenitore;
@@ -29,6 +30,7 @@ public class SchermataSelezioneAbbonamentoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        instance=this;
         anchorPaneContenitore.getStyleClass().add("anchorPaneContenitore");
         try {
             caricaAbbonamenti();
@@ -37,7 +39,7 @@ public class SchermataSelezioneAbbonamentoController implements Initializable {
         }
 
     }
-
+    public static SchermataSelezioneAbbonamentoController getInstance() {return instance;}
     public void setStage(Stage stage){this.stage=stage;}
 
     public void caricaAbbonamenti() throws SQLException {
@@ -49,7 +51,7 @@ public class SchermataSelezioneAbbonamentoController implements Initializable {
         }
     }
 
-    public EventHandler<ActionEvent> onClickAbbonati(String nomeAbb,int PrezzoAbb) {
+    public EventHandler<ActionEvent> onClickAbbonati(String nomeAbb,double PrezzoAbb) {
         return e -> {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Client/ClientMenuView/InserimentoDatiPagamento.fxml"));
 
@@ -72,10 +74,6 @@ public class SchermataSelezioneAbbonamentoController implements Initializable {
             }
 
         };
-    }
-    public void chiudiFinestra(){
-        if(stage!=null){stage.close();}
-
     }
 
     }
