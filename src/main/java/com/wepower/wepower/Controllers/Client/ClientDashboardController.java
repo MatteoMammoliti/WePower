@@ -224,12 +224,21 @@ public class ClientDashboardController implements Initializable {
                     LocalDate dataCorrente = LocalDate.now();
                     long giorniDifferenza = ChronoUnit.DAYS.between(dataCorrente, dataFineAbbonamento);
 
-                    if (giorniDifferenza <= 7) {
+                    if (giorniDifferenza <= 7 && giorniDifferenza > 0) {
                         Platform.runLater(() -> {
                             Alert alert = new Alert(Alert.AlertType.WARNING);
                             alert.setTitle("Attenzione");
                             alert.setHeaderText("Il tuo abbonamento sta per scadere!");
                             alert.setContentText("Il tuo abbonamento scade tra " + giorniDifferenza + " giorni.");
+                            alert.showAndWait();
+                            DatiSessioneCliente.setAlertScadenzaAbbonamento(true);
+                        });
+                    } else if (giorniDifferenza <= 0) {
+                        Platform.runLater(() -> {
+                            Alert alert = new Alert(Alert.AlertType.WARNING);
+                            alert.setTitle("Attenzione");
+                            alert.setHeaderText("Il tuo abbonamento è scaduto!");
+                            alert.setContentText("Rinnova il tuo abbonamento per continuare ad allenarti.");
                             alert.showAndWait();
                             DatiSessioneCliente.setAlertScadenzaAbbonamento(true);
                         });
