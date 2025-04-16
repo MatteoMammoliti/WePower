@@ -81,12 +81,17 @@ public class TabellaElencoEsercizi {
 
                 String massimaleAttuale = risultatoTuttiEsercizi.getString("Peso");
                 String dataImpostazioneMassimale = risultatoTuttiEsercizi.getString("DataInserimento");
-                LocalDate data = Instant.ofEpochMilli(Long.parseLong(dataImpostazioneMassimale)).atZone(ZoneId.systemDefault()).toLocalDate();
-                dataImpostazioneMassimale = data.toString();
+
+                if (dataImpostazioneMassimale == null) {
+                    dataImpostazioneMassimale = "Nessun massimale impostato";
+                }
+                else {
+                    LocalDate data = Instant.ofEpochMilli(Long.parseLong(dataImpostazioneMassimale)).atZone(ZoneId.systemDefault()).toLocalDate();
+                    dataImpostazioneMassimale = data.toString();
+                }
 
                 if (massimaleAttuale == null) {
                     massimaleAttuale = "0";
-                    dataImpostazioneMassimale = "Nessun massimale impostato";
                 }
 
                 String PercorsoImmagine = risultatoTuttiEsercizi.getString("PercorsoImmagine");

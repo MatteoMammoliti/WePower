@@ -59,7 +59,7 @@ public class RigaEsercizioScheda extends HBox {
         this.rimuoviSchedaEsercizio = new Button("Rimuovi esercizio dalla scheda");
         this.rimuoviSchedaEsercizio.setOnAction(event -> onRimuoviEsercizio());
 
-        this.getChildren().addAll(this.nomeEsercizio, this.descrizioneEsercizio, this.muscoloAllenato, this.numeroSerie, this.numeroRipetizioni, this.imageEsercizio, this.massimaleAttuale, this.dataImpostazioneMassimale ,this.aggiungiNuovoMassimale,
+        this.getChildren().addAll(this.nomeEsercizio, this.descrizioneEsercizio, this.muscoloAllenato, this.numeroSerie, this.numeroRipetizioni, this.imageEsercizio, this.massimaleAttuale ,this.aggiungiNuovoMassimale, this.dataImpostazioneMassimale,
                 this.aggiungiMassimale,this.rimuoviSchedaEsercizio);
         this.setSpacing(10);
         this.setPadding(new Insets(10));
@@ -95,6 +95,8 @@ public class RigaEsercizioScheda extends HBox {
 
             Model.getInstance().getSchedaController().loadSchedaAllenamento();
             Model.getInstance().getSchedaController().loadEsercizi();
+            Model.getInstance().getViewFactoryClient().invalidateDashboard();
+            DatiSessioneCliente.aggiungiEsercizioConMassimale(this.nomeEsercizio.getText());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

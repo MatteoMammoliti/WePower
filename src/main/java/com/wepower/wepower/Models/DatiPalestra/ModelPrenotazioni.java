@@ -2,6 +2,7 @@ package com.wepower.wepower.Models.DatiPalestra;
 
 import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.DatiSessioneCliente;
+import com.wepower.wepower.Models.Model;
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -32,6 +33,7 @@ public class ModelPrenotazioni {
 
                     if (righeAffette > 0) {
                         System.out.println("Inserimento riuscito!");
+                        Model.getInstance().getViewFactoryClient().invalidateDashboard();
                         return true;
                     } else {
                         System.out.println("Errore nell'inserimento.");

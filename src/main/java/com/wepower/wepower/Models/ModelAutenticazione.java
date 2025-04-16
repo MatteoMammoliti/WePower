@@ -71,6 +71,7 @@ public class ModelAutenticazione {
                             DatiSessioneCliente.setIdSchedaAllenamento(0);
                         }
                     }
+                    riempiListaEserciziConMassimali(DatiSessioneCliente.getIdUtente());
                     return true;
                 }
                 //Se non trovo il cliente, vado a vedere se è un admin e prelevo i suoi dati
@@ -84,9 +85,7 @@ public class ModelAutenticazione {
                         return true;
                     }
                 }
-
             }
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -133,5 +132,26 @@ public class ModelAutenticazione {
 
         }
         return datePrenotazioni;
+    }
+
+    public static void riempiListaEserciziConMassimali(int Id) {
+
+        String query = "SELECT NomeEsercizio FROM MassimaleImpostatoCliente WHERE IdCliente = ?";
+        try (Connection conn = ConnessioneDatabase.getConnection()) {
+            PreparedStatement datiEsercizi = conn.prepareStatement(query);
+            datiEsercizi.setInt(1, Id);
+            ResultSet risultatoTuttiEsercizi = datiEsercizi.executeQuery();
+
+            while (risultatoTuttiEsercizi.next()) {
+                String NomeEsercizio = risultatoTuttiEsercizi.getString("NomeEsercizio");
+                DatiSessioneCliente.aggiungiEsercizioConMassimale(NomeEsercizio);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        for(String esercizio : DatiSessioneCliente.getEserciziConMassimale()) {
+            System.out.println(esercizio);
+        }
     }
 }

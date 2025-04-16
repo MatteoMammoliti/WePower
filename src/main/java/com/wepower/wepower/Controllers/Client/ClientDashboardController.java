@@ -26,6 +26,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -139,15 +141,10 @@ public class ClientDashboardController implements Initializable {
     }
 
     public void caricaEserciziSchedaMenuGrafico() throws SQLException {
-        String fetchEsercizi = "SELECT c.NomeEsercizio FROM ComposizioneSchedaAllenamento c JOIN SchedaAllenamento s ON c.IdSchedaAllenamento = s.IdScheda WHERE s.IdCliente = ?";
+        ArrayList<String> temp = DatiSessioneCliente.getEserciziConMassimale();
 
-        try (Connection conn = ConnessioneDatabase.getConnection()) {
-            PreparedStatement fetch = conn.prepareStatement(fetchEsercizi);
-            fetch.setInt(1, DatiSessioneCliente.getIdUtente());
-            ResultSet rs = fetch.executeQuery();
-
-            while(rs.next()){
-                String esercizio = rs.getString("NomeEsercizio");
+        if (temp != null) {
+            for (String esercizio : temp) {
                 MenuItem menuItem = new MenuItem(esercizio);
                 menuItem.setOnAction(event -> {
                     try {
@@ -159,8 +156,6 @@ public class ClientDashboardController implements Initializable {
                 });
                 choiceEsercizioScheda.getItems().add(menuItem);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
@@ -213,6 +208,67 @@ public class ClientDashboardController implements Initializable {
         }
     }
 
+    private void loadAlert() {
+
+        String fetchDataScadenza = "SELECT DataFineAbbonamento FROM AbbonamentoCliente WHERE IdCliente = ? AND StatoAbbonamento = 1";
+        String fetchCertificato = "SELECT IdCertificato FROM Certificato WHERE IdCliente = ?";
+
+        try (Connection conn = ConnessioneDatabase.getConnection()) {
+            PreparedStatement prelevamento = conn.prepareStatement(fetchDataScadenza);
+            prelevamento.setInt(1, DatiSessioneCliente.getIdUtente());
+            ResultSet rs = prelevamento.executeQuery();
+
+            if (!DatiSessioneCliente.getAlertScadenzaAbbonamento()) {
+                if (rs.next()) {
+                    LocalDate dataFineAbbonamento = LocalDate.parse(rs.getString("DataFineAbbonamento"));
+                    LocalDate dataCorrente = LocalDate.now();
+                    long giorniDifferenza = ChronoUnit.DAYS.between(dataCorrente, dataFineAbbonamento);
+
+                    if (giorniDifferenza <= 7) {
+                        Platform.runLater(() -> {
+                            Alert alert = new Alert(Alert.AlertType.WARNING);
+                            alert.setTitle("Attenzione");
+                            alert.setHeaderText("Il tuo abbonamento sta per scadere!");
+                            alert.setContentText("Il tuo abbonamento scade tra " + giorniDifferenza + " giorni.");
+                            alert.showAndWait();
+                            DatiSessioneCliente.setAlertScadenzaAbbonamento(true);
+                        });
+                    }
+                } else {
+                    Platform.runLater(() -> {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Attenzione");
+                        alert.setHeaderText("Il tuo abbonamento è scaduto!");
+                        alert.setContentText("Rinnova il tuo abbonamento per continuare ad allenarti.");
+                        alert.showAndWait();
+                        DatiSessioneCliente.setAlertScadenzaAbbonamento(true);
+                    });
+                }
+            }
+
+            PreparedStatement prelevamentoCertificato = conn.prepareStatement(fetchCertificato);
+            prelevamentoCertificato.setInt(1, DatiSessioneCliente.getIdUtente());
+            ResultSet rsCertificato = prelevamentoCertificato.executeQuery();
+
+            if (rsCertificato.next() && !DatiSessioneCliente.getAlertCertificatoMancante()) {
+                int idCertificato = rsCertificato.getInt("IdCertificato");
+                System.out.println("ID Certificato: " + idCertificato);
+                if (idCertificato == 0) {
+                    Platform.runLater(() -> {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Attenzione");
+                        alert.setHeaderText("Certificato medico mancante!");
+                        alert.setContentText("Devi caricare il certificato medico per continuare ad allenarti.");
+                        alert.showAndWait();
+                        DatiSessioneCliente.setAlertCertificatoMancante(true);
+                    });
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         instance = this;
@@ -227,5 +283,6 @@ public class ClientDashboardController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        loadAlert();
     }
 }

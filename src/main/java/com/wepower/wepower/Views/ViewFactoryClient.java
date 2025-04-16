@@ -166,10 +166,16 @@ public class ViewFactoryClient {
         }
     }
 
+    //               -- FUNZIONI DI INVALIDAZIONE E AGGIORNAMENTO DELLE VIEW --
     public void invalidateSchedaView() { // dopo la creazione della scheda
         this.scheda = null;
     }
+
     public void invalidateMyProfileView(){
         this.myProfile = null;
+    }
+
+    public void invalidateDashboard() {
+        this.dashboard = null;
     }
 }

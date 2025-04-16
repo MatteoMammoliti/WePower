@@ -28,12 +28,16 @@ public class DatiSessioneCliente {
     private static String pesoAttuale;
     private static String percMassaGrassa;
     private static Image immagineProfilo;
+    private static boolean alertScadenzaAbbonamento = false;
+    private static boolean alertCertificatoMancante = false;
 
     //Tutto lo storico delle prenotazioni sala pesi dell'utente
     private static ArrayList<PrenotazioneSalaPesi> dateOrariPrenotazioni = new ArrayList<>();
 
     //Set per accedere velocemente ad una dataPrenotazione per velocizzare e alleggerire i calcoli
     private static Set<String> datePrenotazioniSalaPesi = new HashSet<>();
+
+    private static ArrayList<String>  eserciziConMassimale = new ArrayList<>();
 
     // GETTER
     public static int getIdUtente() {
@@ -70,7 +74,11 @@ public class DatiSessioneCliente {
     }
     public static String getDataNascita(){return dataNascita;}
     public static Image getImmagineProfilo() { return immagineProfilo; }
-
+    public static ArrayList<String> getEserciziConMassimale() {
+        return eserciziConMassimale;
+    }
+    public static boolean getAlertScadenzaAbbonamento() { return alertScadenzaAbbonamento; }
+    public static boolean getAlertCertificatoMancante() { return alertCertificatoMancante; }
 
     // SETTER
     public static void setStatoAbbonamento(boolean abbonamento){statoAbbonamento = abbonamento;}
@@ -102,6 +110,12 @@ public class DatiSessioneCliente {
             datePrenotazioniSalaPesi.add(dateOrariPrenotazioni.get(i).getDataPrenotazione());
         }
     }
+    public static void setEserciziConMassimale(ArrayList<String> esercizi) {
+        eserciziConMassimale = esercizi;
+    }
+
+    public static void setAlertScadenzaAbbonamento(boolean alert) { alertScadenzaAbbonamento = alert; }
+    public static void setAlertCertificatoMancante(boolean alert) { alertCertificatoMancante = alert; }
 
 
     // LOGOUT
@@ -118,8 +132,13 @@ public class DatiSessioneCliente {
         altezza = null;
         pesoAttuale = null;
         percMassaGrassa = null;
+        immagineProfilo = null;
+        eserciziConMassimale.clear();
+        alertScadenzaAbbonamento = false;
+        alertCertificatoMancante = false;
         Model.invalidate();
     }
+
     // CONTROLLO DATA PRENOTAZIONE SALA PESI
     public static boolean controlloDataPrenotazioneSalaPesi(LocalDate data) {
         String dataControllo = data.toString();
@@ -271,6 +290,12 @@ public class DatiSessioneCliente {
             }
         }catch (SQLException e){
             throw new RuntimeException(e);
+        }
+    }
+
+    public static void aggiungiEsercizioConMassimale(String esercizio) {
+        if (!eserciziConMassimale.contains(esercizio)) {
+            eserciziConMassimale.add(esercizio);
         }
     }
 }
