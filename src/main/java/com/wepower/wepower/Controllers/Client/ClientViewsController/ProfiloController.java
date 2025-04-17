@@ -97,7 +97,7 @@ public class ProfiloController implements Initializable {
         String dataNascita = DatiSessioneCliente.getDataNascita();
         String telefono = DatiSessioneCliente.getTelefono();
         String altezza = DatiSessioneCliente.getAltezza();
-        String pesoAttuale = DatiSessioneCliente.getPesoAttuale();
+        Integer pesoAttuale = DatiSessioneCliente.getPesoAttuale();
         boolean statoAbbonamento = DatiSessioneCliente.getStatoAbbonamento();
         String genere=DatiSessioneCliente.getGenere();
         //Resetto gli eventi per un eventuale reload
@@ -195,7 +195,7 @@ public class ProfiloController implements Initializable {
         }
 
         if(pesoAttuale!=null){
-            labelPesoAttuale.setText(pesoAttuale);
+            labelPesoAttuale.setText(pesoAttuale.toString()+" kg");
         }
         else{
             labelPesoAttuale.setText("Nessun peso registrato");

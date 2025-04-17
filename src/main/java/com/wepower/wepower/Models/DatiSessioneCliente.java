@@ -28,7 +28,7 @@ public class DatiSessioneCliente {
     private static int idSchedaAllenamento;
     private static String dataNascita;
     private static String altezza;
-    private static String pesoAttuale;
+    private static Integer pesoAttuale;
     private static String genere;
     private static Image immagineProfilo;
     private static boolean alertScadenzaAbbonamento = false;
@@ -53,7 +53,7 @@ public class DatiSessioneCliente {
         return nome;
     }
     public static String getAltezza() {return altezza;}
-    public static String getPesoAttuale() {return pesoAttuale;}
+    public static Integer getPesoAttuale() {return pesoAttuale;}
 
     public  static String getTelefono() {
         return telefono;
@@ -97,7 +97,7 @@ public class DatiSessioneCliente {
         email = e_mail;
     }
     public static void setAltezza(String a) {altezza = a;}
-    public static void setPesoAttuale(String p) {pesoAttuale = p;}
+    public static void setPesoAttuale(Integer p) {pesoAttuale = p;}
 
     public static void setCertificato(int valore) {
         certificato = valore;

@@ -8,15 +8,17 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Optional;
 
 public class ModelModificaDati {
 
 
-    public static boolean onClickModificaDati(int id,String nome,String cogn,String Data,String sesso,String alt,String email,String telefono) throws IOException, SQLException {
+    public static boolean onClickModificaDati(int id,String nome,String cogn,String Data,String sesso,String alt,String email,String telefono,Integer peso) throws IOException, SQLException {
         String aggiornaDati="UPDATE Cliente SET Nome=?, Cognome=?, DataNascita=?, Sesso=?, Altezza=? WHERE IdCliente=?";
         String aggiornaDatiCredenziali="UPDATE CredenzialiCliente SET Email=?,Telefono=? WHERE IdCliente=?";
+        String aggiornaPeso="INSERT INTO PesoCliente (IdCliente,Peso,DataRegistrazionePeso) VALUES (?,?,?)";
         try(Connection conn=ConnessioneDatabase.getConnection()){
             conn.setAutoCommit(false);
             try(PreparedStatement datiCliente = conn.prepareStatement(aggiornaDati)){
@@ -50,10 +52,21 @@ public class ModelModificaDati {
                 datiCredenziali.setString(2,telefono);
                 datiCredenziali.setInt(3,id);
 
-                int righeModificate = datiCredenziali.executeUpdate();
-                if(righeModificate > 0){
-                    System.out.println("Dati modificati con successo");
+                if(datiCredenziali.executeUpdate() == 0){
                     conn.commit();
+                    return false;}
+                if(peso != null){
+                    try (PreparedStatement pesoCredenziali = conn.prepareStatement(aggiornaPeso)){
+                        pesoCredenziali.setInt(1, id);
+                        pesoCredenziali.setInt(2, peso);
+                        pesoCredenziali.setString(3, LocalDate.now().toString());
+                        if (pesoCredenziali.executeUpdate() == 0) {
+                            conn.rollback();
+                            return false;
+                        }
+                    }
+                }
+
                     if(!nome.equals(DatiSessioneCliente.getNomeUtente())){
                         DatiSessioneCliente.setNomeUtente(nome);
                     }
@@ -75,13 +88,9 @@ public class ModelModificaDati {
                     if (!Objects.equals(telefono, DatiSessioneCliente.getTelefono())) {
                         DatiSessioneCliente.setTelefono(telefono);
                     }
-
+                    if(peso!=null){DatiSessioneCliente.setPesoAttuale(peso);}
+                    conn.commit();
                     return true;
-                }else{
-                    conn.rollback();
-                    System.out.println("Nessun dato modificato");
-                    return false;
-                }
             }
 
         }catch (SQLException e){

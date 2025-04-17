@@ -59,9 +59,9 @@ public class ModificaDatiController implements Initializable {
             textAltezza.setText("");
         }
 
-        String peso = DatiSessioneCliente.getPesoAttuale();
+        Integer peso = DatiSessioneCliente.getPesoAttuale();
         if (peso != null) {
-            textPesoAttuale.setText(peso);
+            textPesoAttuale.setText(peso.toString());
         } else {
             textPesoAttuale.setText("");
 
@@ -101,7 +101,17 @@ public class ModificaDatiController implements Initializable {
         String email = textEmail.getText();
         String telefono = textTelefono.getText();
         String altezza = textAltezza.getText();
-        String peso = textPesoAttuale.getText();
+        String pesoStr = textPesoAttuale.getText();
+
+        if(!ModelValidazione.controlloPeso(pesoStr)){
+            JOptionPane.showMessageDialog(null,"Peso non valido");
+            return;
+        }
+
+        Integer peso= null;
+        if(!pesoStr.isEmpty()){
+            peso=Integer.parseInt(pesoStr);
+        }
 
         if(!ModelValidazione.controlloNome(nome)){
             JOptionPane.showMessageDialog(null,"Nome non valido");
@@ -124,10 +134,7 @@ public class ModificaDatiController implements Initializable {
             return;
         }
 
-        if(!ModelValidazione.controlloPeso(peso)){
-            JOptionPane.showMessageDialog(null,"Peso non valido");
-            return;
-        }
+
         if(telefono!=null && !ModelValidazione.controlloNumeroTelefono(telefono)){
             JOptionPane.showMessageDialog(null,"Telefono non valido");
             return;
@@ -149,7 +156,7 @@ public class ModificaDatiController implements Initializable {
 
 
 
-        if(ModelModificaDati.onClickModificaDati(DatiSessioneCliente.getIdUtente(),nome,cognome,data,genere,altezza,email,telefono)){
+        if(ModelModificaDati.onClickModificaDati(DatiSessioneCliente.getIdUtente(),nome,cognome,data,genere,altezza,email,telefono,peso)){
             JOptionPane.showMessageDialog(null,"Dati modificati con successo");
             ProfiloController.getInstance().caricaInterfacciaDatiUtente();
             Stage stage= (Stage) btnAggiorna.getScene().getWindow();
