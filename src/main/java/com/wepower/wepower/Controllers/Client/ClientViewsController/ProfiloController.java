@@ -26,6 +26,8 @@ import java.util.ResourceBundle;
 public class ProfiloController implements Initializable {
     private static ProfiloController instance;
     @FXML
+    private Label labelGenere;
+    @FXML
     private ImageView contenitoreImmagine;
     @FXML
     private Button pulsanteCambiaImmagine;
@@ -80,6 +82,7 @@ public class ProfiloController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     public ProfiloController(){}
@@ -95,15 +98,15 @@ public class ProfiloController implements Initializable {
         String telefono = DatiSessioneCliente.getTelefono();
         String altezza = DatiSessioneCliente.getAltezza();
         String pesoAttuale = DatiSessioneCliente.getPesoAttuale();
-        String percMassaGrassa = DatiSessioneCliente.getPercMassaGrassa();
         boolean statoAbbonamento = DatiSessioneCliente.getStatoAbbonamento();
+        String genere=DatiSessioneCliente.getGenere();
         //Resetto gli eventi per un eventuale reload
         labelStatoCertificato.setOnMouseClicked(null);
         labelStatoCertificato.getStyleClass().removeAll("certificatoSi", "certificatoNo","certificatoAttesa");
         labelStatoPagamento.setOnMouseClicked(null);
         labelStatoPagamento.getStyleClass().removeAll("abbonamentoSi", "abbonamentoNo");
 
-
+        labelGenere.setText(genere);
         labelNomeCognomeSuperiore.setText(nome + " " + cognome);
         labelNomeCognomeInferiore.setText(nome + " " + cognome);
         labelDataNascita.setText(dataNascita);
@@ -197,12 +200,21 @@ public class ProfiloController implements Initializable {
         else{
             labelPesoAttuale.setText("Nessun peso registrato");
         }
-        if(percMassaGrassa!=null){
-            labelPercentualeGrasso.setText(percMassaGrassa);
-        }
-        else{
-            labelPercentualeGrasso.setText("Nessuna percentuale di massa grassa registrata");
-        }
+
+        btnModificaDati.setOnAction(event -> {
+            try {
+                onClickModificaDati();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        btnPulsanteEliminaUtente.setOnAction(event -> {
+            try {
+                DatiSessioneCliente.onClickEliminaUtente(DatiSessioneCliente.getIdUtente());
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     public void cambiaImmagineProfilo() throws SQLException, IOException {
@@ -259,5 +271,17 @@ public class ProfiloController implements Initializable {
         controller.setStage(stage);
         stage.showAndWait();
 
+    }
+
+    public void onClickModificaDati() throws IOException {
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("/Fxml/Client/ModificaDati.fxml"));
+        Parent root=loader.load();
+        Stage stage=new Stage();
+        Scene scena=new Scene(root);
+        stage.setTitle("Modifica dati");
+        stage.setScene(scena);
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
     }
 }

@@ -1,6 +1,8 @@
 package com.wepower.wepower.Models;
 
 import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import java.io.*;
 import java.nio.file.Files;
@@ -12,6 +14,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public class DatiSessioneCliente {
@@ -26,7 +29,7 @@ public class DatiSessioneCliente {
     private static String dataNascita;
     private static String altezza;
     private static String pesoAttuale;
-    private static String percMassaGrassa;
+    private static String genere;
     private static Image immagineProfilo;
     private static boolean alertScadenzaAbbonamento = false;
     private static boolean alertCertificatoMancante = false;
@@ -51,7 +54,7 @@ public class DatiSessioneCliente {
     }
     public static String getAltezza() {return altezza;}
     public static String getPesoAttuale() {return pesoAttuale;}
-    public static String getPercMassaGrassa() {return percMassaGrassa;}
+
     public  static String getTelefono() {
         return telefono;
     }
@@ -74,6 +77,7 @@ public class DatiSessioneCliente {
     }
     public static String getDataNascita(){return dataNascita;}
     public static Image getImmagineProfilo() { return immagineProfilo; }
+    public static String getGenere() {return genere;}
     public static ArrayList<String> getEserciziConMassimale() {
         return eserciziConMassimale;
     }
@@ -94,7 +98,7 @@ public class DatiSessioneCliente {
     }
     public static void setAltezza(String a) {altezza = a;}
     public static void setPesoAttuale(String p) {pesoAttuale = p;}
-    public static void setPercMassaGrassa(String p) {percMassaGrassa = p;}
+
     public static void setCertificato(int valore) {
         certificato = valore;
     }
@@ -113,6 +117,7 @@ public class DatiSessioneCliente {
     public static void setEserciziConMassimale(ArrayList<String> esercizi) {
         eserciziConMassimale = esercizi;
     }
+    public static void setGenere(String s) {genere = s;}
 
     public static void setAlertScadenzaAbbonamento(boolean alert) { alertScadenzaAbbonamento = alert; }
     public static void setAlertCertificatoMancante(boolean alert) { alertCertificatoMancante = alert; }
@@ -131,7 +136,7 @@ public class DatiSessioneCliente {
         idSchedaAllenamento = 0;
         altezza = null;
         pesoAttuale = null;
-        percMassaGrassa = null;
+        genere=null;
         immagineProfilo = null;
         eserciziConMassimale.clear();
         alertScadenzaAbbonamento = false;
@@ -296,6 +301,36 @@ public class DatiSessioneCliente {
     public static void aggiungiEsercizioConMassimale(String esercizio) {
         if (!eserciziConMassimale.contains(esercizio)) {
             eserciziConMassimale.add(esercizio);
+        }
+    }
+
+    //Elimina utente
+    public static void onClickEliminaUtente(int id) throws SQLException {
+        String eliminaUtente="DELETE FROM Cliente WHERE IdCliente=?";
+        try(Connection conn=ConnessioneDatabase.getConnection()){
+            try(PreparedStatement datiEliminaUtente=conn.prepareStatement(eliminaUtente)){
+                datiEliminaUtente.setInt(1,id);
+
+                Alert conferma=new Alert(Alert.AlertType.CONFIRMATION);
+                conferma.setTitle("Conferma eliminazione");
+                conferma.setHeaderText("Sei sicuro di voler eliminare questo cliente?");
+                conferma.setContentText("Questa azione è irreversibile!");
+                Optional<ButtonType> resultat = conferma.showAndWait();
+                    if (resultat.isPresent() && resultat.get() == ButtonType.OK) {
+                        // Se l'utente ha confermato l'eliminazione, eseguiamo la query
+                        int righeModificate = datiEliminaUtente.executeUpdate();
+                        if(righeModificate>0) {
+                            System.out.println("Utente eliminato con successo");
+                            DatiSessioneCliente.logout();
+                            return;
+                        }
+                        else{
+                            System.out.println("Nessun utente eliminato");
+                        }
+
+                }
+
+            }
         }
     }
 }

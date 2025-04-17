@@ -11,6 +11,7 @@ public class ConnessioneDatabase {
         Connection conn = null;
         try{
             conn = DriverManager.getConnection(DB_URL);
+            conn.createStatement().execute("PRAGMA foreign_keys = ON");
             System.out.println("Connessione al database riuscita");
         }catch (SQLException e){
             System.out.println("Connessione al database fallita");

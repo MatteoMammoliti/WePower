@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class ModelAutenticazione {
     public static boolean verificaCredenziali(String email, String password) throws SQLException {
         String Query2 = "SELECT * FROM Admin WHERE Email = ? AND Password = ?";
-        String Query="SELECT c.IdCliente,c.CertificatoValido,c.Nome, c.Cognome,c.DataNascita, cc.Email,cc.Telefono, c.ImmagineProfilo FROM CredenzialiCliente cc JOIN Cliente c ON cc.idCliente=c.idCliente WHERE cc.Email = ? AND cc.Password = ?";
+        String Query="SELECT c.IdCliente,c.CertificatoValido,c.Nome, c.Cognome,c.DataNascita, cc.Email,cc.Telefono, c.ImmagineProfilo, c.Altezza,c.Sesso FROM CredenzialiCliente cc JOIN Cliente c ON cc.idCliente=c.idCliente WHERE cc.Email = ? AND cc.Password = ?";
         String Query3="SELECT a.StatoAbbonamento FROM AbbonamentoCliente a JOIN Cliente c ON a.IdCliente=c.IdCliente WHERE a.IdCliente = ? and a.StatoAbbonamento=1";
         try (Connection conn = ConnessioneDatabase.getConnection()) {
 
@@ -35,6 +35,8 @@ public class ModelAutenticazione {
                     DatiSessioneCliente.setTelefono(risultatoClienti.getString("Telefono"));
 
                     InputStream immagine = risultatoClienti.getBinaryStream("ImmagineProfilo");
+                    DatiSessioneCliente.setAltezza(risultatoClienti.getString("Altezza"));
+                    DatiSessioneCliente.setGenere(risultatoClienti.getString("Sesso"));
 
                     Image immagineProfilo;
                     if (immagine != null) {
