@@ -210,7 +210,10 @@ public class ProfiloController implements Initializable {
         });
         btnPulsanteEliminaUtente.setOnAction(event -> {
             try {
-                DatiSessioneCliente.onClickEliminaUtente(DatiSessioneCliente.getIdUtente());
+                if (DatiSessioneCliente.onClickEliminaUtente(DatiSessioneCliente.getIdUtente())) {
+                    Stage temp = (Stage) btnPulsanteEliminaUtente.getScene().getWindow();
+                    Model.getInstance().getViewFactoryClient().closeStage(temp);
+                }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

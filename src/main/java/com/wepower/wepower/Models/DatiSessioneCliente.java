@@ -305,7 +305,7 @@ public class DatiSessioneCliente {
     }
 
     //Elimina utente
-    public static void onClickEliminaUtente(int id) throws SQLException {
+    public static boolean onClickEliminaUtente(int id) throws SQLException {
         String eliminaUtente="DELETE FROM Cliente WHERE IdCliente=?";
         try(Connection conn=ConnessioneDatabase.getConnection()){
             try(PreparedStatement datiEliminaUtente=conn.prepareStatement(eliminaUtente)){
@@ -322,15 +322,18 @@ public class DatiSessioneCliente {
                         if(righeModificate>0) {
                             System.out.println("Utente eliminato con successo");
                             DatiSessioneCliente.logout();
-                            return;
+                            Model.getInstance().getViewFactoryClient().showLoginWindow();
+                            return true;
                         }
                         else{
                             System.out.println("Nessun utente eliminato");
+                            return false;
                         }
 
                 }
 
             }
         }
+        return false;
     }
 }
