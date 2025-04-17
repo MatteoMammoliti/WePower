@@ -237,8 +237,8 @@ public class ClientDashboardController implements Initializable {
                         Platform.runLater(() -> {
                             Alert alert = new Alert(Alert.AlertType.WARNING);
                             alert.setTitle("Attenzione");
-                            alert.setHeaderText("Il tuo abbonamento è scaduto!");
-                            alert.setContentText("Rinnova il tuo abbonamento per continuare ad allenarti.");
+                            alert.setHeaderText("Il tuo abbonamento non è attivo!");
+                            alert.setContentText("Abbonati per continuare ad allenarti.");
                             alert.showAndWait();
                             DatiSessioneCliente.setAlertScadenzaAbbonamento(true);
                         });
@@ -247,8 +247,8 @@ public class ClientDashboardController implements Initializable {
                     Platform.runLater(() -> {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
                         alert.setTitle("Attenzione");
-                        alert.setHeaderText("Il tuo abbonamento è scaduto!");
-                        alert.setContentText("Rinnova il tuo abbonamento per continuare ad allenarti.");
+                        alert.setHeaderText("Il tuo abbonamento non è attivo!");
+                        alert.setContentText("Abbonati per continuare ad allenarti.");
                         alert.showAndWait();
                         DatiSessioneCliente.setAlertScadenzaAbbonamento(true);
                     });

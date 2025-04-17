@@ -216,6 +216,22 @@ public class DatiSessioneCliente {
         return null;
     }
 
+    public static boolean isAbbonamentoAttivo() throws SQLException {
+        String dataInizioAbbonamento = getDataInizioAbbonamentoAttivo();
+        String dataFineAbbonamento = getDataFineAbbonamentoAttivo();
+
+        if (dataInizioAbbonamento != null && dataFineAbbonamento != null) {
+            LocalDate dataInizio = LocalDate.parse(dataInizioAbbonamento);
+            LocalDate dataFine = LocalDate.parse(dataFineAbbonamento);
+            LocalDate oggi = LocalDate.now();
+
+            if (oggi.isAfter(dataInizio) && oggi.isBefore(dataFine)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     //AGGIUNGI UNA PRENOTAZIONE
     public static void aggiungiPrenotazione(PrenotazioneSalaPesi p) {
         dateOrariPrenotazioni.add(p);

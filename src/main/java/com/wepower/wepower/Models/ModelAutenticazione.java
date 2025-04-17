@@ -47,6 +47,7 @@ public class ModelAutenticazione {
                     DatiSessioneCliente.setImmagineProfilo(immagineProfilo);
 
                     DatiSessioneCliente.setDateOrariPrenotazioni(caricaDatePrenotazioniSalaPesi(risultatoClienti.getInt("IdCliente")));
+                    /*
                     try(PreparedStatement statoAbbonamento=conn.prepareStatement(Query3)) {
                         statoAbbonamento.setInt(1, risultatoClienti.getInt("IdCliente"));
                         ResultSet risultatoStato=statoAbbonamento.executeQuery();
@@ -57,8 +58,19 @@ public class ModelAutenticazione {
 
                         else{
                                 DatiSessioneCliente.setStatoAbbonamento(false);
-                            }
+                        }
+                    }
+                    */
 
+                    if (DatiSessioneCliente.isAbbonamentoAttivo()) {
+                        DatiSessioneCliente.setStatoAbbonamento(true);
+                    } else {
+                        DatiSessioneCliente.setStatoAbbonamento(false);
+                        String updateStatoAbbonamento = "UPDATE AbbonamentoCliente SET StatoAbbonamento = 0 WHERE IdCliente = ? AND StatoAbbonamento = 1";
+                        try (PreparedStatement updateStato = conn.prepareStatement(updateStatoAbbonamento)) {
+                            updateStato.setInt(1, DatiSessioneCliente.getIdUtente());
+                            updateStato.executeUpdate();
+                        }
                     }
 
                     String querySchedaAllenamento = "SELECT IdScheda FROM SchedaAllenamento WHERE IdCliente = ? AND SchedaAncoraInUso = 1 LIMIT 1";
