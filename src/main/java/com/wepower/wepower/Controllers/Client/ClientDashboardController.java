@@ -171,7 +171,8 @@ public class ClientDashboardController implements Initializable {
         XYChart.Series<String, Number> massimale = new XYChart.Series<>();
         massimale.setName("Andamento massimale dell'esercizio " + esercizio);
 
-        String prelevaMassimale = "SELECT Peso, DataInserimento FROM MassimaleImpostatoCliente WHERE IDCliente = ? AND NomeEsercizio = ? ORDER BY DataInserimento";
+        String prelevaMassimale = "SELECT Peso, DataInserimento FROM MassimaleImpostatoCliente WHERE IDCliente = ? AND NomeEsercizio = ? ORDER BY DataInserimento DESC LIMIT 10";
+        ArrayList<Pair<String,Number>> lista = new ArrayList<>();
 
         try (Connection conn = ConnessioneDatabase.getConnection()) {
             PreparedStatement prelevamento = conn.prepareStatement(prelevaMassimale);
@@ -179,15 +180,22 @@ public class ClientDashboardController implements Initializable {
             prelevamento.setString(2, esercizio);
             ResultSet rs = prelevamento.executeQuery();
 
+
+
+
+
             while(rs.next()) {
+
                 long dataInserimento = rs.getLong("DataInserimento");
                 double peso = rs.getDouble("Peso");
 
                 // Converti il timestamp in una stringa formattata
                 String data = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(dataInserimento));
-
-                // Aggiungi il punto al grafico
-                massimale.getData().add(new XYChart.Data<>(data, peso));
+                Pair<String,Number> pair = new Pair<>(data,peso);
+                lista.add(0,pair);
+            }
+            for (Pair<String,Number> pair : lista) {
+                massimale.getData().add(new XYChart.Data<>(pair.getKey(),pair.getValue()));
             }
             graficoMassimali.getData().clear();
             graficoMassimali.getData().add(massimale);

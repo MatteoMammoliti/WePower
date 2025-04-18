@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 public class Calendario {
     public static VBox creaCalendario() {
         VBox calendarioBox = new VBox(10);
-        calendarioBox.setPrefSize(500, 400);
+        calendarioBox.setPrefSize(300, 400);
 
         YearMonth[] meseCorrente = {YearMonth.now()}; // wrapper per permettere modifica nel listener
 
@@ -44,7 +44,7 @@ public class Calendario {
         for (int i = 0; i < giorniSettimana.length; i++) {
             Label giornoSettimanaLabel = new Label(giorniSettimana[i]);
             giornoSettimanaLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-            giornoSettimanaLabel.setPrefWidth(70);
+            giornoSettimanaLabel.setPrefWidth(50);
             giornoSettimanaLabel.setAlignment(Pos.CENTER);
             barraGiorniSettimana.getChildren().add(giornoSettimanaLabel);
         }

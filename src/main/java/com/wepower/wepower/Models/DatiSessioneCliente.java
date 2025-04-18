@@ -363,7 +363,7 @@ public class DatiSessioneCliente {
     //PRELEVO DAL DATABASE STORICO PESI CON DATE
     public static ArrayList<Pair<String,Integer>> caricaStroicoPesi(int IdUtente){
         ArrayList<Pair<String,Integer>> storicoPesi=new ArrayList<>();
-        String caricaStoricoPesi="SELECT DataRegistrazionePeso,Peso FROM PesoCliente WHERE IdCliente=? ORDER BY DataRegistrazionePeso ASC";
+        String caricaStoricoPesi="SELECT DataRegistrazionePeso,Peso FROM PesoCliente WHERE IdCliente=? ORDER BY DataRegistrazionePeso DESC LIMIT 10";
         try(Connection conn=ConnessioneDatabase.getConnection()){
             PreparedStatement datiCaricaStorico=conn.prepareStatement(caricaStoricoPesi);
             datiCaricaStorico.setInt(1,IdUtente);
@@ -372,7 +372,7 @@ public class DatiSessioneCliente {
                 System.out.println(risultato.getString("DataRegistrazionePeso"));
                 System.out.println(risultato.getInt("Peso"));
                 Pair<String,Integer> peso=new Pair<>(risultato.getString("DataRegistrazionePeso"),risultato.getInt("Peso"));
-                storicoPesi.add(peso);
+                storicoPesi.add(0,peso);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

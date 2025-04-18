@@ -78,9 +78,14 @@ public class ViewFactoryClient {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("WePower - Dashboard");
+        stage.setMinHeight(600);
+        stage.setMinWidth(1300);
+
+
         stage.show();
-        stage.setX(Screen.getPrimary().getVisualBounds().getMinX() + 100);
-        stage.setY(Screen.getPrimary().getVisualBounds().getMinY() + 100);
+        stage.setX(Screen.getPrimary().getVisualBounds().getMinX());
+        stage.setY(Screen.getPrimary().getVisualBounds().getMinY());
+
     }
 
                                                     // -- FUNZIONI DI CAMBIO VIEW DEL MENU --
