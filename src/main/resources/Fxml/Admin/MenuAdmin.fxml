@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1920.0" stylesheets="@../../Styles/DashboardAdmin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.MenuAdminController">
+<BorderPane prefWidth="1920.0" stylesheets="@../../Styles/DashboardAdmin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.MenuAdminController">
    <top>
       <HBox styleClass="barraMenuAdmin" stylesheets="@../../Styles/DashboardAdmin.css" BorderPane.alignment="CENTER">
          <children>

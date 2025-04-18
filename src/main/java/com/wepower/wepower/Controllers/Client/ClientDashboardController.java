@@ -3,7 +3,7 @@ package com.wepower.wepower.Controllers.Client;
 import com.wepower.wepower.APIs.OpenRouter_AI;
 import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.DatiSessioneCliente;
-import com.wepower.wepower.Views.BannerAbbonamenti;
+import com.wepower.wepower.Views.Bannerini.BannerAbbonamenti;
 import com.wepower.wepower.Views.ComponentiCalendario.Calendario;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;

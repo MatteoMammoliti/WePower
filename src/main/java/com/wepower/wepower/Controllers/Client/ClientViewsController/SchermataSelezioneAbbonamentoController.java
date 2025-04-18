@@ -1,7 +1,7 @@
 package com.wepower.wepower.Controllers.Client.ClientViewsController;
 
 import com.wepower.wepower.Models.DatiPalestra.Abbonamento;
-import com.wepower.wepower.Views.BannerAbbonamentiInSeleziona;
+import com.wepower.wepower.Views.Bannerini.BannerAbbonamentiInSeleziona;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

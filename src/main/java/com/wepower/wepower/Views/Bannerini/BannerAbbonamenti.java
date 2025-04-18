@@ -1,11 +1,8 @@
-package com.wepower.wepower.Views;
+package com.wepower.wepower.Views.Bannerini;
 
 import com.wepower.wepower.Controllers.Client.ClientViewsController.InserimentoDatiPagamentoController;
 import com.wepower.wepower.Controllers.Client.ClientViewsController.ProfiloController;
-import com.wepower.wepower.Controllers.Client.ClientViewsController.SchermataSelezioneAbbonamentoController;
 import com.wepower.wepower.Models.ConnessioneDatabase;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,7 +17,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class BannerAbbonamenti extends VBox {

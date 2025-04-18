@@ -1,4 +1,4 @@
-package com.wepower.wepower.Views;
+package com.wepower.wepower.Views.Bannerini;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

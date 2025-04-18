@@ -16,7 +16,6 @@
     -fx-pref-width: 150;
     -fx-wrap-text: true;
 
-
 }
 
 .barraMenuAdmin{
@@ -36,4 +35,26 @@
     -fx-background-color: white;
 }
 
+#containerUsers {
+    -fx-spacing: 15;
+    -fx-padding: 8;
+}
 
+
+
+.riga-dashboard{
+    -fx-background-color: #f0f0f0;
+    -fx-spacing: 50;
+
+
+}
+
+.bottoneAddUtente {
+    -fx-background-color: #ff7f2a;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-radius:30px;
+    -fx-border-radius: 30px;
+}
