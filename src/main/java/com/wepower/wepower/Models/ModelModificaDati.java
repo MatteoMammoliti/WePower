@@ -1,5 +1,6 @@
 package com.wepower.wepower.Models;
 
+import com.wepower.wepower.Controllers.Client.ClientDashboardController;
 import com.wepower.wepower.Controllers.Client.ClientViewsController.ProfiloController;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -88,7 +89,10 @@ public class ModelModificaDati {
                     if (!Objects.equals(telefono, DatiSessioneCliente.getTelefono())) {
                         DatiSessioneCliente.setTelefono(telefono);
                     }
-                    if(peso!=null){DatiSessioneCliente.setPesoAttuale(peso);}
+                    if(peso!=null){
+                        DatiSessioneCliente.setPesoAttuale(peso);
+                        ClientDashboardController.getInstance().loadGraficoPeso();
+                    }
                     conn.commit();
                     return true;
             }

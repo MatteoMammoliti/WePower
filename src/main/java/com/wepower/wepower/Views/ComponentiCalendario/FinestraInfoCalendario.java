@@ -22,7 +22,12 @@ public class FinestraInfoCalendario {
             Label informazione = new Label("Prenotato per l'ora: " );
             layout = new VBox(10,informazione,oraPrenotazione);
             scene = new Scene(layout);
-        }else{
+        }else if(giorno.isChiuso()){
+            informazione = new Label("Chiuso");
+            layout = new VBox(10,informazione);
+            scene = new Scene(layout);
+        }
+        else{
             informazione= new Label("Non prenotato");
             layout = new VBox(10,informazione);
             scene = new Scene(layout);

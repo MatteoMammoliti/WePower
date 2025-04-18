@@ -19,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import javafx.util.Pair;
 
 import java.io.IOException;
 import java.net.URL;
@@ -41,6 +42,11 @@ public class ClientDashboardController implements Initializable {
     public TextArea chatArea;
 
 
+    @FXML
+    private  RadioButton btnPrenotato;
+    @FXML
+    private RadioButton btnPalestraChiusa;
+
 
     // grafici
     @FXML
@@ -49,6 +55,8 @@ public class ClientDashboardController implements Initializable {
     private BarChart<String, Number> graficoPresenzePalestra;
     @FXML
     private MenuButton choiceEsercizioScheda;
+    @FXML
+    private LineChart<String,Number> graficoPeso;
 
     @FXML
     private Label labelNomeUtenteSaluto;
@@ -208,6 +216,24 @@ public class ClientDashboardController implements Initializable {
         }
     }
 
+    public void loadGraficoPeso(){
+        ArrayList<Pair<String,Integer>> storico=DatiSessioneCliente.caricaStroicoPesi(DatiSessioneCliente.getIdUtente());
+        XYChart.Series<String, Number> peso = new XYChart.Series<>();
+
+        peso.setName("Andamento peso corporeo");
+        for(int i=0;i<storico.size();i++){
+            String data = storico.get(i).getKey();
+            int pesoValore = storico.get(i).getValue();
+
+            // Aggiungi il punto al grafico
+            peso.getData().add(new XYChart.Data<>(data, pesoValore));
+        }
+        graficoPeso.getData().clear();
+        graficoPeso.getData().add(peso);
+
+
+    }
+
     private void loadAlert() {
 
         String fetchDataScadenza = "SELECT DataFineAbbonamento FROM AbbonamentoCliente WHERE IdCliente = ? AND StatoAbbonamento = 1";
@@ -282,6 +308,9 @@ public class ClientDashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         instance = this;
         labelNomeUtenteSaluto.setText("Ciao, "+ DatiSessioneCliente.getNomeUtente() + "👋");
+        btnPalestraChiusa.setDisable(true);
+        btnPrenotato.setDisable(true);
+
         loadCalendario();
         loadBanner();
         startAutoScroll();
@@ -289,6 +318,7 @@ public class ClientDashboardController implements Initializable {
         try {
             caricaEserciziSchedaMenuGrafico();
             loadGraficoPrenotazioni();
+            loadGraficoPeso();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

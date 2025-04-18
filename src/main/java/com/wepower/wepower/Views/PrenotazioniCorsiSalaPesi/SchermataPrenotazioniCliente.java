@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.sql.SQLException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Locale;
@@ -82,6 +83,20 @@ public class SchermataPrenotazioniCliente extends VBox {
         sezioneOrario.setPrefHeight(150);
         sezioneOrario.getChildren().addAll(labelInizio,labelFine);
         sezioneOrario.setStyle("-fx-background-color: blue; -fx-padding: 10;");
+
+        if(data.getDayOfWeek() == DayOfWeek.SUNDAY){
+            VBox dettagliRiga=new VBox(10);
+            dettagliRiga.setPrefWidth(500);
+            dettagliRiga.setPrefHeight(100);
+            Button btnPrenota=new Button("Giorno di chiusura");
+            btnPrenota.setDisable(true);
+            btnPrenota.setStyle("-fx-background-color: red; -fx-font-weight: bold;");
+            btnPrenota.setAlignment(Pos.CENTER);
+            rigaCompleta.getChildren().add(sezioneOrario);
+            dettagliRiga.getChildren().addAll(btnPrenota);
+            rigaCompleta.getChildren().add(dettagliRiga);
+            return rigaCompleta;
+        }
 
         //Sezione informazioni-parte destra della riga(Sala pesi,Posti liberi,bottone registrati)
         VBox dettagliRiga=new VBox(5);

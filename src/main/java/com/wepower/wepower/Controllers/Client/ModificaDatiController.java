@@ -7,7 +7,7 @@ import com.wepower.wepower.Models.ModelValidazione;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
+
 
 import javax.swing.*;
 import java.io.IOException;
