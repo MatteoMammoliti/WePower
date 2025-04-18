@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 public class GiornoCalendario  extends Button {
     private boolean prenotato;
     private String dataPrenotazione;
+    private boolean chiuso;
 
 
     public GiornoCalendario(String giornovalore,String dataPrenotazione) {
@@ -21,11 +22,15 @@ public class GiornoCalendario  extends Button {
     public boolean prenotato() {
         return prenotato;
     }
+    public boolean isChiuso() {
+        return chiuso;
+    }
 
 
     public void setPrenotato(boolean prenotato) {
         this.prenotato = prenotato;
     }
+    public void setChiusura(boolean chiuso) {this.chiuso = chiuso;}
 
 
 }

@@ -69,7 +69,8 @@ public class InserimentoDatiPagamentoController implements Initializable {
 
     public void onClickPaga() throws SQLException {
         String proprietarioCarta = textFieldProprietarioCarta.getText();
-        String numeroCarta = textFieldNumeroCarta.getText();
+        String numeroCarta = textFieldNumeroCarta.getText().replaceAll("[\\s-]", "");
+
         String dataScadenza = textFieldDataScadenzacarta.getText();
         String cvc = textFieldCvc.getText();
         int idAbbonamento;
@@ -132,7 +133,9 @@ public class InserimentoDatiPagamentoController implements Initializable {
                     conn.commit();
                     Stage stage=(Stage) btnPaga.getScene().getWindow();
                     DatiSessioneCliente.setStatoAbbonamento(true);
-                    Model.getInstance().getProfiloController().caricaInterfacciaDatiUtente();
+                    if(Model.getInstance().getProfiloController()!=null){
+                        Model.getInstance().getProfiloController().caricaInterfacciaDatiUtente();
+                    }
                     Model.getInstance().getClientMenuController().caricaMenu();
                     stage.close();
                     if(finestraPrecedente!=null){finestraPrecedente.close();}

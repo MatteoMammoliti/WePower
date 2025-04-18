@@ -33,7 +33,7 @@ public class ModelAutenticazione {
                     DatiSessioneCliente.setCertificato(risultatoClienti.getInt("CertificatoValido"));
                     DatiSessioneCliente.setDataNascita(risultatoClienti.getString("DataNascita"));
                     DatiSessioneCliente.setTelefono(risultatoClienti.getString("Telefono"));
-
+                    DatiSessioneCliente.caricaPesoAttuale(risultatoClienti.getInt("IdCliente"));
                     InputStream immagine = risultatoClienti.getBinaryStream("ImmagineProfilo");
                     DatiSessioneCliente.setAltezza(risultatoClienti.getString("Altezza"));
                     DatiSessioneCliente.setGenere(risultatoClienti.getString("Sesso"));

@@ -63,7 +63,11 @@ public class Calendario {
             for (int i = 1; i <= giorniNelMese; i++) {
                 LocalDate data = yearMonth.atDay(i);
                 GiornoCalendario giorno= new GiornoCalendario(String.valueOf(i), data.toString());
-
+                //Controllo se il giorno è domenica(giorno di chiusura)
+                if(data.getDayOfWeek() == java.time.DayOfWeek.SUNDAY){
+                    giorno.setStyle("-fx-background-color: red; -fx-font-weight: bold;");
+                    giorno.setChiusura(true);
+                }
                 // Evidenzio la data di oggi
                 if (data.equals(LocalDate.now())) {
                     giorno.setStyle("-fx-background-color: #d1e7dd; -fx-font-weight: bold;");

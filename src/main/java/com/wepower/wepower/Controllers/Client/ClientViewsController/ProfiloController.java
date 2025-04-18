@@ -60,8 +60,6 @@ public class ProfiloController implements Initializable {
     @FXML
     private Label labelAltezza;
     @FXML
-    private Label labelPercentualeGrasso;
-    @FXML
     private Button btnModificaDati;
     @FXML
     private Button btnPulsanteEliminaUtente;

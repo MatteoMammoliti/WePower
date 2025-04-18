@@ -4,6 +4,7 @@ import com.wepower.wepower.Controllers.Client.ClientViewsController.InserimentoD
 import com.wepower.wepower.Controllers.Client.ClientViewsController.ProfiloController;
 import com.wepower.wepower.Controllers.Client.ClientViewsController.SchermataSelezioneAbbonamentoController;
 import com.wepower.wepower.Models.ConnessioneDatabase;
+import com.wepower.wepower.Models.DatiSessioneCliente;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -90,6 +92,10 @@ public class BannerAbbonamenti extends VBox {
     }
 
     public void onClickBannerio(String nome,double prezzoB) throws IOException {
+        if(DatiSessioneCliente.getStatoAbbonamento()){
+            JOptionPane.showMessageDialog(null,"Abbonamento già attivo!");
+            return;
+        }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Client/ClientMenuView/InserimentoDatiPagamento.fxml"));
         Parent root = loader.load();
         InserimentoDatiPagamentoController controller = loader.getController();

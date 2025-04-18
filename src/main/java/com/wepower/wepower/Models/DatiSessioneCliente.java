@@ -4,13 +4,12 @@ import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.util.Pair;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -34,6 +33,9 @@ public class DatiSessioneCliente {
     private static boolean alertScadenzaAbbonamento = false;
     private static boolean alertCertificatoMancante = false;
 
+    //Tutto lo storico dei pesi del Cliente
+    private static ArrayList<Integer> pesiCliente=new ArrayList<>();
+
     //Tutto lo storico delle prenotazioni sala pesi dell'utente
     private static ArrayList<PrenotazioneSalaPesi> dateOrariPrenotazioni = new ArrayList<>();
 
@@ -43,28 +45,15 @@ public class DatiSessioneCliente {
     private static ArrayList<String>  eserciziConMassimale = new ArrayList<>();
 
     // GETTER
-    public static int getIdUtente() {
-        return idUtente;
-    }
-    public static String getEmail() {
-        return email;
-    }
-    public static String getNomeUtente() {
-        return nome;
-    }
+    public static int getIdUtente() {return idUtente;}
+    public static String getEmail() {return email;}
+    public static String getNomeUtente() {return nome;}
     public static String getAltezza() {return altezza;}
     public static Integer getPesoAttuale() {return pesoAttuale;}
-
-    public  static String getTelefono() {
-        return telefono;
-    }
-    public static int getCertificato() {
-        return certificato;
-    }
+    public  static String getTelefono() {return telefono;}
+    public static int getCertificato() {return certificato;}
     public static String getCognome() { return cognome; }
-    public static ArrayList<PrenotazioneSalaPesi> getDateOrariPrenotazioni() {
-        return dateOrariPrenotazioni;
-    }
+    public static ArrayList<PrenotazioneSalaPesi> getDateOrariPrenotazioni() {return dateOrariPrenotazioni;}
     public static boolean getStatoAbbonamento(){return statoAbbonamento;}
     public static int getIdSchedaAllenamento() { return idSchedaAllenamento; }
     public static String getOrarioPrenotazione(String data){
@@ -87,21 +76,18 @@ public class DatiSessioneCliente {
     // SETTER
     public static void setStatoAbbonamento(boolean abbonamento){statoAbbonamento = abbonamento;}
     public static void setDataNascita(String data){dataNascita=data;}
-    public static void setNomeUtente(String n) {
-        nome=n;
-    }
-    public static void setIdUtente(int id) {
-        idUtente = id;
-    }
-    public static void setEmail(String e_mail){
-        email = e_mail;
-    }
+    public static void setNomeUtente(String n) {nome=n;}
+    public static void setIdUtente(int id) {idUtente = id;}
+    public static void setEmail(String e_mail){email = e_mail;}
     public static void setAltezza(String a) {altezza = a;}
     public static void setPesoAttuale(Integer p) {pesoAttuale = p;}
+    public static void setPesiCliente(ArrayList<Integer> pesi){
+        for (Integer pesic : pesi) {
+            pesiCliente.add(pesic);
+        }
 
-    public static void setCertificato(int valore) {
-        certificato = valore;
     }
+    public static void setCertificato(int valore) {certificato = valore;}
     public static void setCognome(String c) { cognome = c; }
     public static void setTelefono(String t) {telefono = t; }
     public static void setIdSchedaAllenamento(int id) { idSchedaAllenamento = id; }
@@ -114,11 +100,8 @@ public class DatiSessioneCliente {
             datePrenotazioniSalaPesi.add(dateOrariPrenotazioni.get(i).getDataPrenotazione());
         }
     }
-    public static void setEserciziConMassimale(ArrayList<String> esercizi) {
-        eserciziConMassimale = esercizi;
-    }
+    public static void setEserciziConMassimale(ArrayList<String> esercizi) {eserciziConMassimale = esercizi;}
     public static void setGenere(String s) {genere = s;}
-
     public static void setAlertScadenzaAbbonamento(boolean alert) { alertScadenzaAbbonamento = alert; }
     public static void setAlertCertificatoMancante(boolean alert) { alertCertificatoMancante = alert; }
 
@@ -165,6 +148,7 @@ public class DatiSessioneCliente {
         return false;
     }
 
+    //CONTROLLO TIPO DI ABBONAMENTO ATTIVO DEL CLIENTE
     public static String getTipoAbbonamentoAttivo(){
         String abbonamentoAttivo;
         String nomeTipoAbbonamento="SELECT t.NomeAbbonamento from TipoAbbonamento t join AbbonamentoCliente a on t.IdTipoAbbonamento=a.IdTipoAbbonamento where a.IdCliente=?";
@@ -183,6 +167,7 @@ public class DatiSessioneCliente {
         return null;
     }
 
+    //RECUPERO DATA INIZIO ABBONAMENTO ATTIVO DEL CLIENTE
     public static String getDataInizioAbbonamentoAttivo(){
         String dataInizioAbbonamento="SELECT ac.DataInizioAbbonamento from AbbonamentoCliente ac where ac.IdCliente=? and ac.StatoAbbonamento=1";
         try(Connection conn=ConnessioneDatabase.getConnection()){
@@ -199,6 +184,7 @@ public class DatiSessioneCliente {
         return null;
     }
 
+    //RECUPERO DATA FINE ABBONAMENTO ATTIVO DEL CLIENTE
     public static String getDataFineAbbonamentoAttivo() throws SQLException {
         String dataFineAbbonamentoAttivo="SELECT ac.DataFineAbbonamento from AbbonamentoCliente ac where ac.IdCliente= ? and ac.StatoAbbonamento=1";
         try(Connection conn=ConnessioneDatabase.getConnection()){
@@ -216,6 +202,7 @@ public class DatiSessioneCliente {
         return null;
     }
 
+    //CONTROLLO SE L'ABBONAMENTO DEL CLIENTE è ATTIVO
     public static boolean isAbbonamentoAttivo() throws SQLException {
         String dataInizioAbbonamento = getDataInizioAbbonamentoAttivo();
         String dataFineAbbonamento = getDataFineAbbonamentoAttivo();
@@ -225,19 +212,20 @@ public class DatiSessioneCliente {
             LocalDate dataFine = LocalDate.parse(dataFineAbbonamento);
             LocalDate oggi = LocalDate.now();
 
-            if (oggi.isAfter(dataInizio) && oggi.isBefore(dataFine)) {
+            if ((oggi.isAfter(dataInizio) || oggi.equals(dataInizio))&& oggi.isBefore(dataFine)) {
                 return true;
             }
         }
         return false;
     }
 
-    //AGGIUNGI UNA PRENOTAZIONE
+    //AGGIUNGI UNA PRENOTAZIONE SALA PESI
     public static void aggiungiPrenotazione(PrenotazioneSalaPesi p) {
         dateOrariPrenotazioni.add(p);
         datePrenotazioniSalaPesi.add(p.getDataPrenotazione());
     }
-    //RIMUOVI UNA PRENOTAZIONE
+
+    //RIMUOVI UNA PRENOTAZIONE SALA PESI
     public static void rimuoviPrenotazione(PrenotazioneSalaPesi p) {
         dateOrariPrenotazioni.remove(p);
         datePrenotazioniSalaPesi.remove(p.getDataPrenotazione());
@@ -246,7 +234,7 @@ public class DatiSessioneCliente {
         }
     }
 
-    //Salvo l'immagine profilo dell'utente nel DB
+    //SALVO L'IMMAGINE DEL CLIENTE NEL DB
     public static void salvaImmagineProfiloUtente(int idUtente, File immagine) throws SQLException, IOException {
         String salvaImmagine = "UPDATE Cliente SET ImmagineProfilo=? where IdCliente=?";
 
@@ -270,7 +258,7 @@ public class DatiSessioneCliente {
         }
     }
 
-    //Carico l'immagine profilo dell'utente dal db
+    //CARICO L'IMMAGINE DEL CLIENTE DAL DB
     public static Image caricaImmagineProfiloUtente(int idUtente) throws SQLException {
         String caricaImmagine="Select ImmagineProfilo from Cliente where IdCliente=?";
         try(Connection conn=ConnessioneDatabase.getConnection()){
@@ -294,6 +282,7 @@ public class DatiSessioneCliente {
         return null;
     }
 
+    //SALVO CERTIFICATO MEDICO DEL CLIENTE NEL DB
     public static void salvaCertificatoMeidico(int idUtente,File certificato) throws SQLException, IOException {
         String caricoCertificato="INSERT INTO Certificato (IdCliente,Stato,ImgCertificato,DataCaricamentoCertificato) VALUES (?,?,?,?)";
         byte[] certificatoBytes = Files.readAllBytes(Paths.get(certificato.getAbsolutePath()));
@@ -314,13 +303,14 @@ public class DatiSessioneCliente {
         }
     }
 
+    //AGGIUNGO MASSIMALE DI UN ESERCIZIO
     public static void aggiungiEsercizioConMassimale(String esercizio) {
         if (!eserciziConMassimale.contains(esercizio)) {
             eserciziConMassimale.add(esercizio);
         }
     }
 
-    //Elimina utente
+    //ELIMINA UTENTE
     public static boolean onClickEliminaUtente(int id) throws SQLException {
         String eliminaUtente="DELETE FROM Cliente WHERE IdCliente=?";
         try(Connection conn=ConnessioneDatabase.getConnection()){
@@ -351,5 +341,42 @@ public class DatiSessioneCliente {
             }
         }
         return false;
+    }
+
+
+
+    //PRELEVO DAL TADABASE L'ULTIMO AGGIORNAMENTO PESO INSERITO DALL'UTENTE
+    public static void caricaPesoAttuale(int IdUtente){
+        String caricaPeso="SELECT Peso FROM PesoCliente WHERE IdCliente=? ORDER BY DataRegistrazionePeso DESC LIMIT 1";
+        try(Connection conn=ConnessioneDatabase.getConnection()){
+            PreparedStatement datiCaricaPeso=conn.prepareStatement(caricaPeso);
+            datiCaricaPeso.setInt(1,IdUtente);
+            ResultSet risultato=datiCaricaPeso.executeQuery();
+            if(risultato.next()){
+                pesoAttuale=risultato.getInt("Peso");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //PRELEVO DAL DATABASE STORICO PESI CON DATE
+    public static ArrayList<Pair<String,Integer>> caricaStroicoPesi(int IdUtente){
+        ArrayList<Pair<String,Integer>> storicoPesi=new ArrayList<>();
+        String caricaStoricoPesi="SELECT DataRegistrazionePeso,Peso FROM PesoCliente WHERE IdCliente=? ORDER BY DataRegistrazionePeso ASC";
+        try(Connection conn=ConnessioneDatabase.getConnection()){
+            PreparedStatement datiCaricaStorico=conn.prepareStatement(caricaStoricoPesi);
+            datiCaricaStorico.setInt(1,IdUtente);
+            ResultSet risultato=datiCaricaStorico.executeQuery();
+            while(risultato.next()){
+                System.out.println(risultato.getString("DataRegistrazionePeso"));
+                System.out.println(risultato.getInt("Peso"));
+                Pair<String,Integer> peso=new Pair<>(risultato.getString("DataRegistrazionePeso"),risultato.getInt("Peso"));
+                storicoPesi.add(peso);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return storicoPesi;
     }
 }
