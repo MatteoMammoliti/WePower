@@ -282,9 +282,13 @@ public class DatiSessioneCliente {
     }
 
     //SALVO CERTIFICATO MEDICO DEL CLIENTE NEL DB
-    public static void salvaCertificatoMeidico(int idUtente,File certificato) throws SQLException, IOException {
+    public static boolean salvaCertificatoMeidico(int idUtente,File certificato) throws SQLException, IOException{
+        if(certificato==null){
+            System.out.println("certificato null");return false;}
         String caricoCertificato="INSERT INTO Certificato (IdCliente,Stato,ImgCertificato,DataCaricamentoCertificato) VALUES (?,?,?,?)";
         byte[] certificatoBytes = Files.readAllBytes(Paths.get(certificato.getAbsolutePath()));
+        if(certificatoBytes.length==0){
+            System.out.println("zero lenght");return false;}
         try(Connection conn=ConnessioneDatabase.getConnection()){
             try(PreparedStatement datiCertificato=conn.prepareStatement(caricoCertificato)){
                 datiCertificato.setInt(1, idUtente);
@@ -295,11 +299,15 @@ public class DatiSessioneCliente {
 
                 if(datiCertificato.getUpdateCount()>0){
                     System.out.println("Caricato certificato medico");
+                    return true;
                 }
             }
         }catch (SQLException e){
+            System.out.println("Errore caricamento certificato medico");
             throw new RuntimeException(e);
+
         }
+        return false;
     }
 
     //AGGIUNGO MASSIMALE DI UN ESERCIZIO

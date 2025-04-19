@@ -165,7 +165,7 @@ public class ProfiloController implements Initializable {
         else{
             labelTellefono.setText("Nessun numero di telefono");
         }
-
+        System.out.println("DatiSessioneCliente.getCertificato() = " + DatiSessioneCliente.getCertificato());
         if(DatiSessioneCliente.getCertificato()==2) {
             labelStatoCertificato.setText("Certificato valido");
             labelStatoCertificato.getStyleClass().add("certificatoSi");
@@ -240,13 +240,17 @@ public class ProfiloController implements Initializable {
     }
 
     public void caricaCertificato() throws SQLException, IOException {
+        System.out.println("Carica certificato");
         FileChooser selezioneFile = new FileChooser();
         selezioneFile.setTitle("Selezione certificato");
         selezioneFile.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF", "*.pdf"));
         imgCertificato= selezioneFile.showOpenDialog(null);
-        DatiSessioneCliente.salvaCertificatoMeidico(DatiSessioneCliente.getIdUtente(),imgCertificato);
-        DatiSessioneCliente.setCertificato(1);
-        caricaInterfacciaDatiUtente();
+        if(DatiSessioneCliente.salvaCertificatoMeidico(DatiSessioneCliente.getIdUtente(),imgCertificato)){
+            System.out.println("Certificato caricato.forse");
+            DatiSessioneCliente.setCertificato(1);
+            caricaInterfacciaDatiUtente();
+        }
+
     }
     public void onClickLabelScheda(){
         Model.getInstance().getViewFactoryClient().invalidateMyProfileView();
