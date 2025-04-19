@@ -240,13 +240,11 @@ public class ProfiloController implements Initializable {
     }
 
     public void caricaCertificato() throws SQLException, IOException {
-        System.out.println("Carica certificato");
         FileChooser selezioneFile = new FileChooser();
         selezioneFile.setTitle("Selezione certificato");
         selezioneFile.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF", "*.pdf"));
         imgCertificato= selezioneFile.showOpenDialog(null);
         if(DatiSessioneCliente.salvaCertificatoMeidico(DatiSessioneCliente.getIdUtente(),imgCertificato)){
-            System.out.println("Certificato caricato.forse");
             DatiSessioneCliente.setCertificato(1);
             caricaInterfacciaDatiUtente();
         }

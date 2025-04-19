@@ -284,20 +284,18 @@ public class DatiSessioneCliente {
     //SALVO CERTIFICATO MEDICO DEL CLIENTE NEL DB
     public static boolean salvaCertificatoMeidico(int idUtente,File certificato) throws SQLException, IOException{
         if(certificato==null){
-            System.out.println("certificato null");return false;}
+           return false;}
         String caricoCertificato="INSERT INTO Certificato (IdCliente,Stato,ImgCertificato,DataCaricamentoCertificato) VALUES (?,?,?,?)";
         byte[] certificatoBytes = Files.readAllBytes(Paths.get(certificato.getAbsolutePath()));
         if(certificatoBytes.length==0){
-            System.out.println("zero lenght");return false;}
+           return false;}
         try(Connection conn=ConnessioneDatabase.getConnection()){
             try(PreparedStatement datiCertificato=conn.prepareStatement(caricoCertificato)){
                 datiCertificato.setInt(1, idUtente);
                 datiCertificato.setString(2,"Attesa");
                 datiCertificato.setBytes(3,certificatoBytes);
                 datiCertificato.setString(4, LocalDate.now().toString());
-                datiCertificato.executeUpdate();
-
-                if(datiCertificato.getUpdateCount()>0){
+                if(datiCertificato.executeUpdate()>0){
                     System.out.println("Caricato certificato medico");
                     return true;
                 }
