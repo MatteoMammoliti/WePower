@@ -56,7 +56,7 @@ public class ModelModificaDati {
                 if(datiCredenziali.executeUpdate() == 0){
                     conn.commit();
                     return false;}
-                if(peso != null){
+                if(peso != null && peso!=DatiSessioneCliente.getPesoAttuale()){
                     try (PreparedStatement pesoCredenziali = conn.prepareStatement(aggiornaPeso)){
                         pesoCredenziali.setInt(1, id);
                         pesoCredenziali.setInt(2, peso);
@@ -89,7 +89,7 @@ public class ModelModificaDati {
                     if (!Objects.equals(telefono, DatiSessioneCliente.getTelefono())) {
                         DatiSessioneCliente.setTelefono(telefono);
                     }
-                    if(peso!=null){
+                    if(peso!=null && peso!=DatiSessioneCliente.getPesoAttuale()){
                         DatiSessioneCliente.setPesoAttuale(peso);
                         ClientDashboardController.getInstance().loadGraficoPeso();
                     }

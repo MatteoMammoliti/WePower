@@ -9,18 +9,16 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientViewsController.PrenotazioniController">
-    <left>
-        <Pane prefHeight="1080.0" prefWidth="0.0" BorderPane.alignment="CENTER">
-            <children>
-
-            </children>
-        </Pane>
-    </left>
     <center>
-        <HBox spacing="100" BorderPane.alignment="CENTER">
+        <HBox spacing="100" BorderPane.alignment="CENTER" fillHeight="true">
          <children>
-            <HBox fx:id="containerGiorniPrenotazione" prefWidth="500.0" />
-            <ScrollPane fx:id="contenitoreStoricoCliente" fitToWidth="true" hbarPolicy="NEVER" style="-fx-padding: 0; -fx-background-color: transparent; -fx-border-insets: 0; -fx-background-insets: 0;">
+             <ScrollPane fitToWidth="true" vbarPolicy="AS_NEEDED" style="-fx-padding: 0; -fx-background-color: transparent; -fx-border-insets: 0; -fx-background-insets: 0;">
+                 <content>
+                 <HBox fx:id="containerGiorniPrenotazione" HBox.hgrow="NEVER"  minWidth="400" spacing="10"  />
+                 </content>
+             </ScrollPane>
+
+            <ScrollPane fx:id="contenitoreStoricoCliente" maxWidth="300" HBox.hgrow="ALWAYS" fitToWidth="true" fitToHeight="false" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER" style="-fx-padding: 0; -fx-background-color: transparent; -fx-border-insets: 0; -fx-background-insets: 0;">
                <content>
                   <VBox fx:id="corpoStorico">
                      <children>
@@ -32,9 +30,9 @@
         </HBox>
     </center>
    <top>
-          <VBox prefHeight="86.0" prefWidth="644.0" styleClass="pane_offerte_dashboard" BorderPane.alignment="CENTER">
+          <VBox styleClass="pane_offerte_dashboard" BorderPane.alignment="CENTER">
               <children>
-                    <Label alignment="CENTER" prefHeight="86.0" prefWidth="774.0" text="Prenota il tuo allenamento">
+                    <Label alignment="CENTER"  text="Prenota il tuo allenamento">
                         <font>
                             <Font name="Arial Bold" size="30.0" />
                         </font>

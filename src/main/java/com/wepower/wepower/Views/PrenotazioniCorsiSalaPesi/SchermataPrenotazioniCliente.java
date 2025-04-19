@@ -80,7 +80,7 @@ public class SchermataPrenotazioniCliente extends VBox {
         labelFine.setStyle("-fx-font-weight: bold;-fx-text-fill: white;");
         labelInizio.setStyle("-fx-font-weight: bold; -fx-text-fill: white;");
         sezioneOrario.setPrefWidth(150);
-        sezioneOrario.setPrefHeight(150);
+        sezioneOrario.setPrefHeight(100);
         sezioneOrario.getChildren().addAll(labelInizio,labelFine);
         sezioneOrario.setStyle("-fx-background-color: blue; -fx-padding: 10;");
 
