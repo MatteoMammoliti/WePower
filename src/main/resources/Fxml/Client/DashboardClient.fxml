@@ -66,6 +66,7 @@
                         </VBox.margin>
                     </ImageView>
 
+                    <Pane fx:id="spazioFlessibile" VBox.vgrow="ALWAYS"/>
 
                     <!-- Sezione grafici -->
                     <HBox spacing="20" VBox.vgrow="ALWAYS" fx:id="containerGrafici">
