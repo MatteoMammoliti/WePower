@@ -47,20 +47,6 @@ public class ModelAutenticazione {
                     DatiSessioneCliente.setImmagineProfilo(immagineProfilo);
 
                     DatiSessioneCliente.setDateOrariPrenotazioni(caricaDatePrenotazioniSalaPesi(risultatoClienti.getInt("IdCliente")));
-                    /*
-                    try(PreparedStatement statoAbbonamento=conn.prepareStatement(Query3)) {
-                        statoAbbonamento.setInt(1, risultatoClienti.getInt("IdCliente"));
-                        ResultSet risultatoStato=statoAbbonamento.executeQuery();
-                        if(risultatoStato.next()) {
-                            System.out.println("Abbonamento si");
-                            DatiSessioneCliente.setStatoAbbonamento(true);
-                            }
-
-                        else{
-                                DatiSessioneCliente.setStatoAbbonamento(false);
-                        }
-                    }
-                    */
 
                     if (DatiSessioneCliente.isAbbonamentoAttivo()) {
                         DatiSessioneCliente.setStatoAbbonamento(true);

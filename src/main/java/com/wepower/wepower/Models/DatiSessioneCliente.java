@@ -85,7 +85,6 @@ public class DatiSessioneCliente {
         for (Integer pesic : pesi) {
             pesiCliente.add(pesic);
         }
-
     }
     public static void setCertificato(int valore) {certificato = valore;}
     public static void setCognome(String c) { cognome = c; }
@@ -100,7 +99,7 @@ public class DatiSessioneCliente {
             datePrenotazioniSalaPesi.add(dateOrariPrenotazioni.get(i).getDataPrenotazione());
         }
     }
-    public static void setEserciziConMassimale(ArrayList<String> esercizi) {eserciziConMassimale = esercizi;}
+
     public static void setGenere(String s) {genere = s;}
     public static void setAlertScadenzaAbbonamento(boolean alert) { alertScadenzaAbbonamento = alert; }
     public static void setAlertCertificatoMancante(boolean alert) { alertCertificatoMancante = alert; }
@@ -343,8 +342,6 @@ public class DatiSessioneCliente {
         return false;
     }
 
-
-
     //PRELEVO DAL TADABASE L'ULTIMO AGGIORNAMENTO PESO INSERITO DALL'UTENTE
     public static void caricaPesoAttuale(int IdUtente){
         String caricaPeso="SELECT Peso FROM PesoCliente WHERE IdCliente=? ORDER BY DataRegistrazionePeso DESC LIMIT 1";
@@ -378,5 +375,94 @@ public class DatiSessioneCliente {
             throw new RuntimeException(e);
         }
         return storicoPesi;
+    }
+
+    // PRELEVO DAL DATABASE STORICO DEI MASSIMALI CON DATE PER CIASCUN ESERCIZIO
+    public static ArrayList<Pair<String,Number>> caricaStoricoMassimalePerEsercizio(String esercizio, int IdUtente){
+
+        String prelevamento = "SELECT Peso, DataInserimento FROM MassimaleImpostatoCliente WHERE IDCliente = ? AND NomeEsercizio = ? ORDER BY DataInserimento DESC LIMIT 10";
+        ArrayList<Pair<String,Number>> lista = new ArrayList<>();
+
+        try (Connection conn = ConnessioneDatabase.getConnection()) {
+            PreparedStatement prelievo = conn.prepareStatement(prelevamento);
+            prelievo.setInt(1, DatiSessioneCliente.getIdUtente());
+            prelievo.setString(2, esercizio);
+            ResultSet rs = prelievo.executeQuery();
+
+            while(rs.next()) {
+
+                long dataInserimento = rs.getLong("DataInserimento");
+                double peso = rs.getDouble("Peso");
+
+                // Converti il timestamp in una stringa formattata
+                String data = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(dataInserimento));
+                Pair<String,Number> pair = new Pair<>(data,peso);
+                lista.add(0,pair);
+            }
+
+            return lista;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // PRELIEVO STORICO PRENOTAZIONI PER GRAFICO
+    public static ArrayList<Pair<String, Number>> caricaStoricoPrenotazioni(int IdUtente) {
+
+        String prelevaPrenotazioni = "SELECT SUBSTR(DataPrenotazione, 1, 7) AS Mese, COUNT(*) AS numeroPrenotazioni FROM PrenotazioneSalaPesi WHERE IdCliente = ? GROUP BY Mese ORDER BY Mese";
+        ArrayList<Pair<String,Number>> lista = new ArrayList<>();
+
+        try (Connection conn = ConnessioneDatabase.getConnection()) {
+            PreparedStatement prelevamento = conn.prepareStatement(prelevaPrenotazioni);
+            prelevamento.setInt(1, DatiSessioneCliente.getIdUtente());
+            ResultSet rs = prelevamento.executeQuery();
+
+            while(rs.next()) {
+                String mese = rs.getString("Mese");
+                int cont = rs.getInt("numeroPrenotazioni");
+
+                Pair<String, Number> p = new Pair<>(mese, cont);
+                lista.add(p);
+            }
+            return lista;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // PRELIEVO DATA DI SCADENZA DELL'ABBONAMENTO
+    public static String caricaDataScadenzaAbbonamento(int IdUtente) {
+        String fetchDataScadenza = "SELECT DataFineAbbonamento FROM AbbonamentoCliente WHERE IdCliente = ? AND StatoAbbonamento = 1";
+
+        try (Connection conn = ConnessioneDatabase.getConnection()) {
+            PreparedStatement prelevamento = conn.prepareStatement(fetchDataScadenza);
+            prelevamento.setInt(1, IdUtente);
+            ResultSet rs = prelevamento.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("DataFineAbbonamento");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // PRELIEVO DATA DI SCADENZA DELL'ABBONAMENTO
+    public static int caricaPresenzaCertificato(int IdUtente) {
+        String fetchCertificato = "SELECT IdCertificato FROM Certificato WHERE IdCliente = ?";
+
+        try (Connection conn = ConnessioneDatabase.getConnection()) {
+            PreparedStatement prelevamento = conn.prepareStatement(fetchCertificato);
+            prelevamento.setInt(1, IdUtente);
+            ResultSet rs = prelevamento.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("IdCertificato");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

@@ -34,21 +34,25 @@ import java.util.ResourceBundle;
 
 public class ClientDashboardController implements Initializable {
     private static ClientDashboardController instance;
-    public AnchorPane containerCalendario;
 
-    // chatbot
-    public Button inviaButton;
-    public TextField inputField;
-    public TextArea chatArea;
-
-
+    // sezione calendario
+    @FXML
+    private AnchorPane containerCalendario;
     @FXML
     private  RadioButton btnPrenotato;
     @FXML
     private RadioButton btnPalestraChiusa;
 
+    // chatbot powerino
+    @FXML
+    private Button inviaButton;
+    @FXML
+    private TextField inputField;
+    @FXML
+    private TextArea chatArea;
 
-    // grafici
+
+    // sezione grafici
     @FXML
     private LineChart<String, Number> graficoMassimali;
     @FXML
@@ -60,12 +64,11 @@ public class ClientDashboardController implements Initializable {
 
     @FXML
     private Label labelNomeUtenteSaluto;
-    // private double prefHieght = 200;  altezza del banner
+
+    // sezione banner abbonamenti
+    @FXML
+    private ScrollPane scrollPaneBanner;
     private double prefWidth = 350;
-
-    // container del displayer dei banner
-    public ScrollPane scrollPaneBanner;
-
     @FXML
     // container dei banner
     private HBox displayerBanner;
@@ -74,6 +77,25 @@ public class ClientDashboardController implements Initializable {
         return instance;
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        instance = this;
+        labelNomeUtenteSaluto.setText("Ciao, "+ DatiSessioneCliente.getNomeUtente() + "👋");
+        btnPalestraChiusa.setDisable(true);
+        btnPrenotato.setDisable(true);
+        loadCalendario();
+        loadBanner();
+        startAutoScroll();
+        onChiediPowerino();
+        caricaEserciziSchedaMenuGrafico();
+        loadGraficoPrenotazioni();
+        loadGraficoPeso();
+        loadAlert();
+    }
+
+    // -- FUNZIONI DISPLAYER COMPONENTI DELLA DASHBOARD
+
+    // SEZIONE BANNER
     private void loadBanner() {
         // max banner visibili per volta
         int maxBannerVisibili = 3;
@@ -93,15 +115,7 @@ public class ClientDashboardController implements Initializable {
         }
     }
 
-    public void loadCalendario() {
-        containerCalendario.getChildren().clear();
-        VBox calendario = Calendario.creaCalendario();
-        containerCalendario.getChildren().add(calendario);
-    }
-
-    // funzione per lo scroll automatico dei banner
     private void startAutoScroll() {
-
         // oggetto che esegue animazioni ad intervalli regolari fissati
         Timeline timeline = new Timeline(
 
@@ -123,105 +137,54 @@ public class ClientDashboardController implements Initializable {
         scrollPaneBanner.setOnMouseExited(event -> timeline.play());
     }
 
-    public void onChiediPowerino() {
-        inviaButton.setOnAction(event -> {
-            String userInput = inputField.getText().trim();
-            if (!userInput.isEmpty()) {
-                chatArea.appendText("Tu: " + userInput + "\n");
-                inputField.clear();
-
-                // Avvia un nuovo thread per lo streaming
-                new Thread(() -> {
-                    try {
-                        OpenRouter_AI.chiediPowerinoStreaming(userInput, token -> {
-                            Platform.runLater(() -> {
-                                chatArea.appendText(token);
-                            });
-                        });
-                        Platform.runLater(() -> chatArea.appendText("\n")); // Vai a capo alla fine
-                    } catch (IOException | SQLException e) {
-                        Platform.runLater(() -> chatArea.appendText("\n⚠ Errore di connessione con Powerino\n"));
-                        e.printStackTrace();
-                    }
-                }).start();
-            }
-        });
+    // SEZIONE CALENDARIO
+    public void loadCalendario() {
+        containerCalendario.getChildren().clear();
+        VBox calendario = Calendario.creaCalendario();
+        containerCalendario.getChildren().add(calendario);
     }
 
-    public void caricaEserciziSchedaMenuGrafico() throws SQLException {
+    // SEZIONE GRAFICI
+    public void caricaEserciziSchedaMenuGrafico() {
         ArrayList<String> temp = DatiSessioneCliente.getEserciziConMassimale();
 
         if (temp != null) {
             for (String esercizio : temp) {
                 MenuItem menuItem = new MenuItem(esercizio);
                 menuItem.setOnAction(event -> {
-                    try {
-                        choiceEsercizioScheda.setText(menuItem.getText());
-                        loadGraficoMassimali(esercizio);
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
+                    choiceEsercizioScheda.setText(menuItem.getText());
+                    loadGraficoMassimali(esercizio);
                 });
                 choiceEsercizioScheda.getItems().add(menuItem);
             }
         }
     }
 
-    public void loadGraficoMassimali(String esercizio) throws SQLException {
+    public void loadGraficoMassimali(String esercizio) {
         XYChart.Series<String, Number> massimale = new XYChart.Series<>();
         massimale.setName("Andamento massimale dell'esercizio " + esercizio);
 
-        String prelevaMassimale = "SELECT Peso, DataInserimento FROM MassimaleImpostatoCliente WHERE IDCliente = ? AND NomeEsercizio = ? ORDER BY DataInserimento DESC LIMIT 10";
-        ArrayList<Pair<String,Number>> lista = new ArrayList<>();
+        ArrayList<Pair<String,Number>> lista = DatiSessioneCliente.caricaStoricoMassimalePerEsercizio(esercizio, DatiSessioneCliente.getIdUtente());
 
-        try (Connection conn = ConnessioneDatabase.getConnection()) {
-            PreparedStatement prelevamento = conn.prepareStatement(prelevaMassimale);
-            prelevamento.setInt(1, DatiSessioneCliente.getIdUtente());
-            prelevamento.setString(2, esercizio);
-            ResultSet rs = prelevamento.executeQuery();
-
-
-
-
-
-            while(rs.next()) {
-
-                long dataInserimento = rs.getLong("DataInserimento");
-                double peso = rs.getDouble("Peso");
-
-                // Converti il timestamp in una stringa formattata
-                String data = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(dataInserimento));
-                Pair<String,Number> pair = new Pair<>(data,peso);
-                lista.add(0,pair);
-            }
-            for (Pair<String,Number> pair : lista) {
-                massimale.getData().add(new XYChart.Data<>(pair.getKey(),pair.getValue()));
-            }
-            graficoMassimali.getData().clear();
-            graficoMassimali.getData().add(massimale);
+        for (Pair<String, Number> p : lista) {
+            massimale.getData().add(new XYChart.Data<>(p.getKey(), p.getValue()));
         }
+        graficoMassimali.getData().clear();
+        graficoMassimali.getData().add(massimale);
     }
 
-    private void loadGraficoPrenotazioni() throws SQLException {
+    private void loadGraficoPrenotazioni() {
         XYChart.Series<String, Number> prenotazioni = new XYChart.Series<>();
         prenotazioni.setName("Andamento prenotazioni");
 
-        String prelevaPrenotazioni = "SELECT SUBSTR(DataPrenotazione, 1, 7) AS Mese, COUNT(*) AS numeroPrenotazioni FROM PrenotazioneSalaPesi WHERE IdCliente = ? GROUP BY Mese ORDER BY Mese";
+        ArrayList<Pair<String,Number>> lista = DatiSessioneCliente.caricaStoricoPrenotazioni(DatiSessioneCliente.getIdUtente());
 
-        try (Connection conn = ConnessioneDatabase.getConnection()) {
-            PreparedStatement prelevamento = conn.prepareStatement(prelevaPrenotazioni);
-            prelevamento.setInt(1, DatiSessioneCliente.getIdUtente());
-            ResultSet rs = prelevamento.executeQuery();
-
-            while(rs.next()) {
-                String mese = rs.getString("Mese");
-                int cont = rs.getInt("numeroPrenotazioni");
-
-                prenotazioni.getData().add(new XYChart.Data<>(mese, cont));
-            }
-            graficoPresenzePalestra.getData().clear();
-            graficoPresenzePalestra.getData().add(prenotazioni);
+        for(Pair<String, Number> p : lista) {
+            prenotazioni.getData().add(new XYChart.Data<>(p.getKey(), p.getValue()));
         }
+
+        graficoPresenzePalestra.getData().clear();
+        graficoPresenzePalestra.getData().add(prenotazioni);
     }
 
     public void loadGraficoPeso(){
@@ -238,23 +201,15 @@ public class ClientDashboardController implements Initializable {
         }
         graficoPeso.getData().clear();
         graficoPeso.getData().add(peso);
-
-
     }
 
+    // SEZIONE ALERT
     private void loadAlert() {
-
-        String fetchDataScadenza = "SELECT DataFineAbbonamento FROM AbbonamentoCliente WHERE IdCliente = ? AND StatoAbbonamento = 1";
-        String fetchCertificato = "SELECT IdCertificato FROM Certificato WHERE IdCliente = ?";
-
-        try (Connection conn = ConnessioneDatabase.getConnection()) {
-            PreparedStatement prelevamento = conn.prepareStatement(fetchDataScadenza);
-            prelevamento.setInt(1, DatiSessioneCliente.getIdUtente());
-            ResultSet rs = prelevamento.executeQuery();
+        String dataScadenza = DatiSessioneCliente.caricaDataScadenzaAbbonamento(DatiSessioneCliente.getIdUtente());
 
             if (!DatiSessioneCliente.getAlertScadenzaAbbonamento()) {
-                if (rs.next()) {
-                    LocalDate dataFineAbbonamento = LocalDate.parse(rs.getString("DataFineAbbonamento"));
+                if (dataScadenza != null) {
+                    LocalDate dataFineAbbonamento = LocalDate.parse(dataScadenza);
                     LocalDate dataCorrente = LocalDate.now();
                     long giorniDifferenza = ChronoUnit.DAYS.between(dataCorrente, dataFineAbbonamento);
 
@@ -289,47 +244,45 @@ public class ClientDashboardController implements Initializable {
                 }
             }
 
-            PreparedStatement prelevamentoCertificato = conn.prepareStatement(fetchCertificato);
-            prelevamentoCertificato.setInt(1, DatiSessioneCliente.getIdUtente());
-            ResultSet rsCertificato = prelevamentoCertificato.executeQuery();
+        int idCertifiato = DatiSessioneCliente.caricaPresenzaCertificato(DatiSessioneCliente.getIdUtente());
 
-            if (rsCertificato.next() && !DatiSessioneCliente.getAlertCertificatoMancante()) {
-                int idCertificato = rsCertificato.getInt("IdCertificato");
-                System.out.println("ID Certificato: " + idCertificato);
-                if (idCertificato == 0) {
-                    Platform.runLater(() -> {
-                        Alert alert = new Alert(Alert.AlertType.WARNING);
-                        alert.setTitle("Attenzione");
-                        alert.setHeaderText("Certificato medico mancante!");
-                        alert.setContentText("Devi caricare il certificato medico per continuare ad allenarti.");
-                        alert.showAndWait();
-                        DatiSessioneCliente.setAlertCertificatoMancante(true);
-                    });
-                }
+        if (!DatiSessioneCliente.getAlertCertificatoMancante()) {
+            if (idCertifiato == 0) {
+                Platform.runLater(() -> {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Attenzione");
+                    alert.setHeaderText("Certificato medico mancante!");
+                    alert.setContentText("Devi caricare il certificato medico per continuare ad allenarti.");
+                    alert.showAndWait();
+                    DatiSessioneCliente.setAlertCertificatoMancante(true);
+                });
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        instance = this;
-        labelNomeUtenteSaluto.setText("Ciao, "+ DatiSessioneCliente.getNomeUtente() + "👋");
-        btnPalestraChiusa.setDisable(true);
-        btnPrenotato.setDisable(true);
+    // SEZIONE CHIAMATA API DI POWERINO
+    public void onChiediPowerino() {
+        inviaButton.setOnAction(event -> {
+            String userInput = inputField.getText().trim();
+            if (!userInput.isEmpty()) {
+                chatArea.appendText("Tu: " + userInput + "\n");
+                inputField.clear();
 
-        loadCalendario();
-        loadBanner();
-        startAutoScroll();
-        onChiediPowerino();
-        try {
-            caricaEserciziSchedaMenuGrafico();
-            loadGraficoPrenotazioni();
-            loadGraficoPeso();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        loadAlert();
+                // Avvia un nuovo thread per lo streaming
+                new Thread(() -> {
+                    try {
+                        OpenRouter_AI.chiediPowerinoStreaming(userInput, token -> {
+                            Platform.runLater(() -> {
+                                chatArea.appendText(token);
+                            });
+                        });
+                        Platform.runLater(() -> chatArea.appendText("\n")); // Vai a capo alla fine
+                    } catch (IOException | SQLException e) {
+                        Platform.runLater(() -> chatArea.appendText("\n⚠ Errore di connessione con Powerino\n"));
+                        e.printStackTrace();
+                    }
+                }).start();
+            }
+        });
     }
 }
