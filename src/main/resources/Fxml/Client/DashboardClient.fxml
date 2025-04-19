@@ -14,14 +14,13 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-
 
 <BorderPane stylesheets="@../../Styles/Dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientDashboardController">
 
@@ -61,6 +60,13 @@
                         </children>
                     </VBox>
 
+                    <ImageView fx:id="bannerPromozionale" fitHeight="147.0" fitWidth="444.0" preserveRatio="true" smooth="true" VBox.vgrow="NEVER">
+                        <VBox.margin>
+                            <Insets bottom="10" top="10" />
+                        </VBox.margin>
+                    </ImageView>
+
+
                     <!-- Sezione grafici -->
                     <HBox spacing="20" VBox.vgrow="ALWAYS">
                         <!-- Colonna 1 -->
@@ -68,7 +74,7 @@
                             <children>
                                 <MenuButton fx:id="choiceEsercizioScheda" text="Seleziona Esercizio" />
                                 <LineChart fx:id="graficoMassimali" VBox.vgrow="ALWAYS">
-                                    <xAxis><CategoryAxis label="Data Inserimento" side="BOTTOM" /></xAxis>
+                                    <xAxis><CategoryAxis label="Data Inserimento" side="BOTTOM" fx:id="xAxisMassimali" /></xAxis>
                                     <yAxis><NumberAxis label="Peso" side="LEFT" /></yAxis>
                                 </LineChart>
                             </children>

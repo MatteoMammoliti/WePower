@@ -12,6 +12,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
@@ -34,6 +35,7 @@ import java.util.ResourceBundle;
 
 public class ClientDashboardController implements Initializable {
     private static ClientDashboardController instance;
+
 
     // sezione calendario
     @FXML
@@ -61,6 +63,8 @@ public class ClientDashboardController implements Initializable {
     private MenuButton choiceEsercizioScheda;
     @FXML
     private LineChart<String,Number> graficoPeso;
+    @FXML
+    private CategoryAxis xAxisMassimali;
 
     @FXML
     private Label labelNomeUtenteSaluto;
@@ -169,6 +173,11 @@ public class ClientDashboardController implements Initializable {
         for (Pair<String, Number> p : lista) {
             massimale.getData().add(new XYChart.Data<>(p.getKey(), p.getValue()));
         }
+        xAxisMassimali.setTickLabelRotation(90);
+        xAxisMassimali.setTickLabelGap(10);
+        xAxisMassimali.setAutoRanging(true);
+        xAxisMassimali.setAnimated(false);
+
         graficoMassimali.getData().clear();
         graficoMassimali.getData().add(massimale);
     }
