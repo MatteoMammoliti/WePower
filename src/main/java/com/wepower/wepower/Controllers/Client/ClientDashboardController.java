@@ -33,6 +33,8 @@ import java.util.ResourceBundle;
 public class ClientDashboardController implements Initializable {
     private static ClientDashboardController instance;
 
+    @FXML
+    private VBox containerRoot;
 
     // sezione calendario
     @FXML
@@ -66,6 +68,8 @@ public class ClientDashboardController implements Initializable {
     private NumberAxis yAxisMassimali;
     @FXML
     private NumberAxis yAxisPesoCorporeo;
+    @FXML
+    private HBox containerGrafici;
 
     @FXML
     private Label labelNomeUtenteSaluto;
@@ -85,6 +89,7 @@ public class ClientDashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         instance = this;
+        this.containerGrafici.maxHeightProperty().bind(containerRoot.heightProperty().multiply(0.5));
         labelNomeUtenteSaluto.setText("Ciao, "+ DatiSessioneCliente.getNomeUtente() + "👋");
         btnPalestraChiusa.setDisable(true);
         btnPrenotato.setDisable(true);
