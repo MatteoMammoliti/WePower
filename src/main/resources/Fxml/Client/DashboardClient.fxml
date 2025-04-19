@@ -75,7 +75,7 @@
                                 <MenuButton fx:id="choiceEsercizioScheda" text="Seleziona Esercizio" />
                                 <LineChart fx:id="graficoMassimali" VBox.vgrow="ALWAYS">
                                     <xAxis><CategoryAxis label="Data Inserimento" side="BOTTOM" fx:id="xAxisMassimali" /></xAxis>
-                                    <yAxis><NumberAxis label="Peso" side="LEFT" /></yAxis>
+                                    <yAxis><NumberAxis label="Peso" side="LEFT" fx:id="yAxisMassimali"/></yAxis>
                                 </LineChart>
                             </children>
                         </VBox>
@@ -98,7 +98,7 @@
                             <children>
                                 <LineChart fx:id="graficoPeso" VBox.vgrow="ALWAYS">
                                     <xAxis><CategoryAxis label="Data" side="BOTTOM" /></xAxis>
-                                    <yAxis><NumberAxis label="Peso" side="LEFT" /></yAxis>
+                                    <yAxis><NumberAxis label="Peso" side="LEFT" fx:id="yAxisPesoCorporeo"/></yAxis>
                            <VBox.margin>
                               <Insets top="30.0" />
                            </VBox.margin>

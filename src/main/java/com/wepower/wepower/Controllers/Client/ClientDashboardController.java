@@ -11,10 +11,7 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -65,6 +62,10 @@ public class ClientDashboardController implements Initializable {
     private LineChart<String,Number> graficoPeso;
     @FXML
     private CategoryAxis xAxisMassimali;
+    @FXML
+    private NumberAxis yAxisMassimali;
+    @FXML
+    private NumberAxis yAxisPesoCorporeo;
 
     @FXML
     private Label labelNomeUtenteSaluto;
@@ -169,10 +170,15 @@ public class ClientDashboardController implements Initializable {
         massimale.setName("Andamento massimale dell'esercizio " + esercizio);
 
         ArrayList<Pair<String,Number>> lista = DatiSessioneCliente.caricaStoricoMassimalePerEsercizio(esercizio, DatiSessioneCliente.getIdUtente());
+        Pair<String, Number> temp = lista.get(0);
+        int minY = temp.getValue().intValue();
 
         for (Pair<String, Number> p : lista) {
             massimale.getData().add(new XYChart.Data<>(p.getKey(), p.getValue()));
         }
+        yAxisMassimali.setLowerBound(minY - 5);
+        yAxisMassimali.setAutoRanging(false);
+        yAxisMassimali.setTickUnit(1);
         xAxisMassimali.setTickLabelRotation(90);
         xAxisMassimali.setTickLabelGap(10);
         xAxisMassimali.setAutoRanging(true);
@@ -200,6 +206,9 @@ public class ClientDashboardController implements Initializable {
         ArrayList<Pair<String,Integer>> storico=DatiSessioneCliente.caricaStroicoPesi(DatiSessioneCliente.getIdUtente());
         XYChart.Series<String, Number> peso = new XYChart.Series<>();
 
+        Pair<String, Integer> temp = storico.get(0);
+        int minY = temp.getValue().intValue();
+
         peso.setName("Andamento peso corporeo");
         for(int i=0;i<storico.size();i++){
             String data = storico.get(i).getKey();
@@ -208,6 +217,11 @@ public class ClientDashboardController implements Initializable {
             // Aggiungi il punto al grafico
             peso.getData().add(new XYChart.Data<>(data, pesoValore));
         }
+
+        yAxisPesoCorporeo.setLowerBound(minY - 5);
+        yAxisPesoCorporeo.setAutoRanging(false);
+        yAxisPesoCorporeo.setTickUnit(1);
+
         graficoPeso.getData().clear();
         graficoPeso.getData().add(peso);
     }
