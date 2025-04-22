@@ -37,7 +37,12 @@
                   <Insets right="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="certificatiButton" mnemonicParsing="false" prefHeight="100.0" styleClass="bottoneDashboardAdmin" stylesheets="@../../Styles/DashboardAdmin.css" text="Certificati" textOverrun="CENTER_ELLIPSIS" />
+            <Button fx:id="certificatiButton" mnemonicParsing="false" prefHeight="100.0" styleClass="bottoneDashboardAdmin" stylesheets="@../../Styles/DashboardAdmin.css" text="Certificati" textOverrun="CENTER_ELLIPSIS">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="logoutButton" mnemonicParsing="false" prefHeight="100.0" styleClass="bottoneDashboardAdmin" stylesheets="@../../Styles/DashboardAdmin.css" text="Logout" textOverrun="CENTER_ELLIPSIS"> </Button>
          </children>
       </HBox>
    </top>

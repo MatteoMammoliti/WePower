@@ -113,12 +113,8 @@ public class ClientDashboardController implements Initializable {
         scrollPaneBanner.setPrefWidth((bannerWidth * maxBannerVisibili));
 
         // crea i banner
-        ArrayList<BannerAbbonamenti> bannerini = new  ArrayList<>();
-        bannerini=BannerAbbonamenti.getBannerAbbonamentiDB();
-        for(int i=0; i<bannerini.size(); i++){
-            // aggiungo i banner all'HBox
-            displayerBanner.getChildren().add(bannerini.get(i));
-        }
+        ArrayList<BannerAbbonamenti> bannerini = BannerAbbonamenti.getBannerAbbonamentiDB();
+        displayerBanner.getChildren().addAll(bannerini);
     }
 
     private void startAutoScroll() {
