@@ -14,7 +14,6 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -31,10 +30,10 @@
 
     <!-- Contenuto principale scrollabile -->
     <center>
-        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" BorderPane.alignment="CENTER">
+        <ScrollPane fitToHeight="true" fitToWidth="true" vbarPolicy="AS_NEEDED" BorderPane.alignment="CENTER">
             <content>
                 <!-- VBox root -->
-                <VBox spacing="40" fx:id="containerRoot">
+                <VBox fx:id="containerRoot" alignment="CENTER" spacing="40">
                     <padding>
                         <Insets bottom="20" left="12" right="12" top="20" />
                     </padding>
@@ -59,24 +58,23 @@
                             </ScrollPane>
                         </children>
                     </VBox>
+               <Label fx:id="labelFrase" text="PROVA FRASE MOTIVAZIONALE">
+                  <font>
+                     <Font name="Arial" size="60.0" />
+                  </font>
+               </Label>
 
-                    <ImageView fx:id="bannerPromozionale" fitHeight="147.0" fitWidth="444.0" preserveRatio="true" smooth="true" VBox.vgrow="NEVER">
-                        <VBox.margin>
-                            <Insets bottom="10" top="10" />
-                        </VBox.margin>
-                    </ImageView>
-
-                    <Pane fx:id="spazioFlessibile" VBox.vgrow="ALWAYS"/>
+                    <Pane fx:id="spazioFlessibile" VBox.vgrow="ALWAYS" />
 
                     <!-- Sezione grafici -->
-                    <HBox spacing="20" VBox.vgrow="ALWAYS" fx:id="containerGrafici">
+                    <HBox fx:id="containerGrafici" spacing="20" VBox.vgrow="ALWAYS">
                         <!-- Colonna 1 -->
                         <VBox alignment="TOP_CENTER" spacing="8" HBox.hgrow="ALWAYS">
                             <children>
                                 <MenuButton fx:id="choiceEsercizioScheda" text="Seleziona Esercizio" />
                                 <LineChart fx:id="graficoMassimali" VBox.vgrow="ALWAYS">
                                     <xAxis><CategoryAxis label="Data Inserimento" side="BOTTOM" fx:id="xAxisMassimali" /></xAxis>
-                                    <yAxis><NumberAxis label="Peso" side="LEFT" fx:id="yAxisMassimali"/></yAxis>
+                                    <yAxis><NumberAxis fx:id="yAxisMassimali" label="Peso" side="LEFT" /></yAxis>
                                 </LineChart>
                             </children>
                         </VBox>
@@ -99,7 +97,7 @@
                             <children>
                                 <LineChart fx:id="graficoPeso" VBox.vgrow="ALWAYS">
                                     <xAxis><CategoryAxis label="Data" side="BOTTOM" /></xAxis>
-                                    <yAxis><NumberAxis label="Peso" side="LEFT" fx:id="yAxisPesoCorporeo"/></yAxis>
+                                    <yAxis><NumberAxis fx:id="yAxisPesoCorporeo" label="Peso" side="LEFT" /></yAxis>
                            <VBox.margin>
                               <Insets top="30.0" />
                            </VBox.margin>
