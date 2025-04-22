@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="1080.0" prefWidth="1920.0" styleClass="sfondoD" stylesheets="@../../../Styles/DashboardAdmin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.AdminDashboardController">
+<BorderPane prefHeight="1080.0" prefWidth="1920.0" styleClass="sfondoD" stylesheets="@../../../Styles/DashboardAdmin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.AdminUtentiController">
 
 
 

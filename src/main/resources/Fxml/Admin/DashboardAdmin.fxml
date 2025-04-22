@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.AdminDashboardController">
    <right>
       <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
          <children>
@@ -84,7 +84,7 @@
                         <Font name="Arial Bold" size="30.0" />
                      </font>
                   </Label>
-                  <Label text="1287">
+                  <Label fx:id="labelTotaleAbbonamenti" text="1287">
                      <font>
                         <Font name="Arial Bold" size="56.0" />
                      </font>
@@ -104,7 +104,7 @@
                         <Font name="Arial Bold" size="30.0" />
                      </font>
                   </Label>
-                  <Label text="3">
+                  <Label fx:id="labelRichiesteSchede" text="3">
                      <font>
                         <Font name="Arial Bold" size="56.0" />
                      </font>
@@ -124,7 +124,7 @@
                         <Font name="Arial Bold" size="30.0" />
                      </font>
                   </Label>
-                  <Label text="4">
+                  <Label fx:id="labelCertificatiAttesa" text="4">
                      <font>
                         <Font name="Arial Bold" size="56.0" />
                      </font>
@@ -144,7 +144,7 @@
                         <Font name="Arial Bold" size="30.0" />
                      </font>
                   </Label>
-                  <Label text="36">
+                  <Label fx:id="labelPrenotatiOggi" text="36">
                      <font>
                         <Font name="Arial Bold" size="56.0" />
                      </font>
