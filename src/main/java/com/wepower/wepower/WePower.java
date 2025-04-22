@@ -12,6 +12,7 @@ public class WePower extends Application
     public void start(Stage stage) throws Exception {
         ViewFactoryClient viewFactory = Model.getInstance().getViewFactoryClient();
         Model.getInstance().TestConnessione();
+
         viewFactory.showLoginWindow();
     }
 }

@@ -29,6 +29,7 @@ public class ViewFactoryAdmin {
         Scene scene = null;
 
         try {
+
             scene = new Scene(dashboardAdmin.load());
         } catch (Exception e) {
             e.printStackTrace();
@@ -37,9 +38,18 @@ public class ViewFactoryAdmin {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("WePower - Dashboard");
+        stage.setMaximized(true);
+
+        stage.centerOnScreen();
         stage.show();
-        stage.setX(Screen.getPrimary().getVisualBounds().getMinX() + 100);
-        stage.setY(Screen.getPrimary().getVisualBounds().getMinY() + 100);
+        stage.maximizedProperty().addListener((obs, wasMaximized, isNowMaximized) -> {
+            if (!isNowMaximized) {
+                stage.setWidth(stage.getWidth()*0.75);
+                stage.setHeight(stage.getHeight()*0.75);
+                stage.centerOnScreen();
+            }
+        });
+
     }
 
                         // -- FUNZIONI DI CAMBIO DI VIEW DEL MENU --
