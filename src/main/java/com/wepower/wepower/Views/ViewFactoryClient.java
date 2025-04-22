@@ -80,11 +80,17 @@ public class ViewFactoryClient {
         stage.setTitle("WePower - Dashboard");
         stage.setMinHeight(600);
         stage.setMinWidth(1300);
+        stage.setMaximized(true);
 
-
+        stage.centerOnScreen();
         stage.show();
-        stage.setX(Screen.getPrimary().getVisualBounds().getMinX());
-        stage.setY(Screen.getPrimary().getVisualBounds().getMinY());
+        stage.maximizedProperty().addListener((obs, wasMaximized, isNowMaximized) -> {
+            if (!isNowMaximized) {
+                stage.setWidth(stage.getMinWidth());
+                stage.setHeight(stage.getMinHeight());
+                stage.centerOnScreen();
+            }
+        });
 
     }
 
