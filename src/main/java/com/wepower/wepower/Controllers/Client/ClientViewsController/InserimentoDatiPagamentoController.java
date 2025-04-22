@@ -104,6 +104,7 @@ public class InserimentoDatiPagamentoController implements Initializable {
         try(Connection conn= ConnessioneDatabase.getConnection()){
             conn.setAutoCommit(false);
             try (PreparedStatement caricoDati= conn.prepareStatement(controlloBonamentoGiàEsistente)){
+                caricoDati.setInt(1,DatiSessioneCliente.getIdUtente());
                 ResultSet risultato= caricoDati.executeQuery();
                 if(risultato.next()){
                     JOptionPane.showMessageDialog(null,"Hai già un abbonamento attivo");
