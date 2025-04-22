@@ -49,7 +49,19 @@ public class ModelValidazione {
         return true;
     }
 
+    public static boolean controlloNomeOfferta(String nome){
+        return Pattern.matches("^[A-Za-zÀ-ÿ\s]{2,50}$",nome);
+    }
+
     public static boolean controlloNumeroTelefono(String telefono){
         return Pattern.matches("^(\\+39)?\\s?\\d{9,10}$",telefono) || telefono.isEmpty();
+    }
+
+    public static boolean controlloPrezzoOfferta(String prezzo){
+        return Pattern.matches("^[1-9][0-9]{0,3}$",prezzo);
+    }
+
+    public static boolean controlloDurataOfferta(String durata){
+        return Pattern.matches("^[1-9][0-9]*$",durata);
     }
 }
