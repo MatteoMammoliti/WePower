@@ -89,7 +89,7 @@ public class RigaEsercizioScheda extends HBox {
             PreparedStatement inserimento = conn.prepareStatement(massimale);
             inserimento.setInt(1, DatiSessioneCliente.getIdUtente());
             inserimento.setString(2, this.nomeEsercizio.getText());
-            inserimento.setDate(3, Date.valueOf(LocalDate.now().toString()));
+            inserimento.setString(3, LocalDate.now().toString());
             inserimento.setDouble(4, Double.parseDouble(this.aggiungiNuovoMassimale.getText()));
             inserimento.executeUpdate();
 

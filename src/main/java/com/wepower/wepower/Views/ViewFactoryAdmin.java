@@ -25,7 +25,7 @@ public class ViewFactoryAdmin {
     }
 
     public void showDashboardAdmin() {
-        FXMLLoader dashboardAdmin = new FXMLLoader(getClass().getResource("/Fxml/Admin/ContainerDashboardAdmin.fxml"));
+        FXMLLoader dashboardAdmin = new FXMLLoader(getClass().getResource("/Fxml/Admin/ContainerAdminView.fxml"));
         Scene scene = null;
 
         try {
@@ -60,7 +60,7 @@ public class ViewFactoryAdmin {
     public BorderPane getUtentiView() {
         if (utenti == null) {
             try {
-                utenti = new FXMLLoader(getClass().getResource("/Fxml/Admin/UtentiAdmin.fxml")).load();
+                utenti = new FXMLLoader(getClass().getResource("/Fxml/Admin/AdminMenuView/UtentiAdmin.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -73,7 +73,7 @@ public class ViewFactoryAdmin {
     public BorderPane getSchedeView() {
         if (schede == null) {
             try {
-                schede = new FXMLLoader(getClass().getResource("/Fxml/Admin/SchedeAdmin.fxml")).load();
+                schede = new FXMLLoader(getClass().getResource("/Fxml/Admin/AdminMenuView/SchedeAdmin.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -86,7 +86,7 @@ public class ViewFactoryAdmin {
     public BorderPane getCertificatiView() {
         if (certificati == null) {
             try {
-                certificati = new FXMLLoader(getClass().getResource("/Fxml/Admin/CertificatiAdmin.fxml")).load();
+                certificati = new FXMLLoader(getClass().getResource("/Fxml/Admin/AdminMenuView/CertificatiAdmin.fxml")).load();
             } catch (Exception e) {
                 e.printStackTrace();
             }

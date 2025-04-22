@@ -1,7 +1,6 @@
 package com.wepower.wepower.Controllers.Client;
 
 import com.wepower.wepower.APIs.OpenRouter_AI;
-import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Views.Bannerini.BannerAbbonamenti;
 import com.wepower.wepower.Views.ComponentiCalendario.Calendario;
@@ -21,9 +20,6 @@ import javafx.util.Pair;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -175,13 +171,16 @@ public class ClientDashboardController implements Initializable {
         massimale.setName("Andamento massimale dell'esercizio " + esercizio);
 
         ArrayList<Pair<String,Number>> lista = DatiSessioneCliente.caricaStoricoMassimalePerEsercizio(esercizio, DatiSessioneCliente.getIdUtente());
-        Pair<String, Number> temp = lista.get(0);
-        int minY = temp.getValue().intValue();
+        Pair<String, Number> min = lista.get(0);
+        Pair<String, Number> max = lista.get(lista.size()-1);
+        int minY = min.getValue().intValue();
+        int maxY = max.getValue().intValue();
 
         for (Pair<String, Number> p : lista) {
             massimale.getData().add(new XYChart.Data<>(p.getKey(), p.getValue()));
         }
         yAxisMassimali.setLowerBound(minY - 5);
+        yAxisMassimali.setUpperBound(maxY + 5);
         yAxisMassimali.setAutoRanging(false);
         yAxisMassimali.setTickUnit(1);
         xAxisMassimali.setTickLabelRotation(90);
@@ -211,8 +210,10 @@ public class ClientDashboardController implements Initializable {
         ArrayList<Pair<String,Integer>> storico=DatiSessioneCliente.caricaStroicoPesi(DatiSessioneCliente.getIdUtente());
         XYChart.Series<String, Number> peso = new XYChart.Series<>();
 
-        Pair<String, Integer> temp = storico.get(0);
-        int minY = temp.getValue().intValue();
+        Pair<String, Integer> min = storico.get(0);
+        Pair<String, Integer> max = storico.get(storico.size()-1);
+        int minY = min.getValue().intValue();
+        int maxY = max.getValue().intValue();
 
         peso.setName("Andamento peso corporeo");
         for(int i=0;i<storico.size();i++){
@@ -224,6 +225,7 @@ public class ClientDashboardController implements Initializable {
         }
 
         yAxisPesoCorporeo.setLowerBound(minY - 5);
+        yAxisPesoCorporeo.setUpperBound(maxY + 5);
         yAxisPesoCorporeo.setAutoRanging(false);
         yAxisPesoCorporeo.setTickUnit(1);
 
