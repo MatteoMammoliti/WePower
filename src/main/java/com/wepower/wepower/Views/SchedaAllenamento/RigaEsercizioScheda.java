@@ -10,6 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Date;
@@ -19,8 +21,6 @@ import java.time.LocalDate;
 
 public class RigaEsercizioScheda extends HBox {
     private Label nomeEsercizio;
-    private Label descrizioneEsercizio;
-    private Label muscoloAllenato;
     private Label numeroSerie;
     private Label numeroRipetizioni;
     private ImageView imageEsercizio;
@@ -31,12 +31,10 @@ public class RigaEsercizioScheda extends HBox {
     private Button rimuoviSchedaEsercizio;
 
 
-    public RigaEsercizioScheda(String nomeEsercizio, String descrizioneEsercizio, String muscoloAllenato, String numeroSerie, String numeroRipetizioni, String percorsoImmagine, String massimaleAttuale, String dataImpostazioneMassimale) {
+    public RigaEsercizioScheda(String nomeEsercizio, String numeroSerie, String numeroRipetizioni, String percorsoImmagine, String massimaleAttuale, String dataImpostazioneMassimale) {
         this.nomeEsercizio = new Label(nomeEsercizio);
-        this.descrizioneEsercizio = new Label(descrizioneEsercizio);
-        this.muscoloAllenato = new Label("Muscolo allenato: " + muscoloAllenato);
-        this.numeroSerie = new Label(numeroSerie);
-        this.numeroRipetizioni = new Label(numeroRipetizioni);
+        this.numeroSerie = new Label("Numero serie: " + numeroSerie);
+        this.numeroRipetizioni = new Label("Numero ripetizioni: " + numeroRipetizioni);
 
         this.massimaleAttuale = new Label("Massimale attuale: " + massimaleAttuale);
         this.dataImpostazioneMassimale = new Label("Data: " + dataImpostazioneMassimale);
@@ -49,8 +47,8 @@ public class RigaEsercizioScheda extends HBox {
         InputStream is = getClass().getResourceAsStream("/" + percorsoImmagine);
         Image image = new Image(is);
         this.imageEsercizio = new ImageView(image);
-        this.imageEsercizio.setFitHeight(100);
-        this.imageEsercizio.setFitWidth(100);
+        this.imageEsercizio.setFitHeight(150);
+        this.imageEsercizio.setFitWidth(150);
         this.imageEsercizio.setPreserveRatio(true);
 
         this.aggiungiMassimale = new Button("Aggiungi massimale");
@@ -59,8 +57,28 @@ public class RigaEsercizioScheda extends HBox {
         this.rimuoviSchedaEsercizio = new Button("Rimuovi esercizio dalla scheda");
         this.rimuoviSchedaEsercizio.setOnAction(event -> onRimuoviEsercizio());
 
-        this.getChildren().addAll(this.nomeEsercizio, this.descrizioneEsercizio, this.muscoloAllenato, this.numeroSerie, this.numeroRipetizioni, this.imageEsercizio, this.massimaleAttuale ,this.aggiungiNuovoMassimale, this.dataImpostazioneMassimale,
-                this.aggiungiMassimale,this.rimuoviSchedaEsercizio);
+
+        VBox sinistra = new VBox();
+        sinistra.getChildren().addAll(this.nomeEsercizio, this.numeroSerie, this.numeroRipetizioni);
+        sinistra.setSpacing(10);
+        sinistra.setPadding(new Insets(10));
+
+        HBox centro = new HBox();
+        VBox centroSinistra = new VBox();
+        centroSinistra.getChildren().add(this.imageEsercizio);
+
+        VBox centroDestra = new VBox();
+        centroDestra.getChildren().addAll(this.massimaleAttuale, this.dataImpostazioneMassimale);
+        centroDestra.setSpacing(10);
+        centroDestra.setPadding(new Insets(10));
+        centro.getChildren().addAll(centroSinistra, centroDestra);
+
+        VBox destra = new VBox();
+        destra.getChildren().addAll(this.aggiungiMassimale, this.aggiungiNuovoMassimale, this.rimuoviSchedaEsercizio);
+        destra.setSpacing(10);
+        destra.setPadding(new Insets(10));
+
+        this.getChildren().addAll(sinistra, centro, destra);
         this.setSpacing(10);
         this.setPadding(new Insets(10));
     }

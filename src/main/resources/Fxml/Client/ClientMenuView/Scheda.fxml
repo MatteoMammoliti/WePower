@@ -6,26 +6,41 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="820.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientViewsController.SchedaController">
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.Label?>
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.wepower.wepower.Controllers.Client.ClientViewsController.SchedaController"
+            prefWidth="1920" prefHeight="820">
 
-    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <Button mnemonicParsing="false" text="EliminaScheda" fx:id="eliminaSchedaButton"/>
-         </children>
-      </HBox>
-        <!-- Parte superiore -->
-        <ScrollPane layoutY="460.0" prefHeight="360.0" prefWidth="1920.0" >
-            <content>
-                <VBox fx:id="containerEsercizi" prefHeight="360.0" prefWidth="1916.0" />
-            </content>
-        </ScrollPane>
+    <!-- Top bar -->
+    <top>
+        <HBox prefHeight="100">
+            <Button fx:id="eliminaSchedaButton"
+                    mnemonicParsing="false"
+                    text="EliminaScheda"/>
+        </HBox>
+    </top>
 
-        <!-- Parte centrale -->
-        <ScrollPane layoutY="100.0" prefHeight="360.0" prefWidth="1920.0">
-            <content>
-                <VBox fx:id="containerSchedaAllenamento" prefHeight="360.0" prefWidth="1916.0" />
-            </content>
-        </ScrollPane>
-    </children>
-</AnchorPane>
+    <!-- Divisione orizzontale responsive -->
+    <center>
+        <SplitPane dividerPositions="0.5">
+            <items>
+                <ScrollPane>
+                    <content>
+                        <VBox fx:id="containerEsercizi" VBox.vgrow="ALWAYS"/>
+                    </content>
+                </ScrollPane>
+                <ScrollPane>
+                    <content>
+                        <VBox fx:id="containerSchedaAllenamento" VBox.vgrow="ALWAYS"/>
+                    </content>
+                </ScrollPane>
+            </items>
+        </SplitPane>
+    </center>
+
+</BorderPane>
+

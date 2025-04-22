@@ -2,11 +2,6 @@
     -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgba(255,255,255,1) 0%, rgba(255,122,41,1) 99%);
 }
 
-.vbox {
-    -fx-padding: 10 10 10 10;
-    -fx-spacing: 30;
-}
-
 .my_button_window {
     -fx-background-color: #ffffff;
     -fx-text-fill: black;
@@ -25,4 +20,23 @@
 .my_button_window:hover {
     -fx-cursor: hand;
     -fx-background-color: #ff7a29;
+}
+
+.vbox {
+    -fx-spacing: 40;
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.footer {
+    -fx-background-color: transparent;
+    -fx-spacing: 20;
 }

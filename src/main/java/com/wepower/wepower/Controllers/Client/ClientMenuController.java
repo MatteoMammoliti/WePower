@@ -5,6 +5,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -20,6 +22,7 @@ public class ClientMenuController  implements Initializable {
     public Label nomeCognomeUtente;
     public Label emailUtente;
     public Label labelStatoAbbonamento;
+    public VBox profileSection;
 
     public void caricaMenu() {
         nomeCognomeUtente.setText(DatiSessioneCliente.getNomeUtente() + " " + DatiSessioneCliente.getCognome());
@@ -36,6 +39,9 @@ public class ClientMenuController  implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        imageUtente.fitWidthProperty().bind(
+                profileSection.widthProperty().multiply(0.8)
+        );
         Model.getInstance().setClientMenuController(this);
         addListeners();
         caricaMenu();

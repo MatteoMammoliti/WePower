@@ -11,6 +11,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,24 +22,24 @@ import java.sql.SQLException;
 public class RigaEsercizioLista extends HBox {
     private Label nomeEsercizio;
     private Label descrizioneEsercizio;
-    private Label muscoloAllenato;
     private ImageView imageEsercizio;
     private TextField numeroSerie;
     private TextField numeroRipetizioni;
     private Button aggiungiEsercizioScheda;
 
-    public RigaEsercizioLista(String nomeEsercizio, String descrizioneEsercizio, String muscoloAllenato, String percorsoImmagine) {
+    public RigaEsercizioLista(String nomeEsercizio, String descrizioneEsercizio, String percorsoImmagine) {
 
         this.nomeEsercizio = new Label(nomeEsercizio);
         this.descrizioneEsercizio = new Label(descrizioneEsercizio);
-        this.muscoloAllenato = new Label("Muscolo allenato: " + muscoloAllenato);
+        this.descrizioneEsercizio.setWrapText(true);
 
         InputStream is = getClass().getResourceAsStream("/" + percorsoImmagine);
         Image image = new Image(is);
         this.imageEsercizio = new ImageView(image);
-        this.imageEsercizio.setFitHeight(100);
-        this.imageEsercizio.setFitWidth(100);
+        this.imageEsercizio.setFitWidth(200);
+        this.imageEsercizio.setFitHeight(200);
         this.imageEsercizio.setPreserveRatio(true);
+        this.imageEsercizio.setSmooth(true);
 
         this.numeroSerie = new TextField();
         this.numeroSerie.setPromptText("Numero serie");
@@ -57,7 +60,26 @@ public class RigaEsercizioLista extends HBox {
             aggiornaUI();
         });
 
-        this.getChildren().addAll(this.nomeEsercizio, this.descrizioneEsercizio, this.muscoloAllenato, this.imageEsercizio, this.numeroSerie, this.numeroRipetizioni, this.aggiungiEsercizioScheda);
+        VBox containerSinistra = new VBox();
+        VBox sopra = new VBox();
+        sopra.getChildren().add(this.nomeEsercizio);
+
+        VBox sotto = new VBox();
+        sotto.getChildren().addAll(this.numeroRipetizioni, this.numeroSerie, this.aggiungiEsercizioScheda);
+        sotto.setSpacing(10);
+        sotto.setPadding(new Insets(10));
+
+        containerSinistra.getChildren().addAll(sopra, sotto);
+
+        VBox containerCentrale = new VBox();
+        containerCentrale.getChildren().add(imageEsercizio);
+
+        VBox containerDestra = new VBox();
+        HBox.setHgrow(containerDestra, Priority.ALWAYS);
+
+        containerDestra.getChildren().add(this.descrizioneEsercizio);
+
+        this.getChildren().addAll(containerSinistra, containerCentrale, containerDestra);
         this.setSpacing(10);
         this.setPadding(new Insets(10));
     }

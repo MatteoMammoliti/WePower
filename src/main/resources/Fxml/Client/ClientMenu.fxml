@@ -1,84 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" styleClass="client_menu_container" stylesheets="@../../Styles/clientMenu.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientMenuController">
-   <content>
-      <VBox spacing="10" style="-fx-padding: 10;" styleClass="client_menu_container" stylesheets="@../../Styles/clientMenu.css">
-         <!-- Sezione Profilo -->
-         <VBox stylesheets="@../../Styles/clientMenu.css">
-            <children>
-               <ImageView fx:id="imageUtente" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../../Images/defaultImgProfilo.png" />
-                  </image>
-               </ImageView>
-               <Label fx:id="nomeCognomeUtente" text="Matteo Mamoliti" />
-               <Label fx:id="emailUtente" text="matteo@gmail.com" />
-               <Label fx:id="labelStatoAbbonamento" text="abbonamento" />
-            </children>
-         </VBox>
+<VBox spacing="0" styleClass="client_menu_container" stylesheets="@../../Styles/clientMenu.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientMenuController">
 
-         <!-- Sezione Menu -->
-         <VBox spacing="5" styleClass="vbox" stylesheets="@../../Styles/clientMenu.css">
+   <!-- Sezione Profilo -->
+   <VBox fx:id="profileSection" spacing="5">
+      <children>
+         <ImageView fx:id="imageUtente" pickOnBounds="true" preserveRatio="true"> </ImageView>
+         <Label fx:id="nomeCognomeUtente" maxWidth="Infinity" text="" wrapText="true" />
+         <Label fx:id="emailUtente" maxWidth="Infinity" text="" wrapText="true" />
+         <Label fx:id="labelStatoAbbonamento" maxWidth="Infinity" text="" wrapText="true" />
+      </children>
+      <padding>
+         <Insets left="10" right="10" top="10" />
+      </padding>
+   </VBox>
+
+   <ScrollPane fitToWidth="true" hbarPolicy="NEVER" stylesheets="@../../Styles/clientMenu.css" VBox.vgrow="ALWAYS">
+      <content>
+         <VBox fillWidth="true" spacing="5" styleClass="vbox" stylesheets="@../../Styles/clientMenu.css">
+            <padding>
+               <Insets left="10" right="10" top="10" />
+            </padding>
             <children>
-               <Button fx:id="dashboardButton" mnemonicParsing="false" styleClass="my_button_window" stylesheets="@../../Styles/clientMenu.css" text="Dashboard">
+               <Button fx:id="dashboardButton" maxWidth="Infinity" mnemonicParsing="false" styleClass="my_button_window" text="Dashboard">
                   <graphic>
                      <FontAwesomeIconView glyphName="HOME" size="18" />
                   </graphic>
                </Button>
-               <Button fx:id="schedaButton" mnemonicParsing="false" styleClass="my_button_window" stylesheets="@../../Styles/clientMenu.css" text="Scheda">
+
+               <Button fx:id="schedaButton" maxWidth="Infinity" mnemonicParsing="false" styleClass="my_button_window" text="Scheda">
                   <graphic>
                      <FontAwesomeIconView glyphName="ARCHIVE" size="18" />
                   </graphic>
                </Button>
-               <Button fx:id="prenotazioneButton" mnemonicParsing="false" styleClass="my_button_window" stylesheets="@../../Styles/clientMenu.css" text="Prenotazioni">
+
+               <Button fx:id="prenotazioneButton" maxWidth="Infinity" mnemonicParsing="false" styleClass="my_button_window" text="Prenotazioni">
                   <graphic>
                      <FontAwesomeIconView glyphName="CALENDAR" size="18" />
                   </graphic>
                </Button>
-               <Line endX="120.0" />
-               <Button fx:id="myProfileButton" mnemonicParsing="false" styleClass="my_button_window" stylesheets="@../../Styles/clientMenu.css" text="Profilo">
+
+               <Button fx:id="myProfileButton" maxWidth="Infinity" mnemonicParsing="false" styleClass="my_button_window" text="Profilo">
                   <graphic>
                      <FontAwesomeIconView glyphName="USER" size="18" />
                   </graphic>
                </Button>
-               <Button fx:id="contactUsButton" mnemonicParsing="false" styleClass="my_button_window" stylesheets="@../../Styles/clientMenu.css" text="Contattaci">
+
+               <Button fx:id="contactUsButton" maxWidth="Infinity" mnemonicParsing="false" styleClass="my_button_window" text="Contattaci">
                   <graphic>
                      <FontAwesomeIconView glyphName="PHONE" size="18" />
                   </graphic>
                </Button>
             </children>
          </VBox>
+      </content>
+   </ScrollPane>
 
-         <!-- Sezione Footer -->
-         <VBox alignment="CENTER" spacing="5">
-            <children>
-               <Button fx:id="logoutButton" mnemonicParsing="false" styleClass="my_button_window" stylesheets="@../../Styles/clientMenu.css" text="Logout">
-                  <graphic>
-                     <FontAwesomeIconView glyphName="EXTERNAL_LINK" size="20" />
-                  </graphic>
-               </Button>
-               <Button mnemonicParsing="false">
-                  <graphic>
-                     <ImageView fitHeight="34.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                           <Image url="@../../Images/moon.png" />
-                        </image>
-                     </ImageView>
-                  </graphic>
-               </Button>
-               <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+   <VBox alignment="CENTER" spacing="10" styleClass="footer" stylesheets="@../../Styles/clientMenu.css">
+      <padding>
+         <Insets left="10" right="10" top="10" />
+      </padding>
+      <children>
+         <Button fx:id="logoutButton" maxWidth="Infinity" mnemonicParsing="false" styleClass="my_button_window" text="Logout">
+            <graphic>
+               <FontAwesomeIconView glyphName="EXTERNAL_LINK" size="20" />
+            </graphic>
+         </Button>
+         <Button maxWidth="Infinity" mnemonicParsing="false">
+            <graphic>
+               <ImageView fitHeight="34" preserveRatio="true">
                   <image>
-                     <Image url="@../../Images/LOGO.png" />
+                     <Image url="@../../Images/moon.png" />
                   </image>
                </ImageView>
-            </children>
-         </VBox>
-      </VBox>
-   </content>
-</ScrollPane>
+            </graphic>
+         </Button>
+         <ImageView fitHeight="100" preserveRatio="true">
+            <image>
+               <Image url="@../../Images/LOGO.png" />
+            </image>
+         </ImageView>
+      </children>
+   </VBox>
+
+</VBox>

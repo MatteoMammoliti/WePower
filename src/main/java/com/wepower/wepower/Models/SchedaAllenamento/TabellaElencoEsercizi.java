@@ -20,7 +20,7 @@ public class TabellaElencoEsercizi {
 
         ArrayList<RigaEsercizioLista> ris = new ArrayList<RigaEsercizioLista>();
 
-        String query = "SELECT NomeEsercizio, DescrizioneEsercizio, MuscoloAllenato, PercorsoImmagine FROM Esercizio";
+        String query = "SELECT NomeEsercizio, DescrizioneEsercizio, PercorsoImmagine FROM Esercizio";
 
         try (Connection conn = ConnessioneDatabase.getConnection()) {
             PreparedStatement datiEsercizi = conn.prepareStatement(query);
@@ -29,13 +29,12 @@ public class TabellaElencoEsercizi {
             while (risultatoTuttiEsercizi.next()) {
                 String NomeEsercizio = risultatoTuttiEsercizi.getString("NomeEsercizio");
                 String DescrizioneEsercizio = risultatoTuttiEsercizi.getString("DescrizioneEsercizio");
-                String MuscoloAllenato = risultatoTuttiEsercizi.getString("MuscoloAllenato");
                 String PercorsoImmagine = risultatoTuttiEsercizi.getString("PercorsoImmagine");
 
                 if (PercorsoImmagine == null || PercorsoImmagine.trim().isEmpty()) {
                     PercorsoImmagine = "images/LOGO.png";
                 }
-                RigaEsercizioLista esercizio = new RigaEsercizioLista(NomeEsercizio, DescrizioneEsercizio, MuscoloAllenato, PercorsoImmagine);
+                RigaEsercizioLista esercizio = new RigaEsercizioLista(NomeEsercizio, DescrizioneEsercizio, PercorsoImmagine);
                 ris.add(esercizio);
             }
         } catch (Exception e) {
@@ -48,7 +47,7 @@ public class TabellaElencoEsercizi {
 
         ArrayList<RigaEsercizioScheda> ris = new ArrayList<RigaEsercizioScheda>();
 
-        String query = "SELECT e.NomeEsercizio, e.DescrizioneEsercizio, e.MuscoloAllenato, e.PercorsoImmagine,\n" +
+        String query = "SELECT e.NomeEsercizio, e.PercorsoImmagine,\n" +
                 "       csa.NumeroRipetizioni, csa.NumeroSerie, m.Peso, m.DataInserimento\n" +
                 "FROM SchedaAllenamento s\n" +
                 "JOIN ComposizioneSchedaAllenamento csa ON s.IdScheda = csa.IdSchedaAllenamento\n" +
@@ -74,8 +73,6 @@ public class TabellaElencoEsercizi {
 
             while (risultatoTuttiEsercizi.next()) {
                 String NomeEsercizio = risultatoTuttiEsercizi.getString("NomeEsercizio");
-                String DescrizioneEsercizio = risultatoTuttiEsercizi.getString("DescrizioneEsercizio");
-                String MuscoloAllenato = risultatoTuttiEsercizi.getString("MuscoloAllenato");
                 String NumeroSerie = risultatoTuttiEsercizi.getString("NumeroSerie");
                 String NumeroRipetizioni = risultatoTuttiEsercizi.getString("NumeroRipetizioni");
 
@@ -99,7 +96,7 @@ public class TabellaElencoEsercizi {
                 if (PercorsoImmagine == null || PercorsoImmagine.trim().isEmpty()) {
                     PercorsoImmagine = "images/LOGO.png";
                 }
-                RigaEsercizioScheda esercizio = new RigaEsercizioScheda(NomeEsercizio, DescrizioneEsercizio, MuscoloAllenato, NumeroSerie, NumeroRipetizioni, PercorsoImmagine, massimaleAttuale, dataImpostazioneMassimale);
+                RigaEsercizioScheda esercizio = new RigaEsercizioScheda(NomeEsercizio, NumeroSerie, NumeroRipetizioni, PercorsoImmagine, massimaleAttuale, dataImpostazioneMassimale);
                 ris.add(esercizio);
             }
         } catch (Exception e) {

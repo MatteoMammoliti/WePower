@@ -13,7 +13,7 @@ public class ViewFactoryClient {
 
     private final StringProperty currentMenuView;
     private BorderPane dashboard;
-    private AnchorPane scheda;
+    private BorderPane scheda;
     private BorderPane prenotazioni;
     private BorderPane myProfile;
     private BorderPane contactUs;
@@ -105,7 +105,7 @@ public class ViewFactoryClient {
         return dashboard;
     }
 
-    public AnchorPane getSchedaView() {
+    public BorderPane getSchedaView() {
         if (scheda == null) {
             try {
                 System.out.println("DatiSessioneCliente.getIdSchedaAllenamento() = " + DatiSessioneCliente.getIdSchedaAllenamento());

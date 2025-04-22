@@ -49,20 +49,24 @@ public class SchedaController implements Initializable {
     }
 
     public void loadSchedaAllenamento() throws SQLException {
+        Label titolo = new Label("Scheda allenamento");
         ArrayList<RigaEsercizioScheda> schedaAllenamento = TabellaElencoEsercizi.riempiRigaEsercizioScheda();
         containerSchedaAllenamento.getChildren().clear();
 
         if (!schedaAllenamento.isEmpty()) {
+            containerSchedaAllenamento.getChildren().add(titolo);
             containerSchedaAllenamento.getChildren().addAll(schedaAllenamento);
         } else {
-            Label label = new Label("Nessun esercizio presente nella scheda. Componila!");
-            containerSchedaAllenamento.getChildren().add(label);
+            Label label1 = new Label("Nessun esercizio presente nella scheda. Componila!");
+            containerSchedaAllenamento.getChildren().add(label1);
         }
     }
 
     public void loadEsercizi() throws SQLException {
+        Label titolo = new Label("Esercizi disponibili in palestra");
         ArrayList<RigaEsercizioLista> esercizi = TabellaElencoEsercizi.riempiRigaEsercizio();
         containerEsercizi.getChildren().clear();
+        containerEsercizi.getChildren().add(titolo);
         containerEsercizi.getChildren().addAll(esercizi);
     }
 
