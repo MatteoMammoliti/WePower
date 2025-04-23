@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
@@ -16,7 +17,7 @@ public class ViewFactoryClient {
     private BorderPane scheda;
     private BorderPane prenotazioni;
     private BorderPane myProfile;
-    private BorderPane contactUs;
+    private SplitPane contactUs;
 
     public ViewFactoryClient() {
         this.currentMenuView = new SimpleStringProperty("");
@@ -157,7 +158,7 @@ public class ViewFactoryClient {
         return myProfile;
     }
 
-    public BorderPane getContactUsView() {
+    public SplitPane getContactUsView() {
         if (contactUs == null) {
             try {
                 contactUs = new FXMLLoader(getClass().getResource("/Fxml/Client/ClientMenuView/ContactUs.fxml")).load();

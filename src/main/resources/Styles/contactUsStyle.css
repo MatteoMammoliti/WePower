@@ -1,0 +1,28 @@
+.vbox {
+    -fx-font-size: 2em;
+}
+
+.label-titolo {
+    -fx-font-size: 1.5em;
+    -fx-font-weight: bold;
+}
+
+.label-contenuto {
+    -fx-font-size: 1em;
+}
+
+.icone-socials {
+    -fx-font-size: 1em;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#mapFrame {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
