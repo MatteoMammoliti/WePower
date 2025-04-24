@@ -6,13 +6,13 @@ import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.ModelValidazione;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -70,6 +70,7 @@ public class InserimentoDatiPagamentoController implements Initializable {
     public void onClickPaga() throws SQLException {
         String proprietarioCarta = textFieldProprietarioCarta.getText();
         String numeroCarta = textFieldNumeroCarta.getText().replaceAll("[\\s-]", "");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
         String dataScadenza = textFieldDataScadenzacarta.getText();
         String cvc = textFieldCvc.getText();
@@ -78,23 +79,34 @@ public class InserimentoDatiPagamentoController implements Initializable {
         LocalDate data=LocalDate.now();
 
         if(dataScadenza.equals("") || cvc.equals("") || proprietarioCarta.equals("") || numeroCarta.equals("")){
-            JOptionPane.showMessageDialog(null,"Compia tutti i campi");
+            alert.setContentText("Compila tutti i campi");
+            alert.setTitle("Attenzione");
+            alert.showAndWait();
             return;
         }
         if(!ModelValidazione.controlloDataScadenzacarta(dataScadenza)){
-            JOptionPane.showMessageDialog(null,"Formato data scadenza non valido");
+            System.out.println("[" + dataScadenza + "]");
+            alert.setContentText("Data scadenza non valida(Mese,anno)");
+            alert.setTitle("Attenzione");
+            alert.showAndWait();
             return;
         }
         if(!ModelValidazione.controlloNumeroCVC(cvc)){
-            JOptionPane.showMessageDialog(null,"Formato cvc non valido");
+            alert.setContentText("Numero cvc non valida");
+            alert.setTitle("Attenzione");
+            alert.showAndWait();
             return;
         }
         if(!ModelValidazione.controlloNumeroCarta(numeroCarta)){
-            JOptionPane.showMessageDialog(null,"Formato numero carta non valido");
+            alert.setContentText("Numero carta non valida");
+            alert.setTitle("Attenzione");
+            alert.showAndWait();
             return;
         }
         if(!ModelValidazione.controllonomeCognome(proprietarioCarta)){
-            JOptionPane.showMessageDialog(null,"Formato nome non valido");
+            alert.setContentText("Proprietario carta non valido,inserire nome completo");
+            alert.setTitle("Attenzione");
+            alert.showAndWait();
             return;
         }
 
@@ -107,7 +119,9 @@ public class InserimentoDatiPagamentoController implements Initializable {
                 caricoDati.setInt(1,DatiSessioneCliente.getIdUtente());
                 ResultSet risultato= caricoDati.executeQuery();
                 if(risultato.next()){
-                    JOptionPane.showMessageDialog(null,"Hai già un abbonamento attivo");
+                    alert.setContentText("Hai già un abbonamento attivo");
+                    alert.setTitle("Attenzione");
+                    alert.showAndWait();
                     conn.rollback();
                     return;
                 }
@@ -129,7 +143,9 @@ public class InserimentoDatiPagamentoController implements Initializable {
                 caricoAbbonamento.setInt(5,1);
                 int aggiunta=caricoAbbonamento.executeUpdate();
                 if(aggiunta>0){
-                    JOptionPane.showMessageDialog(null,"Abbonamento attivato con successo");
+                    alert.setContentText("Aggiunta con successo");
+                    alert.setTitle("Attenzione");
+                    alert.showAndWait();
                     System.out.println("Abbonamento aggiunto con successo");
                     conn.commit();
                     Stage stage=(Stage) btnPaga.getScene().getWindow();
@@ -143,7 +159,9 @@ public class InserimentoDatiPagamentoController implements Initializable {
 
                 }
                 else{
-                    JOptionPane.showMessageDialog(null,"Errore nell'attivazione dell'abbonamento");
+                    alert.setContentText("Errore nell'attivazione dell'abbonamento");
+                    alert.setTitle("Attenzione");
+                    alert.showAndWait();
                     System.out.println("Errore nell'aggiunta dell'abbonamento");
                     conn.rollback();
                 }

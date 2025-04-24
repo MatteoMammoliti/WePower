@@ -3,6 +3,9 @@ package com.wepower.wepower.Models;
 import com.dlsc.formsfx.model.validators.RegexValidator;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
 public class ModelValidazione {
@@ -27,8 +30,28 @@ public class ModelValidazione {
         return Pattern.matches("^\\d{3}$",cvc);
     }
     public static boolean controlloDataScadenzacarta(String data){
-        return Pattern.matches("^(0[1-9]|1[0-2])/(\\d{2})$",data);
-    }
+            // verifica sintattica (01-12)/(00-99)
+            data=data.trim();
+            if (!Pattern.matches("^(0[1-9]|1[0-2])/\\d{2}$",data)) {
+                return false;
+            }
+
+            // parsing sicuro con YearMonth
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("MM/yy");
+            YearMonth scadenza;
+            try {
+                scadenza = YearMonth.parse(data, fmt);
+            } catch (DateTimeParseException ex) {
+                return false;
+            }
+
+            // confronto con il mese/anno corrente
+            YearMonth adesso = YearMonth.now();
+        System.out.println("Scadenza: " + scadenza+"Adesso: " + adesso);
+            return !scadenza.isBefore(adesso);
+        }
+
+
     public static boolean controlloAltezza(String altezza){
         if (altezza == null || altezza.isEmpty()) {return true;}
         if (!Pattern.matches("^[0-9]{1,3}$", altezza)) {return false;}
