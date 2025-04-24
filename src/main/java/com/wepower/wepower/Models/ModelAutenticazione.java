@@ -59,7 +59,7 @@ public class ModelAutenticazione {
                         }
                     }
 
-                    String querySchedaAllenamento = "SELECT IdScheda FROM SchedaAllenamento WHERE IdCliente = ? AND SchedaAncoraInUso = 1 LIMIT 1";
+                    String querySchedaAllenamento = "SELECT IdScheda, IdAdmin FROM SchedaAllenamento WHERE IdCliente = ? AND SchedaAncoraInUso = 1 LIMIT 1";
 
                     try (PreparedStatement datiSchedaAllenamento = conn.prepareStatement(querySchedaAllenamento)) {
                         datiSchedaAllenamento.setInt(1, DatiSessioneCliente.getIdUtente());
@@ -67,8 +67,10 @@ public class ModelAutenticazione {
 
                         if (risultatoScheda.next()) {
                             DatiSessioneCliente.setIdSchedaAllenamento(risultatoScheda.getInt("IdScheda"));
+                            DatiSessioneCliente.setSeSchedaRichiesta(risultatoScheda.getInt("IdAdmin") == 1);
                         } else {
                             DatiSessioneCliente.setIdSchedaAllenamento(0);
+                            DatiSessioneCliente.setSeSchedaRichiesta(false);
                         }
                     }
                     riempiListaEserciziConMassimali(DatiSessioneCliente.getIdUtente());

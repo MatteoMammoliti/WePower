@@ -3,6 +3,7 @@ package com.wepower.wepower.Controllers.Client.ClientViewsController;
 import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
+import com.wepower.wepower.Models.SchedaAllenamento.ModelSchedaAllenamento;
 import javafx.scene.control.Button;
 
 import java.sql.Connection;
@@ -15,31 +16,7 @@ public class SchermataCreazioneSchedaController {
     public Button askScheda;
 
     public void initialize() {
-        createScheda.setOnAction(event -> {
-
-            String creazioneScheda = "INSERT INTO SchedaAllenamento (IdCliente) VALUES (?)";
-            String prelevaIDScheda = "SELECT IdScheda FROM SchedaAllenamento WHERE IdCliente = ? AND SchedaAncoraInUso = 1 LIMIT 1";
-
-            try(Connection conn = ConnessioneDatabase.getConnection()) {
-                PreparedStatement inserimentoScheda = conn.prepareStatement(creazioneScheda);
-                inserimentoScheda.setInt(1, DatiSessioneCliente.getIdUtente());
-                inserimentoScheda.executeUpdate();
-
-                PreparedStatement prelevaIdScheda = conn.prepareStatement(prelevaIDScheda);
-                prelevaIdScheda.setInt(1, DatiSessioneCliente.getIdUtente());
-                ResultSet resultSet = prelevaIdScheda.executeQuery();
-                if (resultSet.next()) {
-                    DatiSessioneCliente.setIdSchedaAllenamento(resultSet.getInt("IdScheda"));
-                    Model.getInstance().getViewFactoryClient().invalidateSchedaView();
-                    Model.getInstance().getViewFactoryClient().invalidateMyProfileView();
-                    Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Dashboard");
-                    Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Scheda");
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        });
-
-        askScheda.setOnAction(event -> {});
+        createScheda.setOnAction(event -> ModelSchedaAllenamento.creaScheda());
+        askScheda.setOnAction(event -> ModelSchedaAllenamento.richiediScheda());
     }
 }

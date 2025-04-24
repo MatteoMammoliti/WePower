@@ -43,7 +43,6 @@ public class Llama4_API {
     Se l'utente ti chiede cosa può fare nell'applicazione, rispondi che WePower permette di prenotarsi alla sala pesi nella sezione 'Prenotati', di creare una scheda di allenamento o di richiederne una, di inserire i propri dati fisici o massimali degli esercizi, e molto altro.
     """.formatted(eserciziPalestra);
 
-
     public static void sendMessage(String userMessage, TextArea chatArea) {
         chatHistory.add(Map.of("role", "user", "content", userMessage));
 

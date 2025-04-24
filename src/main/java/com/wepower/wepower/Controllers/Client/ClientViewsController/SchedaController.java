@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -20,6 +21,9 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SchedaController implements Initializable {
+
+    @FXML
+    private SplitPane splitPane;
 
     @FXML
     private Button eliminaSchedaButton;
@@ -33,8 +37,16 @@ public class SchedaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Model.getInstance().setSchedaController(this);
+
+        this.splitPane.setDividerPositions(0.5);
+
+        if(DatiSessioneCliente.getSeSchedaRichiesta()) {
+            this.containerEsercizi.setVisible(false);
+            this.containerEsercizi.setManaged(false);
+        }
+
         try {
-            loadEsercizi();
+            if(!DatiSessioneCliente.getSeSchedaRichiesta())  loadEsercizi();
             loadSchedaAllenamento();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -57,8 +69,14 @@ public class SchedaController implements Initializable {
             containerSchedaAllenamento.getChildren().add(titolo);
             containerSchedaAllenamento.getChildren().addAll(schedaAllenamento);
         } else {
-            Label label1 = new Label("Nessun esercizio presente nella scheda. Componila!");
-            containerSchedaAllenamento.getChildren().add(label1);
+
+            Label nessunEsercizio = new Label("");
+            if(!DatiSessioneCliente.getSeSchedaRichiesta()) {
+                nessunEsercizio.setText("Nessun esercizio presente nella scheda. Componila!");
+            } else {
+                nessunEsercizio.setText("La tua scheda non è stata ancora processata dall'admin. Attendi!");
+            }
+            containerSchedaAllenamento.getChildren().add(nessunEsercizio);
         }
     }
 
@@ -83,6 +101,7 @@ public class SchedaController implements Initializable {
             throw new RuntimeException(e);
         }
         DatiSessioneCliente.setIdSchedaAllenamento(0);
+        DatiSessioneCliente.setSeSchedaRichiesta(false);
         Model.getInstance().getViewFactoryClient().invalidateSchedaView();
         Model.getInstance().getViewFactoryClient().invalidateMyProfileView();
         Model.getInstance().getViewFactoryClient().getCurrentMenuView().setValue("Dashboard");

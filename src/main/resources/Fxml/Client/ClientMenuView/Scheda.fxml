@@ -23,7 +23,7 @@
 
     <!-- Divisione orizzontale responsive -->
     <center>
-        <SplitPane dividerPositions="0.5">
+        <SplitPane dividerPositions="0.5" fx:id="splitPane">
             <items>
                 <ScrollPane>
                     <content>

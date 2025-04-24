@@ -54,7 +54,7 @@ public class InserimentoDatiPagamentoController implements Initializable {
             try {
                 onClickPaga();
             } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+                throw new RuntimeException(ex); // gestione non necessaria
             }
         });
     }
@@ -169,10 +169,6 @@ public class InserimentoDatiPagamentoController implements Initializable {
                 conn.rollback();
                 throw e;
             }
-
         }
-
-
-
     }
 }

@@ -25,6 +25,7 @@ public class DatiSessioneCliente {
     private static int certificato;
     private static String telefono;
     private static int idSchedaAllenamento;
+    private static boolean schedaRichiesta = false;
     private static String dataNascita;
     private static String altezza;
     private static Integer pesoAttuale;
@@ -56,6 +57,7 @@ public class DatiSessioneCliente {
     public static ArrayList<PrenotazioneSalaPesi> getDateOrariPrenotazioni() {return dateOrariPrenotazioni;}
     public static boolean getStatoAbbonamento(){return statoAbbonamento;}
     public static int getIdSchedaAllenamento() { return idSchedaAllenamento; }
+    public static boolean getSeSchedaRichiesta() { return schedaRichiesta; }
     public static String getOrarioPrenotazione(String data){
         for (int i=0;i<dateOrariPrenotazioni.size();i++){
             if (dateOrariPrenotazioni.get(i).getDataPrenotazione().equals(data)){
@@ -90,6 +92,7 @@ public class DatiSessioneCliente {
     public static void setCognome(String c) { cognome = c; }
     public static void setTelefono(String t) {telefono = t; }
     public static void setIdSchedaAllenamento(int id) { idSchedaAllenamento = id; }
+    public static void setSeSchedaRichiesta(boolean b) { schedaRichiesta = b; }
     public static void setImmagineProfilo(Image immagine) { immagineProfilo = immagine; }
     public static void setDateOrariPrenotazioni(ArrayList<PrenotazioneSalaPesi> d) {
         dateOrariPrenotazioni = d;
@@ -116,6 +119,7 @@ public class DatiSessioneCliente {
         datePrenotazioniSalaPesi.clear();
         statoAbbonamento = false;
         idSchedaAllenamento = 0;
+        schedaRichiesta = false;
         altezza = null;
         pesoAttuale = null;
         genere=null;
