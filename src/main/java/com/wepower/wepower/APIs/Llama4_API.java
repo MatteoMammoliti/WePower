@@ -124,16 +124,21 @@ public class Llama4_API {
                                 String ora = oraMatch.group();
                                 LocalTime orarioConvertito = LocalTime.parse(ora);
 
+                                System.out.println(data);
+                                System.out.println(ora);
+
                                 String[] temp = DatiSessionePalestra.getOrariPrenotazione();
                                 boolean trovato = false;
                                 for(String orario : temp){
+                                    System.out.println("confronto " +  orario + " con " +  orarioConvertito);
                                     if (orario.equals(ora)) {
+                                        System.out.println("è andato");
                                         trovato = true;
                                         break;
                                     }
                                 }
 
-                                if (!trovato || orarioConvertito.isBefore(LocalTime.now())){
+                                if (!trovato || (dataConvertita.isEqual(LocalDate.now())) && orarioConvertito.isBefore(LocalTime.now())){
                                     Platform.runLater(() -> chatArea.appendText("Attenzione, l'orario non è valido per la nostra palestra o potrebbe essere passato. Controlla in 'Prenotazioni' gli orari disponibili." + "\n"));
                                 }
                                 else if (dataConvertita.isBefore(LocalDate.now()) || dataConvertita.getDayOfWeek() == DayOfWeek.SUNDAY){
