@@ -1,7 +1,10 @@
 package com.wepower.wepower.Controllers.Client;
 
-import com.wepower.wepower.APIs.OpenRouter_AI;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.wepower.wepower.APIs.Llama4_API;
 import com.wepower.wepower.Models.DatiSessioneCliente;
+import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Views.Bannerini.BannerAbbonamenti;
 import com.wepower.wepower.Views.ComponentiCalendario.Calendario;
 import javafx.animation.Animation;
@@ -17,13 +20,20 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import javafx.util.Pair;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+import org.jetbrains.annotations.NotNull;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class ClientDashboardController implements Initializable {
@@ -47,6 +57,10 @@ public class ClientDashboardController implements Initializable {
     private TextField inputField;
     @FXML
     private TextArea chatArea;
+
+    private final Llama4_API powerino = new Llama4_API();
+    private final List<Map<String, String>> chatHistory = new ArrayList<>();
+
 
 
     // sezione grafici
@@ -85,6 +99,7 @@ public class ClientDashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         instance = this;
+        Model.getInstance().setClientDashboardController(this);
         this.containerGrafici.maxHeightProperty().bind(containerRoot.heightProperty().multiply(0.5));
         labelNomeUtenteSaluto.setText("Ciao, "+ DatiSessioneCliente.getNomeUtente() + "👋");
         btnPalestraChiusa.setDisable(true);
@@ -92,7 +107,9 @@ public class ClientDashboardController implements Initializable {
         loadCalendario();
         loadBanner();
         startAutoScroll();
-        onChiediPowerino();
+
+        this.inviaButton.setOnAction(event -> onChiediPowerino());
+
         caricaEserciziSchedaMenuGrafico();
         loadGraficoPrenotazioni();
         loadGraficoPeso();
@@ -122,7 +139,7 @@ public class ClientDashboardController implements Initializable {
         Timeline timeline = new Timeline(
 
                 // azione eseguita ad ogni intervallo di 3 secondi
-                new KeyFrame(Duration.millis(20), event -> {
+                new KeyFrame(Duration.millis(40), event -> {
                     double posizioneBanner = scrollPaneBanner.getHvalue(); // posizione attuale dei 3 banner su cui c'è il focus
                     double posizioneScrollataBanner = posizioneBanner + 0.002; // posizione aumentata di 1/3 (per visualizzare un banner nuovo sui prossimi 3)
                     if (posizioneScrollataBanner > 1) posizioneScrollataBanner = 0; // se si ha raggiunto la fine dei banner, si torna indietro
@@ -292,29 +309,14 @@ public class ClientDashboardController implements Initializable {
         }
     }
 
-    // SEZIONE CHIAMATA API DI POWERINO
-    public void onChiediPowerino() {
-        inviaButton.setOnAction(event -> {
-            String userInput = inputField.getText().trim();
-            if (!userInput.isEmpty()) {
-                chatArea.appendText("Tu: " + userInput + "\n");
-                inputField.clear();
+    // -- SEZIONE POWERINO
+    private void estraiEserciziPalestra() {
 
-                // Avvia un nuovo thread per lo streaming
-                new Thread(() -> {
-                    try {
-                        OpenRouter_AI.chiediPowerinoStreaming(userInput, token -> {
-                            Platform.runLater(() -> {
-                                chatArea.appendText(token);
-                            });
-                        });
-                        Platform.runLater(() -> chatArea.appendText("\n")); // Vai a capo alla fine
-                    } catch (IOException | SQLException e) {
-                        Platform.runLater(() -> chatArea.appendText("\n⚠ Errore di connessione con Powerino\n"));
-                        e.printStackTrace();
-                    }
-                }).start();
-            }
-        });
+    }
+    private void onChiediPowerino() {
+        String messaggioUtente = this.inputField.getText();
+        this.inputField.clear();
+        this.chatArea.appendText("Tu: " + messaggioUtente + "\n");
+        Llama4_API.sendMessage(messaggioUtente, this.chatArea);
     }
 }

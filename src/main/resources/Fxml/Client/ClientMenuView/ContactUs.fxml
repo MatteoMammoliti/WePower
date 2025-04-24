@@ -48,8 +48,6 @@
                     <Label fx:id="labelTelefono" styleClass="label-contenuto" stylesheets="@../../../Styles/contactUsStyle.css" text="Telefono: 123-456-7890" />
                     <Label fx:id="labelIndirizzo" styleClass="label-contenuto" stylesheets="@../../../Styles/contactUsStyle.css" text="Sede: Via Roma 1, Milano" />
                     <Label fx:id="labelOrariSegreteria" styleClass="label-contenuto" stylesheets="@../../../Styles/contactUsStyle.css" text="Orari segreteria: 9-18" />
-
-                    <WebView fx:id="googleMapsView" prefHeight="200" prefWidth="200"></WebView>
                 </VBox>
             </children>
         </StackPane>

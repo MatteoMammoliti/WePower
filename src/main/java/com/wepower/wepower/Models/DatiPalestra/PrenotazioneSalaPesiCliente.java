@@ -6,7 +6,6 @@ public class PrenotazioneSalaPesiCliente {
     private String DataPrenotazione;
     private String OrarioPrenotazione;
 
-
     public PrenotazioneSalaPesiCliente(int idCliente,String dataPrenotazione, String orarioPrenotazione) {
         if (orarioPrenotazione.matches("\\d{1,2}")) {
             int ora = Integer.parseInt(orarioPrenotazione);
@@ -17,10 +16,6 @@ public class PrenotazioneSalaPesiCliente {
         this.DataPrenotazione = dataPrenotazione;
         this.OrarioPrenotazione = orarioPrenotazione;
     }
-
-
-
-
 
     //Getter
     public int getIdCliente() {

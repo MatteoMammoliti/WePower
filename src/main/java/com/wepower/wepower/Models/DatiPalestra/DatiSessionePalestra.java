@@ -8,15 +8,6 @@ public class DatiSessionePalestra {
     private static int numeroMassimePrenotazioniPerFascieOrarie=50;
     private static Map<PrenotazioneSalaPesiCliente, Integer> prenotazioniSalePesi= new HashMap<>();
 
-
-
-
-
-
-
-
-
-
     //Aggiungo una prenotazione, se in quella data e ora sono già state fatte delle prenotazioni, incremento il contatore
     public static void aggiungiPrenotazioneSalaPesi(PrenotazioneSalaPesiCliente prenotazione) {
         if(prenotazioniSalePesi.containsKey(prenotazione)) {
@@ -24,9 +15,7 @@ public class DatiSessionePalestra {
         } else {
             prenotazioniSalePesi.put(prenotazione, 1);
         }
-
     }
-
 
     //Funzione che mi serve per capire quanti posti prenotabili rimangono per ogni fascia oraria/giorno
     public static int getNumeroPrenotazioniDataOraResidue(PrenotazioneSalaPesiCliente prenotazione) {
@@ -36,7 +25,6 @@ public class DatiSessionePalestra {
             return numeroMassimePrenotazioniPerFascieOrarie;
         }
     }
-
 
     public static boolean rimuoviPrenotazioneSalaPesi(PrenotazioneSalaPesiCliente prenotazione) {
         if(prenotazioniSalePesi.containsKey(prenotazione)) {
@@ -52,7 +40,4 @@ public class DatiSessionePalestra {
         }
 
     }
-
-
-
 }

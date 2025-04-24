@@ -103,9 +103,7 @@ public class ModelAutenticazione {
                     DatiSessionePalestra.aggiungiPrenotazioneSalaPesi(prenotazione);
                 }
             }
-
         }
-
     };
 
     //Vado a prendermi dal Database tutte le date in cui il cliente ha prenotato la salapesi per mostrarle nel calendario
@@ -151,6 +149,23 @@ public class ModelAutenticazione {
 
         for(String esercizio : DatiSessioneCliente.getEserciziConMassimale()) {
             System.out.println(esercizio);
+        }
+    }
+
+    public static ArrayList<String> riempiEserciziDisponibiliPalestra() {
+        String fetchEsercizi = "SELECT NomeEsercizio FROM Esercizio";
+        ArrayList<String> temp = new ArrayList<>();
+
+        try (Connection conn = ConnessioneDatabase.getConnection()) {
+            PreparedStatement esercizi =  conn.prepareStatement(fetchEsercizi);
+            ResultSet risultato = esercizi.executeQuery();
+
+            while (risultato.next()) {
+                temp.add(risultato.getString("NomeEsercizio"));
+            }
+            return temp;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }
