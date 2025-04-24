@@ -2,14 +2,15 @@ package com.wepower.wepower.Views.AdminView;
 
 import com.wepower.wepower.Controllers.Admin.AdminDashboardController;
 import com.wepower.wepower.Models.AdminModel.ModelDashboardAdmin;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
-import javax.swing.*;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class RigaVisualizzatoreOfferteAttive extends HBox {
     private String nomeOfferta;
@@ -28,13 +29,27 @@ public class RigaVisualizzatoreOfferteAttive extends HBox {
         eliminaOfferta.setPrefHeight(20);
         eliminaOfferta.setOnAction(e -> {
             try {
-                int scelta=JOptionPane.showConfirmDialog(null, "Sei sicuro di voler eliminare la promozione:"+nomeOfferta+"?", "Elimina promozione", JOptionPane.YES_NO_OPTION);
-                if (scelta == JOptionPane.YES_OPTION) {
-                    // Elimina la promozione
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Elimina promozione");
+                alert.setHeaderText("Sei sicuro di voler eliminare la promozione: " + nomeOfferta + "?");
+                alert.setContentText("Questa azione è irreversibile.");
+
+                // Mostro la finestra e aspetto la risposta
+                Optional<ButtonType> result = alert.showAndWait();
+
+                // Controllo se l'utente ha cliccato su OK
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    // L'utente ha confermato, elimina la promozione
                     if(ModelDashboardAdmin.eliminaPromozione(nomeOfferta)){
-                        JOptionPane.showMessageDialog(null, "Promozione eliminata con successo");
+                        Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                        alert1.setTitle("Elimina promozione");
+                        alert1.setHeaderText("Promozione eliminata con successo");
                         AdminDashboardController.getInstance().setPromozioni();
-                    }
+                } else {
+                    // L'utente ha annullato
+                    System.out.println("Eliminazione annullata.");
+                }
+
                 }
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);

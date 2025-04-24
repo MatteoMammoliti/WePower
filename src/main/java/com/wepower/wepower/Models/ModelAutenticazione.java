@@ -99,7 +99,6 @@ public class ModelAutenticazione {
             PreparedStatement datiPrenotazioni=conn.prepareStatement(prelevaDatiPrenotazioniSalaPesi);
             try(ResultSet risultato=datiPrenotazioni.executeQuery()){
                 while(risultato.next()){
-                    System.out.println("Trovata");
                     PrenotazioneSalaPesiCliente prenotazione=new PrenotazioneSalaPesiCliente(risultato.getInt("IdCliente"),risultato.getString("DataPrenotazione"),risultato.getString("OrarioPrenotazione"));
                     DatiSessionePalestra.aggiungiPrenotazioneSalaPesi(prenotazione);
                 }

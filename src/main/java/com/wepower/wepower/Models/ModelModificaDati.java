@@ -1,9 +1,7 @@
 package com.wepower.wepower.Models;
 
 import com.wepower.wepower.Controllers.Client.ClientDashboardController;
-import com.wepower.wepower.Controllers.Client.ClientViewsController.ProfiloController;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -11,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.Optional;
+
 
 public class ModelModificaDati {
 

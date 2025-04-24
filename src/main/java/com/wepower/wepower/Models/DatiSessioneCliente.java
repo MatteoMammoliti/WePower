@@ -197,7 +197,6 @@ public class DatiSessioneCliente {
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
-        System.out.println("no");
         return null;
     }
 

@@ -242,7 +242,7 @@ public class ProfiloController implements Initializable {
     public void caricaCertificato() throws SQLException, IOException {
         FileChooser selezioneFile = new FileChooser();
         selezioneFile.setTitle("Selezione certificato");
-        selezioneFile.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF", "*.pdf"));
+        selezioneFile.getExtensionFilters().add(new FileChooser.ExtensionFilter("Immagine", "*.png", "*.jpg", "*.jpeg"));
         imgCertificato= selezioneFile.showOpenDialog(null);
         if(DatiSessioneCliente.salvaCertificatoMeidico(DatiSessioneCliente.getIdUtente(),imgCertificato)){
             DatiSessioneCliente.setCertificato(1);

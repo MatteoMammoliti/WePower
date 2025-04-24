@@ -2,7 +2,7 @@ package com.wepower.wepower.Models;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 
 public class ModelRegistrazione {
     public static boolean verificaEmailEsistente(String email) throws SQLException {
