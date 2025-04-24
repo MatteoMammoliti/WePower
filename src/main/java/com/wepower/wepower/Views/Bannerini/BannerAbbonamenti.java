@@ -3,9 +3,11 @@ package com.wepower.wepower.Views.Bannerini;
 import com.wepower.wepower.Controllers.Client.ClientViewsController.InserimentoDatiPagamentoController;
 import com.wepower.wepower.Controllers.Client.ClientViewsController.ProfiloController;
 import com.wepower.wepower.Models.ConnessioneDatabase;
+import com.wepower.wepower.Models.DatiSessioneCliente;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
@@ -68,6 +70,15 @@ public class BannerAbbonamenti extends VBox {
                 String path = BannerAbbonamenti.class.getResource("/Images/LOGO.png").toExternalForm();
                 BannerAbbonamenti banner = new BannerAbbonamenti(path, nomeTitolo, costo, 150, 300);
                 banner.setOnMouseClicked(event -> {
+                    if(DatiSessioneCliente.getStatoAbbonamento()){
+                        System.out.println("Abbonamento già attivo");
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Abbonamento già attivo");
+                        alert.setHeaderText("Hai già un abbonamento attivo");
+                        alert.showAndWait();
+                        return;
+
+                    }
                     try {
                         banner.onClickBannerio(nomeTitolo,costo);
                     } catch (IOException e) {

@@ -30,7 +30,10 @@ public class ModelValidazione {
         return Pattern.matches("^(0[1-9]|1[0-2])/(\\d{2})$",data);
     }
     public static boolean controlloAltezza(String altezza){
-        return Pattern.matches("^\\d{2,3}$",altezza) || altezza.isEmpty();
+        if (altezza == null || altezza.isEmpty()) {return true;}
+        if (!Pattern.matches("^[0-9]{1,3}$", altezza)) {return false;}
+        if (Integer.parseInt(altezza) < 50 || Integer.parseInt(altezza) > 250) {return false;}
+        return true;
     }
 
     public static boolean controlloData(LocalDate data){
