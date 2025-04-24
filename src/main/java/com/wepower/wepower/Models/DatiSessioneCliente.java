@@ -285,19 +285,36 @@ public class DatiSessioneCliente {
         if(certificato==null){
            return false;}
         String caricoCertificato="INSERT INTO Certificato (IdCliente,Stato,ImgCertificato,DataCaricamentoCertificato) VALUES (?,?,?,?)";
+        String aggiornoCliente="UPDATE Cliente SET CertificatoValido=1 WHERE IdCliente=?";
         byte[] certificatoBytes = Files.readAllBytes(Paths.get(certificato.getAbsolutePath()));
         if(certificatoBytes.length==0){
            return false;}
         try(Connection conn=ConnessioneDatabase.getConnection()){
+            conn.setAutoCommit(false);
             try(PreparedStatement datiCertificato=conn.prepareStatement(caricoCertificato)){
                 datiCertificato.setInt(1, idUtente);
                 datiCertificato.setString(2,"Attesa");
                 datiCertificato.setBytes(3,certificatoBytes);
                 datiCertificato.setString(4, LocalDate.now().toString());
-                if(datiCertificato.executeUpdate()>0){
-                    System.out.println("Caricato certificato medico");
+                if(datiCertificato.executeUpdate()<=0){
+                    conn.rollback();
+                    return false;
+                }
+                try {
+                    PreparedStatement datiCliente=conn.prepareStatement(aggiornoCliente);
+                    datiCliente.setInt(1, idUtente);
+                    int risultato=datiCliente.executeUpdate();
+                    if (risultato<=0) {
+                        conn.rollback();
+                        return false;
+                    }
+                    conn.commit();
                     return true;
                 }
+                catch (SQLException e){
+                    conn.rollback();
+                }
+
             }
         }catch (SQLException e){
             System.out.println("Errore caricamento certificato medico");

@@ -35,10 +35,13 @@ public class RigaDashboardAdmin {
         }
 
         if (statoCertificato==1){
-            this.statoCertificato = new SimpleStringProperty("OK");
+            this.statoCertificato = new SimpleStringProperty("In Attesa");
+        }
+        else if (statoCertificato==2){
+            this.statoCertificato = new SimpleStringProperty("Approvato");
         }
         else{
-            this.statoCertificato = new SimpleStringProperty("X");
+            this.statoCertificato = new SimpleStringProperty("Non Presente");
         }
 
     }

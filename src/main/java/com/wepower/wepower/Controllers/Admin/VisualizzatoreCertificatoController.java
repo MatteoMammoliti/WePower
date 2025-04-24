@@ -53,6 +53,7 @@ public class VisualizzatoreCertificatoController implements Initializable {
                         alert.showAndWait();
                         Stage stage = (Stage) btnApprova.getScene().getWindow();
                         tabellaCertificati.aggiornaTabella();
+                        AdminUtentiController.getIstanza().aggiornaUtenti();
                         stage.close();
                     }
                 } catch (SQLException ex) {
@@ -78,6 +79,7 @@ public class VisualizzatoreCertificatoController implements Initializable {
                         alert1.showAndWait();
                         Stage stage = (Stage) btnRifiuta.getScene().getWindow();
                         tabellaCertificati.aggiornaTabella();
+                        AdminUtentiController.getIstanza().aggiornaUtenti();
                         stage.close();
                     }
                 }

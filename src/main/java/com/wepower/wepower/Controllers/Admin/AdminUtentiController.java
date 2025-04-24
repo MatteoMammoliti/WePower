@@ -37,6 +37,8 @@ public class AdminUtentiController implements Initializable {
     @FXML
     private TableColumn<RigaDashboardAdmin, String> colStatoAbbonamento;
 
+    private static AdminUtentiController istanza;
+
     @FXML
     private TableColumn<RigaDashboardAdmin, String> colDataRinnovo;
     @FXML
@@ -53,6 +55,7 @@ public class AdminUtentiController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        istanza=this;
         colId.setCellValueFactory(cellData -> cellData.getValue().idClienteProperty());
         colNome.setCellValueFactory(cellData -> cellData.getValue().nomeProperty());
         colCognome.setCellValueFactory(cellData -> cellData.getValue().cognomeProperty());
@@ -157,7 +160,19 @@ public class AdminUtentiController implements Initializable {
 
     }
 
+    public void aggiornaUtenti() {
+        ObservableList<RigaDashboardAdmin> utentiData = FXCollections.observableArrayList();
+        try {
+            utentiData.addAll(TabellaUtentiDashboardAdmin.riempiRiga());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        tableUtenti.setItems(utentiData);}
 
+
+    public static AdminUtentiController getIstanza() {
+        return istanza;
+    }
 
     private void onModifica(RigaDashboardAdmin riga, Button bottoneModifica) throws IOException {
         System.out.println("passoriga");
