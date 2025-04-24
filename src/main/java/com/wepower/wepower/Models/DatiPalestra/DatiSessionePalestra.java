@@ -7,6 +7,7 @@ import java.util.Map;
 public class DatiSessionePalestra {
     private static int numeroMassimePrenotazioniPerFascieOrarie=50;
     private static Map<PrenotazioneSalaPesiCliente, Integer> prenotazioniSalePesi= new HashMap<>();
+    private static String[] orariPrenotazione = {"08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00"};
 
     //Aggiungo una prenotazione, se in quella data e ora sono già state fatte delle prenotazioni, incremento il contatore
     public static void aggiungiPrenotazioneSalaPesi(PrenotazioneSalaPesiCliente prenotazione) {
@@ -38,6 +39,9 @@ public class DatiSessionePalestra {
         } else {
             return false;
         }
+    }
 
+    public static String[] getOrariPrenotazione() {
+        return orariPrenotazione;
     }
 }

@@ -1,6 +1,7 @@
 package com.wepower.wepower.APIs;
 
 import com.google.gson.*;
+import com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra;
 import com.wepower.wepower.Models.DatiPalestra.ModelPrenotazioni;
 import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
 import com.wepower.wepower.Models.DatiSessioneCliente;
@@ -32,7 +33,7 @@ public class Llama4_API {
             Il tuo nome è Powerino. Sei un assistente virtuale esperto di fitness e lavori all'interno di un'applicazione per la gestione di una palestra. Il tuo compito è aiutare gli utenti a scegliere esercizi per obiettivi specifici (massa muscolare, dimagrimento, forza, mobilità), spiegare come svolgerli correttamente e rispondere a domande sui parametri fisici registrati. 
             Parla in modo amichevole, motivazionale ma professionale. Non fornire consigli medici, non parlare di diete cliniche o integratori specifici. Se ti viene chiesto qualcosa al di fuori dell’ambito fitness, rispondi gentilmente che puoi solo aiutare con il mondo della palestra. 
             Gli esercizi attualmente disponibili sono: %s. Suggerisci agli utenti esercizi solo da questa lista.
-            Se l'utente ti chiede di prenotare, rispondi normalmente e poi aggiungi alla fine un comando tecnico nel formato esatto: |||PRENOTA:YYYY-MM-DDTHH:MM (es. 2025-04-25T18:00). Non lasciare questo campo incompleto.
+            Se l'utente ti chiede di prenotare, rispondi normalmente e poi aggiungi alla fine un comando tecnico nel formato esatto: |||PRENOTA:YYYY-MM-DDTHH:MM (es. 2025-04-25T18:00). Se l'utente non ti dà data e orario, lascia il comando incompleto facendogli notare che non hai tutte le informazioni necessarie.
             """.formatted(eserciziPalestra);
 
     public static void sendMessage(String userMessage, TextArea chatArea) {
@@ -109,12 +110,23 @@ public class Llama4_API {
                             Matcher dataMatch = dataPattern.matcher(rispostaFinale.toString());
                             Matcher oraMatch = oraPattern.matcher(rispostaFinale.toString());
 
-                            System.out.println(dataMatch.matches());
                             if (dataMatch.find() && oraMatch.find()) {
                                 String data = dataMatch.group();
                                 String ora = oraMatch.group();
 
-                                if (prenotaAllenamento(DatiSessioneCliente.getIdUtente(), data, ora)) {
+                                String[] temp = DatiSessionePalestra.getOrariPrenotazione();
+                                boolean trovato = false;
+                                for(String orario : temp){
+                                    if (orario.equals(ora)) {
+                                        trovato = true;
+                                        break;
+                                    }
+                                }
+
+                                if (!trovato){
+                                    Platform.runLater(() -> chatArea.appendText("Attenzione, l'orario non è valido per la nostra palestra. Controlla in 'Prenotazioni' gli orari disponibili." + "\n"));
+                                }
+                                else if (prenotaAllenamento(DatiSessioneCliente.getIdUtente(), data, ora)) {
                                     Platform.runLater(() -> {
                                         chatArea.appendText("✅ Prenotazione registrata per " + data + " alle " + ora + "\n");
                                         Model.getInstance().getClientDashboardController().loadCalendario();
