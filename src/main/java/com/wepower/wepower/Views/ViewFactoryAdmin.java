@@ -39,13 +39,15 @@ public class ViewFactoryAdmin {
         stage.setScene(scene);
         stage.setTitle("WePower - Dashboard");
         stage.setMaximized(true);
+        stage.setMinHeight(600);
+        stage.setMinWidth(1300);
 
         stage.centerOnScreen();
         stage.show();
         stage.maximizedProperty().addListener((obs, wasMaximized, isNowMaximized) -> {
             if (!isNowMaximized) {
-                stage.setWidth(stage.getWidth()*0.75);
-                stage.setHeight(stage.getHeight()*0.75);
+                stage.setWidth(stage.getMinWidth());
+                stage.setHeight(stage.getMinHeight());
                 stage.centerOnScreen();
             }
         });

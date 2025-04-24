@@ -1,48 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.Region?>
 
-<BorderPane prefWidth="1920.0" stylesheets="@../../Styles/DashboardAdmin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.MenuAdminController">
+<BorderPane stylesheets="@../../Styles/DashboardAdmin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.MenuAdminController">
    <top>
-      <HBox styleClass="barraMenuAdmin" stylesheets="@../../Styles/DashboardAdmin.css" BorderPane.alignment="CENTER">
+      <HBox fillHeight="false" styleClass="barraMenuAdmin" BorderPane.alignment="CENTER">
          <children>
-             <ImageView fitHeight="129.0" fitWidth="310.0" preserveRatio="true">
-                <image>
-                    <Image url="@../../Images/LOGO_rettangolare.png" />
-                </image>
-               <HBox.margin>
-                  <Insets bottom="50.0" right="10.0" />
-               </HBox.margin>
+            <ImageView fitHeight="80.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Images/LOGO_rettangolare.png" />
+               </image>
             </ImageView>
-            <Button fx:id="dashboardButton" mnemonicParsing="false" prefHeight="105.0" styleClass="bottoneDashboardAdmin" stylesheets="@../../Styles/DashboardAdmin.css" text="Home">
-               <HBox.margin>
-                  <Insets right="15.0" />
-               </HBox.margin>
-               <font>
-                  <Font name="Arial" size="12.0" />
-               </font></Button>
-            <Button fx:id="usersButton" layoutX="188.0" layoutY="10.0" mnemonicParsing="false" prefHeight="100.0" styleClass="bottoneDashboardAdmin" stylesheets="@../../Styles/DashboardAdmin.css" text="Utenti" textOverrun="CENTER_ELLIPSIS">
-               <HBox.margin>
-                  <Insets right="20.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="schedeButton" mnemonicParsing="false" prefHeight="100.0" styleClass="bottoneDashboardAdmin" stylesheets="@../../Styles/DashboardAdmin.css" text="Schede" textOverrun="CENTER_ELLIPSIS">
-               <HBox.margin>
-                  <Insets right="20.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="certificatiButton" mnemonicParsing="false" prefHeight="100.0" styleClass="bottoneDashboardAdmin" stylesheets="@../../Styles/DashboardAdmin.css" text="Certificati" textOverrun="CENTER_ELLIPSIS">
-               <HBox.margin>
-                  <Insets right="20.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="logoutButton" mnemonicParsing="false" prefHeight="100.0" styleClass="bottoneDashboardAdmin" stylesheets="@../../Styles/DashboardAdmin.css" text="Logout" textOverrun="CENTER_ELLIPSIS"> </Button>
+            <Button fx:id="dashboardButton" mnemonicParsing="false" styleClass="bottoneDashboardAdmin" text="Home" textAlignment="CENTER" />
+            <Button fx:id="usersButton" mnemonicParsing="false" styleClass="bottoneDashboardAdmin" text="Utenti" textAlignment="CENTER" />
+            <Button fx:id="schedeButton" mnemonicParsing="false" styleClass="bottoneDashboardAdmin" text="Schede" textAlignment="CENTER" />
+            <Button fx:id="certificatiButton" mnemonicParsing="false" styleClass="bottoneDashboardAdmin" text="Certificati" textAlignment="CENTER" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="logoutButton" mnemonicParsing="false" styleClass="bottoneDashboardAdmin" text="Logout" textAlignment="CENTER" />
          </children>
       </HBox>
    </top>
