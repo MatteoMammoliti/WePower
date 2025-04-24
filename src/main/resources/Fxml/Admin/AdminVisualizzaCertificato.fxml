@@ -14,7 +14,7 @@
          <content>
             <VBox alignment="CENTER">
                <children>
-                  <ImageView fx:id="immagine" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="immagine" fitHeight="508.0" fitWidth="772.0" pickOnBounds="true" preserveRatio="true">
                   </ImageView>
                </children>
             </VBox>
