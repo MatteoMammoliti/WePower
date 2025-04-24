@@ -150,7 +150,7 @@ public class ClientDashboardController implements Initializable {
     public void caricaEserciziSchedaMenuGrafico() {
         ArrayList<String> temp = DatiSessioneCliente.getEserciziConMassimale();
 
-        if (temp != null) {
+        if (!temp.isEmpty()) {
             for (String esercizio : temp) {
                 MenuItem menuItem = new MenuItem(esercizio);
                 menuItem.setOnAction(event -> {
@@ -159,6 +159,9 @@ public class ClientDashboardController implements Initializable {
                 });
                 choiceEsercizioScheda.getItems().add(menuItem);
             }
+        }
+        else {
+            choiceEsercizioScheda.setVisible(false);
         }
     }
 
@@ -203,13 +206,9 @@ public class ClientDashboardController implements Initializable {
     }
 
     public void loadGraficoPeso(){
-        ArrayList<Pair<String,Integer>> storico=DatiSessioneCliente.caricaStroicoPesi(DatiSessioneCliente.getIdUtente());
+        ArrayList<Pair<String,Integer>> storico = DatiSessioneCliente.caricaStroicoPesi(DatiSessioneCliente.getIdUtente());
         XYChart.Series<String, Number> peso = new XYChart.Series<>();
 
-        Pair<String, Integer> min = storico.get(0);
-        Pair<String, Integer> max = storico.get(storico.size()-1);
-        int minY = min.getValue().intValue();
-        int maxY = max.getValue().intValue();
 
         peso.setName("Andamento peso corporeo");
         for(int i=0;i<storico.size();i++){
@@ -220,8 +219,15 @@ public class ClientDashboardController implements Initializable {
             peso.getData().add(new XYChart.Data<>(data, pesoValore));
         }
 
-        yAxisPesoCorporeo.setLowerBound(minY - 5);
-        yAxisPesoCorporeo.setUpperBound(maxY + 5);
+        if (!storico.isEmpty()) {
+            Pair<String, Integer> min = storico.get(0);
+            Pair<String, Integer> max = storico.get(storico.size()-1);
+            int minY = min.getValue().intValue();
+            int maxY = max.getValue().intValue();
+            yAxisPesoCorporeo.setLowerBound(minY - 5);
+            yAxisPesoCorporeo.setUpperBound(maxY + 5);
+        }
+
         yAxisPesoCorporeo.setAutoRanging(false);
         yAxisPesoCorporeo.setTickUnit(1);
 
