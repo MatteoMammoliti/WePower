@@ -18,6 +18,7 @@ import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,12 +33,16 @@ public class Llama4_API {
 
     private static final String eserciziPalestra = String.valueOf(ModelAutenticazione.riempiEserciziDisponibiliPalestra());
     private static final String systemPrompt = """
-            Il tuo nome è Powerino. Sei un assistente virtuale esperto di fitness e lavori all'interno di un'applicazione per la gestione di una palestra. Il tuo compito è aiutare gli utenti a scegliere esercizi per obiettivi specifici (massa muscolare, dimagrimento, forza, mobilità), spiegare come svolgerli correttamente e rispondere a domande sui parametri fisici registrati. 
-            Parla in modo amichevole, motivazionale ma professionale. Non fornire consigli medici, non parlare di diete cliniche o integratori specifici. Se ti viene chiesto qualcosa al di fuori dell’ambito fitness, rispondi gentilmente che puoi solo aiutare con il mondo della palestra. 
-            Gli esercizi attualmente disponibili sono: %s. Suggerisci agli utenti esercizi solo da questa lista.
-            Se l'utente ti chiede di prenotare, rispondi normalmente e poi aggiungi alla fine un comando tecnico nel formato esatto: |||PRENOTA:YYYY-MM-DDTHH:MM (es. 2025-04-25T18:00). Se l'utente non ti dà data o orario per la prenotazione, lascia il comando incompleto e non aggiungere dati tu, IMPORTANTE.
-            Se l'utente ti chiede cosa può fare nell'applicazione rispondi che WePower permette di prenotarsi alla sala pesi nella sezione 'Prenotati', di creare una scheda di allenamento o di richiederne una, di inserire i propri dati fisici o massimali degli esercizi, e molto altro.
-            """.formatted(eserciziPalestra);
+    Il tuo nome è Powerino. Sei un assistente virtuale esperto di fitness e lavori all'interno di un'applicazione per la gestione di una palestra. Il tuo compito è aiutare gli utenti a scegliere esercizi per obiettivi specifici (massa muscolare, dimagrimento, forza, mobilità), spiegare come svolgerli correttamente e rispondere a domande sui parametri fisici registrati. 
+    Parla in modo amichevole, motivazionale ma professionale. Non fornire consigli medici, non parlare di diete cliniche o integratori specifici. Se ti viene chiesto qualcosa al di fuori dell’ambito fitness, rispondi gentilmente che puoi solo aiutare con il mondo della palestra. 
+    Gli esercizi attualmente disponibili sono: %s. Suggerisci agli utenti esercizi solo da questa lista.
+
+    Se l'utente ti chiede di prenotare, rispondi normalmente, MA aggiungi il comando tecnico alla fine **solo se l'utente ha specificato esplicitamente una data nel formato YYYY-MM-DD e un orario nel formato HH:MM**. Non interpretare espressioni come "oggi", "stasera", "domani": devono essere date e orari precisi. 
+    Se sono presenti entrambi, aggiungi il comando alla fine nel formato: |||PRENOTA:YYYY-MM-DDTHH:MM (es. 2025-04-25T18:00). Altrimenti, **non aggiungere nulla**.
+    
+    Se l'utente ti chiede cosa può fare nell'applicazione, rispondi che WePower permette di prenotarsi alla sala pesi nella sezione 'Prenotati', di creare una scheda di allenamento o di richiederne una, di inserire i propri dati fisici o massimali degli esercizi, e molto altro.
+    """.formatted(eserciziPalestra);
+
 
     public static void sendMessage(String userMessage, TextArea chatArea) {
         chatHistory.add(Map.of("role", "user", "content", userMessage));
@@ -117,6 +122,7 @@ public class Llama4_API {
                                 String data = dataMatch.group();
                                 LocalDate dataConvertita = LocalDate.parse(data);
                                 String ora = oraMatch.group();
+                                LocalTime orarioConvertito = LocalTime.parse(ora);
 
                                 String[] temp = DatiSessionePalestra.getOrariPrenotazione();
                                 boolean trovato = false;
@@ -127,8 +133,8 @@ public class Llama4_API {
                                     }
                                 }
 
-                                if (!trovato){
-                                    Platform.runLater(() -> chatArea.appendText("Attenzione, l'orario non è valido per la nostra palestra. Controlla in 'Prenotazioni' gli orari disponibili." + "\n"));
+                                if (!trovato || orarioConvertito.isBefore(LocalTime.now())){
+                                    Platform.runLater(() -> chatArea.appendText("Attenzione, l'orario non è valido per la nostra palestra o potrebbe essere passato. Controlla in 'Prenotazioni' gli orari disponibili." + "\n"));
                                 }
                                 else if (dataConvertita.isBefore(LocalDate.now()) || dataConvertita.getDayOfWeek() == DayOfWeek.SUNDAY){
                                     Platform.runLater(() -> chatArea.appendText("Attenzione, hai scelto una data non valida. Potrebbe essere passata oppure una domenica." + "\n"));
