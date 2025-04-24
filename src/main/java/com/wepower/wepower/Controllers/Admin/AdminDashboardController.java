@@ -39,6 +39,7 @@ public class AdminDashboardController implements Initializable {
         labelTotaleAbbonamenti.setText(ModelDashboardAdmin.numeroAbbonamentiAttivi()+"");
         labelCertificatiAttesa.setText(ModelDashboardAdmin.numeroCertificatiAttesa()+"");
         labelPrenotatiOggi.setText(ModelDashboardAdmin.numeroPrenotatiOggi()+"");
+        labelRichiesteSchede.setText(ModelDashboardAdmin.getNumeroSchedeRichieste()+"");
     }
 
     //Carico le promozioni attive

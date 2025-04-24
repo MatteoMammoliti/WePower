@@ -1,5 +1,14 @@
 package com.wepower.wepower.Models.DatiPalestra;
 
+import com.wepower.wepower.Models.ConnessioneDatabase;
+import com.wepower.wepower.Views.AdminView.RigaTabellaRichiesteScheda;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,4 +53,28 @@ public class DatiSessionePalestra {
     public static String[] getOrariPrenotazione() {
         return orariPrenotazione;
     }
+
+    // Vado a prelevare tutti i dati degli utenti che hanno richiesto una scheda di allenamento
+    public static ObservableList<RigaTabellaRichiesteScheda> getRichiesteScheda() {
+
+        //Inizializzo la ObservableList vuota
+        ObservableList<RigaTabellaRichiesteScheda> utenti= FXCollections.observableArrayList();
+        String prendoIClienti="SELECT c.IdCliente,c.Nome,c.Cognome,c.Sesso,p.Peso FROM Cliente c JOIN PesoCliente p ON c.IdCliente=p.IdCliente JOIN  SchedaAllenamento s ON c.IdCliente=s.IdCliente WHERE s.IdAdmin=1 AND s.SchedaAncoraInUso=1 ORDER BY p.DataRegistrazionePeso DESC LIMIT 1";
+        try(Connection conn= ConnessioneDatabase.getConnection()) {
+            PreparedStatement preparo=conn.prepareStatement(prendoIClienti);
+            ResultSet rs=preparo.executeQuery();
+            //In questo ciclo while, per ogni riga della tabella, creo un oggetto RigaTabellaRichiesteScheda e lo aggiungo alla lista
+            while (rs.next()){
+                RigaTabellaRichiesteScheda utente=new RigaTabellaRichiesteScheda(rs.getInt("IdCliente"),rs.getString("Nome"),rs.getString("Cognome"),rs.getInt("Peso"),rs.getString("Sesso"));
+                utenti.add(utente);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return utenti;
+
+
+    }
+
+
 }

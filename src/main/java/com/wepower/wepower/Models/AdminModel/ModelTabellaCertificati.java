@@ -1,6 +1,7 @@
 package com.wepower.wepower.Models.AdminModel;
 
 import com.wepower.wepower.Models.ConnessioneDatabase;
+import com.wepower.wepower.Views.AdminView.RigaTabellaCertificati;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;

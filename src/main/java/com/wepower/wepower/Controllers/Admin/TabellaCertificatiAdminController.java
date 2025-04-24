@@ -1,7 +1,7 @@
 package com.wepower.wepower.Controllers.Admin;
 
 import com.wepower.wepower.Models.AdminModel.ModelTabellaCertificati;
-import com.wepower.wepower.Models.AdminModel.RigaTabellaCertificati;
+import com.wepower.wepower.Views.AdminView.RigaTabellaCertificati;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

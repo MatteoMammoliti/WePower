@@ -39,4 +39,5 @@ module com.wepower.wepower {
     exports com.wepower.wepower.Models.DatiPalestra;
     exports com.wepower.wepower.Views.PrenotazioniCorsiSalaPesi;
     exports com.wepower.wepower.Views.ComponentiCalendario;
+    opens com.wepower.wepower.Views.AdminView to javafx.base;
 }

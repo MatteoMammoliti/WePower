@@ -173,4 +173,15 @@ public class ModelDashboardAdmin {
         }
         return false;
     }
+
+    //Vado a calcolare quanti clienti hanno richiesto una scheda all'admin
+    public static int getNumeroSchedeRichieste(){
+        String conto="SELECT COUNT(*) AS numSchede FROM SchedaAllenamento WHERE IdAdmin=1 AND SchedaAncoraInUso=1";
+        try(Connection conn=ConnessioneDatabase.getConnection()) {
+            PreparedStatement preparo=conn.prepareStatement(conto);
+            return preparo.executeQuery().getInt("numSchede");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
