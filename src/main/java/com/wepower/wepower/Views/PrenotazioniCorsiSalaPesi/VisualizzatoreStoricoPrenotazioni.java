@@ -20,6 +20,8 @@ public class VisualizzatoreStoricoPrenotazioni extends VBox {
     public VisualizzatoreStoricoPrenotazioni(){
         this.getStylesheets().add(
                 Objects.requireNonNull(getClass().getResource("/Styles/Prenotazioni.css")).toExternalForm());
+
+        this.setSpacing(10);
        aggiornaLista();
     }
 
@@ -42,6 +44,9 @@ public class VisualizzatoreStoricoPrenotazioni extends VBox {
         oraPrenotazione.setPrefWidth(100);
         oraPrenotazione.setPrefHeight(100);
         HBox contenitoreRiga=new HBox(5);
+
+        dataPrenotazione.getStyleClass().add("labelInfoStorico");
+        oraPrenotazione.getStyleClass().add("labelInfoStorico");
 
 
         contenitoreRiga.getStyleClass().add("contenitoreRigaStorico");

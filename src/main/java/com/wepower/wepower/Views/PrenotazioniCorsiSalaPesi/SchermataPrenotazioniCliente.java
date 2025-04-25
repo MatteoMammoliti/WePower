@@ -77,7 +77,7 @@ public class SchermataPrenotazioniCliente extends VBox {
 
 
     public HBox creaRigaPrenotazione(String inizio, String fine, Boolean prenotato, LocalDate data, String ora){
-        HBox rigaCompleta = new HBox(5);
+        HBox rigaCompleta = new HBox();
         rigaCompleta.getStyleClass().add("rigaCompleta");
 
 
@@ -113,12 +113,17 @@ public class SchermataPrenotazioniCliente extends VBox {
         dettagliRiga.setPrefWidth(500);
         dettagliRiga.setPrefHeight(50);
         Label Sala=new Label("Sala Pesi");
-        Sala.setStyle("-fx-font-weight: bold; -fx-font-size: 1.5em;");
+        Sala.setStyle("-fx-font-weight: bold; -fx-font-size: 2em; -fx-text-fill: #1B262C;");
         Sala.setAlignment(Pos.TOP_LEFT);
         PrenotazioneSalaPesiCliente temp=new PrenotazioneSalaPesiCliente(DatiSessioneCliente.getIdUtente(),data.toString(),ora);
         Label PostiLiberi=new Label("Posti Liberi" + " "+ getNumeroPrenotazioniDataOraResidue(temp));
         PostiLiberi.setAlignment(Pos.TOP_LEFT);
+        PostiLiberi.setStyle("-fx-font-weight: bold;-fx-text-fill: #1B262C;");
+
+
         Button btnPrenota=new Button("Prenotati");
+        btnPrenota.getStyleClass().clear();
+        btnPrenota.getStyleClass().add("btnPrenotati");
 
 
         Button btnEliminaPrenotazione=new Button("Elimina prenotazione");
@@ -143,8 +148,12 @@ public class SchermataPrenotazioniCliente extends VBox {
                          DatiSessionePalestra.rimuoviPrenotazioneSalaPesi(temp);
                          DatiSessioneCliente.rimuoviPrenotazione(new PrenotazioneSalaPesi(data.toString(), ora));
                          ClientDashboardController.getInstance().loadCalendario();
-                         storico.aggiornaLista();
-                         aggiornaFasceorarie();
+                       try {
+                           prossimiAllenamenti.aggiornaLista();
+                       } catch (SQLException ex) {
+                           throw new RuntimeException(ex);
+                       }
+                       aggiornaFasceorarie();
                         }
                    });
         }
@@ -191,6 +200,9 @@ public class SchermataPrenotazioniCliente extends VBox {
     private void aggiornaLabel(){
         giornoSettimana.setText(data.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ITALIAN));
         giornoDelMese.setText(data.getMonth().getDisplayName(TextStyle.FULL, Locale.ITALIAN)+" "+data.getDayOfMonth());
+
+        giornoDelMese.getStyleClass().add("labelInfoStorico");
+        giornoSettimana.getStyleClass().add("labelInfoStorico");
     }
 
 
@@ -210,6 +222,7 @@ public class SchermataPrenotazioniCliente extends VBox {
     private void aggiornaPrecSucc(){
         //pulisco gli stili css per il refresh
         btnGiornoPrecedente.getStyleClass().clear();
+        btnGiornoPrecedente.setDisable(false);
 
         if (data.isEqual(LocalDate.now()) || data.isBefore(LocalDate.now())){
             btnGiornoPrecedente.setDisable(true);

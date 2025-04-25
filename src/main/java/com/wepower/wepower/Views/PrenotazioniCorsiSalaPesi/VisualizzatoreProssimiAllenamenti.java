@@ -2,6 +2,7 @@ package com.wepower.wepower.Views.PrenotazioniCorsiSalaPesi;
 
 import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
 import com.wepower.wepower.Models.DatiSessioneCliente;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -23,6 +24,7 @@ public class VisualizzatoreProssimiAllenamenti extends VBox {
         this.getStylesheets().add(
                 Objects.requireNonNull(getClass().getResource("/Styles/Prenotazioni.css")).toExternalForm());
         aggiornaLista();
+        this.setSpacing(10);
     }
 
 
@@ -43,9 +45,13 @@ public class VisualizzatoreProssimiAllenamenti extends VBox {
         dataPrenotazione.setPrefWidth(100);
         oraPrenotazione.setPrefWidth(100);
         oraPrenotazione.setPrefHeight(100);
-        HBox contenitoreRiga=new HBox(5);
+        HBox contenitoreRiga=new HBox(10);
+
+        dataPrenotazione.getStyleClass().add("labelInfoStorico");
+        oraPrenotazione.getStyleClass().add("labelInfoStorico");
 
         contenitoreRiga.getStyleClass().add("contenitoreRigaProssimiAllenamenti");
+        contenitoreRiga.setAlignment(Pos.CENTER);
 
         contenitoreRiga.getChildren().addAll(dataPrenotazione,oraPrenotazione);
         return contenitoreRiga;

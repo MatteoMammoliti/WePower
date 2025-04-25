@@ -1,68 +1,106 @@
+    #tuttaPagina{
+        -fx-background-color: #BBE1FA;
+
+    }
     .rigaCompleta{
-        -fx-background-radius: 10;
-        -fx-border-radius: 10;
-        -fx-background-color: #ffffff;
-        -fx-border-color: #d0d0d0;
+        -fx-background-color: #BBE1FA;
+        -fx-border-color: #BBE1FA;
         -fx-border-width: 1;
         -fx-padding: 6;
     }
 
     .contenitoreSezioneOrario{
-        -fx-background-radius: 10;
-        -fx-border-radius: 10;
-        -fx-background-color: blue;
-        -fx-border-color: blue;
-        -fx-border-width: 1;
-        -fx-padding: 6;;
+        -fx-background-color: #3282B8;
+        -fx-background-radius: 20 0 0 20;
+        -fx-border-radius: 20 0 0 20;
+        -fx-border-width: 2;
+        -fx-padding: 6;
     }
+
 
     .contenitoreSezioneOrarioPrenotato{
-        -fx-background-radius: 10;
-        -fx-border-radius: 10;
-        -fx-background-color: green;
-        -fx-border-color: green;
-        -fx-border-width: 1;
-        -fx-padding: 6;;
+        -fx-background-color: #006400;
+        -fx-background-radius: 20 0 0 20;
+        -fx-border-radius: 20 0 0 20;
+        -fx-border-width: 2;
+        -fx-padding: 6;
     }
 
-    #scrollProssimiAllenamenti{
+    #scrollProssimiAllenamenti.viewport{
+
+    }
+    #scrollPrenotazione {
+        -fx-background-color: #BBE1FA;
 
     }
 
-    #scrollPrenotazione{
+    #scrollPrenotazione .viewport {
+        -fx-background-color: #BBE1FA; /* Imposta il colore per la viewport */
+    }
+
+    #scrollPrenotazione .scroll-bar:vertical{
+        -fx-background-color: transparent;
+        -fx-background-insets: 0;
+        -fx-border-color: transparent;
+        -fx-border-width: 0;
+    }
+
+    #scrollPrenotazione .scroll-bar .thumb{
+        -fx-background-color: #3282B8;
+        -fx-background-radius: 5;
     }
 
     .contenitoreRigaStorico{
-        -fx-background-color: red;
+        -fx-background-color:  #B22222;
         -fx-text-fill: white;
+        -fx-background-radius: 20;
+        -fx-border-radius: 20;
+        -fx-border-width: 1;
         -fx-alignment: center;
     }
 
     .containerProssimiAllenamenti{}
 
     .contenitoreRigaProssimiAllenamenti{
-        -fx-background-color: green;
+        -fx-background-color:  #006400;
         -fx-text-fill: white;
+        -fx-background-radius: 20;
+        -fx-border-radius: 20;
+        -fx-border-width: 1;
         -fx-alignment: center;
     }
 
     .contenitoreDettagliRiga{
-        -fx-background-color: white;
+        -fx-background-color: #0F4C75;
         -fx-padding: 10;
         -fx-width: 300;
+        -fx-background-radius: 0 20 20 0;
+        -fx-border-radius: 0 20 20 0;
+        -fx-border-width: 2;
+        -fx-padding: 6;
     }
     .labelFineInizio{
         -fx-font-weight: bold;
         -fx-text-fill: white;
     }
 
+    .labelInfoStorico{
+        -fx-font-size: 1.5em;
+        -fx-font-weight: bold;
+        -fx-text-fill:  #1B262C;
+    }
+
+    #labelProssimiAllenamenti{
+        -fx-font-weight: bold;
+        -fx-font-size: 2em;
+        -fx-font-style:#1B262C;
+
+    }
+
     #labelStorico{
-        -fx-background-color: #d0d0d0;
-        -fx-background-radius: 10;
-        -fx-border-radius: 10;
-        -fx-border-color: #d0d0d0;
-        -fx-border-width: 1;
-        -fx-padding: 6;
+        -fx-font-weight: bold;
+        -fx-font-size: 2em;
+        -fx-font-style:#1B262C;
     }
 
 
@@ -72,24 +110,52 @@
     }
 
     .btnPrenotato{
-        -fx-background-color: green;
+        -fx-background-color: #006400;
         -fx-text-fill: white;
     }
 
-    .btnEliminaPrenotazione{
-        -fx-background-color: red;
-        -fx-text-fill: white;
+    .btnPrenotati{
+        -fx-background-color: #BBE1FA;
+        -fx-background-radius: 5;
+        -fx-border-radius: 5;
+        -fx-border-width: 1;
+        -fx-border-color: #3282B8;
+        -fx-text-fill: #1B262C;
         -fx-font-weight: bold;
     }
 
-    .btnPrecedenteNO{
-        -fx-background-color: red;
+    .btnPrenotati:hover{
+        -fx-background-color:#3282B8 ;
+    }
+
+    .btnEliminaPrenotazione{
+        -fx-background-color: #B22222;
         -fx-text-fill: white;
+        -fx-font-weight: bold;
+        -fx-opacity: 0.7;
+    }
+
+    .btnEliminaPrenotazione:hover{
+        -fx-opacity: 1;
+    }
+
+    .btnPrecedenteNO{
+        -fx-background-color: #B22222;
+        -fx-border-color: #1B262C;
+        -fx-border-width: 1;
+        -fx-text-fill: white;
+        -fx-opacity: 0.8;
     }
 
     .btnPrecSucc{
-        -fx-background-color: #d0d0d0;
+        -fx-background-color: #0F4C75;
+        -fx-border-color: #1B262C;
+        -fx-border-width: 1;
         -fx-text-fill: white;
-        -fx-border-color: black;
+        -fx-opacity: 0.8;
+    }
+
+    .btnPrecSucc:hover{
+        -fx-opacity: 1;
     }
 

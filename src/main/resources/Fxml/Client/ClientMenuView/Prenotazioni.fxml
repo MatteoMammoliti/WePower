@@ -4,52 +4,55 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane stylesheets="@../../../Styles/Prenotazioni.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientViewsController.PrenotazioniController">
-    <center>
-        <HBox fillHeight="true" spacing="100" BorderPane.alignment="CENTER">
-         <children>
-             <ScrollPane id="scrollPrenotazione" fx:id="scrollPrenotazione" fitToWidth="true" style="-fx-padding: 0; -fx-background-color: transparent; -fx-border-insets: 0; -fx-background-insets: 0;" vbarPolicy="AS_NEEDED">
-                 <content>
-                 <HBox id="containerGiorniPrenotazione" fx:id="containerGiorniPrenotazione" fillHeight="false" minWidth="400.0" spacing="10" HBox.hgrow="NEVER" />
-                 </content>
-             </ScrollPane>
-            <ScrollPane id="scrollProssimiAllenamenti" fx:id="scrollProssimiAllenamenti" fitToHeight="false" fitToWidth="true" hbarPolicy="NEVER" maxWidth="300" style="-fx-padding: 0; -fx-background-color: transparent; -fx-border-insets: 0; -fx-background-insets: 0;" vbarPolicy="AS_NEEDED">
-               <content>
-                  <VBox id="corpoProssimiAllenamenti" fx:id="corpoProssimiAllenamenti">
-                     <children>
-                        <Label id="labelProssimiAllenamenti" fx:id="labelProssimiAllenamenti" text="I tuoi prossimi allenamenti" />
-                     </children>
-                  </VBox>
-               </content>
-            </ScrollPane>
+<BorderPane id="tuttaPagina" stylesheets="@../../../Styles/Prenotazioni.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientViewsController.PrenotazioniController">
 
-            <ScrollPane id="scrollStoricoCliente" fx:id="scrollStoricoCliente" fitToHeight="false" fitToWidth="true" hbarPolicy="NEVER" maxWidth="300" style="-fx-padding: 0; -fx-background-color: transparent; -fx-border-insets: 0; -fx-background-insets: 0;" vbarPolicy="AS_NEEDED" HBox.hgrow="ALWAYS">
-               <content>
-                  <VBox id="corpoStorico" fx:id="corpoStorico">
-                     <children>
-                        <Label id="lavelStorico" fx:id="labelStorico" text="Storico delle tue prenotazioni" />
-                     </children></VBox>
-               </content>
+
+    <top>
+        <VBox styleClass="pane_offerte_dashboard" BorderPane.alignment="CENTER" />
+    </top>
+
+
+    <center>
+        <GridPane hgap="40" vgap="20" BorderPane.alignment="CENTER">
+             <Label alignment="CENTER" text="Prenota il tuo allenamento">
+                 <font>
+               <Font name="Arial Bold" size="30.0" />
+            </font>
+             </Label>
+            <Label id="labelProssimiAllenamenti" fx:id="labelProssimiAllenamenti" text="I tuoi prossimi allenamenti" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <Label id="labelStorico" fx:id="labelStorico" text="Storico delle tue prenotazioni" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+            <ScrollPane id="scrollPrenotazione" fx:id="scrollPrenotazione" fitToWidth="true" maxWidth="500.0" vbarPolicy="AS_NEEDED" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <content>
+                    <HBox id="containerGiorniPrenotazione" fx:id="containerGiorniPrenotazione" fillHeight="false" spacing="10" />
+                </content>
             </ScrollPane>
-         </children>
-        </HBox>
+            <ScrollPane id="scrollPrenotazione" fx:id="scrollProssimiAllenamenti" fitToWidth="true" hbarPolicy="NEVER" maxWidth="340.0" vbarPolicy="AS_NEEDED" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <content>
+                    <VBox id="corpoProssimiAllenamenti" fx:id="corpoProssimiAllenamenti" maxWidth="340.0" />
+                </content>
+            </ScrollPane>
+            <ScrollPane id="scrollPrenotazione" fx:id="scrollStoricoCliente" fitToWidth="true" hbarPolicy="NEVER" maxWidth="340.0" vbarPolicy="AS_NEEDED" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                <content>
+                    <VBox id="corpoStorico" fx:id="corpoStorico" />
+                </content>
+            </ScrollPane>
+            <columnConstraints>
+                <ColumnConstraints prefWidth="800.0" />
+                <ColumnConstraints prefWidth="340.0" />
+                <ColumnConstraints prefWidth="340.0" />
+            </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+        </GridPane>
     </center>
-   <top>
-          <VBox styleClass="pane_offerte_dashboard" BorderPane.alignment="CENTER">
-              <children>
-                    <Label alignment="CENTER" text="Prenota il tuo allenamento">
-                        <font>
-                            <Font name="Arial Bold" size="30.0" />
-                        </font>
-                    </Label>
-              </children>
-          </VBox>
-   </top>
-   <padding>
-      <Insets left="40.0" />
-   </padding>
+    <padding><Insets left="40" /></padding>
 </BorderPane>
