@@ -1,8 +1,8 @@
 package com.wepower.wepower.Views.SchedaAllenamento;
 
-import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
+import com.wepower.wepower.Models.SchedaAllenamento.ModelSchedaAllenamentoCliente;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -13,10 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class RigaEsercizioLista extends HBox {
@@ -93,18 +90,7 @@ public class RigaEsercizioLista extends HBox {
             alert.showAndWait();
             return;
         }
-
-        String inserimentoEsercizio = "INSERT INTO ComposizioneSchedaAllenamento (NomeEsercizio, IdSchedaAllenamento, NumeroRipetizioni, NumeroSerie) " +
-                "VALUES (?, ?, ?, ?)";
-
-        try (Connection conn = ConnessioneDatabase.getConnection()) {
-            PreparedStatement inserimentoScheda = conn.prepareStatement(inserimentoEsercizio);
-            inserimentoScheda.setString(1, this.nomeEsercizio.getText());
-            inserimentoScheda.setInt(2, DatiSessioneCliente.getIdSchedaAllenamento());
-            inserimentoScheda.setString(3, this.numeroRipetizioni.getText());
-            inserimentoScheda.setString(4, this.numeroSerie.getText());
-            inserimentoScheda.executeUpdate();
-        }
+        ModelSchedaAllenamentoCliente.inserisciEsercizioScheda(this.nomeEsercizio.getText(), DatiSessioneCliente.getIdSchedaAllenamento(), this.numeroRipetizioni.getText(), this.numeroSerie.getText());
     }
 
     private void aggiornaUI() {

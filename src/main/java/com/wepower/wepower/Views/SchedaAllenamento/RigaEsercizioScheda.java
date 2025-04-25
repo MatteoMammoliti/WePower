@@ -1,9 +1,9 @@
 package com.wepower.wepower.Views.SchedaAllenamento;
 
-import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.DatiSessioneCliente;
-import com.wepower.wepower.Models.Model;
+import com.wepower.wepower.Models.SchedaAllenamento.ModelSchedaAllenamentoCliente;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -11,10 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -49,10 +46,20 @@ public class RigaEsercizioScheda extends HBox {
         this.imageEsercizio.setPreserveRatio(true);
 
         this.aggiungiMassimale = new Button("Aggiungi massimale");
-        this.aggiungiMassimale.setOnAction(event -> onAggiungiNuovoMassimale());
+        this.aggiungiMassimale.setOnAction(event -> {
+            try {
+                this.aggiungiNuovoMassimale.setVisible(true);
+                if(Integer.parseInt(this.massimaleAttuale.getText().replace("Massimale attuale: ", "")) > Integer.parseInt(this.aggiungiNuovoMassimale.getText())) {
+                    showAlert("Il nuovo massimale è minore di quello già presente.");
+                    this.aggiungiNuovoMassimale.clear();
+                } else onAggiungiNuovoMassimale();
+            } catch (SQLException e) {
+                showAlert("Qualcosa è andato storto.");
+            }
+        });
 
         this.rimuoviSchedaEsercizio = new Button("Rimuovi esercizio dalla scheda");
-        this.rimuoviSchedaEsercizio.setOnAction(event -> onRimuoviEsercizio());
+        this.rimuoviSchedaEsercizio.setOnAction(event -> ModelSchedaAllenamentoCliente.onRimuoviEsercizio(this.nomeEsercizio.getText(), DatiSessioneCliente.getIdSchedaAllenamento()));
 
         VBox sinistra = new VBox();
         sinistra.getChildren().addAll(this.nomeEsercizio, this.numeroSerie, this.numeroRipetizioni);
@@ -79,40 +86,19 @@ public class RigaEsercizioScheda extends HBox {
         this.setPadding(new Insets(10));
     }
 
-    private void onRimuoviEsercizio() {
-        String eliminaEsercizio = "DELETE FROM ComposizioneSchedaAllenamento WHERE NomeEsercizio = ? AND IdSchedaAllenamento = ?";
-
-        try (Connection conn = ConnessioneDatabase.getConnection()) {
-            PreparedStatement eliminazione = conn.prepareStatement(eliminaEsercizio);
-            eliminazione.setString(1, this.nomeEsercizio.getText());
-            eliminazione.setInt(2, DatiSessioneCliente.getIdSchedaAllenamento());
-            eliminazione.executeUpdate();
-
-            Model.getInstance().getSchedaController().loadSchedaAllenamento();
-            Model.getInstance().getSchedaController().loadEsercizi();
+    private void onAggiungiNuovoMassimale () throws SQLException {
+        try {
+            ModelSchedaAllenamentoCliente.onAggiungiNuovoMassimale(DatiSessioneCliente.getIdUtente(),
+                    this.nomeEsercizio.getText(), LocalDate.now().toString(), Double.parseDouble(this.aggiungiNuovoMassimale.getText()));
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            ModelSchedaAllenamentoCliente.onUpdateMassimale(Double.parseDouble(this.aggiungiNuovoMassimale.getText()), DatiSessioneCliente.getIdUtente(), this.nomeEsercizio.getText());
         }
     }
 
-    private void onAggiungiNuovoMassimale () {
-        this.aggiungiNuovoMassimale.setVisible(true);
-        String massimale = "INSERT INTO MassimaleImpostatoCliente (IdCliente, NomeEsercizio, DataInserimento, Peso) VALUES (?, ?, ?, ?)";
-
-        try (Connection conn = ConnessioneDatabase.getConnection()) {
-            PreparedStatement inserimento = conn.prepareStatement(massimale);
-            inserimento.setInt(1, DatiSessioneCliente.getIdUtente());
-            inserimento.setString(2, this.nomeEsercizio.getText());
-            inserimento.setString(3, LocalDate.now().toString());
-            inserimento.setDouble(4, Double.parseDouble(this.aggiungiNuovoMassimale.getText()));
-            inserimento.executeUpdate();
-
-            Model.getInstance().getSchedaController().loadSchedaAllenamento();
-            Model.getInstance().getSchedaController().loadEsercizi();
-            Model.getInstance().getViewFactoryClient().invalidateDashboard();
-            DatiSessioneCliente.aggiungiEsercizioConMassimale(this.nomeEsercizio.getText());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Errore");
+        alert.setHeaderText(message);
+        alert.showAndWait();
     }
 }
