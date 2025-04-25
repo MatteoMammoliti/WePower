@@ -11,6 +11,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
@@ -490,5 +493,43 @@ public class DatiSessioneCliente {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    //Prelevo le date degli allenamenti già conclusi
+    public static ArrayList<PrenotazioneSalaPesi> getDateAllenamentiEffettuati(){
+        ArrayList<PrenotazioneSalaPesi> prenotazioni=new ArrayList<>();
+        String cerco="SELECT DataPrenotazione,OrarioPrenotazione FROM PrenotazioneSalaPesi WHERE IdCliente=? AND DataPrenotazione < ?  ORDER BY DataPrenotazione DESC";
+        try(Connection conn=ConnessioneDatabase.getConnection()){
+            PreparedStatement prelevamento=conn.prepareStatement(cerco);
+            prelevamento.setInt(1,DatiSessioneCliente.getIdUtente());
+            prelevamento.setString(2,LocalDate.now().toString());;
+            ResultSet rs=prelevamento.executeQuery();
+            while(rs.next()){
+                PrenotazioneSalaPesi p=new PrenotazioneSalaPesi(rs.getString("DataPrenotazione"),rs.getString("OrarioPrenotazione"));
+                prenotazioni.add(p);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return prenotazioni;
+
+    }
+
+    //Prelevo le date degli allenamenti ancora da effettuare
+    public static ArrayList<PrenotazioneSalaPesi> getDateAllenamentiDaFare() throws SQLException {
+        ArrayList<PrenotazioneSalaPesi> date=new ArrayList<>();
+        String cerco="SELECT DataPrenotazione,OrarioPrenotazione FROM PrenotazioneSalaPesi WHERE IdCliente=? AND DataPrenotazione >= ? ORDER BY DataPrenotazione ASC";
+        try(Connection conn=ConnessioneDatabase.getConnection()){
+            PreparedStatement prelevamento=conn.prepareStatement(cerco);
+            prelevamento.setInt(1,DatiSessioneCliente.getIdUtente());
+            prelevamento.setString(2,LocalDate.now().toString());
+            ResultSet rs=prelevamento.executeQuery();
+            while(rs.next()){
+                PrenotazioneSalaPesi nuova=new PrenotazioneSalaPesi(rs.getString("DataPrenotazione"),rs.getString("OrarioPrenotazione"));
+                date.add(nuova);
+            }
+            return date;
+
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.wepower.wepower.Controllers.Client.ClientViewsController;
 
 import com.wepower.wepower.Views.PrenotazioniCorsiSalaPesi.SchermataPrenotazioniCliente;
+import com.wepower.wepower.Views.PrenotazioniCorsiSalaPesi.VisualizzatoreProssimiAllenamenti;
 import com.wepower.wepower.Views.PrenotazioniCorsiSalaPesi.VisualizzatoreStoricoPrenotazioni;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,10 +10,13 @@ import javafx.scene.layout.VBox;
 
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class PrenotazioniController implements Initializable {
+    @FXML
+    private VBox corpoProssimiAllenamenti;
     @FXML
     private VBox corpoStorico;
 
@@ -23,19 +27,25 @@ public class PrenotazioniController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
 
-        loadPrenotazioni();
+        try {
+            loadPrenotazioni();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
 
 
-    public  void loadPrenotazioni() {
+    public  void loadPrenotazioni() throws SQLException {
         VisualizzatoreStoricoPrenotazioni storico=new VisualizzatoreStoricoPrenotazioni();
-        SchermataPrenotazioniCliente schermata= new SchermataPrenotazioniCliente(LocalDate.now(),storico);
+        VisualizzatoreProssimiAllenamenti prossimiAllenamenti=new VisualizzatoreProssimiAllenamenti();
+        SchermataPrenotazioniCliente schermata= new SchermataPrenotazioniCliente(LocalDate.now(),storico,prossimiAllenamenti);
 
 
 
         containerGiorniPrenotazione.getChildren().add(schermata);
+        corpoProssimiAllenamenti.getChildren().add(prossimiAllenamenti);
         corpoStorico.getChildren().add(storico);
 
 
