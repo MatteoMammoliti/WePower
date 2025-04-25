@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -7,30 +8,30 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientViewsController.PrenotazioniController">
+<BorderPane stylesheets="@../../../Styles/Prenotazioni.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientViewsController.PrenotazioniController">
     <center>
         <HBox fillHeight="true" spacing="100" BorderPane.alignment="CENTER">
          <children>
-             <ScrollPane fx:id="scrollPrenotazione" fitToWidth="true" style="-fx-padding: 0; -fx-background-color: transparent; -fx-border-insets: 0; -fx-background-insets: 0;" vbarPolicy="AS_NEEDED">
+             <ScrollPane id="scrollPrenotazione" fx:id="scrollPrenotazione" fitToWidth="true" style="-fx-padding: 0; -fx-background-color: transparent; -fx-border-insets: 0; -fx-background-insets: 0;" vbarPolicy="AS_NEEDED">
                  <content>
-                 <HBox fx:id="containerGiorniPrenotazione" fillHeight="false" minWidth="400.0" spacing="10" HBox.hgrow="NEVER" />
+                 <HBox id="containerGiorniPrenotazione" fx:id="containerGiorniPrenotazione" fillHeight="false" minWidth="400.0" spacing="10" HBox.hgrow="NEVER" />
                  </content>
              </ScrollPane>
-            <ScrollPane fx:id="contenitoreProssimiAllenamenti" fitToHeight="false" fitToWidth="true" hbarPolicy="NEVER" maxWidth="300" style="-fx-padding: 0; -fx-background-color: transparent; -fx-border-insets: 0; -fx-background-insets: 0;" vbarPolicy="AS_NEEDED">
+            <ScrollPane id="scrollProssimiAllenamenti" fx:id="scrollProssimiAllenamenti" fitToHeight="false" fitToWidth="true" hbarPolicy="NEVER" maxWidth="300" style="-fx-padding: 0; -fx-background-color: transparent; -fx-border-insets: 0; -fx-background-insets: 0;" vbarPolicy="AS_NEEDED">
                <content>
-                  <VBox fx:id="corpoProssimiAllenamenti">
+                  <VBox id="corpoProssimiAllenamenti" fx:id="corpoProssimiAllenamenti">
                      <children>
-                        <Label text="I tuoi prossimi allenamenti" />
+                        <Label id="labelProssimiAllenamenti" fx:id="labelProssimiAllenamenti" text="I tuoi prossimi allenamenti" />
                      </children>
                   </VBox>
                </content>
             </ScrollPane>
 
-            <ScrollPane fx:id="contenitoreStoricoCliente" fitToHeight="false" fitToWidth="true" hbarPolicy="NEVER" maxWidth="300" style="-fx-padding: 0; -fx-background-color: transparent; -fx-border-insets: 0; -fx-background-insets: 0;" vbarPolicy="AS_NEEDED" HBox.hgrow="ALWAYS">
+            <ScrollPane id="scrollStoricoCliente" fx:id="scrollStoricoCliente" fitToHeight="false" fitToWidth="true" hbarPolicy="NEVER" maxWidth="300" style="-fx-padding: 0; -fx-background-color: transparent; -fx-border-insets: 0; -fx-background-insets: 0;" vbarPolicy="AS_NEEDED" HBox.hgrow="ALWAYS">
                <content>
-                  <VBox fx:id="corpoStorico">
+                  <VBox id="corpoStorico" fx:id="corpoStorico">
                      <children>
-                        <Label text="Storico delle tue prenotazioni" />
+                        <Label id="lavelStorico" fx:id="labelStorico" text="Storico delle tue prenotazioni" />
                      </children></VBox>
                </content>
             </ScrollPane>
@@ -48,4 +49,7 @@
               </children>
           </VBox>
    </top>
+   <padding>
+      <Insets left="40.0" />
+   </padding>
 </BorderPane>

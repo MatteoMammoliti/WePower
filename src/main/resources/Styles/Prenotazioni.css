@@ -25,6 +25,26 @@
         -fx-padding: 6;;
     }
 
+    #scrollProssimiAllenamenti{
+
+    }
+
+    #scrollPrenotazione{
+    }
+
+    .contenitoreRigaStorico{
+        -fx-background-color: red;
+        -fx-text-fill: white;
+        -fx-alignment: center;
+    }
+
+    .containerProssimiAllenamenti{}
+
+    .contenitoreRigaProssimiAllenamenti{
+        -fx-background-color: green;
+        -fx-text-fill: white;
+        -fx-alignment: center;
+    }
 
     .contenitoreDettagliRiga{
         -fx-background-color: white;
@@ -36,6 +56,14 @@
         -fx-text-fill: white;
     }
 
+    #labelStorico{
+        -fx-background-color: #d0d0d0;
+        -fx-background-radius: 10;
+        -fx-border-radius: 10;
+        -fx-border-color: #d0d0d0;
+        -fx-border-width: 1;
+        -fx-padding: 6;
+    }
 
 
     .btnGiornoChiusura{

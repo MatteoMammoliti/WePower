@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class VisualizzatoreProssimiAllenamenti extends VBox {
@@ -19,6 +20,8 @@ public class VisualizzatoreProssimiAllenamenti extends VBox {
 
 
     public VisualizzatoreProssimiAllenamenti() throws SQLException {
+        this.getStylesheets().add(
+                Objects.requireNonNull(getClass().getResource("/Styles/Prenotazioni.css")).toExternalForm());
         aggiornaLista();
     }
 
@@ -42,7 +45,7 @@ public class VisualizzatoreProssimiAllenamenti extends VBox {
         oraPrenotazione.setPrefHeight(100);
         HBox contenitoreRiga=new HBox(5);
 
-        contenitoreRiga.setStyle("-fx-background-color: green;-fx-text-fill: white; -fx-alignment: center;");
+        contenitoreRiga.getStyleClass().add("contenitoreRigaProssimiAllenamenti");
 
         contenitoreRiga.getChildren().addAll(dataPrenotazione,oraPrenotazione);
         return contenitoreRiga;

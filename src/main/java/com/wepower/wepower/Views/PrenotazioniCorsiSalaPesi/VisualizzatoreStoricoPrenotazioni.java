@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class VisualizzatoreStoricoPrenotazioni extends VBox {
@@ -17,6 +18,8 @@ public class VisualizzatoreStoricoPrenotazioni extends VBox {
 
 
     public VisualizzatoreStoricoPrenotazioni(){
+        this.getStylesheets().add(
+                Objects.requireNonNull(getClass().getResource("/Styles/Prenotazioni.css")).toExternalForm());
        aggiornaLista();
     }
 
@@ -41,7 +44,7 @@ public class VisualizzatoreStoricoPrenotazioni extends VBox {
         HBox contenitoreRiga=new HBox(5);
 
 
-        contenitoreRiga.setStyle("-fx-background-color: red;-fx-text-fill: white; -fx-alignment: center;");
+        contenitoreRiga.getStyleClass().add("contenitoreRigaStorico");
 
         contenitoreRiga.getChildren().addAll(dataPrenotazione,oraPrenotazione);
         return contenitoreRiga;

@@ -59,7 +59,13 @@ public class DatiSessionePalestra {
 
         //Inizializzo la ObservableList vuota
         ObservableList<RigaTabellaRichiesteScheda> utenti= FXCollections.observableArrayList();
-        String prendoIClienti="SELECT c.IdCliente,c.Nome,c.Cognome,c.Sesso,p.Peso FROM Cliente c JOIN PesoCliente p ON c.IdCliente=p.IdCliente JOIN  SchedaAllenamento s ON c.IdCliente=s.IdCliente WHERE s.IdAdmin=1 AND s.SchedaAncoraInUso=1 ORDER BY p.DataRegistrazionePeso DESC LIMIT 1";
+        String prendoIClienti="SELECT c.IdCliente,c.Nome,c.Cognome,c.Sesso,p.Peso FROM Cliente c JOIN PesoCliente p ON c.IdCliente=p.IdCliente JOIN  SchedaAllenamento s ON c.IdCliente=s.IdCliente WHERE s.IdAdmin=1 AND s.SchedaAncoraInUso=1 AND s.SchedaCompilata=0  AND NOT EXISTS " +
+                "(\n" +
+                "        SELECT 1\n" +
+                "        FROM   PesoCliente p2\n" +
+                "        WHERE  p2.IdCliente = p.IdCliente\n" +
+                "          AND  p2.DataRegistrazionePeso > p.DataRegistrazionePeso\n" +
+                "      );";
         try(Connection conn= ConnessioneDatabase.getConnection()) {
             PreparedStatement preparo=conn.prepareStatement(prendoIClienti);
             ResultSet rs=preparo.executeQuery();

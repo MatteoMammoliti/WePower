@@ -5,6 +5,8 @@ import com.wepower.wepower.Views.PrenotazioniCorsiSalaPesi.VisualizzatoreProssim
 import com.wepower.wepower.Views.PrenotazioniCorsiSalaPesi.VisualizzatoreStoricoPrenotazioni;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -12,9 +14,20 @@ import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class PrenotazioniController implements Initializable {
+    @FXML
+    private ScrollPane scrollPrenotazione;
+    @FXML
+    private ScrollPane scrollProssimiAllenamenti;
+    @FXML
+    private ScrollPane scrollStoricoCliente;
+    @FXML
+    private Label labelStorico;
+    @FXML
+    private Label labelProssimiAllenamenti;
     @FXML
     private VBox corpoProssimiAllenamenti;
     @FXML
