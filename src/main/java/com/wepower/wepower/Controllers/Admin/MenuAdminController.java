@@ -35,10 +35,5 @@ public class MenuAdminController implements Initializable {
     private void onUtenti() { Model.getInstance().getViewFactoryAdmin().getCurrentMenuView().set("Utenti"); }
     private void onSchede() { Model.getInstance().getViewFactoryAdmin().getCurrentMenuView().set("Schede"); }
     private void onCertificati() { Model.getInstance().getViewFactoryAdmin().getCurrentMenuView().set("Certificati"); }
-    private void onLogout() {
-        Model.invalidate();
-        Stage currentStage = (Stage) logoutButton.getScene().getWindow();
-        Model.getInstance().getViewFactoryClient().closeStage(currentStage);
-        Model.getInstance().getViewFactoryClient().showLoginWindow();
-    }
+    private void onLogout() { Model.getInstance().getViewFactoryAdmin().getCurrentMenuView().set("Logout"); }
 }

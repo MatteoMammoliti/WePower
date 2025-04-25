@@ -5,7 +5,6 @@ import com.wepower.wepower.Models.AdminModel.ModelSchermataCreazioneScheda;
 import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.SchedaAllenamento.TabellaElencoEsercizi;
 import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioListaAdmin;
-import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioScheda;
 import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioSchedaAdmin;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +17,6 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -75,7 +73,7 @@ public class SchermataCreazioneSchedaAdmin implements Initializable {
 
     public void loadEsercizi() throws SQLException {
         Label titolo = new Label("Esercizi disponibili in palestra");
-        ArrayList<RigaEsercizioListaAdmin> esercizi = TabellaElencoEsercizi.riempiRigaEsercizioAdmin(idUtente);
+        ArrayList<RigaEsercizioListaAdmin> esercizi = TabellaElencoEsercizi.riempiRigaEsercizioAdmin();
         containerEsercizi.getChildren().clear();
         containerEsercizi.getChildren().add(titolo);
         containerEsercizi.getChildren().addAll(esercizi);

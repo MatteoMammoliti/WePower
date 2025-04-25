@@ -1,8 +1,11 @@
 package com.wepower.wepower.Controllers.Admin;
 
+import com.wepower.wepower.Models.AdminModel.DatiSessioneAdmin;
+import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,6 +27,14 @@ public class AdminController implements Initializable {
                 case "Schede" -> contenitore_admin_view.setCenter(Model.getInstance().getViewFactoryAdmin().getSchedeView());
 
                 case "Certificati" -> contenitore_admin_view.setCenter(Model.getInstance().getViewFactoryAdmin().getCertificatiView());
+
+                case "Logout" -> {
+                    DatiSessioneAdmin.logout();
+                    Model.invalidate();
+                    Stage currentStage = (Stage) contenitore_admin_view.getScene().getWindow();
+                    Model.getInstance().getViewFactoryClient().closeStage(currentStage);
+                    Model.getInstance().getViewFactoryClient().showLoginWindow();
+                }
 
                 default -> contenitore_admin_view.setCenter(Model.getInstance().getViewFactoryAdmin().getDashboard());
             }

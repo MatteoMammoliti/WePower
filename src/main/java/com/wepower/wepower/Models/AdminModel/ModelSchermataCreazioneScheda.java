@@ -2,7 +2,6 @@ package com.wepower.wepower.Models.AdminModel;
 
 import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioSchedaAdmin;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

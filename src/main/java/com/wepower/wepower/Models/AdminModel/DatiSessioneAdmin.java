@@ -30,7 +30,7 @@ public class DatiSessioneAdmin {
         eserciziSchedaTemp.remove(es);
     }
 
-    public void logout() {
+    public static void logout() {
         pulisciScheda();
     }
 }

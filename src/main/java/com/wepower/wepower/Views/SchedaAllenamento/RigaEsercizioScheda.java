@@ -99,8 +99,6 @@ public class RigaEsercizioScheda extends HBox {
         this.aggiungiNuovoMassimale.setVisible(true);
         String massimale = "INSERT INTO MassimaleImpostatoCliente (IdCliente, NomeEsercizio, DataInserimento, Peso) VALUES (?, ?, ?, ?)";
 
-        System.out.println(LocalDate.now().toString());
-
         try (Connection conn = ConnessioneDatabase.getConnection()) {
             PreparedStatement inserimento = conn.prepareStatement(massimale);
             inserimento.setInt(1, DatiSessioneCliente.getIdUtente());

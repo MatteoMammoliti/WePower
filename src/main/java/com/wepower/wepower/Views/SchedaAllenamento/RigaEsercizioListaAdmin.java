@@ -24,11 +24,8 @@ public class RigaEsercizioListaAdmin extends HBox {
     private TextField numeroSerie;
     private TextField numeroRipetizioni;
     private Button aggiungiEsercizioScheda;
-    private int idUtente;
 
-    public RigaEsercizioListaAdmin(String nomeEsercizio, String descrizioneEsercizio, String percorsoImmagine, int idUtente) {
-
-        this.idUtente = idUtente;
+    public RigaEsercizioListaAdmin(String nomeEsercizio, String descrizioneEsercizio, String percorsoImmagine) {
 
         this.nomeEsercizio = new Label(nomeEsercizio);
         this.descrizioneEsercizio = new Label(descrizioneEsercizio);

@@ -63,11 +63,7 @@ public class AdminModificaUtenteController implements Initializable{
         if (riga.getStatoAbbonamento().equals("Attivo")) {
             inputIdTipoAbbonamento.setDisable(true);
         }
-
-
-
     }
-
 
     @FXML
     private void salvaModificheUtente() throws SQLException {
@@ -89,8 +85,6 @@ public class AdminModificaUtenteController implements Initializable{
                 statoAbbonamento=1;
             }
         }
-
-
 
         boolean modificaUtente=false;
         try {
@@ -124,11 +118,6 @@ public class AdminModificaUtenteController implements Initializable{
                     riga.setStatoAbbonamento("Non Attivo");
                 }
             }
-
-
-
-
-
         }
         dialogStage.close();
         }
@@ -139,9 +128,6 @@ public class AdminModificaUtenteController implements Initializable{
     }
 
     public void onClickAnnulla() {
-       // System.out.println(inputNuovoNome.getText()+"!="+(riga.getNome()));
-        //System.out.println(inputNuovoCognome.getText()+"!="+(riga.getCognome()));
-        //System.out.println(inputNuovaDataNascita.getValue().toString()+"!="+(riga.getDataNascita()));
 
         String dataN=riga.getDataNascita();
         String dataNAgg=inputNuovaDataNascita.getEditor().getText();
@@ -169,8 +155,4 @@ public class AdminModificaUtenteController implements Initializable{
             stage.close();
         }
     }
-
-
 }
-
-

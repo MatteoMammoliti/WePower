@@ -43,7 +43,7 @@ public class TabellaElencoEsercizi {
         return ris;
     }
 
-    public static ArrayList<RigaEsercizioListaAdmin> riempiRigaEsercizioAdmin(int idUtente) throws SQLException {
+    public static ArrayList<RigaEsercizioListaAdmin> riempiRigaEsercizioAdmin() throws SQLException {
         ArrayList<RigaEsercizioListaAdmin> ris = new ArrayList<>();
 
         String query = "SELECT NomeEsercizio, DescrizioneEsercizio, PercorsoImmagine FROM Esercizio";
@@ -60,7 +60,7 @@ public class TabellaElencoEsercizi {
                 if (PercorsoImmagine == null || PercorsoImmagine.trim().isEmpty()) {
                     PercorsoImmagine = "images/LOGO.png";
                 }
-                RigaEsercizioListaAdmin esercizio = new RigaEsercizioListaAdmin(NomeEsercizio, DescrizioneEsercizio, PercorsoImmagine, idUtente);
+                RigaEsercizioListaAdmin esercizio = new RigaEsercizioListaAdmin(NomeEsercizio, DescrizioneEsercizio, PercorsoImmagine);
                 ris.add(esercizio);
             }
         } catch (Exception e) {
