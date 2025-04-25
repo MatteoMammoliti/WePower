@@ -4,7 +4,6 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.control.SplitPane?>
 <BorderPane xmlns="http://javafx.com/javafx/23.0.1"

@@ -1,5 +1,6 @@
 package com.wepower.wepower.Models;
 
+import com.wepower.wepower.Controllers.Admin.SchermataCreazioneSchedaAdmin;
 import com.wepower.wepower.Controllers.Client.ClientDashboardController;
 import com.wepower.wepower.Controllers.Client.ClientMenuController;
 import com.wepower.wepower.Controllers.Client.ClientViewsController.ProfiloController;
@@ -18,6 +19,7 @@ public class Model {
     private ClientMenuController clientMenuController;
     private ClientDashboardController  clientDashboardController;
     private SchedaController schedaController;
+    private SchermataCreazioneSchedaAdmin  schermataCreazioneSchedaAdmin;
 
     // la classe Model (di business) è collegata alla gestione delle viste (viewFactory)
     private final ViewFactoryClient viewFactoryClient;
@@ -52,6 +54,13 @@ public class Model {
 
     public ClientDashboardController getClientDashboardController() {
         return clientDashboardController;
+    }
+    public SchermataCreazioneSchedaAdmin getSchermataCreazioneSchedaAdminController() {
+        return schermataCreazioneSchedaAdmin;
+    }
+
+    public void setSchermataCreazioneSchedaAdminController(SchermataCreazioneSchedaAdmin schermataCreazioneSchedaAdmin) {
+        this.schermataCreazioneSchedaAdmin = schermataCreazioneSchedaAdmin;
     }
 
     public void setClientDashboardController(ClientDashboardController clientDashboardController) {

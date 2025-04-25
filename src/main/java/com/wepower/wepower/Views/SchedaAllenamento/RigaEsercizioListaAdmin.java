@@ -1,0 +1,106 @@
+package com.wepower.wepower.Views.SchedaAllenamento;
+
+import com.wepower.wepower.Models.AdminModel.DatiSessioneAdmin;
+import com.wepower.wepower.Models.AdminModel.ModelSchermataCreazioneScheda;
+import com.wepower.wepower.Models.Model;
+import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+
+import java.io.InputStream;
+import java.sql.SQLException;
+
+public class RigaEsercizioListaAdmin extends HBox {
+    private Label nomeEsercizio;
+    private Label descrizioneEsercizio;
+    private ImageView imageEsercizio;
+    private TextField numeroSerie;
+    private TextField numeroRipetizioni;
+    private Button aggiungiEsercizioScheda;
+    private int idUtente;
+
+    public RigaEsercizioListaAdmin(String nomeEsercizio, String descrizioneEsercizio, String percorsoImmagine, int idUtente) {
+
+        this.idUtente = idUtente;
+
+        this.nomeEsercizio = new Label(nomeEsercizio);
+        this.descrizioneEsercizio = new Label(descrizioneEsercizio);
+        this.descrizioneEsercizio.setWrapText(true);
+
+        InputStream is = getClass().getResourceAsStream("/" + percorsoImmagine);
+        Image image = new Image(is);
+        this.imageEsercizio = new ImageView(image);
+        this.imageEsercizio.setFitWidth(200);
+        this.imageEsercizio.setFitHeight(200);
+        this.imageEsercizio.setPreserveRatio(true);
+        this.imageEsercizio.setSmooth(true);
+
+        this.numeroSerie = new TextField();
+        this.numeroSerie.setPromptText("Numero serie");
+
+        this.numeroRipetizioni = new TextField();
+        this.numeroRipetizioni.setPromptText("Numero ripetizioni");
+
+        this.aggiungiEsercizioScheda = new Button("Aggiungi Esercizio");
+        this.aggiungiEsercizioScheda.setOnAction(e -> onInserisci());
+
+        VBox containerSinistra = new VBox();
+        VBox sopra = new VBox();
+        sopra.getChildren().add(this.nomeEsercizio);
+
+        VBox sotto = new VBox();
+        sotto.getChildren().addAll(this.numeroRipetizioni, this.numeroSerie, this.aggiungiEsercizioScheda);
+        sotto.setSpacing(10);
+        sotto.setPadding(new Insets(10));
+
+        containerSinistra.getChildren().addAll(sopra, sotto);
+
+        VBox containerCentrale = new VBox();
+        containerCentrale.getChildren().add(imageEsercizio);
+
+        VBox containerDestra = new VBox();
+        HBox.setHgrow(containerDestra, Priority.ALWAYS);
+
+        containerDestra.getChildren().add(this.descrizioneEsercizio);
+
+        this.getChildren().addAll(containerSinistra, containerCentrale, containerDestra);
+        this.setSpacing(10);
+        this.setPadding(new Insets(10));
+    }
+
+    public void onInserisci() {
+
+        if (this.numeroSerie.getText().isEmpty() || this.numeroRipetizioni.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("Compila tutti i campi");
+            alert.showAndWait();
+            return;
+        }
+        String percorsoImmagine = ModelSchermataCreazioneScheda.ottieniPercorsoImmagine(this.nomeEsercizio.getText());
+        RigaEsercizioSchedaAdmin temp = new RigaEsercizioSchedaAdmin(this.nomeEsercizio.getText(), this.numeroSerie.getText(), this.numeroRipetizioni.getText(), percorsoImmagine);
+        if (!DatiSessioneAdmin.addEsercizioInScheda(temp)){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("Esercizio già presente nella scheda");
+            alert.showAndWait();
+        }
+        aggiornaUI();
+    }
+
+    private void aggiornaUI() {
+        try {
+            Model.getInstance().getSchermataCreazioneSchedaAdminController().loadSchedaAllenamento();
+            Model.getInstance().getSchermataCreazioneSchedaAdminController().loadEsercizi();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}

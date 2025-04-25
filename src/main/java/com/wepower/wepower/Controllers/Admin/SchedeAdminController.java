@@ -58,10 +58,9 @@ public class SchedeAdminController implements Initializable {
                 btn.setOnAction(event -> {
                     RigaTabellaRichiesteScheda riga = getTableView().getItems().get(getIndex());
                     int id = riga.getIdUtente();
-                    System.out.println("ID" + id);
                     //Quando clicchiamo sul bottone, chiamiamo il metodo onClickVisualizza e gli passiamo l'id del cliente
                     try {
-
+                        SchermataCreazioneSchedaAdmin.visualizzaSchermataCreazioneScheda(id,  controller);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }

@@ -3,8 +3,8 @@ package com.wepower.wepower.Models.SchedaAllenamento;
 import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioLista;
+import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioListaAdmin;
 import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioScheda;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -35,6 +35,32 @@ public class TabellaElencoEsercizi {
                     PercorsoImmagine = "images/LOGO.png";
                 }
                 RigaEsercizioLista esercizio = new RigaEsercizioLista(NomeEsercizio, DescrizioneEsercizio, PercorsoImmagine);
+                ris.add(esercizio);
+            }
+        } catch (Exception e) {
+            throw new SQLException(e.getMessage());
+        }
+        return ris;
+    }
+
+    public static ArrayList<RigaEsercizioListaAdmin> riempiRigaEsercizioAdmin(int idUtente) throws SQLException {
+        ArrayList<RigaEsercizioListaAdmin> ris = new ArrayList<>();
+
+        String query = "SELECT NomeEsercizio, DescrizioneEsercizio, PercorsoImmagine FROM Esercizio";
+
+        try (Connection conn = ConnessioneDatabase.getConnection()) {
+            PreparedStatement datiEsercizi = conn.prepareStatement(query);
+            ResultSet risultatoTuttiEsercizi = datiEsercizi.executeQuery();
+
+            while (risultatoTuttiEsercizi.next()) {
+                String NomeEsercizio = risultatoTuttiEsercizi.getString("NomeEsercizio");
+                String DescrizioneEsercizio = risultatoTuttiEsercizi.getString("DescrizioneEsercizio");
+                String PercorsoImmagine = risultatoTuttiEsercizi.getString("PercorsoImmagine");
+
+                if (PercorsoImmagine == null || PercorsoImmagine.trim().isEmpty()) {
+                    PercorsoImmagine = "images/LOGO.png";
+                }
+                RigaEsercizioListaAdmin esercizio = new RigaEsercizioListaAdmin(NomeEsercizio, DescrizioneEsercizio, PercorsoImmagine, idUtente);
                 ris.add(esercizio);
             }
         } catch (Exception e) {
@@ -81,10 +107,6 @@ public class TabellaElencoEsercizi {
 
                 if (dataImpostazioneMassimale == null) {
                     dataImpostazioneMassimale = "Nessun massimale impostato";
-                }
-                else {
-                    LocalDate data = Instant.ofEpochMilli(Long.parseLong(dataImpostazioneMassimale)).atZone(ZoneId.systemDefault()).toLocalDate();
-                    dataImpostazioneMassimale = data.toString();
                 }
 
                 if (massimaleAttuale == null) {

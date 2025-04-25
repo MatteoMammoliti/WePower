@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.SplitPane?>
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.wepower.wepower.Controllers.Admin.SchermataCreazioneSchedaAdmin"
+            prefWidth="1920" prefHeight="820">
+
+    <!-- Divisione orizzontale responsive -->
+    <center>
+        <SplitPane dividerPositions="0.5" fx:id="splitPane">
+            <items>
+                <ScrollPane>
+                    <content>
+                        <VBox fx:id="containerEsercizi" VBox.vgrow="ALWAYS"/>
+                    </content>
+                </ScrollPane>
+                <ScrollPane>
+                    <content>
+                        <VBox fx:id="containerSchedaAllenamento" VBox.vgrow="ALWAYS"/>
+                    </content>
+                </ScrollPane>
+            </items>
+        </SplitPane>
+    </center>
+
+</BorderPane>
+

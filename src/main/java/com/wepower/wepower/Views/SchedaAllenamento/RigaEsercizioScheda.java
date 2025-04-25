@@ -14,7 +14,6 @@ import javafx.scene.layout.VBox;
 
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -30,7 +29,6 @@ public class RigaEsercizioScheda extends HBox {
     private Button aggiungiMassimale;
     private Button rimuoviSchedaEsercizio;
 
-
     public RigaEsercizioScheda(String nomeEsercizio, String numeroSerie, String numeroRipetizioni, String percorsoImmagine, String massimaleAttuale, String dataImpostazioneMassimale) {
         this.nomeEsercizio = new Label(nomeEsercizio);
         this.numeroSerie = new Label("Numero serie: " + numeroSerie);
@@ -42,7 +40,6 @@ public class RigaEsercizioScheda extends HBox {
         this.aggiungiNuovoMassimale = new TextField();
         this.aggiungiNuovoMassimale.setPromptText("Aggiungi nuovo massimale");
         this.aggiungiNuovoMassimale.setVisible(false);
-
 
         InputStream is = getClass().getResourceAsStream("/" + percorsoImmagine);
         Image image = new Image(is);
@@ -56,7 +53,6 @@ public class RigaEsercizioScheda extends HBox {
 
         this.rimuoviSchedaEsercizio = new Button("Rimuovi esercizio dalla scheda");
         this.rimuoviSchedaEsercizio.setOnAction(event -> onRimuoviEsercizio());
-
 
         VBox sinistra = new VBox();
         sinistra.getChildren().addAll(this.nomeEsercizio, this.numeroSerie, this.numeroRipetizioni);
@@ -102,6 +98,8 @@ public class RigaEsercizioScheda extends HBox {
     private void onAggiungiNuovoMassimale () {
         this.aggiungiNuovoMassimale.setVisible(true);
         String massimale = "INSERT INTO MassimaleImpostatoCliente (IdCliente, NomeEsercizio, DataInserimento, Peso) VALUES (?, ?, ?, ?)";
+
+        System.out.println(LocalDate.now().toString());
 
         try (Connection conn = ConnessioneDatabase.getConnection()) {
             PreparedStatement inserimento = conn.prepareStatement(massimale);
