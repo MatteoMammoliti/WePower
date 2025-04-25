@@ -4,10 +4,7 @@ import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ModelSchedaAllenamento {
 
@@ -37,7 +34,7 @@ public class ModelSchedaAllenamento {
 
     public static void richiediScheda() {
         String creazioneScheda = "INSERT INTO SchedaAllenamento (IdCliente, IdAdmin) VALUES (?, ?)";
-        String prelevaIDScheda = "SELECT IdScheda FROM SchedaAllenamento WHERE IdCliente = ? AND SchedaAncoraInUso = 1 LIMIT 1";
+        String prelevaIDScheda = "SELECT IdScheda FROM SchedaAllenamento WHERE IdCliente = ? AND SchedaAncoraInUso = 1 AND IdAdmin = 1 AND SchedaCompilata = 0 LIMIT 1";
 
         try(Connection conn = ConnessioneDatabase.getConnection()) {
             PreparedStatement inserimentoScheda = conn.prepareStatement(creazioneScheda);

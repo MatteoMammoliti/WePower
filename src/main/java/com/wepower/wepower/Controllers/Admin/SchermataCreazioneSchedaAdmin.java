@@ -63,6 +63,7 @@ public class SchermataCreazioneSchedaAdmin implements Initializable {
             Label nessunEsercizio = new Label("Nessun esercizio presente nella scheda. Componila!");
             containerSchedaAllenamento.getChildren().add(nessunEsercizio);
         }
+
          confermaScheda.setOnAction(e -> {
              ModelSchermataCreazioneScheda.onConfermaScheda(idUtente);
              schedeAdminController.aggiornaTabbella();

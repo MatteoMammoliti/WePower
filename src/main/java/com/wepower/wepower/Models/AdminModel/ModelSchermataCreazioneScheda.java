@@ -32,7 +32,7 @@ public class ModelSchermataCreazioneScheda {
     public static void onConfermaScheda(int idUtente) {
         ArrayList<RigaEsercizioSchedaAdmin> schedaFinita = DatiSessioneAdmin.getEserciziSchedaTemp();
 
-        String prelievoIdSchedaAllenamento = "SELECT IdScheda FROM SchedaAllenamento WHERE IdCliente = ? AND IdAdmin = 1 AND SchedaCompilata = 0";
+        String prelievoIdSchedaAllenamento = "SELECT IdScheda FROM SchedaAllenamento WHERE IdCliente = ? AND IdAdmin = 1 AND SchedaCompilata = 0 AND SchedaAncoraInUso = 1";
         String inserimento = "INSERT INTO ComposizioneSchedaAllenamento (NomeEsercizio, IdSchedaAllenamento, NumeroRipetizioni, NumeroSerie) VALUES (?, ?, ?, ?)";
         String confermaSchedaCompilata = "UPDATE SchedaAllenamento SET SchedaCompilata = 1 WHERE IdScheda = ?";
         try (Connection conn = ConnessioneDatabase.getConnection()) {
@@ -47,8 +47,8 @@ public class ModelSchermataCreazioneScheda {
             if (idSchedaAllenamento != 0) {
                 for (RigaEsercizioSchedaAdmin es : schedaFinita) {
                     String nomeEsercizio = es.getNomeEsercizio().getText();
-                    String numeroRipetizioni = es.getNumeroRipetizioni().getText();
-                    String numeroSerie = es.getNumeroSerie().getText();
+                    String numeroSerie = es.getNumeroSerie().getText().replace("Numero serie:", "");
+                    String numeroRipetizioni = es.getNumeroRipetizioni().getText().replace("Numero ripetizioni:", "");
 
                     PreparedStatement inserimentoEsercizio = conn.prepareStatement(inserimento);
                     inserimentoEsercizio.setString(1, nomeEsercizio);

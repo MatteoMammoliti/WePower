@@ -53,7 +53,7 @@ public class RigaEsercizioListaAdmin extends HBox {
         sopra.getChildren().add(this.nomeEsercizio);
 
         VBox sotto = new VBox();
-        sotto.getChildren().addAll(this.numeroRipetizioni, this.numeroSerie, this.aggiungiEsercizioScheda);
+        sotto.getChildren().addAll(this.numeroSerie, this.numeroRipetizioni ,this.aggiungiEsercizioScheda);
         sotto.setSpacing(10);
         sotto.setPadding(new Insets(10));
 
