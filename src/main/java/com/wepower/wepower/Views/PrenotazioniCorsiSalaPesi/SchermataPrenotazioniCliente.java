@@ -6,6 +6,7 @@ import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesiCliente;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.DatiPalestra.ModelPrenotazioni;
 import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,6 +18,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Locale;
+import java.util.Objects;
 
 import static com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra.getNumeroPrenotazioniDataOraResidue;
 
@@ -30,10 +32,15 @@ public class SchermataPrenotazioniCliente extends VBox {
     private Button btnGiornoPrecedente= new Button("← Giorno precedente");
     private Button btnGiornoSuccessivo= new Button("Giorno successivo →");
     VisualizzatoreStoricoPrenotazioni storico;
+    VisualizzatoreProssimiAllenamenti prossimiAllenamenti;
 
 
 
-    public SchermataPrenotazioniCliente(LocalDate dataGiorno,VisualizzatoreStoricoPrenotazioni storico){
+    public SchermataPrenotazioniCliente(LocalDate dataGiorno,VisualizzatoreStoricoPrenotazioni storico,VisualizzatoreProssimiAllenamenti prossimiAllenamenti){
+        this.getStylesheets().add(
+                Objects.requireNonNull(getClass().getResource("/Styles/Prenotazioni.css")).toExternalForm());
+
+        this.prossimiAllenamenti=prossimiAllenamenti;
         this.storico=storico;
         this.data=dataGiorno;
         this.setPrefWidth(500);
@@ -49,7 +56,9 @@ public class SchermataPrenotazioniCliente extends VBox {
 
 
         contenitoreGiorno.getChildren().addAll(btnGiornoPrecedente,giornoSettimana,btnGiornoSuccessivo);
+        contenitoreGiorno.setAlignment(Pos.CENTER);
         contenitoreCorpo.getChildren().add(giornoDelMese);
+        contenitoreCorpo.setAlignment(Pos.CENTER);
         contenitoreCorpo.getChildren().add(contenitoreGiorno);
         this.getChildren().add(contenitoreCorpo);
 
@@ -69,6 +78,7 @@ public class SchermataPrenotazioniCliente extends VBox {
 
     public HBox creaRigaPrenotazione(String inizio, String fine, Boolean prenotato, LocalDate data, String ora){
         HBox rigaCompleta = new HBox(5);
+        rigaCompleta.getStyleClass().add("rigaCompleta");
 
 
 
@@ -77,20 +87,20 @@ public class SchermataPrenotazioniCliente extends VBox {
         sezioneOrario.setAlignment(Pos.CENTER);
         Label labelInizio = new Label(inizio);
         Label labelFine = new Label(fine);
-        labelFine.setStyle("-fx-font-weight: bold;-fx-text-fill: white;");
-        labelInizio.setStyle("-fx-font-weight: bold; -fx-text-fill: white;");
-        sezioneOrario.setPrefWidth(150);
-        sezioneOrario.setPrefHeight(100);
+        labelFine.getStyleClass().add("labelFineInizio");
+        labelInizio.getStyleClass().add("labelFineInizio");
+        sezioneOrario.setPrefWidth(200);
+        sezioneOrario.setPrefHeight(80);
         sezioneOrario.getChildren().addAll(labelInizio,labelFine);
-        sezioneOrario.setStyle("-fx-background-color: blue; -fx-padding: 10;");
+        sezioneOrario.getStyleClass().add("contenitoreSezioneOrario");
 
         if(data.getDayOfWeek() == DayOfWeek.SUNDAY){
             VBox dettagliRiga=new VBox(10);
             dettagliRiga.setPrefWidth(500);
-            dettagliRiga.setPrefHeight(100);
+            dettagliRiga.setPrefHeight(80);
             Button btnPrenota=new Button("Giorno di chiusura");
             btnPrenota.setDisable(true);
-            btnPrenota.setStyle("-fx-background-color: red; -fx-font-weight: bold;");
+            btnPrenota.getStyleClass().add("btnGiornoChiusura");
             btnPrenota.setAlignment(Pos.CENTER);
             rigaCompleta.getChildren().add(sezioneOrario);
             dettagliRiga.getChildren().addAll(btnPrenota);
@@ -101,13 +111,15 @@ public class SchermataPrenotazioniCliente extends VBox {
         //Sezione informazioni-parte destra della riga(Sala pesi,Posti liberi,bottone registrati)
         VBox dettagliRiga=new VBox(5);
         dettagliRiga.setPrefWidth(500);
-        dettagliRiga.setPrefHeight(100);
+        dettagliRiga.setPrefHeight(50);
         Label Sala=new Label("Sala Pesi");
+        Sala.setStyle("-fx-font-weight: bold; -fx-font-size: 1.5em;");
         Sala.setAlignment(Pos.TOP_LEFT);
         PrenotazioneSalaPesiCliente temp=new PrenotazioneSalaPesiCliente(DatiSessioneCliente.getIdUtente(),data.toString(),ora);
         Label PostiLiberi=new Label("Posti Liberi" + " "+ getNumeroPrenotazioniDataOraResidue(temp));
         PostiLiberi.setAlignment(Pos.TOP_LEFT);
         Button btnPrenota=new Button("Prenotati");
+
 
         Button btnEliminaPrenotazione=new Button("Elimina prenotazione");
         btnEliminaPrenotazione.setVisible(false);
@@ -116,13 +128,14 @@ public class SchermataPrenotazioniCliente extends VBox {
         //Controllo se l'utente è già prenotato, se i posti sono tutti o prenotati o se è possibile prenotare
         if(prenotato){
             btnPrenota.setDisable(true);
-            String orarioPrenotazione=DatiSessioneCliente.getOrarioPrenotazione(data.toString());
-            btnPrenota.setStyle("-fx-background-color: green;-fx-text-fill: white;");
-            btnPrenota.setText("Prenotazione già effettuata in questa data alle ore"+" "+orarioPrenotazione);
+            btnPrenota.getStyleClass().add("btnPrenotato");
+            btnPrenota.setText("Prenotazione già effettuata");
+
+            sezioneOrario.getStyleClass().add("contenitoreSezioneOrarioPrenotato");
 
             btnEliminaPrenotazione.setVisible(true);
             btnEliminaPrenotazione.setManaged(true);
-            btnEliminaPrenotazione.setStyle("fx-background-color: red; -fx-text-fill: white;");
+            btnEliminaPrenotazione.getStyleClass().add("btnEliminaPrenotazione");
             btnEliminaPrenotazione.setOnAction(e->{
                 boolean eliminazioneEffettuata= ModelPrenotazioni.rimuoviPrenotazioneSalaPesi(data.toString(),ora,DatiSessioneCliente.getIdUtente());
                    if (eliminazioneEffettuata){
@@ -143,7 +156,7 @@ public class SchermataPrenotazioniCliente extends VBox {
                     System.out.println("Prenotazione effettuata");
                     DatiSessionePalestra.aggiungiPrenotazioneSalaPesi(temp);
                     DatiSessioneCliente.aggiungiPrenotazione(new PrenotazioneSalaPesi(data.toString(), ora));
-                    storico.aggiornaLista();
+                    prossimiAllenamenti.aggiornaLista();
                     ClientDashboardController.getInstance().loadCalendario();
                     aggiornaFasceorarie();
 
@@ -157,8 +170,9 @@ public class SchermataPrenotazioniCliente extends VBox {
 
         //Caso in cui è prenotabile
         btnPrenota.setAlignment(Pos.CENTER);
-        dettagliRiga.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-pref-height: 100; -fx-width: 300;");
+        dettagliRiga.getStyleClass().add("contenitoreDettagliRiga");
         dettagliRiga.getChildren().addAll(Sala,PostiLiberi,btnPrenota,btnEliminaPrenotazione);
+        VBox.setMargin(btnPrenota, new Insets(12, 0, 0, 0));
 
         rigaCompleta.getChildren().addAll(sezioneOrario,dettagliRiga);
 
@@ -194,17 +208,18 @@ public class SchermataPrenotazioniCliente extends VBox {
 
 
     private void aggiornaPrecSucc(){
-
+        //pulisco gli stili css per il refresh
+        btnGiornoPrecedente.getStyleClass().clear();
 
         if (data.isEqual(LocalDate.now()) || data.isBefore(LocalDate.now())){
             btnGiornoPrecedente.setDisable(true);
-            btnGiornoPrecedente.setStyle("-fx-background-color: red;-fx-text-fill: white;");
+            btnGiornoPrecedente.getStyleClass().add("btnPrecedenteNO");
         }else{
             btnGiornoPrecedente.setDisable(false);
             btnGiornoPrecedente.setOnAction(e -> aggiornaGiorno(data.minusDays(1)));
-            btnGiornoPrecedente.setStyle("-fx-background-color:white;");
+            btnGiornoPrecedente.getStyleClass().add("btnPrecSucc");
         }
-        btnGiornoSuccessivo.setStyle("-fx-background-color: white;");
+        btnGiornoSuccessivo.getStyleClass().add("btnPrecSucc");
         btnGiornoSuccessivo.setOnAction(e -> aggiornaGiorno(data.plusDays(1)));
     }
 }

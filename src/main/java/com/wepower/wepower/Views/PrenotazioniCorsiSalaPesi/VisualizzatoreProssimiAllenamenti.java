@@ -2,28 +2,30 @@ package com.wepower.wepower.Views.PrenotazioniCorsiSalaPesi;
 
 import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
 import com.wepower.wepower.Models.DatiSessioneCliente;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.Label;
 
+
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 
-public class VisualizzatoreStoricoPrenotazioni extends VBox {
-        private Label dataPrenotazione;
-        private Label oraPrenotazione;
-        ArrayList<PrenotazioneSalaPesi> prenotazioni = new ArrayList<>();
+public class VisualizzatoreProssimiAllenamenti extends VBox {
+    private Label dataPrenotazione;
+    private Label oraPrenotazione;
+    ArrayList<PrenotazioneSalaPesi> prenotazioni = new ArrayList<>();
 
 
-    public VisualizzatoreStoricoPrenotazioni(){
-       aggiornaLista();
+    public VisualizzatoreProssimiAllenamenti() throws SQLException {
+        aggiornaLista();
     }
 
 
-    void  aggiornaLista(){
+    void  aggiornaLista() throws SQLException {
         this.getChildren().clear();
-        prenotazioni= DatiSessioneCliente.getDateAllenamentiEffettuati();
+        prenotazioni= DatiSessioneCliente.getDateAllenamentiDaFare();
 
         for (int i=0;i<prenotazioni.size();i++){
             HBox riga=creaRigaStorico(prenotazioni.get(i).getDataPrenotazione(),prenotazioni.get(i).getOrarioPrenotazione());
@@ -40,8 +42,7 @@ public class VisualizzatoreStoricoPrenotazioni extends VBox {
         oraPrenotazione.setPrefHeight(100);
         HBox contenitoreRiga=new HBox(5);
 
-
-        contenitoreRiga.setStyle("-fx-background-color: red;-fx-text-fill: white; -fx-alignment: center;");
+        contenitoreRiga.setStyle("-fx-background-color: green;-fx-text-fill: white; -fx-alignment: center;");
 
         contenitoreRiga.getChildren().addAll(dataPrenotazione,oraPrenotazione);
         return contenitoreRiga;
