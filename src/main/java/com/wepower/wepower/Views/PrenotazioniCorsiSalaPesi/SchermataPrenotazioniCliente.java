@@ -122,6 +122,8 @@ public class SchermataPrenotazioniCliente extends VBox {
 
 
         Button btnPrenota=new Button("Prenotati");
+        btnPrenota.setMinHeight(40);
+        btnPrenota.setMinWidth(80);
         btnPrenota.getStyleClass().clear();
         btnPrenota.getStyleClass().add("btnPrenotati");
 
