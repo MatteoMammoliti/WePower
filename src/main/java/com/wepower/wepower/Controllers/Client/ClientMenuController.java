@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,10 +30,11 @@ public class ClientMenuController  implements Initializable {
         emailUtente.setText(DatiSessioneCliente.getEmail());
         if (DatiSessioneCliente.getStatoAbbonamento()){
             labelStatoAbbonamento.setText("Abbonamento attivo");
-            labelStatoAbbonamento.setStyle("-fx-text-fill: green;");
+            labelStatoAbbonamento.setStyle("-fx-text-fill: #255a21; -fx-font-weight: bold");
+
         } else {
             labelStatoAbbonamento.setText("Abbonamento non attivo");
-            labelStatoAbbonamento.setStyle("-fx-text-fill: red;");
+            labelStatoAbbonamento.setStyle("-fx-text-fill: red; -fx-font-weight: bold");
         }
         this.imageUtente.setImage(DatiSessioneCliente.getImmagineProfilo());
     }
@@ -45,6 +47,7 @@ public class ClientMenuController  implements Initializable {
         Model.getInstance().setClientMenuController(this);
         addListeners();
         caricaMenu();
+
     }
 
     // LISTENERS DEI BOTTONI DEL MENU

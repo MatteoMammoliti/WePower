@@ -1,15 +1,13 @@
 .client_menu_container {
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgba(255,255,255,1) 0%, rgba(255,122,41,1) 99%);
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgb(221, 230, 237) 0%, rgb(39, 55, 77) 99%);
 }
 
 .my_button_window {
-    -fx-background-color: #ffffff;
-    -fx-text-fill: black;
+    -fx-background-color: #dde6ed;
+    -fx-text-fill: #27374DFF;
     -fx-font-size: 0.9em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
-    -fx-border-color: #ff7a29;
-    -fx-border-width: 2px;
     -fx-border-radius: 30px;
     -fx-background-radius: 30px;
     -fx-padding: 10px 30px;
@@ -19,13 +17,16 @@
 
 .my_button_window:hover {
     -fx-cursor: hand;
-    -fx-background-color: #ff7a29;
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
 }
-
+.my_button_window FontAwesomeIconView{
+    -fx-fill: #526D82;
+}
 .vbox {
-    -fx-spacing: 40;
+    -fx-spacing: 20;
     -fx-background-color: transparent;
-    -fx-padding: 10;
 }
 
 .scroll-pane {
@@ -40,3 +41,29 @@
     -fx-background-color: transparent;
     -fx-spacing: 20;
 }
+
+.cambioTema{
+    -fx-background-color: #DDE6EDFF;
+    -fx-background-radius: 20;
+
+}
+.cambioTema:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #27374DFF;
+}
+
+.label_email{
+    -fx-font-size: 1em;
+    -fx-text-fill: #27374D;
+}
+.label_nomeutente{
+    -fx-font-size: 1.7em;
+    -fx-font-weight: bold;
+    -fx-text-fill: #27374D;
+}
+
+.label_statoAbbonamento{
+    -fx-font-weight: bold;
+    -fx-text-fill: #173615;
+}
+
