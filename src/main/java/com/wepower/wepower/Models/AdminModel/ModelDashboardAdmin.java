@@ -176,7 +176,7 @@ public class ModelDashboardAdmin {
 
     //Vado a calcolare quanti clienti hanno richiesto una scheda all'admin
     public static int getNumeroSchedeRichieste(){
-        String conto="SELECT COUNT(*) AS numSchede FROM SchedaAllenamento WHERE IdAdmin=1 AND SchedaAncoraInUso=1 and SchedaCompilata=0";
+        String conto="SELECT COUNT(*) AS numSchede FROM SchedaAllenamento WHERE IdAdmin=1 AND SchedaAncoraInUso=1";
         try(Connection conn=ConnessioneDatabase.getConnection()) {
             PreparedStatement preparo=conn.prepareStatement(conto);
             return preparo.executeQuery().getInt("numSchede");
@@ -184,4 +184,37 @@ public class ModelDashboardAdmin {
             throw new RuntimeException(e);
         }
     }
+
+    public static ArrayList<Pair<String,Integer>> getSessoUtentiPalestra(){
+        String genere="SELECT Genere, NSesso FROM GraficoPerGenere";
+        ArrayList<Pair<String,Integer>> lista=new ArrayList<>();
+        try(Connection conn=ConnessioneDatabase.getConnection()){
+            PreparedStatement preparo=conn.prepareStatement(genere);
+            ResultSet rs=preparo.executeQuery();
+                while(rs.next()){
+                    String TipoGenere=rs.getString("Genere");
+                    int cont=rs.getInt("NSesso");
+                    lista.add(new Pair<>(TipoGenere,cont));
+                }
+
+            return lista;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+/*
+    public static ArrayList<Integer> prelevaAnniTendina(){
+        ArrayList<Integer> lista=new ArrayList<>();
+        String prelevaAnno="SELECT Anno FROM ";
+
+
+    }
+*/
+
+
+
+
+
 }

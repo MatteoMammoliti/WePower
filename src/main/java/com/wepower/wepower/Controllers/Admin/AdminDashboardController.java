@@ -2,8 +2,12 @@ package com.wepower.wepower.Controllers.Admin;
 
 import com.wepower.wepower.Models.AdminModel.ModelDashboardAdmin;
 import com.wepower.wepower.Views.AdminView.RigaVisualizzatoreOfferteAttive;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -26,11 +30,15 @@ public class AdminDashboardController implements Initializable {
     private Label labelRichiesteSchede;
     @FXML
     private Label labelTotaleAbbonamenti;
+    @FXML
+    private PieChart tortaGenere;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         instance = this;
         setDatiPalestra();
         setPromozioni();
+        loadGraficoGenere();
     }
 
     public  static AdminDashboardController getInstance() {return instance;}
@@ -68,6 +76,25 @@ public class AdminDashboardController implements Initializable {
             }
         });
         containerPromozioniAttive.getChildren().add(modifica);
+    }
+
+    public void loadGraficoGenere(){
+        ArrayList<Pair<String,Integer>> dati=ModelDashboardAdmin.getSessoUtentiPalestra();
+        ObservableList<PieChart.Data> observableList= FXCollections.observableArrayList();
+        for(Pair<String,Integer> i:dati){
+            String nome=i.getKey();
+            Integer numero=i.getValue();
+            if (nome==null){
+                nome="Non Specificato";
+            }
+
+            observableList.add(new PieChart.Data(nome,numero));
+
+
+        }
+        tortaGenere.setTitle("Clienti per genere");
+        tortaGenere.setData(observableList);
+
     }
 
 }

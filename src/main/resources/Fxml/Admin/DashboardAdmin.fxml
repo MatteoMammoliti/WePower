@@ -123,7 +123,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <PieChart VBox.vgrow="ALWAYS" />
+                              <PieChart VBox.vgrow="ALWAYS" fx:id="tortaGenere"/>
                            </children>
                         </VBox>
                      </children>
