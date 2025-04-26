@@ -1,12 +1,16 @@
 package com.wepower.wepower.Controllers.Client;
 import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.DatiSessioneCliente;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,6 +28,7 @@ public class ClientMenuController  implements Initializable {
     public Label emailUtente;
     public Label labelStatoAbbonamento;
     public VBox profileSection;
+    public VBox contenitorePulsantiView;
 
     public void caricaMenu() {
         nomeCognomeUtente.setText(DatiSessioneCliente.getNomeUtente() + " " + DatiSessioneCliente.getCognome());
@@ -47,7 +52,21 @@ public class ClientMenuController  implements Initializable {
         Model.getInstance().setClientMenuController(this);
         addListeners();
         caricaMenu();
+        Platform.runLater(() -> {
+            Stage stage = (Stage) contenitorePulsantiView.getScene().getWindow();
+            stage.widthProperty().addListener((obs, oldVal, newVal) -> aggiustaSpazioPulsanti());
+            stage.heightProperty().addListener((obs, oldVal, newVal) -> aggiustaSpazioPulsanti());
 
+            aggiustaSpazioPulsanti(); // iniziale
+        });
+
+
+    }
+
+    private void aggiustaSpazioPulsanti() {
+        double altezza = contenitorePulsantiView.getScene().getHeight();
+        double spacing=altezza*0.05;
+        setSpacing(spacing);
     }
 
     // LISTENERS DEI BOTTONI DEL MENU
@@ -84,4 +103,6 @@ public class ClientMenuController  implements Initializable {
     private void onLogout() {
         Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Logout");
     }
+
+    private void setSpacing(double spacing) { contenitorePulsantiView.setSpacing(spacing); }
 }

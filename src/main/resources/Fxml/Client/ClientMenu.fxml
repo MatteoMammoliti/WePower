@@ -25,9 +25,9 @@
       </padding>
    </VBox>
 
-   <ScrollPane fitToWidth="true" hbarPolicy="NEVER" stylesheets="@../../Styles/clientMenu.css" VBox.vgrow="ALWAYS">
+   <ScrollPane fitToWidth="true" hbarPolicy="NEVER" stylesheets="@../../Styles/clientMenu.css" VBox.vgrow="ALWAYS" >
       <content>
-         <VBox fillWidth="true" spacing="20.0" styleClass="vbox" stylesheets="@../../Styles/clientMenu.css">
+         <VBox fillWidth="true" spacing="20.0" styleClass="vbox" stylesheets="@../../Styles/clientMenu.css" fx:id="contenitorePulsantiView">
             <padding>
                <Insets left="10.0" right="10.0" top="10.0" />
             </padding>
