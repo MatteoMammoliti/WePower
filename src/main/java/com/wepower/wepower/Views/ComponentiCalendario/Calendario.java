@@ -19,31 +19,33 @@ import java.util.function.Consumer;
 public class Calendario {
     public static VBox creaCalendario() {
         VBox calendarioBox = new VBox(10);
-        calendarioBox.setPrefSize(300, 400);
+        calendarioBox.getStylesheets().add(Calendario.class.getResource("/Styles/calendario.css").toExternalForm());
+        calendarioBox.setPrefWidth(300);
 
         YearMonth[] meseCorrente = {YearMonth.now()}; // wrapper per permettere modifica nel listener
 
         Label meseLabel = new Label();
-        meseLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        meseLabel.getStyleClass().add("label_mese");
         meseLabel.setAlignment(Pos.CENTER);
 
         GridPane grigliaGiorni = new GridPane();
         grigliaGiorni.setHgap(5);
         grigliaGiorni.setVgap(5);
 
-        Button btnPrecedente=pulsantePrecSucc("←");
-        Button btnSuccessivo =pulsantePrecSucc("→");
-
-
+        Button btnPrecedente=new Button("←");
+        Button btnSuccessivo =new Button("→");
+        btnPrecedente.getStyleClass().add("bottoniCambioMese");
+        btnSuccessivo.getStyleClass().add("bottoniCambioMese");
 
         HBox barraNavigazione = new HBox(10, btnPrecedente, meseLabel, btnSuccessivo);
-        barraNavigazione.setAlignment(Pos.TOP_LEFT);
+        barraNavigazione.getStyleClass().add("barraNavigazione");
+        barraNavigazione.setAlignment(Pos.CENTER);
 
         String [] giorniSettimana = {"Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"};
         HBox barraGiorniSettimana =new HBox();
         for (int i = 0; i < giorniSettimana.length; i++) {
             Label giornoSettimanaLabel = new Label(giorniSettimana[i]);
-            giornoSettimanaLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+            giornoSettimanaLabel.getStyleClass().add("label_giorno");
             giornoSettimanaLabel.setPrefWidth(50);
             giornoSettimanaLabel.setAlignment(Pos.CENTER);
             barraGiorniSettimana.getChildren().add(giornoSettimanaLabel);
@@ -65,17 +67,17 @@ public class Calendario {
                 GiornoCalendario giorno= new GiornoCalendario(String.valueOf(i), data.toString());
                 //Controllo se il giorno è domenica(giorno di chiusura)
                 if(data.getDayOfWeek() == java.time.DayOfWeek.SUNDAY){
-                    giorno.setStyle("-fx-background-color: red; -fx-font-weight: bold;");
+                    giorno.setStyle("-fx-background-color: #27374D; -fx-font-weight: bold; -fx-text-fill: #DDE6ED;-fx-opacity: 0.5");
                     giorno.setChiusura(true);
                 }
                 // Evidenzio la data di oggi
                 if (data.equals(LocalDate.now())) {
-                    giorno.setStyle("-fx-background-color: #d1e7dd; -fx-font-weight: bold;");
+                    giorno.setStyle("-fx-background-color: #d1e7dd; -fx-font-weight: bold; -fx-text-fill: #27374D");
                 }
 
                 //Cerco le date dove il cliente ha prenotato la sala pesi per evidenziarla
                 if(DatiSessioneCliente.controlloDataPrenotazioneSalaPesi(data)) {
-                    giorno.setStyle("-fx-background-color: #a8e6a3; -fx-font-weight: bold;");
+                    giorno.getStyleClass().add("giorno_prenotato");
                     giorno.setPrenotato(true);
                 }
 
@@ -100,15 +102,6 @@ public class Calendario {
         return calendarioBox;
     }
 
-    public static Button pulsantePrecSucc(String precedenteOSuccessivo){
-        Button pulsante=new Button(precedenteOSuccessivo);
-        pulsante.setAlignment(Pos.TOP_RIGHT);
-        pulsante.setAlignment(Pos.TOP_RIGHT);
 
-        pulsante.getStyleClass().add("giornoCalendario.css");
-        pulsante.getStylesheets().add(Calendario.class.getResource("/Styles/giornoCalendario.css").toExternalForm());
-        return pulsante;
-
-    }
 
 }

@@ -1,20 +1,31 @@
 package com.wepower.wepower.Views.ComponentiCalendario;
 import javafx.scene.control.Button;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 
 public class GiornoCalendario  extends Button {
     private boolean prenotato;
     private String dataPrenotazione;
     private boolean chiuso;
-
+    private FinestraInfoCalendario finestra;
 
     public GiornoCalendario(String giornovalore,String dataPrenotazione) {
         super(giornovalore);
         this.dataPrenotazione = dataPrenotazione;
         this.setPrefSize(70, 30);
         this.getStyleClass().add("giornoBottone");
-        this.getStylesheets().add(Calendario.class.getResource("/Styles/giornoCalendario.css").toExternalForm());
-        this.setOnMouseClicked(mouseEvent -> new FinestraInfoCalendario(this, mouseEvent));}
+        this.getStylesheets().add(Calendario.class.getResource("/Styles/calendario.css").toExternalForm());
+
+
+
+        this.setOnMouseClicked(mouseEvent -> {
+            finestra=new FinestraInfoCalendario(this, mouseEvent);
+            finestra.mostra();});
+
+    }
+
+
 
     public String getDataPrenotazione() {
         return dataPrenotazione;
@@ -34,3 +45,14 @@ public class GiornoCalendario  extends Button {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+

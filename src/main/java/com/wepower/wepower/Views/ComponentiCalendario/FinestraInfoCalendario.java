@@ -10,34 +10,41 @@ import javafx.stage.Popup;
 import javafx.scene.input.MouseEvent;
 
 public class FinestraInfoCalendario {
+    private final GiornoCalendario giorno;
+    private final MouseEvent event;
     Popup popup;
     Scene scene;
     Label oraPrenotazione;
     Label informazione;
     VBox layout;
     public FinestraInfoCalendario(GiornoCalendario giorno, MouseEvent event) {
+        this.giorno=giorno;
+        this.event=event;
+
         if (giorno.prenotato()){
             String orario=DatiSessioneCliente.getOrarioPrenotazione(giorno.getDataPrenotazione());
             oraPrenotazione = new Label(orario);
-            Label informazione = new Label("Prenotato per l'ora: " );
-            layout = new VBox(10,informazione,oraPrenotazione);
+            Label informazione = new Label("Prenotato alle ore: " );
+            layout = new VBox(5,informazione,oraPrenotazione);
             scene = new Scene(layout);
         }else if(giorno.isChiuso()){
             informazione = new Label("Chiuso");
-            layout = new VBox(10,informazione);
+            layout = new VBox(5,informazione);
             scene = new Scene(layout);
         }
-        else{
-            informazione= new Label("Non prenotato");
-            layout = new VBox(10,informazione);
-            scene = new Scene(layout);
 
+    }
+    public void mostra(){
+        if (layout==null){
+            return;
         }
         popup = new Popup();
         popup.getContent().add(layout);
         layout.setAlignment(Pos.CENTER);
-        layout.setStyle("-fx-pref-width: 200; -fx-pref-height: 100; -fx-background-color: white; -fx-padding: 10; -fx-background-radius: 50; -fx-border-color: black; -fx-border-radius: 50; -fx-opacity: 0.9;");
+        layout.setStyle("-fx-background-color: #DDE6ED; -fx-padding: 8; -fx-background-radius: 30;   -fx-opacity: 0.9;-fx-text-fill: #27374D;");
         popup.setAutoHide(true);
         popup.show(giorno.getScene().getWindow(), event.getScreenX(), event.getScreenY());
     }
+
+
 }

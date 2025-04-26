@@ -65,7 +65,7 @@ public class ClientMenuController  implements Initializable {
 
     private void aggiustaSpazioPulsanti() {
         double altezza = contenitorePulsantiView.getScene().getHeight();
-        double spacing=altezza*0.05;
+        double spacing=altezza*0.02;
         setSpacing(spacing);
     }
 

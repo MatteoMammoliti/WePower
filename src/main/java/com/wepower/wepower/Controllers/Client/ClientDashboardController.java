@@ -45,10 +45,7 @@ public class ClientDashboardController implements Initializable {
     // sezione calendario
     @FXML
     private AnchorPane containerCalendario;
-    @FXML
-    private  RadioButton btnPrenotato;
-    @FXML
-    private RadioButton btnPalestraChiusa;
+
 
     // chatbot powerino
     @FXML
@@ -102,8 +99,6 @@ public class ClientDashboardController implements Initializable {
         Model.getInstance().setClientDashboardController(this);
         this.containerGrafici.maxHeightProperty().bind(containerRoot.heightProperty().multiply(0.5));
         labelNomeUtenteSaluto.setText("Ciao, "+ DatiSessioneCliente.getNomeUtente() + "👋");
-        btnPalestraChiusa.setDisable(true);
-        btnPrenotato.setDisable(true);
         loadCalendario();
         loadBanner();
         startAutoScroll();
