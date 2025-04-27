@@ -155,9 +155,9 @@
                             <!-- ChatBot area -->
                       <AnchorPane fx:id="chatBotContainer">
                           <children>
-                              <TextField fx:id="inputField" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="80.0" />
-                              <Button fx:id="inviaButton" prefWidth="80" text="Invia" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0" />
-                              <TextArea fx:id="chatArea" editable="false" wrapText="true" AnchorPane.bottomAnchor="40" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" />
+                              <TextField id="text_field_bot" fx:id="inputField" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="85.0" promptText="Fai una domanda..."/>
+                              <Button id="bottone_chat_bot" fx:id="inviaButton" prefWidth="80" text="Invia" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0" />
+                              <TextArea id="text_area" fx:id="chatArea" editable="false" prefHeight="280.0" prefWidth="230.0" styleClass="chat_pane" wrapText="true" AnchorPane.bottomAnchor="40" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" />
                           </children>
                       </AnchorPane>
                </children>
