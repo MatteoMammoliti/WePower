@@ -11,7 +11,6 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -153,13 +152,21 @@
                   <Region VBox.vgrow="ALWAYS" />
       
                             <!-- ChatBot area -->
-                      <AnchorPane fx:id="chatBotContainer">
-                          <children>
-                              <TextField id="text_field_bot" fx:id="inputField" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="85.0" promptText="Fai una domanda..."/>
-                              <Button id="bottone_chat_bot" fx:id="inviaButton" prefWidth="80" text="Invia" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0" />
-                              <TextArea id="text_area" fx:id="chatArea" editable="false" prefHeight="280.0" prefWidth="230.0" styleClass="chat_pane" wrapText="true" AnchorPane.bottomAnchor="40" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" />
-                          </children>
-                      </AnchorPane>
+                   <AnchorPane fx:id="chatBotContainer">
+                       <children>
+                           <!-- ScrollPane che contiene la VBox dei messaggi -->
+                           <ScrollPane fx:id="scrollPaneChatArea" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="40" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+                               <VBox id="vbox_chatbot" fx:id="chatVBox" prefHeight="289.0" prefWidth="215.0" spacing="10" />
+                           </ScrollPane>
+
+                           <!-- Campo input per scrivere -->
+                           <TextField id="text_field_bot" fx:id="inputField" promptText="Fai una domanda..." AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="85.0" />
+
+                           <!-- Bottone invia -->
+                           <Button id="bottone_chat_bot" fx:id="inviaButton" prefWidth="80" text="Invia" AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="0" />
+                       </children>
+                   </AnchorPane>
+
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

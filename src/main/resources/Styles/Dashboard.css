@@ -2,7 +2,6 @@
     -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgba(255,255,255,1) 0%, rgba(255,122,41,1) 99%);
 }
 
-
 .pane_offerte_dashboard{
     -fx-background-color: transparent;
     -fx-border-width: 3px;
@@ -12,7 +11,6 @@
 
 
 }
-
 
 .testo_offerte_dashboard{
     -fx-text-fill: #000000;
@@ -40,3 +38,6 @@
     -fx-background-color: #DDE6ED;
 }
 
+#vbox_chatbot {
+    -fx-background-color: white;
+}

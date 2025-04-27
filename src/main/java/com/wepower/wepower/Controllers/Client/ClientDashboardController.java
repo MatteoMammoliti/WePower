@@ -13,11 +13,10 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.util.Duration;
 import javafx.util.Pair;
 import okhttp3.Call;
@@ -53,12 +52,9 @@ public class ClientDashboardController implements Initializable {
     @FXML
     private TextField inputField;
     @FXML
-    private TextArea chatArea;
-
-    private final Llama4_API powerino = new Llama4_API();
-    private final List<Map<String, String>> chatHistory = new ArrayList<>();
-
-
+    private ScrollPane scrollPaneChatArea;
+    @FXML
+    private VBox chatVBox;
 
     // sezione grafici
     @FXML
@@ -103,6 +99,17 @@ public class ClientDashboardController implements Initializable {
         loadBanner();
         startAutoScroll();
 
+        this.scrollPaneChatArea.setFitToWidth(true);
+        this.scrollPaneBanner.setFitToHeight(false);
+        String msg = "Ciao " + DatiSessioneCliente.getNomeUtente() + ", sono Powerino il chat bot virtuale di WePower. Chiedimi qualcosa e sarò felice di aiutarti!" + "\n";
+        HBox messaggioIniziale =  new HBox(10);
+        Label messaggioInizialeApertura = new Label(msg);
+        Label spazioVuoto = new Label("\n");
+        messaggioInizialeApertura.setStyle("-fx-background-color: #DDE6EDFF; -fx-padding: 8px; -fx-background-radius: 10px;");
+        messaggioInizialeApertura.setWrapText(true);
+        messaggioIniziale.getChildren().addAll(messaggioInizialeApertura, spazioVuoto);
+        messaggioIniziale.setAlignment(Pos.CENTER);
+        this.chatVBox.getChildren().add(messaggioIniziale);
         this.inviaButton.setOnAction(event -> onChiediPowerino());
 
         caricaEserciziSchedaMenuGrafico();
@@ -305,13 +312,45 @@ public class ClientDashboardController implements Initializable {
     }
 
     // -- SEZIONE POWERINO
-    private void estraiEserciziPalestra() {
-
-    }
     private void onChiediPowerino() {
         String messaggioUtente = this.inputField.getText();
+        if (messaggioUtente.isEmpty()) return;
+
+        HBox messaggio = new HBox(10);
+        messaggio.setMaxWidth(Double.MAX_VALUE);
+        messaggio.setAlignment(Pos.CENTER_RIGHT);
+
+        Label messaggioLabel = new Label(messaggioUtente);
+        Label spazioVuoto = new Label("\n");
+        messaggioLabel.setWrapText(true);
+        messaggioLabel.setStyle("-fx-background-color: #DDE6EDFF; -fx-padding: 8px; -fx-background-radius: 10px;");
+        messaggio.getChildren().addAll(messaggioLabel, spazioVuoto);
+
+        this.chatVBox.getChildren().add(messaggio);
         this.inputField.clear();
-        this.chatArea.appendText("Tu: " + messaggioUtente + "\n");
-        Llama4_API.sendMessage(messaggioUtente, this.chatArea);
+
+        Platform.runLater(() -> {
+            scrollPaneChatArea.layout();
+            scrollPaneChatArea.setVvalue(1.0);
+        });
+
+
+        Llama4_API.sendMessage(messaggioUtente, risposta -> {
+            Platform.runLater(() -> {
+
+                HBox messaggioPowerino = new HBox(10);
+                messaggioPowerino.setAlignment(Pos.CENTER_LEFT);
+
+                Label rispostaPowerino = new Label(risposta);
+                rispostaPowerino.setWrapText(true);
+                rispostaPowerino.setStyle("-fx-background-color:#DDE6EDFF; -fx-padding: 8px; -fx-background-radius: 10px;");
+                messaggioPowerino.getChildren().addAll(rispostaPowerino, spazioVuoto);
+
+                this.chatVBox.getChildren().add(messaggioPowerino);
+
+                scrollPaneChatArea.layout();
+                scrollPaneChatArea.setVvalue(1.0);
+            });
+        });
     }
 }

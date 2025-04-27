@@ -20,6 +20,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,7 +44,7 @@ public class Llama4_API {
     Se l'utente ti chiede cosa può fare nell'applicazione, rispondi che WePower permette di prenotarsi alla sala pesi nella sezione 'Prenotati', di creare una scheda di allenamento o di richiederne una, di inserire i propri dati fisici o massimali degli esercizi, e molto altro.
     """.formatted(eserciziPalestra);
 
-    public static void sendMessage(String userMessage, TextArea chatArea) {
+    public static void sendMessage(String userMessage, Consumer<String> risposta) {
         chatHistory.add(Map.of("role", "user", "content", userMessage));
 
         JsonArray messages = new JsonArray();
@@ -82,12 +83,11 @@ public class Llama4_API {
 
             @Override
             public void onFailure(@NotNull Call call, IOException e) {
-                Platform.runLater(() -> chatArea.appendText("Errore: " + e.getMessage() + "\n"));
+                Platform.runLater(() -> risposta.accept("Errore: " + e.getMessage() + "\n"));
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) {
-                Platform.runLater(() -> chatArea.appendText("Powerino: "));
                 try {
                     assert response.body() != null;
                     try (BufferedReader reader = new BufferedReader(new InputStreamReader(response.body().byteStream()))) {
@@ -138,14 +138,14 @@ public class Llama4_API {
                                 }
 
                                 if (!trovato || (dataConvertita.isEqual(LocalDate.now())) && orarioConvertito.isBefore(LocalTime.now())){
-                                    Platform.runLater(() -> chatArea.appendText("Attenzione, l'orario non è valido per la nostra palestra o potrebbe essere passato. Controlla in 'Prenotazioni' gli orari disponibili." + "\n"));
+                                    Platform.runLater(() -> risposta.accept("Attenzione, l'orario non è valido per la nostra palestra o potrebbe essere passato. Controlla in 'Prenotazioni' gli orari disponibili." + "\n"));
                                 }
                                 else if (dataConvertita.isBefore(LocalDate.now()) || dataConvertita.getDayOfWeek() == DayOfWeek.SUNDAY){
-                                    Platform.runLater(() -> chatArea.appendText("Attenzione, hai scelto una data non valida. Potrebbe essere passata oppure una domenica." + "\n"));
+                                    Platform.runLater(() -> risposta.accept("Attenzione, hai scelto una data non valida. Potrebbe essere passata oppure una domenica." + "\n"));
                                 }
                                 else if (prenotaAllenamento(DatiSessioneCliente.getIdUtente(), data, ora)) {
                                     Platform.runLater(() -> {
-                                        chatArea.appendText("✅ Prenotazione registrata per " + data + " alle " + ora + "\n");
+                                        risposta.accept("✅ Prenotazione registrata per " + data + " alle " + ora + "\n");
                                         Model.getInstance().getClientDashboardController().loadCalendario();
                                     });
                                 }
@@ -153,18 +153,17 @@ public class Llama4_API {
                                 formatoPrenotazioneNonValida = true;
                             }
                         } else {
-                            chatArea.appendText(rispostaFinale.toString());
+                            risposta.accept(rispostaFinale.toString());
                         }
 
                         if (formatoPrenotazioneNonValida) {
-                            chatArea.appendText("Per procedere la data deve rispettare il seguente formato YYYY-MM-DD e l'orario HH:MM (ad esempio 2025-04-24 alle 17:00). Controlla anche che gli orari rispettino quelli della palestra, li puoi trovare nella sezione 'Prenotazioni'.");
+                            risposta.accept("Per procedere la data deve rispettare il seguente formato YYYY-MM-DD e l'orario HH:MM (ad esempio 2025-04-24 alle 17:00). Controlla anche che gli orari rispettino quelli della palestra, li puoi trovare nella sezione 'Prenotazioni'.\n");
                             formatoPrenotazioneNonValida = false;
                         }
                         chatHistory.add(Map.of("role", "assistant", "content", rispostaFinale.toString()));
-                        Platform.runLater(() -> chatArea.appendText("\n"));
                     }
                 } catch (Exception e) {
-                    Platform.runLater(() -> chatArea.appendText("❌ Sembra ci sia stato qualche problema.\n"));;
+                    Platform.runLater(() -> risposta.accept("❌ Sembra ci sia stato qualche problema.\n"));;
                 }
             }
         });
