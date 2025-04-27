@@ -30,3 +30,13 @@
 .pannellino_offerte_dashboard:hover {
     -fx-opacity: 1.0;
 }
+
+#bottone_chat_bot{
+    -fx-background-color: #DDE6ED;
+    -fx-text-fill: #27374D;
+    -fx-font-weight: bold;
+}
+#text_field_bot{
+    -fx-background-color: #DDE6ED;
+}
+
