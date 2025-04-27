@@ -102,9 +102,13 @@ public class ModificaDatiController implements Initializable {
         String telefono = textTelefono.getText();
         String altezza = textAltezza.getText();
         String pesoStr = textPesoAttuale.getText();
+        Alert alert;
 
         if(!ModelValidazione.controlloPeso(pesoStr)){
-            JOptionPane.showMessageDialog(null,"Peso non valido");
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("Peso non valido");
+            alert.showAndWait();
             return;
         }
 
@@ -114,29 +118,55 @@ public class ModificaDatiController implements Initializable {
         }
 
         if(!ModelValidazione.controlloNome(nome)){
-            JOptionPane.showMessageDialog(null,"Nome non valido");
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("Nome non valido");
+            alert.showAndWait();
             return;
         }
         if(!ModelValidazione.controlloCognome(cognome)){
-            JOptionPane.showMessageDialog(null,"Cognome non valido");
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("Cognome non valido");
+            alert.showAndWait();
             return;
         }
         if(!ModelValidazione.controlloEmailvalida(email)){
-            JOptionPane.showMessageDialog(null,"Email non valida");
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("Email non valido");
+            alert.showAndWait();
             return;
         }
+        if(ModelValidazione.controlloEmailEsistente(email)){
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("Email già esistente");
+            alert.showAndWait();
+            return;
+
+        }
         if(altezza!=null && !ModelValidazione.controlloAltezza(altezza)){
-            JOptionPane.showMessageDialog(null,"Altezza non valida");
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("Altezza non valido");
+            alert.showAndWait();
             return;
         }
         if(!ModelValidazione.controlloData(textDataNascita.getValue())){
-            JOptionPane.showMessageDialog(null,"Data di nascita non valida");
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("Data non valido");
+            alert.showAndWait();
             return;
         }
 
 
         if(telefono!=null && !ModelValidazione.controlloNumeroTelefono(telefono)){
-            JOptionPane.showMessageDialog(null,"Telefono non valido");
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("Telefono non valido");
+            alert.showAndWait();
             return;
         }
 

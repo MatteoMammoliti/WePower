@@ -2,6 +2,10 @@ package com.wepower.wepower.Models;
 
 import com.dlsc.formsfx.model.validators.RegexValidator;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -12,6 +16,27 @@ public class ModelValidazione {
     public static boolean controlloEmailvalida(String email){
         return Pattern.matches("^[a-zA-Z-0-9]+@gmail.com$",email);
     }
+
+    //Controllo se esiste già un email uguale registrata
+    public static boolean controlloEmailEsistente(String email) throws SQLException {
+        if(email.equals(DatiSessioneCliente.getEmail())){
+            return false;
+        }
+        String cerco="SELECT Email FROM CredenzialiCliente WHERE Email=?";
+        try(Connection conn=ConnessioneDatabase.getConnection()){
+            try(PreparedStatement ps=conn.prepareStatement(cerco)){
+                ps.setString(1,email);
+                try(ResultSet rs=ps.executeQuery()){
+                    if(rs.next()){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+
     public static boolean controlloNome(String nome){
         return Pattern.matches("^[a-zA-Z]+",nome);
     }
