@@ -40,6 +40,10 @@
     -fx-background-color: #DDE6ED;
 }
 
+#vbox_chatbot {
+    -fx-background-color: white;
+}
+
 .grafico{
     -fx-background-color: #DDE6ED;
 }

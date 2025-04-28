@@ -39,6 +39,9 @@ public class ClientDashboardController implements Initializable {
     private static ClientDashboardController instance;
 
     @FXML
+    private VBox containerColonnaDestra;
+
+    @FXML
     private VBox containerRoot;
 
     // sezione calendario
@@ -80,7 +83,7 @@ public class ClientDashboardController implements Initializable {
     // sezione banner abbonamenti
     @FXML
     private ScrollPane scrollPaneBanner;
-    private double prefWidth = 350;
+    private double prefWidth = 250;
     @FXML
     // container dei banner
     private HBox displayerBanner;
@@ -100,15 +103,22 @@ public class ClientDashboardController implements Initializable {
         startAutoScroll();
 
         this.scrollPaneChatArea.setFitToWidth(true);
-        this.scrollPaneBanner.setFitToHeight(false);
-        String msg = "Ciao " + DatiSessioneCliente.getNomeUtente() + ", sono Powerino il chat bot virtuale di WePower. Chiedimi qualcosa e sarò felice di aiutarti!" + "\n";
+        this.scrollPaneChatArea.setFitToHeight(false);
+        this.scrollPaneChatArea.prefHeightProperty().bind(containerColonnaDestra.heightProperty().multiply(0.3));
+        this.chatVBox.minHeightProperty().bind(scrollPaneChatArea.heightProperty().multiply(1));
+        this.chatVBox.setFillWidth(true);
+
+        String msg = "Ciao " + DatiSessioneCliente.getNomeUtente() + ", sono Powerino il chat bot virtuale di WePower. Chiedimi qualcosa!" + "\n";
         HBox messaggioIniziale =  new HBox(10);
         Label messaggioInizialeApertura = new Label(msg);
-        Label spazioVuoto = new Label("\n");
+        messaggioInizialeApertura.maxWidthProperty().bind(scrollPaneChatArea.widthProperty().subtract(50));
+        VBox.setVgrow(messaggioInizialeApertura, Priority.ALWAYS);
         messaggioInizialeApertura.setStyle("-fx-background-color: #DDE6EDFF; -fx-padding: 8px; -fx-background-radius: 10px;");
         messaggioInizialeApertura.setWrapText(true);
-        messaggioIniziale.getChildren().addAll(messaggioInizialeApertura, spazioVuoto);
+        messaggioIniziale.getChildren().addAll(messaggioInizialeApertura);
         messaggioIniziale.setAlignment(Pos.CENTER);
+
+        VBox.setVgrow(messaggioIniziale, Priority.ALWAYS);
         this.chatVBox.getChildren().add(messaggioIniziale);
         this.inviaButton.setOnAction(event -> onChiediPowerino());
 
@@ -321,12 +331,16 @@ public class ClientDashboardController implements Initializable {
         messaggio.setAlignment(Pos.CENTER_RIGHT);
 
         Label messaggioLabel = new Label(messaggioUtente);
-        Label spazioVuoto = new Label("\n");
+        messaggioLabel.maxWidthProperty().bind(scrollPaneChatArea.widthProperty().subtract(50));
         messaggioLabel.setWrapText(true);
         messaggioLabel.setStyle("-fx-background-color: #DDE6EDFF; -fx-padding: 8px; -fx-background-radius: 10px;");
-        messaggio.getChildren().addAll(messaggioLabel, spazioVuoto);
+        messaggio.getChildren().addAll(messaggioLabel);
 
+       VBox.setVgrow(messaggio, Priority.ALWAYS);
         this.chatVBox.getChildren().add(messaggio);
+        chatVBox.heightProperty().addListener((observable, oldValue, newValue) -> {
+            scrollPaneChatArea.setVvalue(1.0);
+        });
         this.inputField.clear();
 
         Platform.runLater(() -> {
@@ -334,20 +348,24 @@ public class ClientDashboardController implements Initializable {
             scrollPaneChatArea.setVvalue(1.0);
         });
 
-
         Llama4_API.sendMessage(messaggioUtente, risposta -> {
             Platform.runLater(() -> {
 
                 HBox messaggioPowerino = new HBox(10);
+                messaggioPowerino.setFillHeight(true);
                 messaggioPowerino.setAlignment(Pos.CENTER_LEFT);
 
                 Label rispostaPowerino = new Label(risposta);
                 rispostaPowerino.setWrapText(true);
                 rispostaPowerino.setStyle("-fx-background-color:#DDE6EDFF; -fx-padding: 8px; -fx-background-radius: 10px;");
-                messaggioPowerino.getChildren().addAll(rispostaPowerino, spazioVuoto);
+                rispostaPowerino.maxWidthProperty().bind(scrollPaneChatArea.widthProperty().subtract(50));
+                messaggioPowerino.getChildren().addAll(rispostaPowerino);
 
+                VBox.setVgrow(messaggioPowerino, Priority.ALWAYS);
                 this.chatVBox.getChildren().add(messaggioPowerino);
-
+                chatVBox.heightProperty().addListener((observable, oldValue, newValue) -> {
+                    scrollPaneChatArea.setVvalue(1.0);
+                });
                 scrollPaneChatArea.layout();
                 scrollPaneChatArea.setVvalue(1.0);
             });
