@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import java.io.InputStream;
 import java.sql.SQLException;
@@ -27,22 +28,33 @@ public class RigaEsercizioScheda extends HBox {
     private Button rimuoviSchedaEsercizio;
 
     public RigaEsercizioScheda(String nomeEsercizio, String numeroSerie, String numeroRipetizioni, String percorsoImmagine, String massimaleAttuale, String dataImpostazioneMassimale) {
+
+        this.getStyleClass().add("rigaEsercizio");
         this.nomeEsercizio = new Label(nomeEsercizio);
+        this.nomeEsercizio.setMaxWidth(250);
+        this.nomeEsercizio.setPrefWidth(250);
         this.numeroSerie = new Label("Numero serie: " + numeroSerie);
         this.numeroRipetizioni = new Label("Numero ripetizioni: " + numeroRipetizioni);
 
         this.massimaleAttuale = new Label("Massimale attuale: " + massimaleAttuale);
         this.dataImpostazioneMassimale = new Label("Data: " + dataImpostazioneMassimale);
+        this.dataImpostazioneMassimale.setWrapText(true);
 
         this.aggiungiNuovoMassimale = new TextField();
         this.aggiungiNuovoMassimale.setPromptText("Aggiungi nuovo massimale");
         this.aggiungiNuovoMassimale.setVisible(false);
 
+        this.nomeEsercizio.getStyleClass().add("titoloEsercizio");
+        this.numeroRipetizioni.getStyleClass().add("serieRipetizioni");
+        this.numeroSerie.getStyleClass().add("serieRipetizioni");
+        this.massimaleAttuale.getStyleClass().add("dettagliMassimale");
+        this.dataImpostazioneMassimale.getStyleClass().add("dettagliMassimale");
+
         InputStream is = getClass().getResourceAsStream("/" + percorsoImmagine);
         Image image = new Image(is);
         this.imageEsercizio = new ImageView(image);
-        this.imageEsercizio.setFitHeight(150);
-        this.imageEsercizio.setFitWidth(150);
+        this.imageEsercizio.setFitHeight(140);
+        this.imageEsercizio.setFitWidth(140);
         this.imageEsercizio.setPreserveRatio(true);
 
         this.aggiungiMassimale = new Button("Aggiungi massimale");
@@ -58,7 +70,7 @@ public class RigaEsercizioScheda extends HBox {
             }
         });
 
-        this.rimuoviSchedaEsercizio = new Button("Rimuovi esercizio dalla scheda");
+        this.rimuoviSchedaEsercizio = new Button("Rimuovi esercizio");
         this.rimuoviSchedaEsercizio.setOnAction(event -> ModelSchedaAllenamentoCliente.onRimuoviEsercizio(this.nomeEsercizio.getText(), DatiSessioneCliente.getIdSchedaAllenamento()));
 
         VBox sinistra = new VBox();

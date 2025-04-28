@@ -4,6 +4,7 @@ import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.SchedaAllenamento.ModelSchedaAllenamentoCliente;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,15 +27,24 @@ public class RigaEsercizioLista extends HBox {
 
     public RigaEsercizioLista(String nomeEsercizio, String descrizioneEsercizio, String percorsoImmagine) {
 
+
         this.nomeEsercizio = new Label(nomeEsercizio);
         this.descrizioneEsercizio = new Label(descrizioneEsercizio);
         this.descrizioneEsercizio.setWrapText(true);
 
+        this.nomeEsercizio.getStyleClass().add("titoloEsercizio");
+        this.nomeEsercizio.setMaxWidth(250);
+        this.nomeEsercizio.setPrefWidth(250);
+        this.descrizioneEsercizio.setMaxWidth(250);
+        this.descrizioneEsercizio.setPrefWidth(250);
+        this.descrizioneEsercizio.getStyleClass().add("descrizioneEsercizio");
+
+        this.getStyleClass().add("rigaEsercizio");
         InputStream is = getClass().getResourceAsStream("/" + percorsoImmagine);
         Image image = new Image(is);
         this.imageEsercizio = new ImageView(image);
-        this.imageEsercizio.setFitWidth(200);
-        this.imageEsercizio.setFitHeight(200);
+        this.imageEsercizio.setFitWidth(140);
+        this.imageEsercizio.setFitHeight(140);
         this.imageEsercizio.setPreserveRatio(true);
         this.imageEsercizio.setSmooth(true);
 
@@ -62,7 +72,7 @@ public class RigaEsercizioLista extends HBox {
         sopra.getChildren().add(this.nomeEsercizio);
 
         VBox sotto = new VBox();
-        sotto.getChildren().addAll(this.numeroRipetizioni, this.numeroSerie, this.aggiungiEsercizioScheda);
+        sotto.getChildren().addAll(this.numeroSerie,this.numeroRipetizioni, this.aggiungiEsercizioScheda);
         sotto.setSpacing(10);
         sotto.setPadding(new Insets(10));
 

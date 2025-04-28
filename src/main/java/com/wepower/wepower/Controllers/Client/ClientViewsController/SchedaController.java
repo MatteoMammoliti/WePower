@@ -9,6 +9,7 @@ import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioLista;
 import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioScheda;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
@@ -64,8 +65,10 @@ public class SchedaController implements Initializable {
 
     public void loadSchedaAllenamento() throws SQLException {
         Label titolo = new Label("Scheda allenamento");
+        titolo.getStyleClass().add("titoloContenitore");
         ArrayList<RigaEsercizioScheda> schedaAllenamento = TabellaElencoEsercizi.riempiRigaEsercizioScheda();
         containerSchedaAllenamento.getChildren().clear();
+        containerSchedaAllenamento.setAlignment(Pos.CENTER);
 
         if (!schedaAllenamento.isEmpty()) {
             containerSchedaAllenamento.getChildren().add(titolo);
@@ -73,6 +76,7 @@ public class SchedaController implements Initializable {
         } else {
 
             Label nessunEsercizio = new Label("");
+            nessunEsercizio.getStyleClass().add("testo");
             if(!DatiSessioneCliente.getSeSchedaRichiesta()) {
                 nessunEsercizio.setText("Nessun esercizio presente nella scheda. Componila!");
             } else {
@@ -84,9 +88,11 @@ public class SchedaController implements Initializable {
 
     public void loadEsercizi() throws SQLException {
         Label titolo = new Label("Esercizi disponibili in palestra");
+        titolo.getStyleClass().add("titoloContenitore");
         ArrayList<RigaEsercizioLista> esercizi = TabellaElencoEsercizi.riempiRigaEsercizio();
         containerEsercizi.getChildren().clear();
         containerEsercizi.getChildren().add(titolo);
         containerEsercizi.getChildren().addAll(esercizi);
+        containerEsercizi.setAlignment(Pos.CENTER);
     }
 }

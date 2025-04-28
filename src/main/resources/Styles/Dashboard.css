@@ -4,7 +4,7 @@
 .pane_offerte_dashboard{
     -fx-background-color: transparent;
     -fx-border-width: 3px;
-    -fx-background-radius: 15% ;
+    -fx-background-radius: 15 ;
     -fx-border-radius: 0px 0px 30px 30px;
 
 
@@ -121,6 +121,3 @@
     -fx-background-radius: 10;
 }
 
-.context-menu .separator-menu-item .line {
-    -fx-background-insets: 0;
-}
