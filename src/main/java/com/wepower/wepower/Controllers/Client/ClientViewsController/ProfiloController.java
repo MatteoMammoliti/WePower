@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
@@ -27,6 +28,7 @@ public class ProfiloController implements Initializable {
     private static ProfiloController instance;
     @FXML
     private Label labelGenere;
+
     @FXML
     private ImageView contenitoreImmagine;
     @FXML
@@ -34,8 +36,7 @@ public class ProfiloController implements Initializable {
     @FXML
     private Label labelNomeCognomeSuperiore;
     @FXML
-    private Label statoAbbonamentoSuperiore;
-    @FXML
+
     private Label labelNomeCognomeInferiore;
     @FXML
     private Label labelDataNascita;
@@ -65,6 +66,8 @@ public class ProfiloController implements Initializable {
     private Button btnPulsanteEliminaUtente;
     @FXML
     private BorderPane contenitoreMioProfilo;
+    @FXML
+    private ScrollPane scroll_pane_principale;
     private File imgProfilo;
     private File imgCertificato;
 
@@ -73,6 +76,7 @@ public class ProfiloController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         instance=this;
+
         Model.getInstance().setProfiloController(this);
         contenitoreMioProfilo.setFocusTraversable(false);
         try {
@@ -126,8 +130,6 @@ public class ProfiloController implements Initializable {
         });
         if (statoAbbonamento) {
             System.out.println("sono qui si");
-            statoAbbonamentoSuperiore.setText("Abbonamento: Attivo");
-            statoAbbonamentoSuperiore.setStyle("-fx-text-fill: green");
             labelTipoAbbonamento.setText(DatiSessioneCliente.getTipoAbbonamentoAttivo());
             labelDataInizioAbbonamento.setText(DatiSessioneCliente.getDataInizioAbbonamentoAttivo());
             labelDataFineAbbonamento.setText(DatiSessioneCliente.getDataFineAbbonamentoAttivo());
@@ -135,8 +137,6 @@ public class ProfiloController implements Initializable {
             labelStatoPagamento.getStyleClass().add("abbonamentoSi");
         } else {
             System.out.println("sono qui no");
-            statoAbbonamentoSuperiore.setText("Abbonamento: Non Attivo");
-            statoAbbonamentoSuperiore.setStyle("-fx-text-fill: red");
             labelStatoPagamento.setText("Riattiva il tuo abbonamento");
             labelStatoPagamento.getStyleClass().add("abbonamentoNo");
             labelStatoPagamento.setOnMouseClicked(event -> {
@@ -152,7 +152,7 @@ public class ProfiloController implements Initializable {
             labelDataFineAbbonamento.setText("Non attivo");
         }
         if (DatiSessioneCliente.getIdSchedaAllenamento() == 0) {
-            labelSchedaAllenamento.setText("Componi o richiedi la tua scheda allenamento");
+            labelSchedaAllenamento.setText("Gestisci la tua scheda");
             labelSchedaAllenamento.getStyleClass().add("schedaNo");
         } else {
             labelSchedaAllenamento.setText("Visualizza la tua scheda attiva");
@@ -186,7 +186,7 @@ public class ProfiloController implements Initializable {
             });
         }
         if(altezza!=null){
-            labelAltezza.setText(altezza);
+            labelAltezza.setText(altezza+" cm");
         }
         else{
             labelAltezza.setText("Nessuna altezza registrata");

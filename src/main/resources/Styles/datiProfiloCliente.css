@@ -2,43 +2,81 @@
     -fx-border-color: red;
     -fx-text-fill: red;
     -fx-border-width: 5;
+    -fx-font-size: 1.7em;
+    -fx-font-weight: bold;
 }
 .certificatoNo{
     -fx-border-color: red;
     -fx-text-fill: red;
+    -fx-font-size: 1.7em;
+    -fx-font-weight: bold;
 }
 .certificatoAttesa{
-    -fx-border-color: orange;
-    -fx-text-fill: orange;
+    -fx-border-color: #27374d;
+    -fx-text-fill: #27374d;
+    -fx-font-size: 1.7em;
+    -fx-font-weight: bold;
 }
 
 .certificatoSi{
     -fx-text-fill: green;
+    -fx-font-size: 1.7em;
+    -fx-font-weight: bold;
 }
 
 .abbonamentoSi{
     -fx-text-fill: green;
+    -fx-font-size: 1.7em;
+    -fx-font-weight: bold;
 }
 .abbonamentoNo{
     -fx-border-color: red;
     -fx-text-fill: red;
+    -fx-font-size: 1.7em;
+    -fx-font-weight: bold;
+
 }
 .abbonamentoNo:hover{
     -fx-border-color: red;
     -fx-text-fill: red;
     -fx-border-width: 5;
+    -fx-font-size: 1.7em;
+    -fx-font-weight: bold;
 }
 
 .schedaNo{
     -fx-border-color: red;
     -fx-text-fill: red;
+    -fx-font-size: 1.7em;
+    -fx-font-weight: bold;
 }
 .schedaNo:hover{
     -fx-border-color: red;
     -fx-text-fill: red;
     -fx-border-width: 5;
+    -fx-font-size: 1.7em;
+    -fx-font-weight: bold;
 }
 
 .schedaSi{
     -fx-text-fill: green;
+    -fx-font-size: 1.7em;
+    -fx-font-weight: bold;
+}
+
+.testo_generale{
+    -fx-text-fill: #27374D;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.7em;
+}
+.testo_che_cambia{
+    -fx-text-fill: #27374D;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.7em;
+}
+.sfondo_principale{
+    -fx-background-color: #DDE6ED;
+}
+#scroll_pane_principale .viewport{
+    -fx-background-color: #DDE6ED;
 }
