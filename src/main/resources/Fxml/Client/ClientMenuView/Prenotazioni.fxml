@@ -44,7 +44,7 @@
                 </content>
             </ScrollPane>
             <columnConstraints>
-                <ColumnConstraints prefWidth="800.0" />
+                <ColumnConstraints prefWidth="600.0" />
                 <ColumnConstraints prefWidth="340.0" />
                 <ColumnConstraints prefWidth="340.0" />
             </columnConstraints>

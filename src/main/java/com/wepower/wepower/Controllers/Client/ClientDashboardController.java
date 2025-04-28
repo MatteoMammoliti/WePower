@@ -1,7 +1,6 @@
 package com.wepower.wepower.Controllers.Client;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+
 import com.wepower.wepower.APIs.Llama4_API;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
@@ -19,20 +18,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 import javafx.util.Pair;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
-import org.jetbrains.annotations.NotNull;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+
 import java.util.ResourceBundle;
 
 public class ClientDashboardController implements Initializable {
@@ -83,7 +74,7 @@ public class ClientDashboardController implements Initializable {
     // sezione banner abbonamenti
     @FXML
     private ScrollPane scrollPaneBanner;
-    private double prefWidth = 250;
+    private double prefWidth = 350;
     @FXML
     // container dei banner
     private HBox displayerBanner;
@@ -347,6 +338,7 @@ public class ClientDashboardController implements Initializable {
             scrollPaneChatArea.layout();
             scrollPaneChatArea.setVvalue(1.0);
         });
+
 
         Llama4_API.sendMessage(messaggioUtente, risposta -> {
             Platform.runLater(() -> {

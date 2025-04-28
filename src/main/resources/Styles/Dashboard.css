@@ -1,6 +1,4 @@
-.sfondo{
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgba(255,255,255,1) 0%, rgba(255,122,41,1) 99%);
-}
+
 
 
 .pane_offerte_dashboard{
@@ -21,15 +19,6 @@
 }
 
 
-.pannellino_offerte_dashboard{
-    -fx-background-color: #ff7a29;
-    -fx-border-radius: 30px 30px 30px 30px;
-    -fx-background-radius: 30px 30px 30px 30px;
-    -fx-opacity:0.8;
-}
-.pannellino_offerte_dashboard:hover {
-    -fx-opacity: 1.0;
-}
 
 #bottone_chat_bot{
     -fx-background-color: #DDE6ED;
@@ -83,7 +72,7 @@
 }
 
 
-#contenitore_bannerini{
+#contenitore_bannerini .viewport{
     -fx-background-color: #DDE6ED;
 
 }
@@ -91,10 +80,16 @@
 
 }
 #frase_illustrazione_offerte{
+    -fx-font-size: 1em;
+    -fx-text-fill: #27374D;
+    -fx-font-weight: bold;
 
 }
 
 #saluto_nome{
+    -fx-font-size: 3em;
+    -fx-text-fill:#27374D;
+    -fx-font-weight: bold;
 
 }
 #contenitore_centrale{
@@ -102,6 +97,30 @@
 }
 
 #tendina_grafico{
+    -fx-border-color:#27374D;
+    -fx-background-color:#9DB2BF ;
+    -fx-text-fill: #27374D;
+    -fx-font-size: 1.0em;
+    -fx-font-family: "Arial";
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
 
 }
 
+#tendina_grafico .menu-item{
+    -fx-text-fill: #27374D;
+    -fx-font-size: 1.0em;
+    -fx-font-family: "Arial";
+    -fx-font-weight: bold;
+    -fx-background-color:#9DB2BF ;
+    -fx-background-insets: 0;
+    -fx-border-width: 1;
+    -fx-border-color: #DDE6ED;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.context-menu .separator-menu-item .line {
+    -fx-background-insets: 0;
+}

@@ -33,7 +33,7 @@
         <ScrollPane fitToHeight="true" fitToWidth="true" vbarPolicy="AS_NEEDED" BorderPane.alignment="CENTER">
             <content>
                 <!-- VBox root -->
-                <VBox fx:id="containerRoot" alignment="CENTER" spacing="40">
+                <VBox id="contenitore_centrale" fx:id="containerRoot" alignment="CENTER" spacing="40">
                     <padding>
                         <Insets bottom="20" left="12" right="12" top="20" />
                     </padding>
@@ -41,26 +41,26 @@
                     <!-- Header / offerte -->
                     <VBox spacing="10" styleClass="pane_offerte_dashboard" stylesheets="@../../Styles/Dashboard.css">
                         <children>
-                            <Label fx:id="labelNomeUtenteSaluto" text="Ciao, Matteo">
-                                <font><Font name="Arial Bold" size="30.0" /></font>
+                            <Label id="saluto_nome" fx:id="labelNomeUtenteSaluto" text="Ciao, Matteo">
+
                             </Label>
 
-                            <Label styleClass="testo_offerte_dashboard" text="Ecco alcune offerte riservate per te">
+                            <Label id="frase_illustrazione_offerte" styleClass="testo_offerte_dashboard" text="Ecco alcune offerte riservate per te">
                                 <font><Font name="Arial Bold" size="30.0" /></font>
                             </Label>
 
                             <Separator />
 
-                            <ScrollPane fx:id="scrollPaneBanner" fitToHeight="true" fitToWidth="false" hbarPolicy="NEVER" pannable="true" vbarPolicy="NEVER">
+                            <ScrollPane id="contenitore_bannerini" fx:id="scrollPaneBanner" fitToHeight="true" hbarPolicy="NEVER" pannable="true" vbarPolicy="NEVER">
                                 <content>
                                     <HBox fx:id="displayerBanner" spacing="20" />
                                 </content>
                             </ScrollPane>
                         </children>
                     </VBox>
-               <Label fx:id="labelFrase" text="PROVA FRASE MOTIVAZIONALE">
+               <Label id="frase_motivazionale" fx:id="labelFrase" text="PROVA FRASE MOTIVAZIONALE">
                   <font>
-                     <Font name="Arial" size="60.0" />
+                     <Font name="Arial" size="36.0" />
                   </font>
                </Label>
 
@@ -71,8 +71,8 @@
                         <!-- Colonna 1 -->
                         <VBox alignment="TOP_CENTER" spacing="8" HBox.hgrow="ALWAYS">
                             <children>
-                                <MenuButton fx:id="choiceEsercizioScheda" text="Seleziona Esercizio" />
-                                <LineChart fx:id="graficoMassimali" VBox.vgrow="ALWAYS">
+                                <MenuButton id="tendina_grafico" fx:id="choiceEsercizioScheda" text="Seleziona Esercizio" />
+                                <LineChart fx:id="graficoMassimali" styleClass="grafico" VBox.vgrow="ALWAYS">
                                     <xAxis><CategoryAxis label="Data Inserimento" side="BOTTOM" fx:id="xAxisMassimali" /></xAxis>
                                     <yAxis><NumberAxis fx:id="yAxisMassimali" label="Peso" side="LEFT" /></yAxis>
                                 </LineChart>
@@ -82,7 +82,7 @@
                         <!-- Colonna 2 -->
                         <VBox HBox.hgrow="ALWAYS">
                             <children>
-                                <BarChart fx:id="graficoPresenzePalestra" VBox.vgrow="ALWAYS">
+                                <BarChart fx:id="graficoPresenzePalestra" styleClass="grafico" VBox.vgrow="ALWAYS">
                                     <xAxis><CategoryAxis label="Mesi" side="BOTTOM" /></xAxis>
                                     <yAxis><NumberAxis label="Numero prenotazioni" side="LEFT" /></yAxis>
                            <VBox.margin>
@@ -95,7 +95,7 @@
                         <!-- Colonna 3 -->
                         <VBox HBox.hgrow="ALWAYS">
                             <children>
-                                <LineChart fx:id="graficoPeso" VBox.vgrow="ALWAYS">
+                                <LineChart fx:id="graficoPeso" styleClass="grafico" VBox.vgrow="ALWAYS">
                                     <xAxis><CategoryAxis label="Data" side="BOTTOM" /></xAxis>
                                     <yAxis><NumberAxis fx:id="yAxisPesoCorporeo" label="Peso" side="LEFT" /></yAxis>
                            <VBox.margin>
