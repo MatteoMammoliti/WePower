@@ -2,6 +2,7 @@
     -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgba(255,255,255,1) 0%, rgba(255,122,41,1) 99%);
 }
 
+
 .pane_offerte_dashboard{
     -fx-background-color: transparent;
     -fx-border-width: 3px;
@@ -11,6 +12,7 @@
 
 
 }
+
 
 .testo_offerte_dashboard{
     -fx-text-fill: #000000;
@@ -38,6 +40,64 @@
     -fx-background-color: #DDE6ED;
 }
 
-#vbox_chatbot {
-    -fx-background-color: white;
+.grafico{
+    -fx-background-color: #DDE6ED;
 }
+
+.grafico .chart-bar{
+    -fx-bar-fill: #27374D;
+}
+
+.grafico .chart-series-line	{
+    -fx-stroke: #27374D;
+
+}
+.grafico .chart-line-symbol{
+    -fx-background-color: #9DB2BF;
+
+}
+.grafico .chart-plot-background{
+    -fx-background-color: #DDE6ED;
+
+}
+
+.grafico .chart-horizontal-grid-lines, .chart-vertical-grid-lines{
+    -fx-stroke: transparent;
+}
+.grafico .axis{
+
+}
+.grafico .axis-tick-mark{
+    -fx-stroke: #27374D;
+}
+.grafico .axis-minor-tick-mark{
+    -fx-stroke: transparent;
+}
+.grafico .axis-label{
+    -fx-text-fill: #27374D;
+    -fx-font-weight: bold;
+}
+
+
+#contenitore_bannerini{
+    -fx-background-color: #DDE6ED;
+
+}
+#frase_motivazionale{
+
+}
+#frase_illustrazione_offerte{
+
+}
+
+#saluto_nome{
+
+}
+#contenitore_centrale{
+    -fx-background-color: #DDE6ED;
+}
+
+#tendina_grafico{
+
+}
+

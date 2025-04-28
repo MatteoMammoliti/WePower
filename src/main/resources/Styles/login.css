@@ -5,22 +5,21 @@
 
 .input_login{
     -fx-background-color: transparent;
-    -fx-border-color: transparent transparent black transparent;
+    -fx-border-color: transparent transparent #27374d transparent;
     -fx-border-width: 0 0 1.5 0;
-    -fx-text-fill: black;
+    -fx-text-fill: #27374d;
     -fx-font-size: 1.0em;
     -fx-pref-height: 38;
 }
 
 .my_button_login {
-    -fx-background-color: #ff7a29;
+    -fx-background-color: #27374d;
     -fx-opacity:0.9;
-    -fx-text-fill: white;
+    -fx-text-fill: #dde6ed;
     -fx-font-size: 1.0em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
-    -fx-border-color: black;
-    -fx-border-width: 2px;
+    -fx-border-color: #27374d;
     -fx-border-radius: 30px;
     -fx-background-radius: 30px;
     -fx-padding: 10px 30px;
@@ -33,14 +32,11 @@
 }
 
 .my_button_google {
-    -fx-background-color: #ffffff;
-    -fx-text-fill: black;
+    -fx-background-color: #dde6ed;
+    -fx-text-fill: #27374d;
     -fx-font-size: 1.0em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
-    -fx-border-color: black;
-    -fx-border-width: 2px;
-    -fx-border-radius: 30px;
     -fx-background-radius: 30px;
     -fx-padding: 10px 30px;
     -fx-min-width: 200px;
@@ -49,4 +45,14 @@
 .my_button_toggle_pasword {
     -fx-background-color: transparent;
     -fx-cursor: hand;
+}
+
+.text_login{
+    -fx-text-fill: #27374D;
+    -fx-fill-width: bold;
+    -fx-fill:#27374D;
+}
+
+#sfondo_login{
+    -fx-background-color: white;
 }
