@@ -18,16 +18,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class PrenotazioniController implements Initializable {
-    @FXML
-    private ScrollPane scrollPrenotazione;
-    @FXML
-    private ScrollPane scrollProssimiAllenamenti;
-    @FXML
-    private ScrollPane scrollStoricoCliente;
-    @FXML
-    private Label labelStorico;
-    @FXML
-    private Label labelProssimiAllenamenti;
+
     @FXML
     private VBox corpoProssimiAllenamenti;
     @FXML
@@ -38,8 +29,6 @@ public class PrenotazioniController implements Initializable {
 
 
     public void initialize(URL location, ResourceBundle resources) {
-
-
         try {
             loadPrenotazioni();
         } catch (SQLException e) {
@@ -47,25 +36,13 @@ public class PrenotazioniController implements Initializable {
         }
     }
 
-
-
-
     public  void loadPrenotazioni() throws SQLException {
         VisualizzatoreStoricoPrenotazioni storico=new VisualizzatoreStoricoPrenotazioni();
         VisualizzatoreProssimiAllenamenti prossimiAllenamenti=new VisualizzatoreProssimiAllenamenti();
         SchermataPrenotazioniCliente schermata= new SchermataPrenotazioniCliente(LocalDate.now(),storico,prossimiAllenamenti);
 
-
-
         containerGiorniPrenotazione.getChildren().add(schermata);
         corpoProssimiAllenamenti.getChildren().add(prossimiAllenamenti);
         corpoStorico.getChildren().add(storico);
-
-
-
-
-
     }
-
-
 }

@@ -47,8 +47,6 @@ public class VisualizzatoreStoricoPrenotazioni extends VBox {
 
         dataPrenotazione.getStyleClass().add("labelInfoStorico");
         oraPrenotazione.getStyleClass().add("labelInfoStorico");
-
-
         contenitoreRiga.getStyleClass().add("contenitoreRigaStorico");
 
         contenitoreRiga.getChildren().addAll(dataPrenotazione,oraPrenotazione);

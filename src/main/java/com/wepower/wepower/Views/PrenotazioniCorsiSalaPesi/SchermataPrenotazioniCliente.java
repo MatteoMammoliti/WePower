@@ -34,11 +34,8 @@ public class SchermataPrenotazioniCliente extends VBox {
     VisualizzatoreStoricoPrenotazioni storico;
     VisualizzatoreProssimiAllenamenti prossimiAllenamenti;
 
-
-
     public SchermataPrenotazioniCliente(LocalDate dataGiorno,VisualizzatoreStoricoPrenotazioni storico,VisualizzatoreProssimiAllenamenti prossimiAllenamenti){
-        this.getStylesheets().add(
-                Objects.requireNonNull(getClass().getResource("/Styles/Prenotazioni.css")).toExternalForm());
+        this.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/Styles/Prenotazioni.css")).toExternalForm());
 
         this.prossimiAllenamenti=prossimiAllenamenti;
         this.storico=storico;
@@ -65,22 +62,14 @@ public class SchermataPrenotazioniCliente extends VBox {
         contenitoreFascieOrario.setPrefWidth(400);
         contenitoreFascieOrario.setFillWidth(true);
 
-
         //Creo e aggiungo le fasce orarie per le prenotazioni
         this.getChildren().add(contenitoreFascieOrario);
         aggiornaFasceorarie();
-
-
     }
-
-
-
 
     public HBox creaRigaPrenotazione(String inizio, String fine, Boolean prenotato, LocalDate data, String ora){
         HBox rigaCompleta = new HBox();
         rigaCompleta.getStyleClass().add("rigaCompleta");
-
-
 
         //Sezione orario-Parte sinistra della riga(Inizio e fine turno)
         VBox sezioneOrario=new VBox();
@@ -96,12 +85,13 @@ public class SchermataPrenotazioniCliente extends VBox {
 
         if(data.getDayOfWeek() == DayOfWeek.SUNDAY){
             VBox dettagliRiga=new VBox(10);
+            dettagliRiga.getStyleClass().add("contenitoreDettagliRiga");
             dettagliRiga.setPrefWidth(500);
             dettagliRiga.setPrefHeight(80);
             Button btnPrenota=new Button("Giorno di chiusura");
             btnPrenota.setDisable(true);
             btnPrenota.getStyleClass().add("btnGiornoChiusura");
-            btnPrenota.setAlignment(Pos.CENTER);
+            dettagliRiga.setAlignment(Pos.CENTER);
             rigaCompleta.getChildren().add(sezioneOrario);
             dettagliRiga.getChildren().addAll(btnPrenota);
             rigaCompleta.getChildren().add(dettagliRiga);
@@ -112,29 +102,28 @@ public class SchermataPrenotazioniCliente extends VBox {
         VBox dettagliRiga=new VBox(5);
         dettagliRiga.setPrefWidth(500);
         dettagliRiga.setPrefHeight(50);
-        Label Sala=new Label("Sala Pesi");
-        Sala.setStyle("-fx-font-weight: bold; -fx-font-size: 2em; -fx-text-fill: #1B262C;");
-        Sala.setAlignment(Pos.TOP_LEFT);
+        Label sala=new Label("Sala Pesi");
+        sala.getStyleClass().add("labelSala");
+        sala.setAlignment(Pos.TOP_LEFT);
         PrenotazioneSalaPesiCliente temp=new PrenotazioneSalaPesiCliente(DatiSessioneCliente.getIdUtente(),data.toString(),ora);
-        Label PostiLiberi=new Label("Posti Liberi" + " "+ getNumeroPrenotazioniDataOraResidue(temp));
-        PostiLiberi.setAlignment(Pos.TOP_LEFT);
-        PostiLiberi.setStyle("-fx-font-weight: bold;-fx-text-fill: #1B262C;");
+        Label postiLiberi=new Label("Posti Liberi:" + " "+ getNumeroPrenotazioniDataOraResidue(temp));
+        postiLiberi.setAlignment(Pos.TOP_LEFT);
+        postiLiberi.getStyleClass().add("labelPostiDisponibili");
 
-
+        HBox bottoniRiga = new HBox(10);
         Button btnPrenota=new Button("Prenotati");
-        btnPrenota.setMinHeight(40);
-        btnPrenota.setMinWidth(80);
         btnPrenota.getStyleClass().clear();
         btnPrenota.getStyleClass().add("btnPrenotati");
-
 
         Button btnEliminaPrenotazione=new Button("Elimina prenotazione");
         btnEliminaPrenotazione.setVisible(false);
         btnEliminaPrenotazione.setManaged(false);
 
+
         //Controllo se l'utente è già prenotato, se i posti sono tutti o prenotati o se è possibile prenotare
         if(prenotato){
             btnPrenota.setDisable(true);
+            btnPrenota.getStyleClass().clear();
             btnPrenota.getStyleClass().add("btnPrenotato");
             btnPrenota.setText("Prenotazione già effettuata");
 
@@ -146,7 +135,6 @@ public class SchermataPrenotazioniCliente extends VBox {
             btnEliminaPrenotazione.setOnAction(e->{
                 boolean eliminazioneEffettuata= ModelPrenotazioni.rimuoviPrenotazioneSalaPesi(data.toString(),ora,DatiSessioneCliente.getIdUtente());
                    if (eliminazioneEffettuata){
-                         System.out.println("Eliminazione effettuata");
                          DatiSessionePalestra.rimuoviPrenotazioneSalaPesi(temp);
                          DatiSessioneCliente.rimuoviPrenotazione(new PrenotazioneSalaPesi(data.toString(), ora));
                          ClientDashboardController.getInstance().loadCalendario();
@@ -164,7 +152,6 @@ public class SchermataPrenotazioniCliente extends VBox {
             try {
                 boolean andataABuonFine=ModelPrenotazioni.aggiuntiPrenotazioneSalaPesi(data.toString(),ora,DatiSessioneCliente.getIdUtente());
                 if(andataABuonFine){
-                    System.out.println("Prenotazione effettuata");
                     DatiSessionePalestra.aggiungiPrenotazioneSalaPesi(temp);
                     DatiSessioneCliente.aggiungiPrenotazione(new PrenotazioneSalaPesi(data.toString(), ora));
                     prossimiAllenamenti.aggiornaLista();
@@ -182,12 +169,10 @@ public class SchermataPrenotazioniCliente extends VBox {
         //Caso in cui è prenotabile
         btnPrenota.setAlignment(Pos.CENTER);
         dettagliRiga.getStyleClass().add("contenitoreDettagliRiga");
-        dettagliRiga.getChildren().addAll(Sala,PostiLiberi,btnPrenota,btnEliminaPrenotazione);
+        bottoniRiga.getChildren().addAll(btnPrenota, btnEliminaPrenotazione);
+        dettagliRiga.getChildren().addAll(sala,postiLiberi, bottoniRiga);
         VBox.setMargin(btnPrenota, new Insets(12, 0, 0, 0));
-
         rigaCompleta.getChildren().addAll(sezioneOrario,dettagliRiga);
-
-
         return rigaCompleta;
     }
 
@@ -219,7 +204,6 @@ public class SchermataPrenotazioniCliente extends VBox {
             contenitoreFascieOrario.getChildren().add(quadratino);
         }
     }
-
 
     private void aggiornaPrecSucc(){
         //pulisco gli stili css per il refresh

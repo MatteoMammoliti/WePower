@@ -443,7 +443,7 @@ public class DatiSessioneCliente {
 
         try (Connection conn = ConnessioneDatabase.getConnection()) {
             PreparedStatement prelevamento = conn.prepareStatement(prelevaPrenotazioni);
-            prelevamento.setInt(1, DatiSessioneCliente.getIdUtente());
+            prelevamento.setInt(1, IdUtente);
             ResultSet rs = prelevamento.executeQuery();
 
             while(rs.next()) {
@@ -518,7 +518,7 @@ public class DatiSessioneCliente {
     //Prelevo le date degli allenamenti ancora da effettuare
     public static ArrayList<PrenotazioneSalaPesi> getDateAllenamentiDaFare() throws SQLException {
         ArrayList<PrenotazioneSalaPesi> date=new ArrayList<>();
-        String cerco="SELECT DataPrenotazione,OrarioPrenotazione FROM PrenotazioneSalaPesi WHERE IdCliente=? AND DataPrenotazione >= ? ORDER BY DataPrenotazione ASC";
+        String cerco="SELECT DataPrenotazione,OrarioPrenotazione FROM PrenotazioneSalaPesi WHERE IdCliente=? AND DataPrenotazione >= ? ORDER BY DataPrenotazione ASC LIMIT 8";
         try(Connection conn=ConnessioneDatabase.getConnection()){
             PreparedStatement prelevamento=conn.prepareStatement(cerco);
             prelevamento.setInt(1,DatiSessioneCliente.getIdUtente());
