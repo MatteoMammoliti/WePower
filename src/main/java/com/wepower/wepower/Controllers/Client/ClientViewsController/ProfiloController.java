@@ -7,6 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
@@ -26,6 +28,9 @@ import java.util.ResourceBundle;
 
 public class ProfiloController implements Initializable {
     private static ProfiloController instance;
+    public VBox contenitoreDati1;
+    public VBox contenitoreDati2;
+
     @FXML
     private Label labelGenere;
 
@@ -79,6 +84,8 @@ public class ProfiloController implements Initializable {
 
         Model.getInstance().setProfiloController(this);
         contenitoreMioProfilo.setFocusTraversable(false);
+        contenitoreDati1.prefWidthProperty().bind(contenitoreMioProfilo.widthProperty().multiply(0.5));
+        contenitoreDati2.prefWidthProperty().bind(contenitoreMioProfilo.widthProperty().multiply(0.5));
         try {
             caricaInterfacciaDatiUtente();
         } catch (SQLException e) {
@@ -155,7 +162,7 @@ public class ProfiloController implements Initializable {
             labelSchedaAllenamento.setText("Gestisci la tua scheda");
             labelSchedaAllenamento.getStyleClass().add("schedaNo");
         } else {
-            labelSchedaAllenamento.setText("Visualizza la tua scheda attiva");
+            labelSchedaAllenamento.setText("Visualizza la tua scheda");
             labelSchedaAllenamento.getStyleClass().add("schedaSi");
         }
         labelSchedaAllenamento.setOnMouseClicked(event -> onClickLabelScheda());

@@ -1,75 +1,114 @@
-.certificatoNo:hover{
-    -fx-border-color: red;
-    -fx-text-fill: red;
-    -fx-border-width: 5;
-    -fx-font-size: 1.7em;
-    -fx-font-weight: bold;
-}
 .certificatoNo{
-    -fx-border-color: red;
-    -fx-text-fill: red;
-    -fx-font-size: 1.7em;
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6ED;
+    -fx-font-size: 0.9em;
     -fx-font-weight: bold;
+    -fx-font-family: "Arial";
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-padding: 7px 30px;
+    -fx-wrap-text: true;
 }
-.certificatoAttesa{
-    -fx-border-color: #27374d;
-    -fx-text-fill: #27374d;
-    -fx-font-size: 1.7em;
+.certificatoNo:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #526D82;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
+    -fx-font-family: "Arial";
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-padding: 7px 30px;
+    -fx-wrap-text: true;
+    fx-font-size: 0.9em;
     -fx-font-weight: bold;
 }
 
-.certificatoSi{
-    -fx-text-fill: green;
-    -fx-font-size: 1.7em;
+.certificatoAttesa{
+    -fx-font-family: "Arial";
+    -fx-text-fill: #27374D;
     -fx-font-weight: bold;
+    -fx-font-size: 1.7em;
+}
+.certificatoSi{
+    -fx-font-family: "Arial";
+    -fx-text-fill: #27374D;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.7em;
 }
 
 .abbonamentoSi{
-    -fx-text-fill: green;
-    -fx-font-size: 1.7em;
+    -fx-font-family: "Arial";
+    -fx-text-fill: #27374D;
     -fx-font-weight: bold;
+    -fx-font-size: 1.7em;
 }
-.abbonamentoNo{
-    -fx-border-color: red;
-    -fx-text-fill: red;
-    -fx-font-size: 1.7em;
-    -fx-font-weight: bold;
 
+.abbonamentoNo{
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6ED;
+    -fx-font-size: 0.9em;
+    -fx-font-weight: bold;
+    -fx-font-family: "Arial";
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-padding: 7px 30px;
+    -fx-wrap-text: true;
 }
-.abbonamentoNo:hover{
-    -fx-border-color: red;
-    -fx-text-fill: red;
-    -fx-border-width: 5;
-    -fx-font-size: 1.7em;
+.abbonamentoNo:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #526D82;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
+    -fx-font-family: "Arial";
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-padding: 7px 30px;
+    -fx-wrap-text: true;
+    fx-font-size: 0.9em;
     -fx-font-weight: bold;
 }
+
 
 .schedaNo{
-    -fx-border-color: red;
-    -fx-text-fill: red;
-    -fx-font-size: 1.7em;
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6ED;
+    -fx-font-size: 0.9em;
     -fx-font-weight: bold;
+    -fx-font-family: "Arial";
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-padding: 7px 30px;
+    -fx-wrap-text: true;
 }
-.schedaNo:hover{
-    -fx-border-color: red;
-    -fx-text-fill: red;
-    -fx-border-width: 5;
-    -fx-font-size: 1.7em;
+.schedaNo:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #526D82;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
+    -fx-font-family: "Arial";
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-padding: 7px 30px;
+    -fx-wrap-text: true;
+    fx-font-size: 0.9em;
     -fx-font-weight: bold;
 }
 
 .schedaSi{
-    -fx-text-fill: green;
-    -fx-font-size: 1.7em;
+    -fx-font-family: "Arial";
+    -fx-text-fill: #27374D;
     -fx-font-weight: bold;
+    -fx-font-size: 1.7em;
 }
 
 .testo_generale{
+    -fx-font-family: "Arial";
     -fx-text-fill: #27374D;
     -fx-font-weight: bold;
     -fx-font-size: 1.7em;
 }
 .testo_che_cambia{
+    -fx-font-family: "Arial";
     -fx-text-fill: #27374D;
     -fx-font-weight: bold;
     -fx-font-size: 1.7em;
@@ -79,4 +118,90 @@
 }
 #scroll_pane_principale .viewport{
     -fx-background-color: #DDE6ED;
+}
+
+.bottoni_profilo {
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6ED;
+    -fx-font-size: 1.1em;
+    -fx-font-weight: bold;
+    -fx-font-family: "Arial";
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-padding: 10px 30px;
+    -fx-pref-width: 200;
+    -fx-wrap-text: true;
+}
+
+.bottoni_profilo:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #526D82;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
+    -fx-font-family: "Arial";
+}
+.titolo{
+    -fx-text-fill: #27374D;
+    -fx-font-weight: bold;
+    -fx-font-size: 2.2em;
+    -fx-font-family: "Arial";
+}
+
+#genere{
+    -fx-text-fill: #27374D;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.2em;
+    -fx-font-family: "Arial";
+}
+#mio_nome{
+    -fx-text-fill: #27374D;
+    -fx-font-weight: bold;
+    -fx-font-size: 2em;
+    -fx-font-family: "Arial";
+}
+
+.bottone_scheda{
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6ED;
+    -fx-font-size: 0.9em;
+    -fx-font-weight: bold;
+    -fx-font-family: "Arial";
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-padding: 7px 30px;
+    -fx-wrap-text: true;
+}
+.bottone_scheda:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #526D82;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
+    -fx-font-family: "Arial";
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-padding: 7px 30px;
+    -fx-wrap-text: true;
+    fx-font-size: 0.9em;
+    -fx-font-weight: bold;
+}
+
+.bottone_carica_immagine {
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6ED;
+    -fx-font-size: 0.9em;
+    -fx-font-weight: bold;
+    -fx-font-family: "Arial";
+    -fx-border-radius: 30px;
+    -fx-background-radius: 30px;
+    -fx-padding: 7px 30px;
+    -fx-pref-width: 200;
+    -fx-wrap-text: true;
+}
+
+.bottone_carica_immagine:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #526D82;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
+    -fx-font-family: "Arial";
 }
