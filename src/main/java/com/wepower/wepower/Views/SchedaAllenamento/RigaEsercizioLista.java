@@ -27,7 +27,6 @@ public class RigaEsercizioLista extends HBox {
 
     public RigaEsercizioLista(String nomeEsercizio, String descrizioneEsercizio, String percorsoImmagine) {
 
-
         this.nomeEsercizio = new Label(nomeEsercizio);
         this.descrizioneEsercizio = new Label(descrizioneEsercizio);
         this.descrizioneEsercizio.setWrapText(true);

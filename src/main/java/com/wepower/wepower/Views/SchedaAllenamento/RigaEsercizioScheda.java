@@ -71,6 +71,7 @@ public class RigaEsercizioScheda extends HBox {
         });
 
         this.rimuoviSchedaEsercizio = new Button("Rimuovi esercizio");
+        if(DatiSessioneCliente.getSeSchedaRichiesta()) this.rimuoviSchedaEsercizio.setVisible(false);
         this.rimuoviSchedaEsercizio.setOnAction(event -> ModelSchedaAllenamentoCliente.onRimuoviEsercizio(this.nomeEsercizio.getText(), DatiSessioneCliente.getIdSchedaAllenamento()));
 
         VBox sinistra = new VBox();
