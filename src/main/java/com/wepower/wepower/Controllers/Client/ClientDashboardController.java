@@ -15,6 +15,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 import javafx.util.Pair;
@@ -265,22 +267,25 @@ public class ClientDashboardController implements Initializable {
                     LocalDate dataCorrente = LocalDate.now();
                     long giorniDifferenza = ChronoUnit.DAYS.between(dataCorrente, dataFineAbbonamento);
 
+                    Alert scadenzaAbbonamento = new Alert(Alert.AlertType.WARNING);
+                    ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
+                    DialogPane dialogPane = scadenzaAbbonamento.getDialogPane();
+                    dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
+                    scadenzaAbbonamento.setGraphic(icon);
                     if (giorniDifferenza <= 7 && giorniDifferenza > 0) {
                         Platform.runLater(() -> {
-                            Alert alert = new Alert(Alert.AlertType.WARNING);
-                            alert.setTitle("Attenzione");
-                            alert.setHeaderText("Il tuo abbonamento sta per scadere!");
-                            alert.setContentText("Il tuo abbonamento scade tra " + giorniDifferenza + " giorni.");
-                            alert.showAndWait();
+                            scadenzaAbbonamento.setTitle("Attenzione");
+                            scadenzaAbbonamento.setHeaderText("Il tuo abbonamento sta per scadere!");
+                            scadenzaAbbonamento.setContentText("Il tuo abbonamento scade tra " + giorniDifferenza + " giorni.");
+                            scadenzaAbbonamento.showAndWait();
                             DatiSessioneCliente.setAlertScadenzaAbbonamento(true);
                         });
                     } else if (giorniDifferenza <= 0) {
                         Platform.runLater(() -> {
-                            Alert alert = new Alert(Alert.AlertType.WARNING);
-                            alert.setTitle("Attenzione");
-                            alert.setHeaderText("Il tuo abbonamento non è attivo!");
-                            alert.setContentText("Abbonati per continuare ad allenarti.");
-                            alert.showAndWait();
+                            scadenzaAbbonamento.setTitle("Attenzione");
+                            scadenzaAbbonamento.setHeaderText("Il tuo abbonamento non è attivo!");
+                            scadenzaAbbonamento.setContentText("Abbonati per continuare ad allenarti.");
+                            scadenzaAbbonamento.showAndWait();
                             DatiSessioneCliente.setAlertScadenzaAbbonamento(true);
                         });
                     }
@@ -290,6 +295,10 @@ public class ClientDashboardController implements Initializable {
                         alert.setTitle("Attenzione");
                         alert.setHeaderText("Il tuo abbonamento non è attivo!");
                         alert.setContentText("Abbonati per continuare ad allenarti.");
+                        ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
+                        DialogPane dialogPane = alert.getDialogPane();
+                        dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
+                        alert.setGraphic(icon);
                         alert.showAndWait();
                         DatiSessioneCliente.setAlertScadenzaAbbonamento(true);
                     });
@@ -305,6 +314,10 @@ public class ClientDashboardController implements Initializable {
                     alert.setTitle("Attenzione");
                     alert.setHeaderText("Certificato medico mancante!");
                     alert.setContentText("Devi caricare il certificato medico per continuare ad allenarti.");
+                    ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
+                    alert.setGraphic(icon);
                     alert.showAndWait();
                     DatiSessioneCliente.setAlertCertificatoMancante(true);
                 });

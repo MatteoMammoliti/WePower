@@ -40,7 +40,6 @@ public class ModelRegistrazione {
 
                 if (affectedRows == 0) {
                     conn.rollback();
-                    System.out.println("Inserimento cliente fallito.");
                     return false;
                 }
 
@@ -56,13 +55,11 @@ public class ModelRegistrazione {
                             psCredenziali.setInt(3, idCliente);
 
                             psCredenziali.executeUpdate();
-                            System.out.println("Registrazione completata.");
                             conn.commit();
                             return true;
                         }
                     } else {
                         conn.rollback();
-                        System.out.println(" Nessun ID cliente generato.");
                         return false;
                     }
                 }
@@ -72,11 +69,7 @@ public class ModelRegistrazione {
             } finally {
                 conn.setAutoCommit(true);
             }
-
         }
     }
-
-
-
 }
 

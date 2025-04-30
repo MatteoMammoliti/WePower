@@ -59,13 +59,18 @@ public class DatiSessionePalestra {
 
         //Inizializzo la ObservableList vuota
         ObservableList<RigaTabellaRichiesteScheda> utenti= FXCollections.observableArrayList();
-        String prendoIClienti="SELECT c.IdCliente,c.Nome,c.Cognome,c.Sesso,p.Peso FROM Cliente c JOIN PesoCliente p ON c.IdCliente=p.IdCliente JOIN  SchedaAllenamento s ON c.IdCliente=s.IdCliente WHERE s.IdAdmin=1 AND s.SchedaAncoraInUso=1 AND s.SchedaCompilata=0  AND NOT EXISTS " +
-                "(\n" +
-                "        SELECT 1\n" +
-                "        FROM   PesoCliente p2\n" +
-                "        WHERE  p2.IdCliente = p.IdCliente\n" +
-                "          AND  p2.DataRegistrazionePeso > p.DataRegistrazionePeso\n" +
-                "      );";
+        String prendoIClienti="SELECT c.IdCliente, c.Nome, c.Cognome, c.Sesso, p.Peso\n" +
+                "FROM Cliente c\n" +
+                "LEFT JOIN PesoCliente p ON c.IdCliente = p.IdCliente\n" +
+                "    AND p.DataRegistrazionePeso = (\n" +
+                "        SELECT MAX(p2.DataRegistrazionePeso)\n" +
+                "        FROM PesoCliente p2\n" +
+                "        WHERE p2.IdCliente = c.IdCliente\n" +
+                "    )\n" +
+                "JOIN SchedaAllenamento s ON c.IdCliente = s.IdCliente\n" +
+                "WHERE s.IdAdmin = 1\n" +
+                "  AND s.SchedaAncoraInUso = 1\n" +
+                "  AND s.SchedaCompilata = 0;\n";
         try(Connection conn= ConnessioneDatabase.getConnection()) {
             PreparedStatement preparo=conn.prepareStatement(prendoIClienti);
             ResultSet rs=preparo.executeQuery();
@@ -78,9 +83,5 @@ public class DatiSessionePalestra {
             throw new RuntimeException(e);
         }
         return utenti;
-
-
     }
-
-
 }

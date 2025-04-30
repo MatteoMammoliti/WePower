@@ -3,7 +3,9 @@ package com.wepower.wepower.Models;
 import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.util.Pair;
 
 import java.io.*;
@@ -349,23 +351,23 @@ public class DatiSessioneCliente {
                 conferma.setTitle("Conferma eliminazione");
                 conferma.setHeaderText("Sei sicuro di voler eliminare questo cliente?");
                 conferma.setContentText("Questa azione è irreversibile!");
+                ImageView icon = new ImageView(new Image(DatiSessioneCliente.class.getResourceAsStream("/Images/IconeAlert/question.png")));
+                DialogPane dialogPane = conferma.getDialogPane();
+                dialogPane.getStylesheets().add(DatiSessioneCliente.class.getResource("/Styles/alertStyle.css").toExternalForm());
+                conferma.setGraphic(icon);
                 Optional<ButtonType> resultat = conferma.showAndWait();
                     if (resultat.isPresent() && resultat.get() == ButtonType.OK) {
                         // Se l'utente ha confermato l'eliminazione, eseguiamo la query
                         int righeModificate = datiEliminaUtente.executeUpdate();
                         if(righeModificate>0) {
-                            System.out.println("Utente eliminato con successo");
                             DatiSessioneCliente.logout();
                             Model.getInstance().getViewFactoryClient().showLoginWindow();
                             return true;
                         }
                         else{
-                            System.out.println("Nessun utente eliminato");
                             return false;
                         }
-
                 }
-
             }
         }
         return false;

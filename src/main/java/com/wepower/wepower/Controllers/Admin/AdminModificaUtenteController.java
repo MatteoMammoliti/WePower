@@ -5,6 +5,8 @@ import com.wepower.wepower.Views.AdminView.RigaDashboardAdmin;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -135,16 +137,20 @@ public class AdminModificaUtenteController implements Initializable{
 
         boolean modificaUtente = !inputNuovoNome.getText().equals(riga.getNome()) ||  !inputNuovoCognome.getText().equals(riga.getCognome()) || !dataN.equals(dataNAgg);
         if (modificaUtente){
-        Alert chiudi = new Alert(Alert.AlertType.ERROR);
-        chiudi.setTitle("Attenzione");
-        chiudi.setHeaderText("Sei sicuro di voler annullare le modifiche?");
-        chiudi.setContentText("Questa operazione annullerà tutte le modifiche non salvate.");
-        ButtonType conferma = new ButtonType("Sì", ButtonBar.ButtonData.OK_DONE);
-        ButtonType annulla = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+            Alert chiudi = new Alert(Alert.AlertType.ERROR);
+            chiudi.setTitle("Attenzione");
+            chiudi.setHeaderText("Sei sicuro di voler annullare le modifiche?");
+            chiudi.setContentText("Questa operazione annullerà tutte le modifiche non salvate.");
+            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
+            DialogPane dialogPane = chiudi.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
+            chiudi.setGraphic(icon);
+            ButtonType conferma = new ButtonType("Sì", ButtonBar.ButtonData.OK_DONE);
+            ButtonType annulla = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-        chiudi.getButtonTypes().setAll(conferma, annulla);
-        Optional<ButtonType> risultato = chiudi.showAndWait();
-        Stage stage = null;
+            chiudi.getButtonTypes().setAll(conferma, annulla);
+            Optional<ButtonType> risultato = chiudi.showAndWait();
+            Stage stage = null;
         if (risultato.isPresent() && risultato.get() == conferma) {
             stage = (Stage) inputAnnulla.getScene().getWindow();
             stage.close();

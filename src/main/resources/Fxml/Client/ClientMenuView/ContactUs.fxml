@@ -6,30 +6,28 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.web.WebView?>
-<SplitPane dividerPositions="0.5" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientViewsController.ContactUsController">
+<SplitPane id="contenitorePagina" dividerPositions="0.5" stylesheets="@../../../Styles/contactUsStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
 
     <items>
-        <!-- Pannello sinistro -->
         <StackPane>
             <children>
-                <VBox alignment="CENTER" spacing="20" styleClass="vbox" stylesheets="@../../../Styles/contactUsStyle.css" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
-                    <Label styleClass="label-titolo" stylesheets="@../../../Styles/contactUsStyle.css" text="I nostri social" />
-                    <Button styleClass="icone-socials" stylesheets="@../../../Styles/contactUsStyle.css" text="Instagram">
+                <VBox id="vboxSocial" alignment="CENTER" spacing="20" styleClass="vbox" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
+                    <Label id="iNostriSocial" styleClass="label-titolo" stylesheets="@../../../Styles/contactUsStyle.css" text="I nostri social" />
+                    <Button id="bottoneSocial" styleClass="icone-socials" stylesheets="@../../../Styles/contactUsStyle.css" text="Instagram">
                       <graphic>
-                         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                      <Image url="@../../../Images/icona_ig.png" />
                                  </image>
                          </ImageView>
                       </graphic>
                     </Button>
-                    <Button styleClass="icone-socials" stylesheets="@../../../Styles/contactUsStyle.css" text="Facebook">
+                    <Button id="bottoneSocial" styleClass="icone-socials" stylesheets="@../../../Styles/contactUsStyle.css" text="Facebook">
                   <graphic>
-                     <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                           <image>
                               <Image url="@../../../Images/icona_fb.png" />
                           </image>
@@ -39,15 +37,14 @@
             </children>
         </StackPane>
 
-        <!-- Pannello destro -->
         <StackPane>
             <children>
-                <VBox alignment="CENTER" spacing="20" styleClass="vbox" stylesheets="@../../../Styles/contactUsStyle.css" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
+                <VBox alignment="CENTER" spacing="20" styleClass="vbox" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
                     <Label styleClass="label-titolo" stylesheets="@../../../Styles/contactUsStyle.css" text="I nostri contatti" />
-                    <Label fx:id="labelEmail" styleClass="label-contenuto" stylesheets="@../../../Styles/contactUsStyle.css" text="Email: info@wepower.it" />
-                    <Label fx:id="labelTelefono" styleClass="label-contenuto" stylesheets="@../../../Styles/contactUsStyle.css" text="Telefono: 123-456-7890" />
-                    <Label fx:id="labelIndirizzo" styleClass="label-contenuto" stylesheets="@../../../Styles/contactUsStyle.css" text="Sede: Via Roma 1, Milano" />
-                    <Label fx:id="labelOrariSegreteria" styleClass="label-contenuto" stylesheets="@../../../Styles/contactUsStyle.css" text="Orari segreteria: 9-18" />
+                    <Label styleClass="label-contenuto" stylesheets="@../../../Styles/contactUsStyle.css" text="Email: info@wepower.it"/>
+                    <Label styleClass="label-contenuto" stylesheets="@../../../Styles/contactUsStyle.css" text="Telefono: 0968 943962" />
+                    <Label styleClass="label-contenuto" stylesheets="@../../../Styles/contactUsStyle.css" text="Sede: Via G. Marconi, Rende, 87036 (CS)" />
+                    <Label styleClass="label-contenuto" stylesheets="@../../../Styles/contactUsStyle.css" text="Orari segreteria: LUN-VEN 9-18" />
                 </VBox>
             </children>
         </StackPane>

@@ -8,8 +8,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -75,6 +77,10 @@ public class BannerAbbonamenti extends VBox {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Abbonamento già attivo");
                         alert.setHeaderText("Hai già un abbonamento attivo");
+                        ImageView icon = new ImageView(new Image(BannerAbbonamenti.class.getResourceAsStream("/Images/IconeAlert/info.png")));
+                        DialogPane dialogPane = alert.getDialogPane();
+                        dialogPane.getStylesheets().add(BannerAbbonamenti.class.getResource("/Styles/alertStyle.css").toExternalForm());
+                        alert.setGraphic(icon);
                         alert.showAndWait();
                         return;
 

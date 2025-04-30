@@ -1,18 +1,10 @@
 package com.wepower.wepower.Models.AdminModel;
 
 import com.wepower.wepower.Models.ConnessioneDatabase;
-import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.ModelValidazione;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import javax.swing.*;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

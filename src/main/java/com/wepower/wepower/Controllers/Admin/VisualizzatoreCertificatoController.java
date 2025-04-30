@@ -7,10 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -50,10 +48,13 @@ public class VisualizzatoreCertificatoController implements Initializable {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Certificato");
                         alert.setHeaderText("Certificato approvato");
+                        ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
+                        DialogPane dialogPane = alert.getDialogPane();
+                        dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
+                        alert.setGraphic(icon);
                         alert.showAndWait();
                         Stage stage = (Stage) btnApprova.getScene().getWindow();
                         tabellaCertificati.aggiornaTabella();
-                        AdminUtentiController.getIstanza().aggiornaUtenti();
                         stage.close();
                     }
                 } catch (SQLException ex) {
@@ -67,19 +68,26 @@ public class VisualizzatoreCertificatoController implements Initializable {
 
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Vuoi procedere?", si, no);
                 alert.setTitle("Conferma");
-                alert.setHeaderText("Sei sicuro?Il certificato verrà eliminato definitivamente");
+                alert.setHeaderText("Sei sicuro? Il certificato verrà eliminato definitivamente");
+                ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/question.png")));
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
+                alert.setGraphic(icon);
                 Optional<ButtonType> result = alert.showAndWait();
 
                 if (result.isPresent() && result.get() == si) {
                     if (ModelTabellaCertificati.onClickRifiuta(idCliente)) {
-                        Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-                        alert1.setTitle("Certificato");
-                        alert1.setHeaderText("Certificato rifiutato");
-                        alert1.setContentText("Il certificato è stato rifiutato");
-                        alert1.showAndWait();
+                        Alert rifiutato = new Alert(Alert.AlertType.INFORMATION);
+                        rifiutato.setTitle("Certificato");
+                        rifiutato.setHeaderText("Certificato rifiutato");
+                        rifiutato.setContentText("Il certificato è stato rifiutato");
+                        ImageView iconRifiutato = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/info.png")));
+                        DialogPane dialogPaneRifiutato = alert.getDialogPane();
+                        dialogPaneRifiutato.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
+                        rifiutato.setGraphic(iconRifiutato);
+                        rifiutato.showAndWait();
                         Stage stage = (Stage) btnRifiuta.getScene().getWindow();
                         tabellaCertificati.aggiornaTabella();
-                        AdminUtentiController.getIstanza().aggiornaUtenti();
                         stage.close();
                     }
                 }

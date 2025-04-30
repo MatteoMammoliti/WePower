@@ -2,10 +2,13 @@ package com.wepower.wepower.Controllers.Client;
 
 import com.wepower.wepower.Controllers.Client.ClientViewsController.ProfiloController;
 import com.wepower.wepower.Models.DatiSessioneCliente;
+import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.ModelModificaDati;
 import com.wepower.wepower.Models.ModelValidazione;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 
@@ -108,6 +111,10 @@ public class ModificaDatiController implements Initializable {
             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setHeaderText("Peso non valido");
+            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
+            alert.setGraphic(icon);
             alert.showAndWait();
             return;
         }
@@ -121,6 +128,10 @@ public class ModificaDatiController implements Initializable {
             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setHeaderText("Nome non valido");
+            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
+            alert.setGraphic(icon);
             alert.showAndWait();
             return;
         }
@@ -128,13 +139,21 @@ public class ModificaDatiController implements Initializable {
             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setHeaderText("Cognome non valido");
+            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
+            alert.setGraphic(icon);
             alert.showAndWait();
             return;
         }
         if(!ModelValidazione.controlloEmailvalida(email)){
             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
-            alert.setHeaderText("Email non valido");
+            alert.setHeaderText("Email non valida");
+            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
+            alert.setGraphic(icon);
             alert.showAndWait();
             return;
         }
@@ -142,6 +161,10 @@ public class ModificaDatiController implements Initializable {
             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setHeaderText("Email già esistente");
+            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
+            alert.setGraphic(icon);
             alert.showAndWait();
             return;
 
@@ -150,6 +173,10 @@ public class ModificaDatiController implements Initializable {
             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setHeaderText("Altezza non valido");
+            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
+            alert.setGraphic(icon);
             alert.showAndWait();
             return;
         }
@@ -157,6 +184,10 @@ public class ModificaDatiController implements Initializable {
             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setHeaderText("Data non valido");
+            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
+            alert.setGraphic(icon);
             alert.showAndWait();
             return;
         }
@@ -166,6 +197,10 @@ public class ModificaDatiController implements Initializable {
             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setHeaderText("Telefono non valido");
+            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
+            alert.setGraphic(icon);
             alert.showAndWait();
             return;
         }
@@ -187,14 +222,20 @@ public class ModificaDatiController implements Initializable {
 
 
         if(ModelModificaDati.onClickModificaDati(DatiSessioneCliente.getIdUtente(),nome,cognome,data,genere,altezza,email,telefono,peso)){
-            JOptionPane.showMessageDialog(null,"Dati modificati con successo");
+            Alert success = new Alert(Alert.AlertType.INFORMATION);
+            success.setTitle("Dati modificati con successo");
+            success.setHeaderText("Dati modificati con successo");
+            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/info.png")));
+            DialogPane dialogPane = success.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
+            success.setGraphic(icon);
+            success.showAndWait();
+            Model.getInstance().getClientMenuController().caricaMenu();
             ProfiloController.getInstance().caricaInterfacciaDatiUtente();
+
             Stage stage= (Stage) btnAggiorna.getScene().getWindow();
             stage.close();
-
         }
-
-
     }
 
     public void onClickAnnulla(){

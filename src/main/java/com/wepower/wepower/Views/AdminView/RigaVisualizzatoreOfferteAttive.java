@@ -3,10 +3,9 @@ package com.wepower.wepower.Views.AdminView;
 import com.wepower.wepower.Controllers.Admin.AdminDashboardController;
 import com.wepower.wepower.Models.AdminModel.ModelDashboardAdmin;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 import java.sql.SQLException;
@@ -33,6 +32,10 @@ public class RigaVisualizzatoreOfferteAttive extends HBox {
                 alert.setTitle("Elimina promozione");
                 alert.setHeaderText("Sei sicuro di voler eliminare la promozione: " + nomeOfferta + "?");
                 alert.setContentText("Questa azione è irreversibile.");
+                ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/question.png")));
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
+                alert.setGraphic(icon);
 
                 // Mostro la finestra e aspetto la risposta
                 Optional<ButtonType> result = alert.showAndWait();
@@ -44,12 +47,13 @@ public class RigaVisualizzatoreOfferteAttive extends HBox {
                         Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
                         alert1.setTitle("Elimina promozione");
                         alert1.setHeaderText("Promozione eliminata con successo");
+                        ImageView icon1 = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/info.png")));
+                        DialogPane dialogPane1 = alert.getDialogPane();
+                        dialogPane1.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
+                        alert.setGraphic(icon1);
+                        alert.show();
                         AdminDashboardController.getInstance().setPromozioni();
-                } else {
-                    // L'utente ha annullato
-                    System.out.println("Eliminazione annullata.");
-                }
-
+                    }
                 }
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);

@@ -81,16 +81,13 @@ public class LoginController implements Initializable {
 
         if(ModelAutenticazione.verificaCredenziali(email,password)) {
 
-            System.out.println("Login effettuato con successo");
             labelLoginError.setVisible(false);
 
             ModelAutenticazione.prelevaDatiPalestra();
             Stage stage = (Stage) loginButton.getScene().getWindow();
             Model.getInstance().getViewFactoryClient().closeStage(stage);
-
             String ruolo = DatiSessioneCliente.getNomeUtente();
 
-            System.out.println("ruolo" + ruolo);
             if (Objects.equals(ruolo, "Admin")) {
                 Model.getInstance().getViewFactoryAdmin().showDashboardAdmin();
             }
@@ -101,7 +98,6 @@ public class LoginController implements Initializable {
         else
         {
             labelLoginError.setVisible(true);
-            System.out.println("Login fallito");
         }
     }
 

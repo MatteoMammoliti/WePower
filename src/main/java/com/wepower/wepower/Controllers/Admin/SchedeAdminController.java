@@ -41,7 +41,6 @@ public class SchedeAdminController implements Initializable {
         //Carico i dati delle richieste di scheda
         aggiornaTabbella();
         aggiungiBottone();
-
     }
 
     public void aggiornaTabbella() {

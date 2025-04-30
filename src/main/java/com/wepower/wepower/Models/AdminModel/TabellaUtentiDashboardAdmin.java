@@ -126,7 +126,6 @@ public class TabellaUtentiDashboardAdmin {
                 psCliente.setString(2, cognome);
                 psCliente.setString(3, dataNascita);
                 psCliente.setInt(4, id);
-                System.out.printf("MATTTEO CHECK");
                 psCliente.executeUpdate();
             }
             catch (SQLException e) {
