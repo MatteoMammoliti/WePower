@@ -4,6 +4,7 @@ import com.wepower.wepower.Controllers.Client.ClientViewsController.InserimentoD
 import com.wepower.wepower.Controllers.Client.ClientViewsController.ProfiloController;
 import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.DatiSessioneCliente;
+import com.wepower.wepower.Views.AlertHelper;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -73,17 +74,8 @@ public class BannerAbbonamenti extends VBox {
                 BannerAbbonamenti banner = new BannerAbbonamenti(path, nomeTitolo, costo, 150, 300);
                 banner.setOnMouseClicked(event -> {
                     if(DatiSessioneCliente.getStatoAbbonamento()){
-                        System.out.println("Abbonamento già attivo");
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Abbonamento già attivo");
-                        alert.setHeaderText("Hai già un abbonamento attivo");
-                        ImageView icon = new ImageView(new Image(BannerAbbonamenti.class.getResourceAsStream("/Images/IconeAlert/info.png")));
-                        DialogPane dialogPane = alert.getDialogPane();
-                        dialogPane.getStylesheets().add(BannerAbbonamenti.class.getResource("/Styles/alertStyle.css").toExternalForm());
-                        alert.setGraphic(icon);
-                        alert.showAndWait();
+                        AlertHelper.showAlert("Abbonamento già attivo", "Hai già un abbonamento attivo", null,  Alert.AlertType.INFORMATION);
                         return;
-
                     }
                     try {
                         banner.onClickBannerio(nomeTitolo,costo);
@@ -91,15 +83,12 @@ public class BannerAbbonamenti extends VBox {
                         throw new RuntimeException(e);
                     }
                 });
-
                 bannerAbbonamenti.add(banner);
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return bannerAbbonamenti;
-
     }
 
     public void onClickBannerio(String nome,double prezzoB) throws IOException {
@@ -115,8 +104,5 @@ public class BannerAbbonamenti extends VBox {
         stage.setResizable(false);
         stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
         stage.showAndWait();
-
-
     }
-
 }

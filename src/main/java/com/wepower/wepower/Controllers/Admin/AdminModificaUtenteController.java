@@ -2,13 +2,13 @@ package com.wepower.wepower.Controllers.Admin;
 
 import com.wepower.wepower.Models.AdminModel.TabellaUtentiDashboardAdmin;
 import com.wepower.wepower.Views.AdminView.RigaDashboardAdmin;
+import com.wepower.wepower.Views.AlertHelper;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -28,10 +28,6 @@ public class AdminModificaUtenteController implements Initializable{
     @FXML
     private DatePicker inputNuovaDataRinnovo;
     @FXML
-    private DatePicker inputNuovaDataScadenza;
-    @FXML
-    private Button inputSalva;
-    @FXML
     private Button inputAnnulla;
 
     private Stage dialogStage;
@@ -39,8 +35,6 @@ public class AdminModificaUtenteController implements Initializable{
     public void setDialogStage(Stage stage) {
         this.dialogStage = stage;
     }
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){

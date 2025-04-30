@@ -1,6 +1,7 @@
 package com.wepower.wepower.Controllers.Admin;
 
 import com.wepower.wepower.Models.AdminModel.ModelTabellaCertificati;
+import com.wepower.wepower.Views.AlertHelper;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,14 +46,7 @@ public class VisualizzatoreCertificatoController implements Initializable {
             btnApprova.setOnAction(e -> {
                 try {
                     if (ModelTabellaCertificati.onClickConferma(idCliente)) {
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Certificato");
-                        alert.setHeaderText("Certificato approvato");
-                        ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
-                        DialogPane dialogPane = alert.getDialogPane();
-                        dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
-                        alert.setGraphic(icon);
-                        alert.showAndWait();
+                        AlertHelper.showAlert("Certificato", "Certificato approvato", "Il certificato è stato approvato",  Alert.AlertType.INFORMATION);
                         Stage stage = (Stage) btnApprova.getScene().getWindow();
                         tabellaCertificati.aggiornaTabella();
                         stage.close();
@@ -77,15 +71,7 @@ public class VisualizzatoreCertificatoController implements Initializable {
 
                 if (result.isPresent() && result.get() == si) {
                     if (ModelTabellaCertificati.onClickRifiuta(idCliente)) {
-                        Alert rifiutato = new Alert(Alert.AlertType.INFORMATION);
-                        rifiutato.setTitle("Certificato");
-                        rifiutato.setHeaderText("Certificato rifiutato");
-                        rifiutato.setContentText("Il certificato è stato rifiutato");
-                        ImageView iconRifiutato = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/info.png")));
-                        DialogPane dialogPaneRifiutato = alert.getDialogPane();
-                        dialogPaneRifiutato.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
-                        rifiutato.setGraphic(iconRifiutato);
-                        rifiutato.showAndWait();
+                        AlertHelper.showAlert("Certificato", "Certificato rifiutato", "Il certificato è stato rifiutato",  Alert.AlertType.INFORMATION);
                         Stage stage = (Stage) btnRifiuta.getScene().getWindow();
                         tabellaCertificati.aggiornaTabella();
                         stage.close();

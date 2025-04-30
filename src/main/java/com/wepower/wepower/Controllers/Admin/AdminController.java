@@ -1,12 +1,10 @@
 package com.wepower.wepower.Controllers.Admin;
 
 import com.wepower.wepower.Models.AdminModel.DatiSessioneAdmin;
-import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 

@@ -3,6 +3,7 @@ package com.wepower.wepower.Views.SchedaAllenamento;
 import com.wepower.wepower.Models.AdminModel.DatiSessioneAdmin;
 import com.wepower.wepower.Models.AdminModel.ModelSchermataCreazioneScheda;
 import com.wepower.wepower.Models.Model;
+import com.wepower.wepower.Views.AlertHelper;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -72,27 +73,16 @@ public class RigaEsercizioListaAdmin extends HBox {
     public void onInserisci() {
 
         if (this.numeroSerie.getText().isEmpty() || this.numeroRipetizioni.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Errore");
-            alert.setHeaderText("Compila tutti i campi");
-            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
-            alert.setGraphic(icon);
-            alert.showAndWait();
+            AlertHelper.showAlert("Errore", "Compila tutti i campi", null, Alert.AlertType.ERROR );
             return;
         }
+
         String percorsoImmagine = ModelSchermataCreazioneScheda.ottieniPercorsoImmagine(this.nomeEsercizio.getText());
         RigaEsercizioSchedaAdmin temp = new RigaEsercizioSchedaAdmin(this.nomeEsercizio.getText(), this.numeroSerie.getText(), this.numeroRipetizioni.getText(), percorsoImmagine);
+
         if (!DatiSessioneAdmin.addEsercizioInScheda(temp)){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Errore");
-            alert.setHeaderText("Esercizio già presente nella scheda");
-            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
-            alert.setGraphic(icon);
-            alert.showAndWait();
+            AlertHelper.showAlert("Errore", "Esercizio già presente nella scheda", null, Alert.AlertType.ERROR );
+            return;
         }
         aggiornaUI();
     }

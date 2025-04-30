@@ -3,6 +3,7 @@ package com.wepower.wepower.Controllers;
 import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.ModelRegistrazione;
 import com.wepower.wepower.Models.ModelValidazione;
+import com.wepower.wepower.Views.AlertHelper;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -100,14 +101,7 @@ public class SignUpController implements Initializable {
 
     public void registrazione() throws SQLException {
         if(ModelRegistrazione.verificaEmailEsistente(emailText.getText())){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Errore");
-            alert.setHeaderText("Email già esistente");
-            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
-            alert.setGraphic(icon);
-            alert.showAndWait();
+            AlertHelper.showAlert("Errore", "Email già esistente", null,  Alert.AlertType.ERROR);
             return;
         }
         //Prendo i dati in input
@@ -128,14 +122,7 @@ public class SignUpController implements Initializable {
         LocalDate dataNascita = dataNascitaText.getValue();
 
         if(password.isEmpty() || passwordRipetuta.isEmpty() || nome.isEmpty() || cognome.isEmpty() || email.isEmpty() || dataNascitaText.getValue() == null){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Errore");
-            alert.setHeaderText("Compila tutti i campi.");
-            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
-            alert.setGraphic(icon);
-            alert.showAndWait();
+            AlertHelper.showAlert("Errore", "Compiòa tutti i campi", null,  Alert.AlertType.ERROR);
             return;
         }
 
@@ -163,24 +150,13 @@ public class SignUpController implements Initializable {
             }else{
                     labelErroreCognome.setVisible(false);}
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         if (ModelRegistrazione.registraUtente(nome,cognome,dataNascita,email,password)) {
-            alert.setTitle("Registrazione effettuata");
-            alert.setHeaderText("Registrazione effettuata con successo.");
-            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/success.png")));
-            alert.setGraphic(icon);
+            AlertHelper.showAlert("Registrazione effettuata", "Registrazione effettuata con successo", null,  Alert.AlertType.INFORMATION);
             onLogin();
         }
         else {
-            alert.setTitle("Registrazione fallita");
-            alert.setHeaderText("Registrazione fallita. Ti invitiamo a riprovare.");
-            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/fail.png")));
-            alert.setGraphic(icon);
-            onLogin();
+            AlertHelper.showAlert("Registrazione fallita", "Registrazione fallita", null,  Alert.AlertType.ERROR);
         }
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
-        alert.showAndWait();
     }
 
     public void nascondiPassword(){

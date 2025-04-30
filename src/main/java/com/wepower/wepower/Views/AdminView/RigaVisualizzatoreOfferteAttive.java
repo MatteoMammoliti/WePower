@@ -2,6 +2,7 @@ package com.wepower.wepower.Views.AdminView;
 
 import com.wepower.wepower.Controllers.Admin.AdminDashboardController;
 import com.wepower.wepower.Models.AdminModel.ModelDashboardAdmin;
+import com.wepower.wepower.Views.AlertHelper;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -44,14 +45,7 @@ public class RigaVisualizzatoreOfferteAttive extends HBox {
                 if (result.isPresent() && result.get() == ButtonType.OK) {
                     // L'utente ha confermato, elimina la promozione
                     if(ModelDashboardAdmin.eliminaPromozione(nomeOfferta)){
-                        Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-                        alert1.setTitle("Elimina promozione");
-                        alert1.setHeaderText("Promozione eliminata con successo");
-                        ImageView icon1 = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/info.png")));
-                        DialogPane dialogPane1 = alert.getDialogPane();
-                        dialogPane1.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
-                        alert.setGraphic(icon1);
-                        alert.show();
+                        AlertHelper.showAlert("Elimina promozione","Promozione eliminata con successo", null, Alert.AlertType.INFORMATION );
                         AdminDashboardController.getInstance().setPromozioni();
                     }
                 }
@@ -59,8 +53,6 @@ public class RigaVisualizzatoreOfferteAttive extends HBox {
                 throw new RuntimeException(ex);
             }
         });
-
         this.getChildren().addAll(nome,costo,eliminaOfferta);
-
     }
 }

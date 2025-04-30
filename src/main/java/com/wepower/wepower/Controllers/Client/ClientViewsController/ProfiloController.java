@@ -159,14 +159,12 @@ public class ProfiloController implements Initializable {
             }
         });
         if (statoAbbonamento) {
-            System.out.println("sono qui si");
             labelTipoAbbonamento.setText(DatiSessioneCliente.getTipoAbbonamentoAttivo());
             labelDataInizioAbbonamento.setText(DatiSessioneCliente.getDataInizioAbbonamentoAttivo());
             labelDataFineAbbonamento.setText(DatiSessioneCliente.getDataFineAbbonamentoAttivo());
             labelStatoPagamento.setText("Attivo");
             labelStatoPagamento.getStyleClass().add("abbonamentoSi");
         } else {
-            System.out.println("sono qui no");
             labelStatoPagamento.setText("Riattiva il tuo abbonamento");
             labelStatoPagamento.getStyleClass().add("abbonamentoNo");
             labelStatoPagamento.setOnMouseClicked(event -> {
@@ -195,7 +193,6 @@ public class ProfiloController implements Initializable {
         else{
             labelTellefono.setText("Nessun numero di telefono");
         }
-        System.out.println("DatiSessioneCliente.getCertificato() = " + DatiSessioneCliente.getCertificato());
         if(DatiSessioneCliente.getCertificato()==2) {
             labelStatoCertificato.setText("Certificato valido");
             labelStatoCertificato.getStyleClass().add("certificatoSi");

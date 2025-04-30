@@ -12,9 +12,7 @@ public class ConnessioneDatabase {
         try{
             conn = DriverManager.getConnection(DB_URL);
             conn.createStatement().execute("PRAGMA foreign_keys = ON");
-            System.out.println("Connessione al database riuscita");
         }catch (SQLException e){
-            System.out.println("Connessione al database fallita");
             e.printStackTrace();
         }
 return  conn;  }

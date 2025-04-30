@@ -88,7 +88,6 @@ public class InserimentoDatiPagamentoController implements Initializable {
             return;
         }
         if(!ModelValidazione.controlloDataScadenzacarta(dataScadenza)){
-            System.out.println("[" + dataScadenza + "]");
             alert.setContentText("Data scadenza non valida(Mese,anno)");
             alert.setTitle("Attenzione");
             alert.showAndWait();
@@ -149,7 +148,6 @@ public class InserimentoDatiPagamentoController implements Initializable {
                     alert.setContentText("Aggiunta con successo");
                     alert.setTitle("Attenzione");
                     alert.showAndWait();
-                    System.out.println("Abbonamento aggiunto con successo");
                     conn.commit();
                     Stage stage=(Stage) btnPaga.getScene().getWindow();
                     DatiSessioneCliente.setStatoAbbonamento(true);
@@ -165,7 +163,6 @@ public class InserimentoDatiPagamentoController implements Initializable {
                     alert.setContentText("Errore nell'attivazione dell'abbonamento");
                     alert.setTitle("Attenzione");
                     alert.showAndWait();
-                    System.out.println("Errore nell'aggiunta dell'abbonamento");
                     conn.rollback();
                 }
             } catch (SQLException e) {

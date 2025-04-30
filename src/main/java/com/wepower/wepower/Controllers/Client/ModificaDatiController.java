@@ -5,6 +5,7 @@ import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.ModelModificaDati;
 import com.wepower.wepower.Models.ModelValidazione;
+import com.wepower.wepower.Views.AlertHelper;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -43,7 +44,6 @@ public class ModificaDatiController implements Initializable {
 
         textCognome.setText(DatiSessioneCliente.getCognome());
 
-
         textEmail.setText(DatiSessioneCliente.getEmail());
 
         textDataNascita.setValue(LocalDate.parse(DatiSessioneCliente.getDataNascita()));
@@ -79,9 +79,6 @@ public class ModificaDatiController implements Initializable {
             btnAltro.setSelected(true);
         }
 
-
-
-
         btnAggiorna.setOnAction(event -> {
             try {
                 onClickAggiorna();
@@ -93,9 +90,6 @@ public class ModificaDatiController implements Initializable {
         });
 
         btnAnnulla.setOnAction(event -> onClickAnnulla());
-
-
-
     }
 
     public void onClickAggiorna() throws SQLException, IOException {
@@ -105,17 +99,9 @@ public class ModificaDatiController implements Initializable {
         String telefono = textTelefono.getText();
         String altezza = textAltezza.getText();
         String pesoStr = textPesoAttuale.getText();
-        Alert alert;
 
         if(!ModelValidazione.controlloPeso(pesoStr)){
-            alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Errore");
-            alert.setHeaderText("Peso non valido");
-            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
-            alert.setGraphic(icon);
-            alert.showAndWait();
+            AlertHelper.showAlert("Errore", "Peso non valido", null,  Alert.AlertType.ERROR);
             return;
         }
 
@@ -125,83 +111,33 @@ public class ModificaDatiController implements Initializable {
         }
 
         if(!ModelValidazione.controlloNome(nome)){
-            alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Errore");
-            alert.setHeaderText("Nome non valido");
-            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
-            alert.setGraphic(icon);
-            alert.showAndWait();
+            AlertHelper.showAlert("Errore", "Nome non valido", null,  Alert.AlertType.ERROR);
             return;
         }
         if(!ModelValidazione.controlloCognome(cognome)){
-            alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Errore");
-            alert.setHeaderText("Cognome non valido");
-            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
-            alert.setGraphic(icon);
-            alert.showAndWait();
+            AlertHelper.showAlert("Errore", "Cognome non valido", null,  Alert.AlertType.ERROR);
             return;
         }
         if(!ModelValidazione.controlloEmailvalida(email)){
-            alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Errore");
-            alert.setHeaderText("Email non valida");
-            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
-            alert.setGraphic(icon);
-            alert.showAndWait();
+            AlertHelper.showAlert("Errore", "Email non valida", null,  Alert.AlertType.ERROR);
             return;
         }
         if(ModelValidazione.controlloEmailEsistente(email)){
-            alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Errore");
-            alert.setHeaderText("Email già esistente");
-            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
-            alert.setGraphic(icon);
-            alert.showAndWait();
+            AlertHelper.showAlert("Errore", "Email già esistente", null,  Alert.AlertType.ERROR);
             return;
 
         }
         if(altezza!=null && !ModelValidazione.controlloAltezza(altezza)){
-            alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Errore");
-            alert.setHeaderText("Altezza non valido");
-            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
-            alert.setGraphic(icon);
-            alert.showAndWait();
+            AlertHelper.showAlert("Errore", "Altezza non valida", null,  Alert.AlertType.ERROR);
             return;
         }
         if(!ModelValidazione.controlloData(textDataNascita.getValue())){
-            alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Errore");
-            alert.setHeaderText("Data non valido");
-            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
-            alert.setGraphic(icon);
-            alert.showAndWait();
+            AlertHelper.showAlert("Errore", "Data non valida", null,  Alert.AlertType.ERROR);
             return;
         }
 
-
         if(telefono!=null && !ModelValidazione.controlloNumeroTelefono(telefono)){
-            alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Errore");
-            alert.setHeaderText("Telefono non valido");
-            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
-            alert.setGraphic(icon);
-            alert.showAndWait();
+            AlertHelper.showAlert("Errore", "Telefono non valido", null,  Alert.AlertType.ERROR);
             return;
         }
 

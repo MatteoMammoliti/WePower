@@ -19,13 +19,14 @@ public class AdminResettaPasswordController implements Initializable {
     private TextField inputTextPassword;
     @FXML
     private Button inputSalva;
+
+    private int idCliente;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         inputGeneraPassword.setOnAction(e -> {
             String password= ResettaPasswordAdmin.onGenera();
             inputTextPassword.setText(password);
         });
-
 
         inputSalva.setOnAction(e -> {ResettaPasswordAdmin.onSalva(idCliente, inputTextPassword.getText());
                 Stage stage = (Stage) inputSalva.getScene().getWindow();
@@ -37,12 +38,7 @@ public class AdminResettaPasswordController implements Initializable {
         });
     }
 
-    int idCliente;
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
-
-
-
-
 }

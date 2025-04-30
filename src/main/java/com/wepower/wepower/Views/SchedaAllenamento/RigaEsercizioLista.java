@@ -3,8 +3,8 @@ package com.wepower.wepower.Views.SchedaAllenamento;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.SchedaAllenamento.ModelSchedaAllenamentoCliente;
+import com.wepower.wepower.Views.AlertHelper;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -55,14 +55,7 @@ public class RigaEsercizioLista extends HBox {
             try {
                 onInserisci();
             } catch (Exception ex) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Errore");
-                alert.setHeaderText("Esercizio già presente nella scheda");
-                ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
-                DialogPane dialogPane = alert.getDialogPane();
-                dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
-                alert.setGraphic(icon);
-                alert.showAndWait();
+                AlertHelper.showAlert("Errore", "Esercizio già presente nella scheda", null, Alert.AlertType.ERROR );
             }
             aggiornaUI();
         });
@@ -94,10 +87,7 @@ public class RigaEsercizioLista extends HBox {
     public void onInserisci() throws SQLException {
 
         if (this.numeroSerie.getText().isEmpty() || this.numeroRipetizioni.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Errore");
-            alert.setHeaderText("Compila tutti i campi");
-            alert.showAndWait();
+            AlertHelper.showAlert("Errore", "Compila tutti i campi", null, Alert.AlertType.ERROR );
             return;
         }
         ModelSchedaAllenamentoCliente.inserisciEsercizioScheda(this.nomeEsercizio.getText(), DatiSessioneCliente.getIdSchedaAllenamento(), this.numeroRipetizioni.getText(), this.numeroSerie.getText());

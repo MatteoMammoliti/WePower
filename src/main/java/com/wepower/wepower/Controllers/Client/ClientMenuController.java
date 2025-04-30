@@ -57,7 +57,7 @@ public class ClientMenuController  implements Initializable {
             stage.widthProperty().addListener((obs, oldVal, newVal) -> aggiustaSpazioPulsanti());
             stage.heightProperty().addListener((obs, oldVal, newVal) -> aggiustaSpazioPulsanti());
 
-            aggiustaSpazioPulsanti(); // iniziale
+            aggiustaSpazioPulsanti();
         });
 
 

@@ -2,6 +2,7 @@ package com.wepower.wepower.Views.SchedaAllenamento;
 
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.SchedaAllenamento.ModelSchedaAllenamentoCliente;
+import com.wepower.wepower.Views.AlertHelper;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -59,11 +60,11 @@ public class RigaEsercizioScheda extends HBox {
             try {
                 this.aggiungiNuovoMassimale.setVisible(true);
                 if(Integer.parseInt(this.massimaleAttuale.getText().replace("Massimale attuale: ", "")) > Integer.parseInt(this.aggiungiNuovoMassimale.getText())) {
-                    showAlert("Il nuovo massimale è minore di quello già presente.");
+                    AlertHelper.showAlert("Errore", "Il nuovo massimale è minore di quello già presente", null, Alert.AlertType.ERROR );
                     this.aggiungiNuovoMassimale.clear();
                 } else onAggiungiNuovoMassimale();
             } catch (SQLException e) {
-                showAlert("Qualcosa è andato storto.");
+                AlertHelper.showAlert("Errore", "Qualcosa è andato storto", null, Alert.AlertType.ERROR );
             }
         });
 
@@ -103,16 +104,5 @@ public class RigaEsercizioScheda extends HBox {
         } catch (SQLException e) {
             ModelSchedaAllenamentoCliente.onUpdateMassimale(Double.parseDouble(this.aggiungiNuovoMassimale.getText()), DatiSessioneCliente.getIdUtente(), this.nomeEsercizio.getText());
         }
-    }
-
-    private void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Errore");
-        alert.setHeaderText(message);
-        ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
-        alert.setGraphic(icon);
-        alert.showAndWait();
     }
 }
