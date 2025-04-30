@@ -3,9 +3,9 @@
 
 .pane_offerte_dashboard{
     -fx-background-color: transparent;
-    -fx-border-width: 3px;
+    -fx-border-width: 3;
     -fx-background-radius: 15 ;
-    -fx-border-radius: 0px 0px 30px 30px;
+    -fx-border-radius: 0 0 30 30;
 
 
 
