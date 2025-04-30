@@ -1,0 +1,47 @@
+#contenitorePaginaModificaDati {
+    -fx-background-color: #DDE6ED;
+}
+
+#titoloModificaDati {
+    -fx-font-size: 2.5em;
+    -fx-text-fill:#27374D;
+    -fx-font-weight: bold;
+}
+
+#labelModificaDati {
+    -fx-font-size: 1.5em;
+    -fx-text-fill:#27374D;
+    -fx-font-weight: bold;
+}
+
+#radioButtonModificaDati {
+    -fx-font-weight: bold;
+    -fx-font-size: 1.2em;
+    -fx-text-fill: #27374DFF;
+}
+
+#radioButtonModificaDati .radio{
+    -fx-background-color: #526D82;
+}
+
+#radioButtonModificaDati:selected .radio{
+    -fx-background-color: #27374d;
+}
+#bottoniConfermaModifica {
+    -fx-background-color: #526D82;
+    -fx-text-fill: #27374DFF;
+    -fx-font-size: 1.3em;
+    -fx-font-weight: bold;
+    -fx-font-family: "Arial";
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-padding: 10 30;
+    -fx-pref-width: 200;
+}
+
+#bottoniConfermaModifica:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
+}

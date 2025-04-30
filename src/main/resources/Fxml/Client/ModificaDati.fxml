@@ -12,23 +12,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@../../Styles/login.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ModificaDatiController">
+<AnchorPane id="contenitorePaginaModificaDati" prefHeight="600.0" prefWidth="900.0" stylesheets="@../../Styles/modificaDati.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ModificaDatiController">
    <children>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
          <children>
-            <Label alignment="CENTER" prefHeight="36.0" prefWidth="909.0" text="Modifica i tuoi dati" textAlignment="CENTER">
-               <font>
-                  <Font name="Arial Bold" size="30.0" />
-               </font>
-            </Label>
+            <Label id="titoloModificaDati" alignment="CENTER" prefHeight="36.0" prefWidth="909.0" text="Modifica i tuoi dati" textAlignment="CENTER" />
             <HBox prefHeight="426.0" prefWidth="900.0">
                <children>
-                  <VBox prefHeight="545.0" prefWidth="450.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="545.0" prefWidth="450.0" spacing="10.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="23.0" prefWidth="292.0" text="Nome:">
-                           <font>
-                              <Font name="Arial Bold" size="20.0" />
-                           </font>
+                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="23.0" prefWidth="292.0" text="Nome:">
                            <VBox.margin>
                               <Insets left="10.0" />
                            </VBox.margin>
@@ -38,10 +31,7 @@
                               <Insets left="20.0" right="40.0" top="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <Label alignment="CENTER" prefHeight="23.0" prefWidth="289.0" text="Data di nascita:">
-                           <font>
-                              <Font name="Arial Bold" size="20.0" />
-                           </font>
+                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="23.0" prefWidth="289.0" text="Data di nascita:">
                            <VBox.margin>
                               <Insets left="10.0" top="10.0" />
                            </VBox.margin>
@@ -51,10 +41,7 @@
                               <Insets left="20.0" right="40.0" top="10.0" />
                            </VBox.margin>
                         </DatePicker>
-                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="292.0" text="Telefono:">
-                           <font>
-                              <Font name="Arial Bold" size="20.0" />
-                           </font>
+                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="17.0" prefWidth="292.0" text="Telefono:">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -69,13 +56,10 @@
                         </TextField>
                         <Separator prefWidth="200.0">
                            <VBox.margin>
-                              <Insets top="44.0" />
+                              <Insets top="45.0" />
                            </VBox.margin>
                         </Separator>
-                        <Label alignment="CENTER" prefHeight="23.0" prefWidth="311.0" text="Altezza:">
-                           <font>
-                              <Font name="Arial Bold" size="20.0" />
-                           </font>
+                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="23.0" prefWidth="311.0" text="Altezza:">
                            <VBox.margin>
                               <Insets left="10.0" top="10.0" />
                            </VBox.margin>
@@ -90,41 +74,32 @@
                         </TextField>
                      </children>
                   </VBox>
-                  <VBox prefHeight="545.0" prefWidth="450.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="545.0" prefWidth="450.0" spacing="10.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="23.0" prefWidth="420.0" text="Cognome:">
-                           <font>
-                              <Font name="Arial Bold" size="20.0" />
-                           </font>
+                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="23.0" prefWidth="420.0" text="Cognome:">
                            <VBox.margin>
                               <Insets left="10.0" />
                            </VBox.margin>
                         </Label>
                         <TextField fx:id="textCognome" prefHeight="25.0" prefWidth="345.0" styleClass="input_login" stylesheets="@../../Styles/login.css">
                            <VBox.margin>
-                              <Insets left="40.0" right="20.0" top="10.0" />
+                              <Insets left="40.0" right="40.0" top="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <Label alignment="CENTER" prefHeight="33.0" prefWidth="413.0" text="Email:">
-                           <font>
-                              <Font name="Arial Bold" size="20.0" />
-                           </font>
+                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="33.0" prefWidth="413.0" text="Email:">
                            <VBox.margin>
                               <Insets left="10.0" top="10.0" />
                            </VBox.margin>
                         </Label>
                         <TextField fx:id="textEmail" styleClass="input_login" stylesheets="@../../Styles/login.css">
                            <VBox.margin>
-                              <Insets left="40.0" right="20.0" top="10.0" />
+                              <Insets left="40.0" right="40.0" top="10.0" />
                            </VBox.margin>
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
                         </TextField>
-                        <Label alignment="CENTER" prefHeight="23.0" prefWidth="417.0" text="Genere:">
-                           <font>
-                              <Font name="Arial Bold" size="20.0" />
-                           </font>
+                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="23.0" prefWidth="417.0" text="Genere:">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -134,7 +109,7 @@
                         </Label>
                         <HBox prefHeight="62.0" prefWidth="450.0">
                            <children>
-                              <RadioButton fx:id="btnUomo" mnemonicParsing="false" prefHeight="17.0" prefWidth="101.0" text="Uomo">
+                              <RadioButton id="radioButtonModificaDati" fx:id="btnUomo" mnemonicParsing="false" prefHeight="17.0" prefWidth="101.0" text="Uomo">
                                  <HBox.margin>
                                     <Insets left="40.0" />
                                  </HBox.margin>
@@ -142,7 +117,7 @@
                                     <Font name="Arial Bold" size="15.0" />
                                  </font>
                               </RadioButton>
-                              <RadioButton fx:id="btnDonna" mnemonicParsing="false" text="Donna">
+                              <RadioButton id="radioButtonModificaDati" fx:id="btnDonna" mnemonicParsing="false" text="Donna">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
@@ -150,7 +125,7 @@
                                     <Font name="Arial Bold" size="15.0" />
                                  </font>
                               </RadioButton>
-                              <RadioButton fx:id="btnAltro" mnemonicParsing="false" text="Altro">
+                              <RadioButton id="radioButtonModificaDati" fx:id="btnAltro" mnemonicParsing="false" text="Altro">
                                  <font>
                                     <Font name="Arial Bold" size="15.0" />
                                  </font>
@@ -164,10 +139,7 @@
                            </VBox.margin>
                         </HBox>
                         <Separator prefWidth="200.0" />
-                        <Label alignment="CENTER" prefHeight="23.0" prefWidth="483.0" text="Peso attuale:">
-                           <font>
-                              <Font name="Arial Bold" size="20.0" />
-                           </font>
+                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="23.0" prefWidth="483.0" text="Peso attuale:">
                            <VBox.margin>
                               <Insets right="10.0" top="10.0" />
                            </VBox.margin></Label>
@@ -180,16 +152,16 @@
                   </VBox>
                </children>
             </HBox>
-            <Button fx:id="btnAggiorna" mnemonicParsing="false" prefHeight="25.0" prefWidth="132.0" text="Aggiorna dati">
-               <font>
-                  <Font name="Arial Bold" size="15.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnAnnulla" mnemonicParsing="false" text="Annulla">
-               <VBox.margin>
-                  <Insets top="15.0" />
-               </VBox.margin>
-            </Button>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+               <children>
+                  <Button id="bottoniConfermaModifica" fx:id="btnAnnulla" mnemonicParsing="false" text="Annulla" />
+                  <Button id="bottoniConfermaModifica" fx:id="btnAggiorna" mnemonicParsing="false" text="Aggiorna dati">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </VBox>
    </children>
