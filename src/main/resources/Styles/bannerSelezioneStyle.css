@@ -1,33 +1,80 @@
-.labelNome {
-    -fx-font-size: 30px;
-    -fx-text-fill: #000000;
+#contenitoreSelezioneAbbonamento {
+    -fx-background-color: #DDE6ED;
+}
+
+#titoloPaginaSelezioneAbbonamento{
+    -fx-font-size: 2.5em;
+    -fx-text-fill: #27374D;
     -fx-font-weight: bold;
-    -fx-font-family: Arial;
+}
+
+#contenitoreAbbonamenti {
+    -fx-background-color: #DDE6ED;
+    -fx-border-color: #DDE6ED;
+    -fx-border-width: 0;
+}
+
+#scrollPaneAbbonamenti .viewport{
+    -fx-background-color: #DDE6ED;
+}
+
+#scrollPaneAbbonamenti:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+#scrollPaneAbbonamenti .scroll-bar {
+    -fx-background-color: #DDE6ED;
+}
+
+#scrollPaneAbbonamenti .scroll-bar .thumb {
+    -fx-background-color: #526D82;
+    -fx-background-radius: 5;
+}
+
+.labelNome {
+    -fx-font-size: 1.8em;
+    -fx-text-fill:#27374D;
+    -fx-font-weight: bold;
+    -fx-font-family: "Arial";
 }
 .labelDescrizione{
+    -fx-text-fill:#27374D;
     -fx-font-family: Arial;
-    -fx-font-size: 15px;
-
+    -fx-font-size: 1.2em;
 }
 
 .labelPrezzo{
-    -fx-font-family: Arial;
-    -fx-font-size: 25px;
-    -fx-text-fill: #000000;
-    -fx-font-weight: bold;
+    -fx-font-size: 1.2em;
+    -fx-text-fill: #27374D;
+    -fx-font-family: "Arial";
 }
 
 .buttonAbbonati{
-    -fx-background-color: #FF0000;
-    -fx-text-fill: #FFFFFF;
-    -fx-font-size: 15px;
-    -fx-font-family: Arial;
+    -fx-background-color: #DDE6ED;
+    -fx-text-fill: #27374DFF;
+    -fx-font-size: 1.3em;
     -fx-font-weight: bold;
+    -fx-font-family: "Arial";
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-padding: 10 30;
+    -fx-pref-width: 200;
+}
+
+.buttonAbbonati:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
 }
 
 .contenitoreRiga{
-    -fx-border-color: black;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #9DB2BF, #27374D);
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
 }
+
 .anchorPaneContenitore{
     -fx-background-color: transparent;
     -fx-border-color: transparent,transparent,transparent;
@@ -36,4 +83,3 @@
     -fx-faint-focus-color: transparent;
     -fx-effect: none;
 }
-

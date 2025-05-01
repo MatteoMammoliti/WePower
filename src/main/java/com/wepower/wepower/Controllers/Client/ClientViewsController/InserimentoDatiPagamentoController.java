@@ -62,8 +62,8 @@ public class InserimentoDatiPagamentoController implements Initializable {
 
 
     public void setNomeEPrezzoAbb(String nomeAbbonamento,double PrezzoAbbonamento) {
-        labelNomeAbbonamento.setText(nomeAbbonamento);
-        labelPrezzoAbbonamento.setText("Prezzo: "+PrezzoAbbonamento+"€");
+        labelNomeAbbonamento.setText("Abbonamento: " + nomeAbbonamento);
+        labelPrezzoAbbonamento.setText("Prezzo: "+ PrezzoAbbonamento+"€");
     }
 
     public void onClickPaga() throws SQLException {

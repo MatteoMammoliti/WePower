@@ -5,26 +5,21 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPaneContenitore" prefHeight="500.0" prefWidth="1020.0" stylesheets="@../../../Styles/bannerSelezioneStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientViewsController.SchermataSelezioneAbbonamentoController">
+<AnchorPane id="contenitoreSelezioneAbbonamento" fx:id="anchorPaneContenitore" prefHeight="500.0" prefWidth="1020.0" stylesheets="@../../../Styles/bannerSelezioneStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientViewsController.SchermataSelezioneAbbonamentoController">
    <children>
       <VBox maxHeight="500.0" maxWidth="1020.0" minHeight="500.0" minWidth="1020.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="36.0" prefWidth="1026.0" text="Selezione un abbonamento">
-               <font>
-                  <Font name="Arial Bold" size="30.0" />
-               </font>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </Label>
-            <ScrollPane pannable="true">
+            <Label id="titoloPaginaSelezioneAbbonamento" alignment="CENTER" contentDisplay="CENTER" prefHeight="36.0" prefWidth="1026.0" text="Seleziona un abbonamento" />
+            <ScrollPane id="scrollPaneAbbonamenti" pannable="true">
                <content>
-                  <VBox fx:id="contenitoreAbbonamenti" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <VBox id="contenitoreAbbonamenti" fx:id="contenitoreAbbonamenti" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
                </content>
             </ScrollPane>
          </children>
+         <padding>
+            <Insets bottom="10.0" top="10.0" />
+         </padding>
       </VBox>
    </children>
 </AnchorPane>

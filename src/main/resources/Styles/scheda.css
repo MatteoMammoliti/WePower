@@ -2,8 +2,6 @@
     -fx-background-color: #DDE6ED;
 }
 
-#contenitoreListaEsercizi{}
-
 #contenitoreListaEsercizi .viewport{
     -fx-background-color: #DDE6ED;
 }
@@ -15,8 +13,6 @@
     -fx-background-color: #526D82;
     -fx-background-radius: 5;
 }
-
-#contenitoreScheda{}
 
 #contenitoreScheda .viewport{
     -fx-background-color: #DDE6ED;

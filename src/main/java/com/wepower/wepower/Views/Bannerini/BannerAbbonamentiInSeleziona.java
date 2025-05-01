@@ -3,6 +3,7 @@ package com.wepower.wepower.Views.Bannerini;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -24,33 +25,31 @@ public class BannerAbbonamentiInSeleziona extends HBox {
         informazioniAbbonamento.setPrefWidth(500);
 
         Label nomeAbb=new Label(nomeAbbonamento);
-        VBox.setMargin(nomeAbb,new Insets(20,0,0,20));
         nomeAbb.getStyleClass().add("labelNome");
 
         Label descrizioneAbb=new Label(descrizioneAbbonamento);
-        VBox.setMargin(descrizioneAbb,new Insets(10,0,0,20));
         descrizioneAbb.getStyleClass().add("labelDescrizione");
 
-        informazioniAbbonamento.getChildren().addAll(nomeAbb,descrizioneAbb);
+        Label prezzoAbb=new Label("Prezzo: "+prezzoAbbonamento+"€");
+        prezzoAbb.getStyleClass().add("labelPrezzo");
+
+        informazioniAbbonamento.setSpacing(15);
+        informazioniAbbonamento.setPadding(new Insets(10, 10, 10, 10));
+        informazioniAbbonamento.getChildren().addAll(nomeAbb,descrizioneAbb, prezzoAbb);
         this.getChildren().addAll(informazioniAbbonamento);
 
-        VBox prezzoEBtn = new VBox(10);
-        prezzoEBtn.setPrefWidth(500);
-        Label prezzoAbb=new Label("Prezzo:"+prezzoAbbonamento+"€");
-        VBox.setMargin(prezzoAbb,new Insets(20,0,0,70));
-        prezzoEBtn.getStyleClass().add("labelPrezzo");
+        VBox tastoAbbonati = new VBox(10);
+        tastoAbbonati.setPrefWidth(500);
+        tastoAbbonati.setAlignment(Pos.CENTER);
 
         Button abbonatiBtn=new Button("Abbonati");
         abbonatiBtn.setOnAction(clickAbbonati);
+        abbonatiBtn.getStyleClass().add("buttonAbbonati");
         VBox.setMargin(abbonatiBtn,new Insets(15,0,0,90));
 
-        prezzoEBtn.getChildren().addAll(prezzoAbb,abbonatiBtn);
+        tastoAbbonati.getChildren().addAll(abbonatiBtn);
 
-        this.getChildren().addAll(prezzoEBtn);
+        this.getChildren().addAll(tastoAbbonati);
         this.getStyleClass().add("contenitoreRiga");
-
-
     }
-
-
 }
