@@ -299,42 +299,45 @@ public class ProfiloController implements Initializable {
     }
 
     private void testoProfiloResponsive(){
-        adatta_testo(infoNome,0.015);
-        adatta_testo(infoDataNascita,0.015);
-        adatta_testo(infoEmail,0.015);
-        adatta_testo(infoTelefono,0.015);
-        adatta_testo(infoPeso,0.015);
-        adatta_testo(infoAltezza,0.015);
-        adatta_testo(infoTipoAbbonamento,0.015);
-        adatta_testo(infoDataInizio,0.015);
-        adatta_testo(infoDataFine,0.015);
-        adatta_testo(infoStatoPagamento,0.015);
-        adatta_testo(infoStatoPagamento,0.015);
-        adatta_testo(infoScheda,0.015);
-        adatta_testo(labelNomeCognomeSuperiore,0.015);
-        adatta_testo(labelNomeCognomeInferiore,0.015);
-        adatta_testo(labelDataNascita,0.015);
-        adatta_testo(labelEmail,0.015);
-        adatta_testo(labelTellefono,0.015);
-        adatta_testo(labelPesoAttuale,0.015);
-        adatta_testo(labelAltezza,0.015);
-        adatta_testo(labelTipoAbbonamento,0.015);
-        adatta_testo(labelDataInizioAbbonamento,0.015);
-        adatta_testo(labelDataFineAbbonamento,0.015);
-        adatta_testo(labelStatoPagamento,0.015);
-        adatta_testo(labelStatoCertificato,0.015);
-        adatta_testo(labelSchedaAllenamento,0.015);
+        adatta_testo(infoNome,0.014);
+        adatta_testo(infoDataNascita,0.014);
+        adatta_testo(infoEmail,0.014);
+        adatta_testo(infoTelefono,0.014);
+        adatta_testo(infoPeso,0.014);
+        adatta_testo(infoAltezza,0.014);
+        adatta_testo(infoTipoAbbonamento,0.014);
+        adatta_testo(infoDataInizio,0.014);
+        adatta_testo(infoDataFine,0.014);
+        adatta_testo(infoStatoPagamento,0.014);
+        adatta_testo(infoStatoPagamento,0.014);
+        adatta_testo(infoScheda,0.014);
+        adatta_testo(infoCertificatoMedico,0.014);
+
+        adatta_testo(labelNomeCognomeSuperiore,0.018);
+        adatta_testo(labelNomeCognomeInferiore,0.014);
+        adatta_testo(labelDataNascita,0.014);
+        adatta_testo(labelEmail,0.014);
+        adatta_testo(labelTellefono,0.014);
+        adatta_testo(labelPesoAttuale,0.014);
+        adatta_testo(labelAltezza,0.014);
+        adatta_testo(labelTipoAbbonamento,0.014);
+        adatta_testo(labelDataInizioAbbonamento,0.014);
+        adatta_testo(labelDataFineAbbonamento,0.014);
+        adatta_testo(labelStatoPagamento,0.014);
+        adatta_testo(labelStatoCertificato,0.014);
+        adatta_testo(labelSchedaAllenamento,0.014);
+
 
         adatta_testo(labelGenere,0.011);
 
-        adatta_testo(titoloPrincipale,0.017);
+        adatta_testo(titoloPrincipale,0.020);
         adatta_testo(titoloDatiFisici,0.017);
         adatta_testo(titoloGenerale,0.017);
         adatta_testo(titoloDatiAbbonamento,0.017);
         adatta_testo(titoloDatiPersonali,0.017);
 
-        adatta_tasti(btnPulsanteEliminaUtente, 0.01);
-        adatta_tasti(btnModificaDati,0.01);
+        adatta_tasti(btnPulsanteEliminaUtente, 0.014);
+        adatta_tasti(btnModificaDati,0.014);
         adatta_tasti(pulsanteCambiaImmagine,0.008);
     }
 

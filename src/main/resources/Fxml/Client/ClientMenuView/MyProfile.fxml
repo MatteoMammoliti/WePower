@@ -19,14 +19,14 @@
                <children>
                   <Label fx:id="titoloPrincipale" styleClass="titolo" text="Gestisci il tuo profilo">
                      <VBox.margin>
-                        <Insets bottom="15.0" top="5.0" />
+                        <Insets bottom="25.0" top="10.0" />
                      </VBox.margin></Label>
                   <HBox spacing="25.0">
                      <children>
-                        <VBox>
+                        <VBox alignment="TOP_CENTER">
                            <children>
                               <ImageView fx:id="contenitoreImmagine" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                              <Button fx:id="pulsanteCambiaImmagine" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="bottone_carica_immagine" text="Cambia immagine profilo" textAlignment="CENTER">
+                              <Button fx:id="pulsanteCambiaImmagine" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="bottoni_profilo" text="Cambia immagine" textAlignment="CENTER">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
@@ -57,7 +57,7 @@
                   </HBox>
                   <Separator>
                      <VBox.margin>
-                        <Insets bottom="15.0" top="15.0" />
+                        <Insets bottom="25.0" top="25.0" />
                      </VBox.margin>
                   </Separator>
                   <HBox fillHeight="false">
@@ -65,16 +65,16 @@
                         <Insets />
                      </VBox.margin>
                      <children>
-                        <VBox fx:id="contenitoreDati1" spacing="15.0">
+                        <VBox fx:id="contenitoreDati1" spacing="20.0">
                            <children>
                               <Label fx:id="titoloDatiPersonali" styleClass="testo_generale" text="Dati Personali">
                                  <font>
                                     <Font name="Arial Bold" size="20.0" />
                                  </font>
                               </Label>
-                              <HBox spacing="20.0">
+                              <HBox spacing="25.0">
                                  <children>
-                                    <VBox spacing="10.0">
+                                    <VBox spacing="20.0">
                                        <children>
                                           <Label fx:id="infoNome" styleClass="testo_generale" text="Nome competo:">
                                              <font>
@@ -107,7 +107,7 @@
                                           </Label>
                                        </children>
                                     </VBox>
-                                    <VBox spacing="10.0">
+                                    <VBox spacing="20.0">
                                        <children>
                                           <Label fx:id="labelNomeCognomeInferiore" styleClass="testo_generale" text="nome_cognome">
                                              <font>
@@ -147,16 +147,16 @@
                               <Insets />
                            </HBox.margin>
                         </VBox>
-                        <VBox spacing="15.0">
+                        <VBox spacing="20.0">
                            <children>
                               <Label fx:id="titoloDatiAbbonamento" styleClass="testo_generale" text="Dati Abbonamento">
                                  <font>
                                     <Font name="Arial Bold" size="20.0" />
                                  </font>
                               </Label>
-                              <HBox spacing="20.0">
+                              <HBox spacing="25.0">
                                  <children>
-                                    <VBox spacing="10.0">
+                                    <VBox spacing="20.0">
                                        <children>
                                           <Label fx:id="infoTipoAbbonamento" styleClass="testo_generale" text="Tipo:">
                                              <font>
@@ -192,7 +192,7 @@
                                           </Label>
                                        </children>
                                     </VBox>
-                                    <VBox spacing="10.0">
+                                    <VBox spacing="20.0">
                                        <children>
                                           <Label fx:id="labelTipoAbbonamento" styleClass="testo_generale" text="Stato pagamento">
                                              <font>
@@ -239,21 +239,21 @@
                   </HBox>
                   <Separator prefWidth="200.0">
                      <VBox.margin>
-                        <Insets bottom="15.0" top="15.0" />
+                        <Insets bottom="25.0" top="25.0" />
                      </VBox.margin>
                   </Separator>
                   <HBox>
                      <children>
-                        <VBox fx:id="contenitoreDati2" spacing="15.0">
+                        <VBox fx:id="contenitoreDati2" spacing="20.0">
                            <children>
                               <Label fx:id="titoloDatiFisici" styleClass="testo_generale" text="Dati Fisici">
                                  <font>
                                     <Font name="Arial Bold" size="20.0" />
                                  </font>
                               </Label>
-                              <HBox spacing="10.0">
+                              <HBox spacing="25.0">
                                  <children>
-                                    <VBox spacing="10.0">
+                                    <VBox spacing="20.0">
                                        <children>
                                           <Label fx:id="infoPeso" styleClass="testo_generale" text="Peso attuale:">
                                              <font>
@@ -276,7 +276,7 @@
                                           <Insets />
                                        </HBox.margin>
                                     </VBox>
-                                    <VBox spacing="10.0">
+                                    <VBox spacing="20.0">
                                        <children>
                                           <Label fx:id="labelPesoAttuale" styleClass="testo_che_cambia" text="pesoattuale">
                                              <font>
@@ -304,39 +304,46 @@
                               <Insets />
                            </HBox.margin>
                         </VBox>
-                        <VBox spacing="15.0">
+                        <VBox spacing="20.0">
                            <children>
                               <Label fx:id="titoloGenerale" styleClass="testo_generale" text="Generale">
                                  <font>
                                     <Font name="Arial Bold" size="20.0" />
                                  </font>
                               </Label>
-                              <HBox spacing="20.0">
+                              <HBox spacing="25.0">
                                  <children>
-                                    <Label fx:id="infoCertificatoMedico" prefWidth="205.0" styleClass="testo_generale" text="Certificato medico:">
-                                       <font>
-                                          <Font name="Arial Bold" size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="labelStatoCertificato" text="statoCertificato">
-                                       <font>
-                                          <Font name="Arial Bold" size="20.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" spacing="20.0">
-                                 <children>
-                                    <Label fx:id="infoScheda" prefWidth="205.0" styleClass="testo_generale" text="Scheda allenamento:">
-                                       <font>
-                                          <Font name="Arial Bold" size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="labelSchedaAllenamento" styleClass="bottone_scheda" text="Stato Scheda">
-                                       <font>
-                                          <Font name="Arial Bold" size="20.0" />
-                                       </font>
-                                    </Label>
+                                    <VBox spacing="20.0">
+                                       <children>
+                                          <Label fx:id="infoCertificatoMedico" prefWidth="205.0" styleClass="testo_generale" text="Certificato medico:">
+                                             <font>
+                                                <Font name="Arial Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="infoScheda" prefWidth="205.0" styleClass="testo_generale" text="Scheda allenamento:">
+                                             <font>
+                                                <Font name="Arial Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox>
+                                       <children>
+                                          <Label fx:id="labelStatoCertificato" text="statoCertificato">
+                                             <font>
+                                                <Font name="Arial Bold" size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="labelSchedaAllenamento" styleClass="bottoni_profilo" text="Stato Scheda">
+                                             <font>
+                                                <Font name="Arial Bold" size="20.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets top="13.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                       </children>
+                                    </VBox>
                                  </children>
                               </HBox>
                            </children>
@@ -346,7 +353,7 @@
                         <Insets />
                      </VBox.margin>
                   </HBox>
-                  <HBox alignment="BOTTOM_RIGHT" fillHeight="false" VBox.vgrow="ALWAYS">
+                  <HBox alignment="BOTTOM_RIGHT" fillHeight="false" spacing="30.0" VBox.vgrow="ALWAYS">
                      <children>
                         <Button fx:id="btnModificaDati" mnemonicParsing="false" styleClass="bottoni_profilo" text="Modifica dati">
                            <font>
@@ -358,7 +365,7 @@
                         </Button>
                         <Button fx:id="btnPulsanteEliminaUtente" mnemonicParsing="false" styleClass="bottoni_profilo" text="Elimina utente">
                            <HBox.margin>
-                              <Insets left="50.0" />
+                              <Insets />
                            </HBox.margin>
                            <font>
                               <Font name="Arial Bold" size="20.0" />
@@ -369,18 +376,18 @@
                         <Insets />
                      </VBox.margin>
                      <padding>
-                        <Insets bottom="15.0" right="20.0" top="15.0" />
+                        <Insets bottom="15.0" right="30.0" top="15.0" />
                      </padding>
                   </HBox>
                </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
             </VBox>
          </content>
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
-         <padding>
-            <Insets left="30.0" />
-         </padding>
       </ScrollPane>
    </center>
 </BorderPane>

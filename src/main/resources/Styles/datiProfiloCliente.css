@@ -1,5 +1,4 @@
 .certificatoNo{
-    -fx-font-size: 0.9em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
     -fx-border-radius: 30;
@@ -11,22 +10,17 @@
 .certificatoAttesa{
     -fx-font-family: "Arial";
     -fx-font-weight: bold;
-    -fx-font-size: 1.7em;
 }
 .certificatoSi{
     -fx-font-family: "Arial";
     -fx-font-weight: bold;
-    -fx-font-size: 1.7em;
 }
 
 .abbonamentoSi{
     -fx-font-family: "Arial";
-    -fx-font-weight: bold;
-    -fx-font-size: 1.7em;
-}
+    -fx-font-weight: bold;}
 
 .abbonamentoNo{
-    -fx-font-size: 0.9em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
     -fx-border-radius: 30;
@@ -37,7 +31,6 @@
 
 
 .schedaNo{
-    -fx-font-size: 0.9em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
     -fx-border-radius: 30;
@@ -48,54 +41,44 @@
 
 .schedaSi{
     -fx-font-family: "Arial";
-    -fx-font-weight: bold;
-    -fx-font-size: 1.2em;
-}
+    -fx-font-weight: bold;}
 
 .testo_generale{
     -fx-font-family: "Arial";
     -fx-font-weight: bold;
-    -fx-font-size: 1.7em;
 }
 .testo_che_cambia{
     -fx-font-family: "Arial";
     -fx-font-weight: bold;
-    -fx-font-size: 1.7em;
 }
 
 
 
 .bottoni_profilo {
-    -fx-font-size: 1.1em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
     -fx-border-radius: 30;
     -fx-background-radius: 30;
-    -fx-padding: 10 30;
-    -fx-pref-width: 200;
+    -fx-padding: 7 30;
     -fx-wrap-text: true;
 }
 
 
 .titolo{
     -fx-font-weight: bold;
-    -fx-font-size: 2.2em;
     -fx-font-family: "Arial";
 }
 
 #genere{
     -fx-font-weight: bold;
-    -fx-font-size: 1.2em;
     -fx-font-family: "Arial";
 }
 #mio_nome{
     -fx-font-weight: bold;
-    -fx-font-size: 2em;
     -fx-font-family: "Arial";
 }
 
 .bottone_scheda{
-    -fx-font-size: 0.9em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
     -fx-border-radius: 30;
@@ -106,13 +89,11 @@
 
 
 .bottone_carica_immagine {
-    -fx-font-size: 0.9em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
     -fx-border-radius: 30;
     -fx-background-radius: 30;
     -fx-padding: 7 30;
-    -fx-pref-width: 200;
     -fx-wrap-text: true;
 }
 
