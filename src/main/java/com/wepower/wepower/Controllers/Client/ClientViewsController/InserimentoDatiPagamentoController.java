@@ -77,8 +77,8 @@ public class InserimentoDatiPagamentoController implements Initializable {
 
         String dataScadenza = textFieldDataScadenzacarta.getText();
         String cvc = textFieldCvc.getText();
-        int idAbbonamento;
-        int durataAbb;
+        int idAbbonamento=-1;
+        int durataAbb=-1;
         LocalDate data=LocalDate.now();
 
         if(dataScadenza.equals("") || cvc.equals("") || proprietarioCarta.equals("") || numeroCarta.equals("")){
@@ -129,10 +129,21 @@ public class InserimentoDatiPagamentoController implements Initializable {
                 }
             }
             try(PreparedStatement abbonamento=conn.prepareStatement(cercoIdAbbonamento)){
-                abbonamento.setString(1,labelNomeAbbonamento.getText());
+                String testoLabel       = labelNomeAbbonamento.getText();
+                String nomeAbbonamento  = testoLabel.substring(testoLabel.indexOf(':') + 1).trim();
+                abbonamento.setString(1,nomeAbbonamento);
                 ResultSet risultato= abbonamento.executeQuery();
-                idAbbonamento=risultato.getInt("IdTipoAbbonamento");
-                durataAbb=risultato.getInt("Durata");
+                if(risultato.next()){
+                    idAbbonamento=risultato.getInt("IdTipoAbbonamento");
+                    durataAbb=risultato.getInt("Durata");
+                }
+                if (durataAbb <= 0) {    // sicurezza extra
+                    alert.setTitle("Errore");
+                    alert.setContentText("Durata abbonamento non valida (" + durataAbb + ")");
+                    alert.showAndWait();
+                    conn.rollback();
+                    return;
+                }
             } catch (SQLException e){
                 conn.rollback();
                 return;
