@@ -148,7 +148,13 @@ public class SignUpController implements Initializable {
             labelErroreCognome.setVisible(true);
             return;
             }else{
-                    labelErroreCognome.setVisible(false);}
+            labelErroreCognome.setVisible(false);}
+        if(!ModelValidazione.controlloData(dataNascita)) {
+            labelDataErrata.setVisible(true);
+            return;
+        }else{
+            labelDataErrata.setVisible(false);
+        }
 
         if (ModelRegistrazione.registraUtente(nome,cognome,dataNascita,email,password)) {
             AlertHelper.showAlert("Registrazione effettuata", "Registrazione effettuata con successo", null,  Alert.AlertType.INFORMATION);

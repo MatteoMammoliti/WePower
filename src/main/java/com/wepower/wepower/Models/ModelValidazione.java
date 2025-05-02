@@ -37,9 +37,7 @@ public class ModelValidazione {
     }
 
 
-    public static boolean controlloNome(String nome){
-        return Pattern.matches("^[a-zA-Z]+",nome);
-    }
+    public static boolean controlloNome(String nome){return Pattern.matches("^[A-Za-z]+(\\s+[A-Za-z]+)*$", nome.trim());    }
     public static boolean controlloCognome(String cognome){
         return Pattern.matches("^[a-zA-Z-]+",cognome);
     }

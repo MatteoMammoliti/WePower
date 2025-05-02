@@ -3,6 +3,8 @@ package com.wepower.wepower.Models.DatiPalestra;
 import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
+import com.wepower.wepower.Views.AlertHelper;
+import javafx.scene.control.Alert;
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -13,7 +15,7 @@ public class ModelPrenotazioni {
 
     public static boolean aggiuntiPrenotazioneSalaPesi(String data, String orario, int idUtente) throws SQLException {
             if(!DatiSessioneCliente.getStatoAbbonamento()){
-                JOptionPane.showMessageDialog(null,"Non hai un abbonamento attivo, impossibile prenotare");
+                AlertHelper.showAlert("Errore", "Non hai un abbonamento attivo, impossibile prenotare", null,  Alert.AlertType.ERROR);
                 return false;
             }
             if (orario.matches("\\d{1,2}")) {
@@ -40,7 +42,7 @@ public class ModelPrenotazioni {
                         return false;
                     }
                 } catch (SQLException e) {
-                    JOptionPane.showMessageDialog(null,"Prenotazione già effettuata in questa giornata");
+                    AlertHelper.showAlert("Errore", "Prenotazione già effettuata in questa giornata", null,  Alert.AlertType.ERROR);
                     throw new RuntimeException(e);
 
 
