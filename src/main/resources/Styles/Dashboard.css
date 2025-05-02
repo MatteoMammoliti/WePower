@@ -67,8 +67,15 @@
     -fx-font-size: 3em;
     -fx-font-weight: bold;
 }
-#frase_motivazionale{
 
+#frase_motivazionale{
+    -fx-font-size: 2.5em;
+    -fx-font-weight: bold;
+}
+
+#frase_motivazionale_rotazione {
+    -fx-font-size: 2.5em;
+    -fx-font-weight: bold;
 }
 
 /*CathBox*/

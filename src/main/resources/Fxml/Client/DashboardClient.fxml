@@ -17,10 +17,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.shape.Rectangle?>
 <BorderPane stylesheets="@../../Styles/Dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientDashboardController">
 
     <!-- Sidebar sinistra (vuota / logo) -->
@@ -58,13 +60,20 @@
                             </ScrollPane>
                         </children>
                     </VBox>
-               <Label id="frase_motivazionale" fx:id="labelFrase" text="PROVA FRASE MOTIVAZIONALE">
-                  <font>
-                     <Font name="Arial" size="36.0" />
-                  </font>
-               </Label>
 
-                    <Pane fx:id="spazioFlessibile" VBox.vgrow="ALWAYS" />
+                    <!-- Frase motivazione -->
+                   <HBox fx:id="contenitoreFraseMotivazionale" alignment="CENTER" spacing="8" VBox.vgrow="ALWAYS">
+                      <children>
+                         <Label text="Ogni goccia di sudore oggi, ti rende più" id="frase_motivazionale" fx:id="labelStaticaSinistra"/>
+                         <StackPane fx:id="sliderPane" prefWidth="250">
+                            <children>
+                               <Label fx:id="LabelParolaAttuale" maxWidth="Infinity" id="frase_motivazionale_rotazione"/>
+                               <Label fx:id="LabelProssimaParola" maxWidth="Infinity" id="frase_motivazionale_rotazione" />
+                            </children>
+                         </StackPane>
+                         <Label text="domani!" id="frase_motivazionale" fx:id="labelStaticaDestra"/>
+                      </children>
+                   </HBox>
 
                     <!-- Sezione grafici -->
                     <HBox fx:id="containerGrafici" spacing="20" VBox.vgrow="ALWAYS">

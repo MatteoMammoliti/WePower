@@ -133,6 +133,14 @@
     -fx-text-fill: #dde6ed;
 }
 
+#frase_motivazionale {
+    -fx-text-fill: #27374D
+}
+
+#frase_motivazionale_rotazione {
+    -fx-text-fill: linear-gradient(from 0% 0% to 100% 100%, #9DB2BF, #27374D);;
+}
+
 /*Calendario*/
 
 .button_calendario{

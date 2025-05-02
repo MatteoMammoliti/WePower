@@ -1,36 +1,47 @@
 package com.wepower.wepower.Controllers.Client;
 
-
 import com.wepower.wepower.APIs.Llama4_API;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Views.AlertHelper;
 import com.wepower.wepower.Views.Bannerini.BannerAbbonamenti;
 import com.wepower.wepower.Views.ComponentiCalendario.Calendario;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.util.Pair;
-
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-
 import java.util.ResourceBundle;
 
 public class ClientDashboardController implements Initializable {
     private static ClientDashboardController instance;
+
+    // frase motivazione
+    @FXML
+    private HBox contenitoreFraseMotivazionale;
+    @FXML
+    private Label LabelParolaAttuale;
+    @FXML
+    private Label LabelProssimaParola;
+    @FXML
+    private StackPane sliderPane;
+    @FXML
+    private Label labelStaticaSinistra;
+    @FXML
+    private Label labelStaticaDestra;
+    private final String[] paroleRotazione = {"Resistente", "Potente", "Invincibile"};
+    private int indiceParolaCorrente = 0;
 
     @FXML
     private VBox containerColonnaDestra;
@@ -41,7 +52,6 @@ public class ClientDashboardController implements Initializable {
     // sezione calendario
     @FXML
     private AnchorPane containerCalendario;
-
 
     // chatbot powerino
     @FXML
@@ -95,6 +105,17 @@ public class ClientDashboardController implements Initializable {
         loadCalendario();
         loadBanner();
         startAutoScroll();
+
+        /* SEZIONE FRASE MOTIVAZIONE */
+        // clip per nascondere le parole ruotate
+        Rectangle clip = new Rectangle();
+        clip.widthProperty().bind(sliderPane.widthProperty());
+        clip.heightProperty().bind(sliderPane.heightProperty());
+        sliderPane.setClip(clip);
+        Platform.runLater(() -> {
+            misuraLarghezzaParolaMassima();
+            fraseMotivazionale();
+        });
 
         this.scrollPaneChatArea.setFitToWidth(true);
         this.scrollPaneChatArea.setFitToHeight(false);
@@ -349,5 +370,71 @@ public class ClientDashboardController implements Initializable {
                 scrollPaneChatArea.setVvalue(1.0);
             });
         });
+    }
+
+    // SEZIONE FRASE MOTIVAZIONALE
+
+    // scorro ogni parola dell'array e ne prelevo la larghezza. la larghezza della label sarà quella massima tra queste
+    // nella misuraLarghezzaParolaMassima tengo in considerazione font e font size applicato nel css
+    private void misuraLarghezzaParolaMassima() {
+        double maxLarghezza = 0;
+        Text misura = new Text();
+        misura.setFont(LabelParolaAttuale.getFont());
+
+        for (String s : paroleRotazione) {
+            misura.setText(s);
+            misura.applyCss();      // forzo l'applicazione del css perchè devo tenere conto della font-size
+            maxLarghezza = Math.max(maxLarghezza,
+                    misura.getLayoutBounds().getWidth());
+        }
+        sliderPane.setPrefWidth(maxLarghezza);
+        sliderPane.setMinWidth(maxLarghezza);
+        sliderPane.setMaxWidth(maxLarghezza);
+    }
+
+    private void animazioneRotazione(double altezza) {
+        int prossimoIndice = (indiceParolaCorrente + 1) % paroleRotazione.length;
+        LabelProssimaParola.setText(paroleRotazione[prossimoIndice]);
+        LabelProssimaParola.setTranslateY(altezza); // imposto la prossima parola in modo che sia appena sotto l'attuale
+
+        // la parola attuale scorre verso l'alto fuori l'area del clip
+        TranslateTransition ruotaParolaAttuale = new TranslateTransition(Duration.seconds(0.5), LabelParolaAttuale);
+        ruotaParolaAttuale.setFromY(0);
+        ruotaParolaAttuale.setToY(-altezza);
+
+        // la prossima parola scorre dalla sua altezza fino allo 0 (viene visualizzata)
+        TranslateTransition ruotaProssimaParola = new TranslateTransition(Duration.seconds(0.5), LabelProssimaParola);
+        ruotaProssimaParola.setFromY(altezza);
+        ruotaProssimaParola.setToY(0);
+
+        ParallelTransition animazioneSlide = new ParallelTransition(ruotaParolaAttuale, ruotaProssimaParola);
+        animazioneSlide.setOnFinished(event -> {
+            Label tmp = LabelParolaAttuale;
+            LabelParolaAttuale = LabelProssimaParola;
+            LabelProssimaParola = tmp;
+
+            LabelProssimaParola.setTranslateY(altezza);
+            sliderPane.getChildren().setAll(LabelProssimaParola, LabelParolaAttuale);
+            indiceParolaCorrente = prossimoIndice;
+        });
+        animazioneSlide.play();
+    }
+
+    private void fraseMotivazionale() {
+        LabelParolaAttuale.setText(paroleRotazione[indiceParolaCorrente]);
+        LabelProssimaParola.setText("");
+
+        double altezza = LabelParolaAttuale.getFont().getSize() * 1.2;
+        sliderPane.setPrefHeight(altezza);
+        sliderPane.setMinHeight(altezza);
+        sliderPane.setMaxHeight(altezza);
+
+        misuraLarghezzaParolaMassima();
+
+        Timeline rotazione = new Timeline(
+                new KeyFrame(Duration.seconds(3), e -> animazioneRotazione(altezza))
+        );
+        rotazione.setCycleCount(Animation.INDEFINITE);
+        rotazione.play();
     }
 }
