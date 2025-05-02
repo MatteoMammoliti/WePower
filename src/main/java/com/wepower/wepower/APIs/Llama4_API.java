@@ -9,10 +9,8 @@ import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.ModelAutenticazione;
 import javafx.application.Platform;
-import javafx.scene.control.TextArea;
 import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,15 +19,19 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Llama4_API {
 
-    private static final String API_KEY = "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";
+    private static final String API_KEY = "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";
     private static final String ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
-    private static final OkHttpClient client = new OkHttpClient();
+    private static final OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(0, TimeUnit.SECONDS).build();
 
     private static final List<Map<String, String>> chatHistory = new ArrayList<>();
 
@@ -150,6 +152,9 @@ public class Llama4_API {
                                         Model.getInstance().getClientDashboardController().loadCalendario();
                                     });
                                 }
+                                else Platform.runLater(() ->
+                                            risposta.accept("❌ Prenotazione fallita per " + data + " alle " + ora + "\n")
+                                    );
                             } else {
                                 formatoPrenotazioneNonValida = true;
                             }
