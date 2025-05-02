@@ -86,14 +86,14 @@
                      <children>
                         <ScrollPane fitToHeight="true" fitToWidth="true" minWidth="200.0" HBox.hgrow="SOMETIMES">
                            <content>
-                              <VBox prefWidth="250.0">
+                              <VBox alignment="TOP_CENTER" prefWidth="250.0" spacing="15.0">
                                  <children>
                                     <Label text="Promozioni attive:">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
                                     </Label>
-                                    <VBox fx:id="containerPromozioniAttive" />
+                                    <VBox fx:id="containerPromozioniAttive" alignment="TOP_CENTER" spacing="10.0" />
                                  </children>
                               </VBox>
                            </content>
@@ -123,7 +123,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <PieChart VBox.vgrow="ALWAYS" fx:id="tortaGenere"/>
+                              <PieChart fx:id="tortaGenere" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
                      </children>

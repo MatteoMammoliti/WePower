@@ -18,14 +18,15 @@ public class RigaVisualizzatoreOfferteAttive extends HBox {
     private Button eliminaOfferta;
 
     public RigaVisualizzatoreOfferteAttive(String nomeOfferta, String costoOfferta) {
-        this.nomeOfferta = nomeOfferta;
-        this.costoOfferta = costoOfferta;
-        this.setPrefHeight(50);
-        this.setSpacing(20);
-        this.setAlignment(Pos.CENTER);
         Label nome = new Label(nomeOfferta);
         Label costo=new Label(costoOfferta);
-        eliminaOfferta = new Button("Elimina Offerta");
+        nome.setPrefWidth(100);
+        nome.setMaxWidth(100);
+        costo.setPrefWidth(50);
+        costo.setMaxWidth(50);
+        this.setSpacing(20);
+        this.setAlignment(Pos.CENTER_LEFT);
+        eliminaOfferta = new Button("Elimina");
         eliminaOfferta.setPrefHeight(20);
         eliminaOfferta.setOnAction(e -> {
             try {

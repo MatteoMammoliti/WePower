@@ -43,7 +43,7 @@ public class AdminDashboardController implements Initializable {
 
     public  static AdminDashboardController getInstance() {return instance;}
     //Carico i dati della palestra visibili nella dashboard(Totale abbonamenti,richieste schede,certificati in attesa,ecc..)
-    private void setDatiPalestra(){
+    public void setDatiPalestra(){
         labelTotaleAbbonamenti.setText(ModelDashboardAdmin.numeroAbbonamentiAttivi()+"");
         labelCertificatiAttesa.setText(ModelDashboardAdmin.numeroCertificatiAttesa()+"");
         labelPrenotatiOggi.setText(ModelDashboardAdmin.numeroPrenotatiOggi()+"");

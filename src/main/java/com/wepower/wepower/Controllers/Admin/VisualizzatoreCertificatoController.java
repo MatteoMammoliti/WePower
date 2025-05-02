@@ -48,6 +48,7 @@ public class VisualizzatoreCertificatoController implements Initializable {
                     if (ModelTabellaCertificati.onClickConferma(idCliente)) {
                         AlertHelper.showAlert("Certificato", "Certificato approvato", "Il certificato è stato approvato",  Alert.AlertType.INFORMATION);
                         Stage stage = (Stage) btnApprova.getScene().getWindow();
+                        AdminDashboardController.getInstance().setDatiPalestra();
                         tabellaCertificati.aggiornaTabella();
                         stage.close();
                     }
@@ -73,6 +74,7 @@ public class VisualizzatoreCertificatoController implements Initializable {
                     if (ModelTabellaCertificati.onClickRifiuta(idCliente)) {
                         AlertHelper.showAlert("Certificato", "Certificato rifiutato", "Il certificato è stato rifiutato",  Alert.AlertType.INFORMATION);
                         Stage stage = (Stage) btnRifiuta.getScene().getWindow();
+                        AdminDashboardController.getInstance().setDatiPalestra();
                         tabellaCertificati.aggiornaTabella();
                         stage.close();
                     }
