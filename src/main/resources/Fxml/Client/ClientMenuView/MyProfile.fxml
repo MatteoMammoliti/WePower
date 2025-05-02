@@ -315,12 +315,12 @@
                                  <children>
                                     <VBox spacing="20.0">
                                        <children>
-                                          <Label fx:id="infoCertificatoMedico" prefWidth="205.0" styleClass="testo_generale" text="Certificato medico:">
+                                          <Label fx:id="infoCertificatoMedico" styleClass="testo_generale" text="Certificato medico:">
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="infoScheda" prefWidth="205.0" styleClass="testo_generale" text="Scheda allenamento:">
+                                          <Label fx:id="infoScheda" styleClass="testo_generale" text="Scheda allenamento:">
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>

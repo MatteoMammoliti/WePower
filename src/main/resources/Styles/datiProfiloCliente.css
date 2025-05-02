@@ -4,7 +4,7 @@
     -fx-border-radius: 30;
     -fx-background-radius: 30;
     -fx-padding: 7 30;
-    -fx-wrap-text: true;
+    -fx-wrap-text: false;
 }
 
 .certificatoAttesa{
@@ -26,7 +26,7 @@
     -fx-border-radius: 30;
     -fx-background-radius: 30;
     -fx-padding: 7 30;
-    -fx-wrap-text: true;
+    -fx-wrap-text: false;
 }
 
 
@@ -36,7 +36,7 @@
     -fx-border-radius: 30;
     -fx-background-radius: 30;
     -fx-padding: 7 30;
-    -fx-wrap-text: true;
+    -fx-wrap-text: false;
 }
 
 .schedaSi{
@@ -60,7 +60,7 @@
     -fx-border-radius: 30;
     -fx-background-radius: 30;
     -fx-padding: 7 30;
-    -fx-wrap-text: true;
+    -fx-wrap-text: false;
 }
 
 
@@ -84,7 +84,7 @@
     -fx-border-radius: 30;
     -fx-background-radius: 30;
     -fx-padding: 7 30;
-    -fx-wrap-text: true;
+    -fx-wrap-text: false;
 }
 
 
@@ -94,7 +94,7 @@
     -fx-border-radius: 30;
     -fx-background-radius: 30;
     -fx-padding: 7 30;
-    -fx-wrap-text: true;
+    -fx-wrap-text: false;
 }
 
 
