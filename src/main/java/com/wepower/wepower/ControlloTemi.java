@@ -58,8 +58,6 @@ public class ControlloTemi {
             //Forzo adesso JavaFX a refreshare subito lo stile css
             scena.getRoot().applyCss();
         }
-
-
     }
 
     public String getCssTemaCorrente() {

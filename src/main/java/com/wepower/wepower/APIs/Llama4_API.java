@@ -4,6 +4,7 @@ import com.google.gson.*;
 import com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra;
 import com.wepower.wepower.Models.DatiPalestra.ModelPrenotazioni;
 import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
+import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesiCliente;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.ModelAutenticazione;
@@ -170,8 +171,12 @@ public class Llama4_API {
     }
 
     public static boolean prenotaAllenamento(int idUtente, String data, String orario) throws SQLException {
+
+        if(DatiSessionePalestra.getNumeroPrenotazioniDataOraResidue(new PrenotazioneSalaPesiCliente(idUtente, data, orario)) <= 0) return false;
+
         if (ModelPrenotazioni.aggiuntiPrenotazioneSalaPesi(data, orario, idUtente)) {
             DatiSessioneCliente.aggiungiPrenotazione(new PrenotazioneSalaPesi(data, orario));
+            DatiSessionePalestra.aggiungiPrenotazioneSalaPesi(new PrenotazioneSalaPesiCliente(idUtente, data, orario));
             return true;
         }
         return false;

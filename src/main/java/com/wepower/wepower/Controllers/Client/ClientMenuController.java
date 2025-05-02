@@ -63,6 +63,7 @@ public class ClientMenuController  implements Initializable {
         });
 
         pulsanteCambioTema.setOnAction(e -> {
+
             String blutema= getClass().getResource("/Styles/TemaBlu.css").toExternalForm();
             String temaProva=getClass().getResource("/Styles/TemaProva.css").toExternalForm();
             if(ControlloTemi.getInstance().getCssTemaCorrente().equals(blutema)){
@@ -72,7 +73,6 @@ public class ClientMenuController  implements Initializable {
                 ControlloTemi.getInstance().cambiaTema(blutema);
             }
         });
-
     }
 
     private void aggiustaSpazioPulsanti() {

@@ -140,7 +140,7 @@ public class ClientDashboardController implements Initializable {
         caricaEserciziSchedaMenuGrafico();
         loadGraficoPrenotazioni();
         loadGraficoPeso();
-        loadAlert();
+        Platform.runLater(() -> loadAlert());
     }
 
     // -- FUNZIONI DISPLAYER COMPONENTI DELLA DASHBOARD
@@ -283,38 +283,39 @@ public class ClientDashboardController implements Initializable {
     private void loadAlert() {
         String dataScadenza = DatiSessioneCliente.caricaDataScadenzaAbbonamento(DatiSessioneCliente.getIdUtente());
 
-            if (!DatiSessioneCliente.getAlertScadenzaAbbonamento()) {
-                if (dataScadenza != null) {
-                    LocalDate dataFineAbbonamento = LocalDate.parse(dataScadenza);
-                    LocalDate dataCorrente = LocalDate.now();
-                    long giorniDifferenza = ChronoUnit.DAYS.between(dataCorrente, dataFineAbbonamento);
+        if (!DatiSessioneCliente.getAlertScadenzaAbbonamento()) {
+            if (dataScadenza != null) {
+                LocalDate dataFineAbbonamento = LocalDate.parse(dataScadenza);
+                LocalDate dataCorrente = LocalDate.now();
+                long giorniDifferenza = ChronoUnit.DAYS.between(dataCorrente, dataFineAbbonamento);
 
-                    if (giorniDifferenza <= 7 && giorniDifferenza > 0) {
-                        Platform.runLater(() -> {
-                            AlertHelper.showAlert("Attenzione", "Il tuo abbonamento sta per scadere", "Il tuo abbonamento scade tra " + giorniDifferenza + " giorni", Alert.AlertType.WARNING);
-                            DatiSessioneCliente.setAlertScadenzaAbbonamento(true);
-                        });
-                    } else if (giorniDifferenza <= 0) {
-                        Platform.runLater(() -> {
-                            AlertHelper.showAlert("Attenzione", "Il tuo abbonamento non è attivo", "Abbonati per continuare ad allenarti", Alert.AlertType.WARNING);
-                            DatiSessioneCliente.setAlertScadenzaAbbonamento(true);
-                        });
-                    }
-                } else {
+                if (giorniDifferenza <= 7 && giorniDifferenza > 0) {
+                    Platform.runLater(() -> {
+                        AlertHelper.showAlert("Attenzione", "Il tuo abbonamento sta per scadere", "Il tuo abbonamento scade tra " + giorniDifferenza + " giorni", Alert.AlertType.WARNING);
+                        DatiSessioneCliente.setAlertScadenzaAbbonamento(true);
+                    });
+                } else if (giorniDifferenza <= 0) {
                     Platform.runLater(() -> {
                         AlertHelper.showAlert("Attenzione", "Il tuo abbonamento non è attivo", "Abbonati per continuare ad allenarti", Alert.AlertType.WARNING);
                         DatiSessioneCliente.setAlertScadenzaAbbonamento(true);
                     });
                 }
-            }
 
-        int idCertifiato = DatiSessioneCliente.caricaPresenzaCertificato(DatiSessioneCliente.getIdUtente());
+                int idCertifiato = DatiSessioneCliente.caricaPresenzaCertificato(DatiSessioneCliente.getIdUtente());
 
-        if (!DatiSessioneCliente.getAlertCertificatoMancante()) {
-            if (idCertifiato == 0) {
+                if (!DatiSessioneCliente.getAlertCertificatoMancante()) {
+                    if (idCertifiato == 0) {
+                        Platform.runLater(() -> {
+                            AlertHelper.showAlert("Attenzione", "Certificato medico non caricato", "Caricare il certificato medico per allenarti", Alert.AlertType.WARNING);
+                            DatiSessioneCliente.setAlertCertificatoMancante(true);
+                        });
+                    }
+                }
+            } else {
                 Platform.runLater(() -> {
-                    AlertHelper.showAlert("Attenzione", "Certificato medico non caricato", "Caricare il certificato medico per allenarti", Alert.AlertType.WARNING);
-                    DatiSessioneCliente.setAlertCertificatoMancante(true);
+                    AlertHelper.showAlert("Attenzione", "Il tuo abbonamento non è attivo", "Abbonati per continuare ad allenarti", Alert.AlertType.WARNING);
+                    DatiSessioneCliente.setAlertScadenzaAbbonamento(true);
+
                 });
             }
         }
