@@ -1,207 +1,119 @@
 .certificatoNo{
-    -fx-background-color: #27374d;
-    -fx-text-fill: #DDE6ED;
     -fx-font-size: 0.9em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
-    -fx-border-radius: 30px;
-    -fx-background-radius: 30px;
-    -fx-padding: 7px 30px;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-padding: 7 30;
     -fx-wrap-text: true;
-}
-.certificatoNo:hover{
-    -fx-cursor: hand;
-    -fx-background-color: #526D82;
-    -fx-text-fill: #DDE6EDFF;
-    -fx-fill: #DDE6EDFF;
-    -fx-font-family: "Arial";
-    -fx-border-radius: 30px;
-    -fx-background-radius: 30px;
-    -fx-padding: 7px 30px;
-    -fx-wrap-text: true;
-    fx-font-size: 0.9em;
-    -fx-font-weight: bold;
 }
 
 .certificatoAttesa{
     -fx-font-family: "Arial";
-    -fx-text-fill: #27374D;
     -fx-font-weight: bold;
     -fx-font-size: 1.7em;
 }
 .certificatoSi{
     -fx-font-family: "Arial";
-    -fx-text-fill: #27374D;
     -fx-font-weight: bold;
     -fx-font-size: 1.7em;
 }
 
 .abbonamentoSi{
     -fx-font-family: "Arial";
-    -fx-text-fill: #27374D;
     -fx-font-weight: bold;
     -fx-font-size: 1.7em;
 }
 
 .abbonamentoNo{
-    -fx-background-color: #27374d;
-    -fx-text-fill: #DDE6ED;
     -fx-font-size: 0.9em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
-    -fx-border-radius: 30px;
-    -fx-background-radius: 30px;
-    -fx-padding: 7px 30px;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-padding: 7 30;
     -fx-wrap-text: true;
-}
-.abbonamentoNo:hover {
-    -fx-cursor: hand;
-    -fx-background-color: #526D82;
-    -fx-text-fill: #DDE6EDFF;
-    -fx-fill: #DDE6EDFF;
-    -fx-font-family: "Arial";
-    -fx-border-radius: 30px;
-    -fx-background-radius: 30px;
-    -fx-padding: 7px 30px;
-    -fx-wrap-text: true;
-    fx-font-size: 0.9em;
-    -fx-font-weight: bold;
 }
 
 
 .schedaNo{
-    -fx-background-color: #27374d;
-    -fx-text-fill: #DDE6ED;
     -fx-font-size: 0.9em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
-    -fx-border-radius: 30px;
-    -fx-background-radius: 30px;
-    -fx-padding: 7px 30px;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-padding: 7 30;
     -fx-wrap-text: true;
-}
-.schedaNo:hover {
-    -fx-cursor: hand;
-    -fx-background-color: #526D82;
-    -fx-text-fill: #DDE6EDFF;
-    -fx-fill: #DDE6EDFF;
-    -fx-font-family: "Arial";
-    -fx-border-radius: 30px;
-    -fx-background-radius: 30px;
-    -fx-padding: 7px 30px;
-    -fx-wrap-text: true;
-    fx-font-size: 0.9em;
-    -fx-font-weight: bold;
 }
 
 .schedaSi{
     -fx-font-family: "Arial";
-    -fx-text-fill: #27374D;
     -fx-font-weight: bold;
-    -fx-font-size: 1.7em;
+    -fx-font-size: 1.2em;
 }
 
 .testo_generale{
     -fx-font-family: "Arial";
-    -fx-text-fill: #27374D;
     -fx-font-weight: bold;
     -fx-font-size: 1.7em;
 }
 .testo_che_cambia{
     -fx-font-family: "Arial";
-    -fx-text-fill: #27374D;
     -fx-font-weight: bold;
     -fx-font-size: 1.7em;
 }
-.sfondo_principale{
-    -fx-background-color: #DDE6ED;
-}
-#scroll_pane_principale .viewport{
-    -fx-background-color: #DDE6ED;
-}
+
+
 
 .bottoni_profilo {
-    -fx-background-color: #27374d;
-    -fx-text-fill: #DDE6ED;
     -fx-font-size: 1.1em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
-    -fx-border-radius: 30px;
-    -fx-background-radius: 30px;
-    -fx-padding: 10px 30px;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-padding: 10 30;
     -fx-pref-width: 200;
     -fx-wrap-text: true;
 }
 
-.bottoni_profilo:hover {
-    -fx-cursor: hand;
-    -fx-background-color: #526D82;
-    -fx-text-fill: #DDE6EDFF;
-    -fx-fill: #DDE6EDFF;
-    -fx-font-family: "Arial";
-}
+
 .titolo{
-    -fx-text-fill: #27374D;
     -fx-font-weight: bold;
     -fx-font-size: 2.2em;
     -fx-font-family: "Arial";
 }
 
 #genere{
-    -fx-text-fill: #27374D;
     -fx-font-weight: bold;
     -fx-font-size: 1.2em;
     -fx-font-family: "Arial";
 }
 #mio_nome{
-    -fx-text-fill: #27374D;
     -fx-font-weight: bold;
     -fx-font-size: 2em;
     -fx-font-family: "Arial";
 }
 
 .bottone_scheda{
-    -fx-background-color: #27374d;
-    -fx-text-fill: #DDE6ED;
     -fx-font-size: 0.9em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
-    -fx-border-radius: 30px;
-    -fx-background-radius: 30px;
-    -fx-padding: 7px 30px;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-padding: 7 30;
     -fx-wrap-text: true;
-}
-.bottone_scheda:hover {
-    -fx-cursor: hand;
-    -fx-background-color: #526D82;
-    -fx-text-fill: #DDE6EDFF;
-    -fx-fill: #DDE6EDFF;
-    -fx-font-family: "Arial";
-    -fx-border-radius: 30px;
-    -fx-background-radius: 30px;
-    -fx-padding: 7px 30px;
-    -fx-wrap-text: true;
-    fx-font-size: 0.9em;
-    -fx-font-weight: bold;
 }
 
+
 .bottone_carica_immagine {
-    -fx-background-color: #27374d;
-    -fx-text-fill: #DDE6ED;
     -fx-font-size: 0.9em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
-    -fx-border-radius: 30px;
-    -fx-background-radius: 30px;
-    -fx-padding: 7px 30px;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-padding: 7 30;
     -fx-pref-width: 200;
     -fx-wrap-text: true;
 }
 
-.bottone_carica_immagine:hover {
-    -fx-cursor: hand;
-    -fx-background-color: #526D82;
-    -fx-text-fill: #DDE6EDFF;
-    -fx-fill: #DDE6EDFF;
-    -fx-font-family: "Arial";
-}
+

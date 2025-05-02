@@ -10,10 +10,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="0" styleClass="client_menu_container" stylesheets="@../../Styles/clientMenu.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientMenuController">
+<VBox spacing="0" styleClass="sfondo_sfumato" stylesheets="@../../Styles/Dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientMenuController">
 
    <!-- Sezione Profilo -->
-   <VBox fx:id="profileSection" alignment="TOP_CENTER" maxHeight="300.0" maxWidth="250.0" spacing="5">
+   <VBox fx:id="profileSection" alignment="TOP_CENTER" maxHeight="300.0" maxWidth="250.0" spacing="5" stylesheets="@../../Styles/Dashboard.css">
       <children>
          <ImageView fx:id="imageUtente" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true"> </ImageView>
          <Label fx:id="nomeCognomeUtente" styleClass="label_nomeutente" textAlignment="CENTER" wrapText="true" />
@@ -25,9 +25,9 @@
       </padding>
    </VBox>
 
-   <ScrollPane fitToWidth="true" hbarPolicy="NEVER" stylesheets="@../../Styles/clientMenu.css" VBox.vgrow="ALWAYS" >
+   <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="scrollPaneMenu" stylesheets="@../../Styles/Dashboard.css" VBox.vgrow="ALWAYS">
       <content>
-         <VBox fillWidth="true" spacing="20.0" styleClass="vbox" stylesheets="@../../Styles/clientMenu.css" fx:id="contenitorePulsantiView">
+         <VBox fx:id="contenitorePulsantiView" fillWidth="true" spacing="20.0" styleClass="contenitoreViewMenu" stylesheets="@../../Styles/Dashboard.css">
             <padding>
                <Insets left="10.0" right="10.0" top="10.0" />
             </padding>
@@ -69,7 +69,7 @@
       </VBox.margin>
    </ScrollPane>
 
-   <VBox alignment="CENTER" prefHeight="163.0" prefWidth="222.0" styleClass="footer" stylesheets="@../../Styles/clientMenu.css">
+   <VBox alignment="CENTER" prefHeight="163.0" prefWidth="222.0" styleClass="footer" stylesheets="@../../Styles/Dashboard.css">
       <padding>
          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
       </padding>
@@ -86,7 +86,7 @@
                      <FontAwesomeIconView glyphName="EXTERNAL_LINK" size="20" />
                   </graphic>
                </Button>
-               <Button fx:id="pulsanteCambioTema" maxWidth="Infinity" mnemonicParsing="false" styleClass="cambioTema">
+               <Button fx:id="pulsanteCambioTema" maxWidth="Infinity" mnemonicParsing="false" styleClass="background_chiaro">
                   <graphic>
                      <ImageView fx:id="lunettaPulsanteTema" fitHeight="34.0" preserveRatio="true">
                         <image>

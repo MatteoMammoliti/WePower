@@ -1,44 +1,21 @@
-#contenitoreSchermata{
-    -fx-background-color: #DDE6ED;
-}
 
-#contenitoreListaEsercizi .viewport{
-    -fx-background-color: #DDE6ED;
-}
-
-#contenitoreListaEsercizi .scroll-bar{
-    -fx-background-color: #DDE6ED;
-}
-#contenitoreListaEsercizi .scroll-bar .thumb{
-    -fx-background-color: #526D82;
-    -fx-background-radius: 5;
-}
-
-#contenitoreScheda .viewport{
-    -fx-background-color: #DDE6ED;
-}
 
 .dettagliMassimale{
-    -fx-text-fill: #DDE6ED;
     -fx-font-size: 1em;
     -fx-font-weight: bold;
 }
 
 .descrizioneEsercizio{
-    -fx-text-fill: #DDE6ED;
     -fx-font-size: 1.2em;
     -fx-font-weight: bold;
 }
 
 .serieRipetizioni{
-    -fx-text-fill: #27374D;
     -fx-font-size: 1.2em;
     -fx-font-weight: bold;
 }
 
-.button{
-    -fx-background-color: #dde6ed;
-    -fx-text-fill: #27374DFF;
+.btnScheda{
     -fx-font-size: 0.9em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
@@ -49,16 +26,8 @@
     -fx-wrap-text: true;
 }
 
-.button:hover {
-    -fx-cursor: hand;
-    -fx-background-color: #27374d;
-    -fx-text-fill: #DDE6EDFF;
-    -fx-fill: #DDE6EDFF;
-}
 
 .bottoneElimaScheda {
-    -fx-background-color: #526D82;
-    -fx-text-fill: #27374DFF;
     -fx-font-size: 1.2em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
@@ -70,38 +39,30 @@
 
 .titoloContenitore{
     -fx-font-size: 2em;
-    -fx-text-fill:#27374D;
     -fx-font-weight: bold;
 }
 
 .titoloEsercizio{
     -fx-font-size: 1.5em;
-    -fx-text-fill: #27374D;
     -fx-font-weight: bold;
 }
 
 .testo{
-    -fx-text-fill: #27374D;
     -fx-font-size: 1.2em;
     -fx-font-weight: bold;
 }
 
 .rigaEsercizio{
-    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #9DB2BF, #27374D);
-    -fx-border-color:#27374D;
     -fx-border-widht: 2;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
 }
 
 #SplitPane > .split-pane-divider {
-    -fx-background-color: #526D82;
     -fx-padding: 0;
 }
 
 #bottoniCreaChiedi {
-    -fx-background-color: #526D82;
-    -fx-text-fill: #27374DFF;
     -fx-font-size: 1.5em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
@@ -111,15 +72,8 @@
     -fx-pref-width: 350;
 }
 
-#bottoniCreaChiedi:hover {
-    -fx-cursor: hand;
-    -fx-background-color: #27374d;
-    -fx-text-fill: #DDE6EDFF;
-    -fx-fill: #DDE6EDFF;
-}
 
 #labelNoScheda {
-    -fx-text-fill: #27374D;
     -fx-font-size: 1.2em;
     -fx-font-weight: bold;
 }

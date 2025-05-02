@@ -2,6 +2,7 @@ package com.wepower.wepower.Views.Bannerini;
 
 import com.wepower.wepower.Controllers.Client.ClientViewsController.InserimentoDatiPagamentoController;
 import com.wepower.wepower.Controllers.Client.ClientViewsController.ProfiloController;
+import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Views.AlertHelper;
@@ -56,7 +57,7 @@ public class BannerAbbonamenti extends VBox {
         });
 
         this.getStyleClass().add("bannerino");
-        this.getStylesheets().add(getClass().getResource("/Styles/bannerStyle.css").toExternalForm());
+        this.getStylesheets().add(getClass().getResource("/Styles/Dashboard.css").toExternalForm());
     }
 
     static public ArrayList<BannerAbbonamenti> getBannerAbbonamentiDB() {
@@ -97,6 +98,10 @@ public class BannerAbbonamenti extends VBox {
         InserimentoDatiPagamentoController controller = loader.getController();
 
         Scene scena = new Scene(root);
+
+        String cssTema=getClass().getResource("/Styles/inserimentoDatiPagamento.css").toExternalForm();
+        ControlloTemi.getInstance().aggiungiScena(scena, cssTema);
+
         controller.setNomeEPrezzoAbb(nome, prezzoB);
         Stage stage = new Stage();
         stage.setTitle("Pagamento abbonamento");

@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 public class Calendario {
     public static VBox creaCalendario() {
         VBox calendarioBox = new VBox(10);
-        calendarioBox.getStylesheets().add(Calendario.class.getResource("/Styles/calendario.css").toExternalForm());
+        calendarioBox.getStylesheets().add(Calendario.class.getResource("/Styles/Dashboard.css").toExternalForm());
         calendarioBox.setPrefWidth(300);
 
         YearMonth[] meseCorrente = {YearMonth.now()}; // wrapper per permettere modifica nel listener

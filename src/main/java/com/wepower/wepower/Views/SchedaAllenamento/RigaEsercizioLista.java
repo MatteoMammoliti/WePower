@@ -59,6 +59,7 @@ public class RigaEsercizioLista extends HBox {
             }
             aggiornaUI();
         });
+        aggiungiEsercizioScheda.getStyleClass().add("btnScheda");
 
         VBox containerSinistra = new VBox();
         VBox sopra = new VBox();

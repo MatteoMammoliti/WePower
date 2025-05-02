@@ -1,28 +1,20 @@
-#contenitoreDatiPagamento {
-    -fx-background-color: #DDE6ED;
-}
 
 #tipoAbbonamento {
     -fx-font-size: 2em;
-    -fx-text-fill:#27374D;
     -fx-font-weight: bold;
 }
 
 #prezzoAbbonamento {
     -fx-font-size: 1.6em;
-    -fx-text-fill:#27374D;
     -fx-font-weight: bold;
 }
 
 #labelInserimentoDati {
     -fx-font-size: 1.5em;
-    -fx-text-fill:#27374D;
     -fx-font-weight: bold;
 }
 
 #bottonePaga {
-    -fx-background-color: #526D82;
-    -fx-text-fill: #27374DFF;
     -fx-font-size: 1.3em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
@@ -32,9 +24,3 @@
     -fx-pref-width: 200;
 }
 
-#bottonePaga:hover {
-    -fx-cursor: hand;
-    -fx-background-color: #27374d;
-    -fx-text-fill: #DDE6EDFF;
-    -fx-fill: #DDE6EDFF;
-}

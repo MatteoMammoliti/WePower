@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane id="contenitoreSchermata" prefHeight="820" prefWidth="1920" stylesheets="@../../../Styles/scheda.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientViewsController.SchedaController">
+<BorderPane prefHeight="820" prefWidth="1920" styleClass="background_chiaro" stylesheets="@../../../Styles/scheda.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientViewsController.SchedaController">
 
     <!-- Divisione orizzontale responsive -->
     <center>
-        <SplitPane fx:id="splitPane" dividerPositions="0.5" BorderPane.alignment="TOP_CENTER" id="SplitPane">
+        <SplitPane id="SplitPane" fx:id="splitPane" dividerPositions="0.5" BorderPane.alignment="TOP_CENTER">
             <items>
                 <ScrollPane id="contenitoreListaEsercizi" fitToWidth="true">
                     <content>

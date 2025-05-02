@@ -21,7 +21,7 @@
    <right>
       <HBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="330.0" styleClass="right_side_pane" stylesheets="@../Styles/login.css" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="500.0" prefWidth="345.0">
+            <Pane prefHeight="500.0" prefWidth="345.0" stylesheets="@../Styles/login.css">
                <children>
                   <ImageView fitHeight="79.0" fitWidth="79.0" layoutY="431.0">
                      <image>
@@ -45,7 +45,7 @@
          </children></HBox>
    </right>
    <center>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="100.0" prefWidth="200.0" styleClass="background_chiaro" BorderPane.alignment="CENTER">
          <children>
             <AnchorPane prefHeight="500.0" prefWidth="670.0" stylesheets="@../Styles/login.css">
                <children>

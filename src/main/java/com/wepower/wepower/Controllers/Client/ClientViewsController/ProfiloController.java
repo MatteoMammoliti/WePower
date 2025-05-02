@@ -1,5 +1,6 @@
 package com.wepower.wepower.Controllers.Client.ClientViewsController;
 
+import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
 import javafx.beans.value.ChangeListener;
@@ -365,6 +366,9 @@ public class ProfiloController implements Initializable {
         Stage stage=new Stage();
         stage.setTitle("Schermata selezione abbonamento");
         Scene scena=new Scene(root);
+
+        String cssTema=getClass().getResource("/Styles/bannerSelezioneStyle.css").toExternalForm();
+        ControlloTemi.getInstance().aggiungiScena(scena,cssTema);
         stage.setScene(scena);
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -380,6 +384,9 @@ public class ProfiloController implements Initializable {
         Parent root=loader.load();
         Stage stage=new Stage();
         Scene scena=new Scene(root);
+
+        String cssTema=getClass().getResource("/Styles/modificaDati.css").toExternalForm();
+        ControlloTemi.getInstance().aggiungiScena(scena,cssTema);
         stage.setTitle("Modifica dati");
         stage.setScene(scena);
         stage.setResizable(false);

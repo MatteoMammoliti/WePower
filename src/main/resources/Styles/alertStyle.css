@@ -1,17 +1,12 @@
-.dialog-pane {
-    -fx-background-color: #DDE6ED;;
-}
+
 
 .dialog-pane .content.label {
-    -fx-text-fill: #27374d;
     -fx-font-size: 1.2em;
     -fx-font-family: "Arial";
     -fx-font-weight: bold;
 }
 
 .dialog-pane .header-panel {
-    -fx-background-color:  #DDE6ED;
-    -fx-text-fill: #27374d;
     -fx-font-size: 1.5em;
     -fx-font-family: "Arial";
     -fx-font-weight: bold;
@@ -19,16 +14,8 @@
 
 .dialog-pane .button-bar .button {
     -fx-font-size: 1.5em;
-    -fx-background-color: #526D82;
     -fx-border-radius: 30;
     -fx-background-radius: 30;
     -fx-padding: 10 30;
-    -fx-text-fill: #dde6ed;
     -fx-font-family: "Arial";
-}
-
-.dialog-pane .button-bar .button:hover {
-    -fx-cursor: hand;
-    -fx-background-color: #27374d;
-    -fx-text-fill: #DDE6EDFF;
 }

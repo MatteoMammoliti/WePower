@@ -1,36 +1,21 @@
-#contenitorePagina {
-    -fx-background-color: #DDE6ED;
-}
 
-#contenitorePagina >.split-pane-divider {
-    -fx-background-color: #526D82;
-    -fx-padding: 0;
-}
+
 
 .label-titolo {
-    -fx-text-fill: #526D82;
     -fx-font-size: 2em;
     -fx-font-weight: bold;
 }
 
 .label-contenuto {
     -fx-font-size: 1.5em;
-    -fx-text-fill: #526D82;
 }
 
 .icone-socials {
     -fx-font-size: 1.5em;
-    -fx-background-color: #526D82;
     -fx-border-radius: 30;
     -fx-background-radius: 30;
     -fx-padding: 10 30;
-    -fx-text-fill: #dde6ed;
     -fx-font-family: "Arial";
     -fx-pref-width: 250;
 }
 
-.icone-socials:hover {
-    -fx-cursor: hand;
-    -fx-background-color: #27374d;
-    -fx-text-fill: #DDE6EDFF;
-}

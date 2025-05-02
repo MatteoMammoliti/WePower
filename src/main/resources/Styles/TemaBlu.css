@@ -1,0 +1,617 @@
+/*GENERALE*/
+.background_chiaro{
+    -fx-background-color: #DDE6ED;
+}
+.scroll-pane{
+-fx-border-color: transparent;
+}
+.scroll-pane >.viewport{
+    -fx-background-color: #DDE6ED;
+}
+.scroll-pane > .corner{
+    -fx-background-color: transparent;
+}
+.scroll-pane .scroll-bar{
+    -fx-background-color: #DDE6ED;
+}
+.scroll-bar:vertical{
+    -fx-background-color: #DDE6ED;
+}
+.scroll-pane .scroll-bar .thumb{
+    -fx-background-color: #526D82;
+    -fx-background-radius: 5;
+}
+.sfondo_sfumato{
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgb(221, 230, 237) 0%, rgb(39, 55, 77) 99%);
+}
+
+/*REGISTRAZIONE E LOGIN*/
+
+.right_side_pane{
+    -fx-background-image: url("../Images/background_login_form.png")
+}
+.input_login{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #27374d transparent;
+    -fx-text-fill: #27374d;
+}
+.my_button_login {
+    -fx-background-color: #27374d;
+    -fx-text-fill: #dde6ed;
+    -fx-border-color: #27374d;
+}
+.my_button_login:hover {
+    -fx-cursor: hand;
+    -fx-opacity:1;
+}
+.my_button_toggle_pasword {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+.text_login{
+    -fx-text-fill: #27374D;
+    -fx-fill-width: bold;
+    -fx-fill:#27374D;
+}
+
+
+
+
+/*Dashboaord*/
+
+/*Menu latelare*/
+
+.label_nomeutente{
+    -fx-text-fill: #27374D;
+}
+
+.label_email{
+    -fx-text-fill: #27374D;
+}
+.my_button_window {
+    -fx-background-color: #dde6ed;
+    -fx-text-fill: #27374DFF;
+}
+.my_button_window:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
+}
+.my_button_window FontAwesomeIconView{
+    -fx-fill: #526D82;
+}
+.scrollPaneMenu > .viewport{
+    -fx-background-color: transparent;
+}
+.scrollPaneMenu{
+    -fx-background-color: transparent;
+}
+.contenitoreViewMenu{
+    -fx-background-color: transparent;
+}
+.footer {
+    -fx-background-color: transparent;
+}
+.cambioTema{
+    -fx-background-color: #DDE6EDFF;
+}
+.cambioTema:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #27374DFF;
+}
+
+ /*Head*/
+#contenitore_centrale{
+    -fx-background-color: #DDE6ED;
+}
+
+#frase_illustrazione_offerte{
+    -fx-text-fill: #27374D;
+}
+#saluto_nome{
+    -fx-text-fill:#27374D;
+}
+
+/*Espositore offerte*/
+.pane_offerte_dashboard{
+    -fx-background-color: transparent;
+}
+
+.testo_offerte_dashboard{
+    -fx-text-fill: #27374D;
+}
+#contenitore_bannerini .viewport{
+    -fx-background-color: #DDE6ED;
+
+}
+.bannerino {
+    -fx-background-color:  linear-gradient(from 0% 0% to 100% 100%, #9DB2BF, #27374D);
+    -fx-border-color: #27374D;
+}
+.bannerino .label {
+    -fx-text-fill: #dde6ed;
+}
+
+/*Calendario*/
+
+.button_calendario{
+    -fx-background-color: transparent;
+    -fx-text-fill: #27374d;
+}
+.label_giorno{
+    -fx-text-fill: #27374d;
+}
+.bottoniCambioMese{
+    -fx-background-color: transparent;
+    -fx-text-fill: #27374d;
+    -fx-bold: true;
+}
+.button_calendario:hover{
+    -fx-background-color: #27374d;
+    -fx-text-fill: white;
+}
+.label_mese{
+    -fx-text-fill: #27374d;
+}
+
+.giorno_prenotato{
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6ED;
+}
+.giorno_prenotato:hover{
+    -fx-opacity:1;
+    -fx-text-fill: white;
+}
+#circlePrenotato{
+    -fx-fill:#27374d;
+    -fx-opacity:0.9;
+}
+#circleChiusura{
+    -fx-fill: #27374D;
+    -fx-opacity:0.5;
+}
+
+
+/*ChatBox*/
+#bottone_chat_bot{
+    -fx-background-color: #DDE6ED;
+    -fx-text-fill: #27374D;
+}
+
+#text_field_bot{
+    -fx-background-color: #DDE6ED;
+}
+
+#vbox_chatbot {
+    -fx-background-color: white;
+}
+
+.rispostaBot{
+    -fx-background-color: #DDE6EDFF;
+}
+/*Grafici*/
+.grafico{
+    -fx-background-color: #DDE6ED;
+}
+
+.grafico .chart-bar{
+    -fx-bar-fill: #27374D;
+}
+
+.grafico .chart-series-line	{
+    -fx-stroke: #27374D;
+
+}
+.grafico .chart-line-symbol{
+    -fx-background-color: #9DB2BF;
+
+}
+.grafico .chart-plot-background{
+    -fx-background-color: #DDE6ED;
+
+}
+
+.grafico .chart-horizontal-grid-lines, .chart-vertical-grid-lines{
+    -fx-stroke: transparent;
+}
+
+.grafico .axis-tick-mark{
+    -fx-stroke: #27374D;
+}
+.grafico .axis-minor-tick-mark{
+    -fx-stroke: transparent;
+}
+
+.grafico .axis-label{
+    -fx-text-fill: #27374D;
+}
+#tendina_grafico{
+    -fx-border-color:#27374D;
+    -fx-background-color:#9DB2BF ;
+    -fx-text-fill: #27374D;
+}
+#tendina_grafico .menu-item{
+    -fx-text-fill: #27374D;
+    -fx-background-color:#9DB2BF ;
+    -fx-border-color: #DDE6ED;
+}
+
+
+/*SEZIONE SCHEDA*/
+.dettagliMassimale{
+    -fx-text-fill: #DDE6ED;
+}
+.descrizioneEsercizio{
+    -fx-text-fill: #DDE6ED;
+}
+.serieRipetizioni{
+    -fx-text-fill: #27374D;
+}
+.btnScheda{
+    -fx-background-color: #dde6ed;
+    -fx-text-fill: #27374DFF;
+}
+.btnScheda:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
+}
+.bottoneElimaScheda {
+    -fx-background-color: #526D82;
+    -fx-text-fill: #27374DFF;
+}
+#bottoniCreaChiedi {
+    -fx-background-color: #526D82;
+    -fx-text-fill: #27374DFF;
+    -fx-font-size: 1.5em;
+}
+#bottoniCreaChiedi:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
+}
+
+.titoloContenitore{
+    -fx-text-fill:#27374D;
+}
+.titoloEsercizio{
+    -fx-text-fill: #27374D;
+}
+.testo{
+    -fx-text-fill: #27374D;
+}
+.rigaEsercizio {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #9DB2BF, #27374D);
+    -fx-border-color: #27374D;
+}
+#labelNoScheda {
+    -fx-text-fill: #27374D;
+}
+#SplitPane > .split-pane-divider {
+    -fx-background-color: #526D82;
+}
+
+/*SEZIONE PRENOTAZIONE*/
+.rigaCompleta{
+    -fx-background-color: #DDE6ED;
+    -fx-border-color: #DDE6ED;
+}
+.contenitoreSezioneOrario{
+    -fx-background-color: #27374DFF;
+}
+.contenitoreSezioneOrarioPrenotato{
+    -fx-background-color: #27374DFF;
+}
+.labelSala {
+    -fx-text-fill: #27374D;
+}
+.labelPostiDisponibili {
+    -fx-text-fill: #27374D;
+}
+.contenitoreRigaStorico{
+    -fx-background-color:  #526D82;
+    -fx-text-fill: #DDE6ED;
+}
+.contenitoreRigaProssimiAllenamenti{
+    -fx-background-color:  #526D82;
+    -fx-text-fill: #DDE6ED;
+}
+.contenitoreDettagliRiga{
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #9DB2BF, #27374D);
+}
+.labelFineInizio{
+    -fx-text-fill: #dde6ed;
+}
+.labelInfoStorico{
+    -fx-text-fill:  #1B262C;
+}
+#labelTitoloPagina {
+    -fx-text-fill: #27374D;
+}
+#labelProssimiAllenamenti{
+    -fx-text-fill:#27374D;
+}
+#labelStorico{
+    -fx-text-fill:#27374D;
+}
+.btnGiornoChiusura{
+    -fx-background-color: #BBE1FA;
+}
+.btnPrenotato{
+    -fx-background-color: #BBE1FA;
+    -fx-text-fill: #27374DFF;
+}
+.btnPrenotati{
+    -fx-background-color: #BBE1FA;
+    -fx-text-fill: #27374DFF;
+}
+.btnPrenotati:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
+}
+.btnEliminaPrenotazione{
+    -fx-background-color: #BBE1FA;
+    -fx-text-fill: #526D82;
+}
+.btnEliminaPrenotazione:hover{
+    -fx-opacity: 1;
+    -fx-cursor: hand;
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
+}
+.btnPrecedenteNO{
+    -fx-background-color: #dde6ed;
+    -fx-text-fill: #27374DFF;
+}
+.btnPrecSucc{
+    -fx-background-color: #dde6ed;
+    -fx-text-fill: #27374DFF;
+}
+
+.btnPrecSucc:hover{
+    -fx-opacity: 1;
+}
+
+/*DATI PROFILO CLIENTE*/
+.certificatoNo{
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6ED;
+}
+.certificatoNo:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #526D82;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
+}
+.certificatoAttesa{
+    -fx-text-fill: #27374D;
+}
+.certificatoSi{
+    -fx-text-fill: #27374D;
+}
+.abbonamentoSi{
+    -fx-text-fill: #27374D;
+}
+.abbonamentoNo{
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6ED;
+}
+.abbonamentoNo:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #526D82;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
+}
+.schedaNo{
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6ED;
+}
+.schedaNo:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #526D82;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
+}
+.schedaSi{
+    -fx-text-fill: #27374D;
+}
+.testo_generale{
+    -fx-text-fill: #27374D;
+}
+.testo_che_cambia{
+    -fx-text-fill: #27374D;
+}
+.bottoni_profilo {
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6ED;
+}
+.bottoni_profilo:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #526D82;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
+}
+.titolo{
+    -fx-text-fill: #27374D;
+}
+#genere{
+    -fx-text-fill: #27374D;
+}
+#mio_nome{
+    -fx-text-fill: #27374D;
+}
+.bottone_scheda{
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6ED;
+}
+.bottone_scheda:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #526D82;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
+}
+.bottone_carica_immagine {
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6ED;
+}
+.bottone_carica_immagine:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #526D82;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
+}
+
+/*SEZIONE CONTATTI */
+#contenitorePagina >.split-pane-divider {
+    -fx-background-color: #526D82;
+    -fx-padding: 0;
+}
+.label-titolo {
+    -fx-text-fill: #526D82;
+}
+.label-contenuto {
+    -fx-text-fill: #526D82;
+}
+.icone-socials {
+    -fx-background-color: #526D82;
+    -fx-text-fill: #dde6ed;
+}
+.icone-socials:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6EDFF;
+}
+
+/*MODIFICA DATI CLIENTI*/
+#titoloModificaDati {
+    -fx-text-fill:#27374D;
+}
+#labelModificaDati {
+    -fx-text-fill:#27374D;
+}
+#radioButtonModificaDati {
+    -fx-text-fill: #27374DFF;
+}
+#radioButtonModificaDati .radio{
+    -fx-background-color: #526D82;
+}
+
+#radioButtonModificaDati:selected .radio{
+    -fx-background-color: #27374d;
+}
+#bottoniConfermaModifica {
+    -fx-background-color: #526D82;
+    -fx-text-fill: #27374DFF;
+}
+#bottoniConfermaModifica:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
+}
+
+/*INSERIMENTO DATI PAGAMENTO*/
+#tipoAbbonamento {
+    -fx-text-fill:#27374D;
+}
+#prezzoAbbonamento {
+    -fx-text-fill:#27374D;
+}
+#labelInserimentoDati {
+    -fx-text-fill:#27374D;
+}
+
+#bottonePaga {
+    -fx-background-color: #526D82;
+    -fx-text-fill: #27374DFF;
+}
+
+#bottonePaga:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
+}
+
+/*SELEZIONE ABBONAMENTO*/
+
+#titoloPaginaSelezioneAbbonamento{
+    -fx-text-fill: #27374D;
+}
+
+#contenitoreAbbonamenti {
+    -fx-background-color: #DDE6ED;
+    -fx-border-color: #DDE6ED;
+}
+
+
+#scrollPaneAbbonamenti:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+
+
+.labelNome {
+    -fx-text-fill:#27374D;
+}
+.labelDescrizione{
+    -fx-text-fill:#27374D;
+}
+
+.labelPrezzo{
+    -fx-text-fill: #27374D;
+}
+
+.buttonAbbonati{
+    -fx-background-color: #DDE6ED;
+    -fx-text-fill: #27374DFF
+}
+
+.buttonAbbonati:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
+}
+
+.contenitoreRiga{
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #9DB2BF, #27374D);
+}
+
+.anchorPaneContenitore{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent,transparent,transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/*ALLERT*/
+.dialog-pane {
+    -fx-background-color: #DDE6ED;
+}
+.dialog-pane .content.label {
+    -fx-text-fill: #27374d;
+}
+.dialog-pane .header-panel {
+    -fx-background-color:  #DDE6ED;
+    -fx-text-fill: #27374d;
+}
+.dialog-pane .button-bar .button {
+    -fx-background-color: #526D82;
+    -fx-text-fill: #dde6ed;
+}
+.dialog-pane .button-bar .button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6EDFF;
+}
+
+
+

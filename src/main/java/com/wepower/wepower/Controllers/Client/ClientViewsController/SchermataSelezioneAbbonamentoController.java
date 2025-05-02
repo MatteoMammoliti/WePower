@@ -1,5 +1,6 @@
 package com.wepower.wepower.Controllers.Client.ClientViewsController;
 
+import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.DatiPalestra.Abbonamento;
 import com.wepower.wepower.Views.Bannerini.BannerAbbonamentiInSeleziona;
 import javafx.event.ActionEvent;
@@ -60,6 +61,8 @@ public class SchermataSelezioneAbbonamentoController implements Initializable {
                 InserimentoDatiPagamentoController controller = loader.getController();
                 controller.setNomeEPrezzoAbb(nomeAbb,PrezzoAbb);
 
+                String cssTema=getClass().getResource("/Styles/inserimentoDatiPagamento.css").toExternalForm();
+                ControlloTemi.getInstance().aggiungiScena(scena,cssTema);
                 //Passo il riferimento alla finestra corrente(In modo da chiuderla dopo il "pagamento")
                 controller.setFinestraPrecedente(stage);
 

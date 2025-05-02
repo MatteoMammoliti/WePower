@@ -1,4 +1,5 @@
 package com.wepower.wepower.Controllers.Client;
+import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import javafx.application.Platform;
@@ -29,6 +30,7 @@ public class ClientMenuController  implements Initializable {
     public Label labelStatoAbbonamento;
     public VBox profileSection;
     public VBox contenitorePulsantiView;
+    public Button pulsanteCambioTema;
 
     public void caricaMenu() {
         nomeCognomeUtente.setText(DatiSessioneCliente.getNomeUtente() + " " + DatiSessioneCliente.getCognome());
@@ -60,6 +62,16 @@ public class ClientMenuController  implements Initializable {
             aggiustaSpazioPulsanti();
         });
 
+        pulsanteCambioTema.setOnAction(e -> {
+            String blutema= getClass().getResource("/Styles/TemaBlu.css").toExternalForm();
+            String temaProva=getClass().getResource("/Styles/TemaProva.css").toExternalForm();
+            if(ControlloTemi.getInstance().getCssTemaCorrente().equals(blutema)){
+                ControlloTemi.getInstance().cambiaTema(temaProva);
+            }
+            else{
+                ControlloTemi.getInstance().cambiaTema(blutema);
+            }
+        });
 
     }
 

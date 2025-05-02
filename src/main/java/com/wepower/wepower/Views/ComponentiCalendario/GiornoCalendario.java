@@ -14,8 +14,8 @@ public class GiornoCalendario  extends Button {
         super(giornovalore);
         this.dataPrenotazione = dataPrenotazione;
         this.setPrefSize(70, 30);
-        this.getStyleClass().add("giornoBottone");
-        this.getStylesheets().add(Calendario.class.getResource("/Styles/calendario.css").toExternalForm());
+        this.getStyleClass().add("button_calendario");
+        this.getStylesheets().add(Calendario.class.getResource("/Styles/Dashboard.css").toExternalForm());
 
 
 

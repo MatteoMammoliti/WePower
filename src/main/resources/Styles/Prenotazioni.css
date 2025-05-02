@@ -1,15 +1,11 @@
-#tuttaPagina{
-    -fx-background-color: #DDE6ED;
+.scrollPrenotazione{
 }
 
 .rigaCompleta{
-    -fx-background-color: #DDE6ED;
-    -fx-border-color: #DDE6ED;
     -fx-border-width: 1;
 }
 
 .contenitoreSezioneOrario{
-    -fx-background-color: #27374DFF;
     -fx-border-radius: 20 0 0 20;
     -fx-background-radius: 20 0 0 20;
     -fx-border-width: 2;
@@ -18,7 +14,6 @@
 }
 
 .contenitoreSezioneOrarioPrenotato{
-    -fx-background-color: #27374DFF;
     -fx-opacity: 1;
     -fx-background-radius: 20 0 0 20;
     -fx-border-radius: 20 0 0 20;
@@ -26,53 +21,25 @@
     -fx-padding: 6;
 }
 
-#scrollProssimiAllenamenti.viewport{
-    -fx-background-color: #DDE6ED;
-}
-
-#scrollPrenotazione {
-    -fx-background-color: #DDE6ED;
-    -fx-border-color:  #DDE6ED;
-}
-
-#scrollPrenotazione .viewport {
-    -fx-background-color: #DDE6ED;
-}
-
-#scrollPrenotazione .scroll-bar:vertical{
-    -fx-background-color: #DDE6ED;
-}
-
-#scrollPrenotazione .scroll-bar .thumb{
-    -fx-background-color: #526D82;
-    -fx-background-radius: 5;
-}
 
 .labelSala {
-    -fx-text-fill: #27374D;
     -fx-font-weight: bold;
     -fx-font-size: 2em;
 }
 
 .labelPostiDisponibili {
-    -fx-text-fill: #27374D;
     -fx-font-size: 1em;
 }
 
 .contenitoreRigaStorico{
-    -fx-background-color:  #526D82;
-    -fx-text-fill: #DDE6ED;
     -fx-background-radius: 20;
     -fx-border-radius: 20;
     -fx-alignment: center;
     -fx-opacity: 0.5;
 }
 
-.containerProssimiAllenamenti{}
 
 .contenitoreRigaProssimiAllenamenti{
-    -fx-background-color:  #526D82;
-    -fx-text-fill: #DDE6ED;
     -fx-background-radius: 20;
     -fx-border-radius: 20;
     -fx-alignment: center;
@@ -80,7 +47,6 @@
 }
 
 .contenitoreDettagliRiga{
-    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #9DB2BF, #27374D);
     -fx-width: 300;
     -fx-background-radius: 0 20 20 0;
     -fx-border-radius: 0 20 20 0;
@@ -90,35 +56,29 @@
 
 .labelFineInizio{
     -fx-font-weight: bold;
-    -fx-text-fill: #dde6ed;
 }
 
 .labelInfoStorico{
     -fx-font-size: 1em;
     -fx-font-weight: bold;
-    -fx-text-fill:  #1B262C;
 }
 
 #labelTitoloPagina {
     -fx-font-weight: bold;
     -fx-font-size: 2.8em;
-    -fx-font-style: #27374D;
 }
 
 #labelProssimiAllenamenti{
     -fx-font-weight: bold;
     -fx-font-size: 1.8em;
-    -fx-font-style:#27374D;
 }
 
 #labelStorico{
     -fx-font-weight: bold;
     -fx-font-size: 1.8em;
-    -fx-font-style:#27374D;
 }
 
 .btnGiornoChiusura{
-    -fx-background-color: #BBE1FA;
     -fx-font-weight: bold;
     -fx-font-size: 1.5em;
     -fx-opacity: 0.5;
@@ -128,9 +88,7 @@
 }
 
 .btnPrenotato{
-    -fx-background-color: #BBE1FA;
     -fx-opacity: 0.5;
-    -fx-text-fill: #27374DFF;
     -fx-font-size: 0.9em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
@@ -141,8 +99,6 @@
 }
 
 .btnPrenotati{
-    -fx-background-color: #BBE1FA;
-    -fx-text-fill: #27374DFF;
     -fx-font-size: 0.9em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
@@ -152,16 +108,8 @@
     -fx-padding: 10;
 }
 
-.btnPrenotati:hover{
-    -fx-cursor: hand;
-    -fx-background-color: #27374d;
-    -fx-text-fill: #DDE6EDFF;
-    -fx-fill: #DDE6EDFF;
-}
 
 .btnEliminaPrenotazione{
-    -fx-background-color: #BBE1FA;
-    -fx-text-fill: #526D82;
     -fx-font-size: 0.9em;
     -fx-font-family: "Arial";
     -fx-font-weight: bold;
@@ -171,17 +119,9 @@
     -fx-padding: 10;
 }
 
-.btnEliminaPrenotazione:hover{
-    -fx-opacity: 1;
-    -fx-cursor: hand;
-    -fx-background-color: #27374d;
-    -fx-text-fill: #DDE6EDFF;
-    -fx-fill: #DDE6EDFF;
-}
+
 
 .btnPrecedenteNO{
-    -fx-background-color: #dde6ed;
-    -fx-text-fill: #27374DFF;
     -fx-font-size: 0.9em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
@@ -193,8 +133,6 @@
 }
 
 .btnPrecSucc{
-    -fx-background-color: #dde6ed;
-    -fx-text-fill: #27374DFF;
     -fx-font-size: 0.9em;
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
@@ -205,7 +143,4 @@
     -fx-opacity: 0.8;
 }
 
-.btnPrecSucc:hover{
-    -fx-opacity: 1;
-}
 

@@ -1,4 +1,5 @@
 package com.wepower.wepower.Views;
+import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -38,6 +39,8 @@ public class ViewFactoryClient {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        String cssTema=getClass().getResource("/Styles/login.css").toExternalForm();
+        ControlloTemi.getInstance().aggiungiScena(scene,cssTema);
 
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -57,6 +60,8 @@ public class ViewFactoryClient {
             e.printStackTrace();
         }
 
+        String cssTema= getClass().getResource("/Styles/login.css").toExternalForm();
+        ControlloTemi.getInstance().aggiungiScena(scene,cssTema);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("WePower - Login");
@@ -82,6 +87,9 @@ public class ViewFactoryClient {
         stage.setMinHeight(600);
         stage.setMinWidth(1300);
         stage.setMaximized(true);
+
+        String cssTema=getClass().getResource("/Styles/Dashboard.css").toExternalForm();
+        ControlloTemi.getInstance().aggiungiScena(scene,cssTema);
 
         stage.centerOnScreen();
         stage.show();
@@ -115,7 +123,6 @@ public class ViewFactoryClient {
     public BorderPane getSchedaView() {
         if (scheda == null) {
             try {
-                System.out.println("DatiSessioneCliente.getIdSchedaAllenamento() = " + DatiSessioneCliente.getIdSchedaAllenamento());
                 if (DatiSessioneCliente.getIdSchedaAllenamento() != 0) {
                     scheda = new FXMLLoader(getClass().getResource("/Fxml/Client/ClientMenuView/Scheda.fxml")).load();
                 }
@@ -142,6 +149,7 @@ public class ViewFactoryClient {
         } else if (prenotazioni.getParent() != null) {
             ((javafx.scene.layout.Pane) prenotazioni.getParent()).getChildren().remove(prenotazioni);
         }
+
         return prenotazioni;
     }
 

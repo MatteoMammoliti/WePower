@@ -67,8 +67,10 @@ public class RigaEsercizioScheda extends HBox {
                 AlertHelper.showAlert("Errore", "Qualcosa è andato storto", null, Alert.AlertType.ERROR );
             }
         });
+        aggiungiMassimale.getStyleClass().add("btnScheda");
 
         this.rimuoviSchedaEsercizio = new Button("Rimuovi esercizio");
+        rimuoviSchedaEsercizio.getStyleClass().add("btnScheda");
         if(DatiSessioneCliente.getSeSchedaRichiesta()) this.rimuoviSchedaEsercizio.setVisible(false);
         this.rimuoviSchedaEsercizio.setOnAction(event -> ModelSchedaAllenamentoCliente.onRimuoviEsercizio(this.nomeEsercizio.getText(), DatiSessioneCliente.getIdSchedaAllenamento()));
 

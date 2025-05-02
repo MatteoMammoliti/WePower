@@ -107,7 +107,7 @@ public class ClientDashboardController implements Initializable {
         Label messaggioInizialeApertura = new Label(msg);
         messaggioInizialeApertura.maxWidthProperty().bind(scrollPaneChatArea.widthProperty().subtract(50));
         VBox.setVgrow(messaggioInizialeApertura, Priority.ALWAYS);
-        messaggioInizialeApertura.setStyle("-fx-background-color: #DDE6EDFF; -fx-padding: 8px; -fx-background-radius: 10px;");
+        messaggioInizialeApertura.getStyleClass().add("rispostaBot");
         messaggioInizialeApertura.setWrapText(true);
         messaggioIniziale.getChildren().addAll(messaggioInizialeApertura);
         messaggioIniziale.setAlignment(Pos.CENTER);
@@ -311,7 +311,7 @@ public class ClientDashboardController implements Initializable {
         Label messaggioLabel = new Label(messaggioUtente);
         messaggioLabel.maxWidthProperty().bind(scrollPaneChatArea.widthProperty().subtract(50));
         messaggioLabel.setWrapText(true);
-        messaggioLabel.setStyle("-fx-background-color: #DDE6EDFF; -fx-padding: 8px; -fx-background-radius: 10px;");
+        messaggioLabel.getStyleClass().add("rispostaBot");
         messaggio.getChildren().addAll(messaggioLabel);
 
        VBox.setVgrow(messaggio, Priority.ALWAYS);
@@ -336,7 +336,7 @@ public class ClientDashboardController implements Initializable {
 
                 Label rispostaPowerino = new Label(risposta);
                 rispostaPowerino.setWrapText(true);
-                rispostaPowerino.setStyle("-fx-background-color:#DDE6EDFF; -fx-padding: 8px; -fx-background-radius: 10px;");
+                rispostaPowerino.getStyleClass().add("rispostaBot");
                 rispostaPowerino.maxWidthProperty().bind(scrollPaneChatArea.widthProperty().subtract(50));
                 messaggioPowerino.getChildren().addAll(rispostaPowerino);
 

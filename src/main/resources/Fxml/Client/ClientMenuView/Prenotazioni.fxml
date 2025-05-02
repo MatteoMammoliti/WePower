@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="tuttaPagina" stylesheets="@../../../Styles/Prenotazioni.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientViewsController.PrenotazioniController">
+<BorderPane styleClass="background_chiaro" stylesheets="@../../../Styles/Prenotazioni.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientViewsController.PrenotazioniController">
    <center>
       <VBox alignment="CENTER" fillWidth="false" spacing="10" BorderPane.alignment="CENTER">
          <children>
@@ -23,7 +23,7 @@
                   </font>
                    </Label>
                   <Label id="labelStorico" fx:id="labelStorico" text="Storico delle tue prenotazioni" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-                  <ScrollPane id="scrollPrenotazione" fx:id="scrollPrenotazione" fitToWidth="true" maxWidth="500.0" vbarPolicy="AS_NEEDED" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <ScrollPane fx:id="scrollPrenotazione" fitToWidth="true" maxWidth="500.0" vbarPolicy="AS_NEEDED" GridPane.columnIndex="1" GridPane.rowIndex="1">
                       <content>
                           <HBox id="containerGiorniPrenotazione" fx:id="containerGiorniPrenotazione" fillHeight="false" spacing="10" />
                       </content>
@@ -31,12 +31,12 @@
                      <Insets left="0.0" right="0.0" />
                   </padding>
                   </ScrollPane>
-                  <ScrollPane id="scrollPrenotazione" fx:id="scrollStoricoCliente" fitToWidth="true" hbarPolicy="NEVER" maxWidth="340.0" vbarPolicy="AS_NEEDED" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <ScrollPane fx:id="scrollStoricoCliente" fitToWidth="true" hbarPolicy="NEVER" maxWidth="340.0" vbarPolicy="AS_NEEDED" GridPane.columnIndex="2" GridPane.rowIndex="1">
                       <content>
                           <VBox id="corpoStorico" fx:id="corpoStorico" />
                       </content>
                   </ScrollPane>
-                  <ScrollPane id="scrollPrenotazione" fx:id="scrollProssimiAllenamenti" fitToWidth="true" hbarPolicy="NEVER" maxWidth="340.0" vbarPolicy="AS_NEEDED" GridPane.rowIndex="1">
+                  <ScrollPane fx:id="scrollProssimiAllenamenti" fitToWidth="true" hbarPolicy="NEVER" maxWidth="340.0" vbarPolicy="AS_NEEDED" GridPane.rowIndex="1">
                       <content>
                           <VBox id="corpoProssimiAllenamenti" fx:id="corpoProssimiAllenamenti" maxWidth="340.0" />
                       </content>

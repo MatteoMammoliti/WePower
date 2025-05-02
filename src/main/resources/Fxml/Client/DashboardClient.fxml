@@ -113,7 +113,7 @@
 
     <!-- Colonna destra -->
     <right>
-        <AnchorPane styleClass="client_menu_container" stylesheets="@../../Styles/clientMenu.css" BorderPane.alignment="CENTER">
+        <AnchorPane styleClass="sfondo_sfumato" stylesheets="@../../Styles/Dashboard.css" BorderPane.alignment="CENTER">
             <children>
             <VBox fx:id="containerColonnaDestra" alignment="BOTTOM_CENTER" maxWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -121,7 +121,7 @@
                       <AnchorPane fx:id="containerCalendario" />
                   <HBox>
                      <children>
-                        <Circle fill="#27374de5" radius="6.0" stroke="#27374d00" strokeType="INSIDE">
+                        <Circle id="circlePrenotato" radius="6.0" strokeType="INSIDE">
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin>
@@ -131,7 +131,7 @@
                               <Font name="Arial Bold" size="12.0" />
                            </font>
                         </Label>
-                        <Circle fill="#27374d7f" radius="6.0" stroke="TRANSPARENT" strokeType="INSIDE">
+                        <Circle id="circleChiusura" radius="6.0" stroke="TRANSPARENT" strokeType="INSIDE">
                            <HBox.margin>
                               <Insets left="10.0" right="5.0" />
                            </HBox.margin>
@@ -156,7 +156,7 @@
                        <children>
                            <!-- ScrollPane che contiene la VBox dei messaggi -->
                            <ScrollPane fx:id="scrollPaneChatArea" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="40" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
-                               <VBox id="vbox_chatbot" fx:id="chatVBox" maxHeight="1.7976931348623157E308" minHeight="-Infinity" spacing="10"  />
+                               <VBox id="vbox_chatbot" fx:id="chatVBox" maxHeight="1.7976931348623157E308" minHeight="-Infinity" spacing="10" />
                            </ScrollPane>
 
                            <!-- Campo input per scrivere -->

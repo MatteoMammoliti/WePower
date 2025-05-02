@@ -1,123 +1,132 @@
+.scroll-pane{
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+    -fx-border-insets:0;
+}
+.scroll-pane > .viewport{
+    -fx-background-insets: 0;
+}
+/*Menu laterale*/
+.label_nomeutente{
+    -fx-font-size: 1.7em;
+    -fx-font-weight: bold;
+}
+
+.label_email{
+    -fx-font-size: 1em;
+}
+.contenitoreViewMenu{
+    -fx-spacing: 20;
+}
+.my_button_window {
+    -fx-font-size: 0.9em;
+    -fx-font-weight: bold;
+    -fx-font-family: "Arial";
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-padding: 10 30;
+    -fx-pref-width: 200;
+}
+.footer {
+     -fx-spacing: 20;
+ }
+.cambioTema{
+    -fx-background-radius: 20;
+}
 
 
+/*Contenuto centrale Dashboard*/
 
 .pane_offerte_dashboard{
-    -fx-background-color: transparent;
     -fx-border-width: 3;
     -fx-background-radius: 15 ;
     -fx-border-radius: 0 0 30 30;
+}
 
-
-
+.bannerino {
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+    -fx-alignment: center;
+    -fx-border-radius: 10;
+}
+.bannerino .label {
+    -fx-font-size: 1.2em;
+    -fx-font-weight: bold;
 }
 
 
 .testo_offerte_dashboard{
-    -fx-text-fill: #000000;
     -fx-font-size: 1.0em;
     -fx-font-family: "Arial";
 }
-
-
-
-#bottone_chat_bot{
-    -fx-background-color: #DDE6ED;
-    -fx-text-fill: #27374D;
+#frase_illustrazione_offerte{
+    -fx-font-size: 1em;
     -fx-font-weight: bold;
 }
-#text_field_bot{
-    -fx-background-color: #DDE6ED;
-}
-
-#vbox_chatbot {
-    -fx-background-color: white;
-}
-
-.grafico{
-    -fx-background-color: #DDE6ED;
-}
-
-.grafico .chart-bar{
-    -fx-bar-fill: #27374D;
-}
-
-.grafico .chart-series-line	{
-    -fx-stroke: #27374D;
-
-}
-.grafico .chart-line-symbol{
-    -fx-background-color: #9DB2BF;
-
-}
-.grafico .chart-plot-background{
-    -fx-background-color: #DDE6ED;
-
-}
-
-.grafico .chart-horizontal-grid-lines, .chart-vertical-grid-lines{
-    -fx-stroke: transparent;
-}
-.grafico .axis{
-
-}
-.grafico .axis-tick-mark{
-    -fx-stroke: #27374D;
-}
-.grafico .axis-minor-tick-mark{
-    -fx-stroke: transparent;
-}
-.grafico .axis-label{
-    -fx-text-fill: #27374D;
+#saluto_nome{
+    -fx-font-size: 3em;
     -fx-font-weight: bold;
-}
-
-
-#contenitore_bannerini .viewport{
-    -fx-background-color: #DDE6ED;
-
 }
 #frase_motivazionale{
 
 }
-#frase_illustrazione_offerte{
-    -fx-font-size: 1em;
-    -fx-text-fill: #27374D;
-    -fx-font-weight: bold;
 
+/*CathBox*/
+#bottone_chat_bot{
+    -fx-font-weight: bold;
 }
 
-#saluto_nome{
-    -fx-font-size: 3em;
-    -fx-text-fill:#27374D;
-    -fx-font-weight: bold;
-
+.rispostaBot{
+    -fx-padding: 8;
+    -fx-background-radius: 10;
 }
-#contenitore_centrale{
-    -fx-background-color: #DDE6ED;
+
+/*Grafici*/
+.grafico .axis-label{
+    -fx-font-weight: bold;
 }
 
 #tendina_grafico{
-    -fx-border-color:#27374D;
-    -fx-background-color:#9DB2BF ;
-    -fx-text-fill: #27374D;
     -fx-font-size: 1.0em;
     -fx-font-family: "Arial";
     -fx-font-weight: bold;
     -fx-background-radius: 10;
     -fx-border-radius: 10;
-
 }
 
 #tendina_grafico .menu-item{
-    -fx-text-fill: #27374D;
     -fx-font-size: 1.0em;
     -fx-font-family: "Arial";
     -fx-font-weight: bold;
-    -fx-background-color:#9DB2BF ;
     -fx-background-insets: 0;
     -fx-border-width: 1;
-    -fx-border-color: #DDE6ED;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
+}
+
+/*Calendario*/
+
+.button_calendario{
+    -fx-font-size: 14;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+}
+.label_giorno{
+    -fx-font-weight: bold;
+}
+.bottoniCambioMese{
+    -fx-font-size: 1.4em;
+}
+.label_mese{
+    -fx-font-weight: bold;
+    -fx-font-size: 1.5em;
+}
+.barraNavigazione{
+    -fx-padding: 0 0 10 0;
+}
+
+.giorno_prenotato{
+    -fx-font-weight: bold;
+    -fx-opacity: 0.9;
 }
 

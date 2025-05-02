@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<SplitPane id="contenitorePagina" dividerPositions="0.5" stylesheets="@../../../Styles/contactUsStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<SplitPane id="contenitorePagina" dividerPositions="0.5" styleClass="background_chiaro" stylesheets="@../../../Styles/contactUsStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
 
     <items>
         <StackPane>
@@ -41,7 +41,7 @@
             <children>
                 <VBox alignment="CENTER" spacing="20" styleClass="vbox" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
                     <Label styleClass="label-titolo" stylesheets="@../../../Styles/contactUsStyle.css" text="I nostri contatti" />
-                    <Label styleClass="label-contenuto" stylesheets="@../../../Styles/contactUsStyle.css" text="Email: info@wepower.it"/>
+                    <Label styleClass="label-contenuto" stylesheets="@../../../Styles/contactUsStyle.css" text="Email: info@wepower.it" />
                     <Label styleClass="label-contenuto" stylesheets="@../../../Styles/contactUsStyle.css" text="Telefono: 0968 943962" />
                     <Label styleClass="label-contenuto" stylesheets="@../../../Styles/contactUsStyle.css" text="Sede: Via G. Marconi, Rende, 87036 (CS)" />
                     <Label styleClass="label-contenuto" stylesheets="@../../../Styles/contactUsStyle.css" text="Orari segreteria: LUN-VEN 9-18" />

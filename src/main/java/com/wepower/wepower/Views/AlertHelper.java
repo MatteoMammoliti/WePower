@@ -1,5 +1,6 @@
 package com.wepower.wepower.Views;
 
+import com.wepower.wepower.ControlloTemi;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
@@ -22,7 +23,9 @@ public class AlertHelper {
         }
         ImageView icon = new ImageView(new Image(AlertHelper.class.getResourceAsStream(percorsoIcona)));
         DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().clear();
         dialogPane.getStylesheets().add(AlertHelper.class.getResource("/Styles/alertStyle.css").toExternalForm());
+        dialogPane.getStylesheets().add(ControlloTemi.getInstance().getCssTemaCorrente());
         alert.setGraphic(icon);
         alert.showAndWait();
     }

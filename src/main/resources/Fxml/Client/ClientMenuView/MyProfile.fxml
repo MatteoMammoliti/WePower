@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="contenitoreMioProfilo" fx:id="contenitoreMioProfilo" stylesheets="@../../../Styles/datiProfiloCliente.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientViewsController.ProfiloController">
+<BorderPane fx:id="contenitoreMioProfilo" styleClass="background_chiaro" stylesheets="@../../../Styles/datiProfiloCliente.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientViewsController.ProfiloController">
    <center>
       <ScrollPane id="scroll_pane_principale" fitToHeight="true" fitToWidth="true" focusTraversable="false" styleClass="sfondo_principale" BorderPane.alignment="CENTER">
          <content>
