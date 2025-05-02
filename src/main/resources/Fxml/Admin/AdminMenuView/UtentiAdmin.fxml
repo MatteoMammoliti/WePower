@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="1080.0" prefWidth="1920.0" styleClass="sfondoD" stylesheets="@../../../Styles/DashboardAdmin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.AdminUtentiController">
+<BorderPane prefHeight="1080.0" prefWidth="1920.0" styleClass="sfondoD" stylesheets="@../../../Styles/MenuAdmin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.AdminUtentiController">
 
 
 
@@ -38,7 +38,7 @@
         </ScrollPane>
     </center>
     <top>
-        <Button mnemonicParsing="false" styleClass="bottoneAddUtente" stylesheets="@../../../Styles/DashboardAdmin.css" text="+ Aggiungi utente" BorderPane.alignment="CENTER_RIGHT">
+        <Button mnemonicParsing="false" styleClass="bottoneAddUtente" stylesheets="@../../../Styles/MenuAdmin.css" text="+ Aggiungi utente" BorderPane.alignment="CENTER_RIGHT">
             <BorderPane.margin>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </BorderPane.margin>

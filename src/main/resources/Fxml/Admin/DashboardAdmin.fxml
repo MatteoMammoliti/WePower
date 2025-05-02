@@ -118,11 +118,6 @@
                         </VBox>
                         <VBox minWidth="200.0" HBox.hgrow="NEVER">
                            <children>
-                              <Label text="Percentuale iscritti per genere:">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
                               <PieChart fx:id="tortaGenere" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>

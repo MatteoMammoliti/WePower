@@ -92,7 +92,7 @@ public class AdminDashboardController implements Initializable {
 
 
         }
-        tortaGenere.setTitle("Clienti per genere");
+        tortaGenere.setTitle("Percentuale iscritti per genere");
         tortaGenere.setData(observableList);
 
     }
