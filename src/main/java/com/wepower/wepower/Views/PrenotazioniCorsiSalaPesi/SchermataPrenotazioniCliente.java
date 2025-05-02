@@ -121,6 +121,12 @@ public class SchermataPrenotazioniCliente extends VBox {
 
 
         //Controllo se l'utente è già prenotato, se i posti sono tutti o prenotati o se è possibile prenotare
+        if(getNumeroPrenotazioniDataOraResidue(temp)==0){
+            btnPrenota.setDisable(true);
+            btnPrenota.getStyleClass().clear();
+            btnPrenota.getStyleClass().add("btnPrenotato");
+            btnPrenota.setText("Posti non disponibili");
+        }
         if(prenotato){
             btnPrenota.setDisable(true);
             btnPrenota.getStyleClass().clear();

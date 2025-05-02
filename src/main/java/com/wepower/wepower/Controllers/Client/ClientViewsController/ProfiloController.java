@@ -3,6 +3,10 @@ package com.wepower.wepower.Controllers.Client.ClientViewsController;
 import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.IntegerBinding;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
@@ -246,24 +250,14 @@ public class ProfiloController implements Initializable {
                 throw new RuntimeException(e);
             }
         });
-    }
-
-    private void adatta_testo(Label label, double percentuale){
-        ChangeListener<Number> listener = new ChangeListener<>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> obs, Number oldVal, Number newVal) {
-                if (newVal.doubleValue() > 0) {
-                    double fontSize = newVal.doubleValue() * percentuale;
-                    label.setStyle(String.format("-fx-font-size: %fpx;", fontSize));
-                    contenitoreMioProfilo.widthProperty().removeListener(this);
-                }
-            }
-        };
-        contenitoreMioProfilo.widthProperty().addListener(listener);
-
-
 
     }
+
+    private void adatta_testo(Label label, double percentuale) {
+        label.setStyle("-fx-font-size: " +1500*percentuale + "px;");
+
+    }
+
     public void cambiaImmagineProfilo() throws SQLException, IOException {
         //Creo una finestra per la selezione dell'immagine dal computer
         FileChooser selezioneFile = new FileChooser();
@@ -284,20 +278,9 @@ public class ProfiloController implements Initializable {
             Model.getInstance().getClientMenuController().caricaMenu();
         }
     }
-    private void adatta_tasti(Button button,double percentuale){
-        ChangeListener<Number> listener = new ChangeListener<>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> obs, Number oldVal, Number newVal) {
-                if (newVal.doubleValue() > 0) {
-                    double fontSize = newVal.doubleValue() * percentuale;
-                    button.setStyle(String.format("-fx-font-size: %.0fpx;", fontSize));
-                    contenitoreMioProfilo.widthProperty().removeListener(this);
-                }
-            }
-        };
-        contenitoreMioProfilo.widthProperty().addListener(listener);
+    private void adatta_tasti(Button btn, double percentuale) {
+        btn.setStyle("-fx-font-size: " +1500*percentuale + "px;");
     }
-
     private void testoProfiloResponsive(){
         adatta_testo(infoNome,0.014);
         adatta_testo(infoDataNascita,0.014);
@@ -336,8 +319,8 @@ public class ProfiloController implements Initializable {
         adatta_testo(titoloDatiAbbonamento,0.017);
         adatta_testo(titoloDatiPersonali,0.017);
 
-        adatta_tasti(btnPulsanteEliminaUtente, 0.014);
-        adatta_tasti(btnModificaDati,0.014);
+        adatta_tasti(btnPulsanteEliminaUtente, 0.012);
+        adatta_tasti(btnModificaDati,0.012);
         adatta_tasti(pulsanteCambiaImmagine,0.008);
     }
 

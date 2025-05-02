@@ -4,6 +4,7 @@ import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.ModelValidazione;
+import com.wepower.wepower.Views.AlertHelper;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -69,11 +70,6 @@ public class InserimentoDatiPagamentoController implements Initializable {
     public void onClickPaga() throws SQLException {
         String proprietarioCarta = textFieldProprietarioCarta.getText();
         String numeroCarta = textFieldNumeroCarta.getText().replaceAll("[\\s-]", "");
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
-        alert.setGraphic(icon);
 
         String dataScadenza = textFieldDataScadenzacarta.getText();
         String cvc = textFieldCvc.getText();
@@ -82,33 +78,23 @@ public class InserimentoDatiPagamentoController implements Initializable {
         LocalDate data=LocalDate.now();
 
         if(dataScadenza.equals("") || cvc.equals("") || proprietarioCarta.equals("") || numeroCarta.equals("")){
-            alert.setContentText("Compila tutti i campi");
-            alert.setTitle("Attenzione");
-            alert.showAndWait();
+            AlertHelper.showAlert("Attenzione", "Compila tutti i campi", null, Alert.AlertType.ERROR);
             return;
         }
         if(!ModelValidazione.controlloDataScadenzacarta(dataScadenza)){
-            alert.setContentText("Data scadenza non valida(Mese,anno)");
-            alert.setTitle("Attenzione");
-            alert.showAndWait();
+            AlertHelper.showAlert("Attenzione", "Data scadenza non valida(mese,anno)", null, Alert.AlertType.ERROR);
             return;
         }
         if(!ModelValidazione.controlloNumeroCVC(cvc)){
-            alert.setContentText("Numero cvc non valida");
-            alert.setTitle("Attenzione");
-            alert.showAndWait();
+            AlertHelper.showAlert("Attenzione", "Numero cvc non valido", null, Alert.AlertType.ERROR);
             return;
         }
         if(!ModelValidazione.controlloNumeroCarta(numeroCarta)){
-            alert.setContentText("Numero carta non valida");
-            alert.setTitle("Attenzione");
-            alert.showAndWait();
+            AlertHelper.showAlert("Attenzione", "Numero carta non valido", null, Alert.AlertType.ERROR);
             return;
         }
         if(!ModelValidazione.controllonomeCognome(proprietarioCarta)){
-            alert.setContentText("Proprietario carta non valido,inserire nome completo");
-            alert.setTitle("Attenzione");
-            alert.showAndWait();
+            AlertHelper.showAlert("Attenzione", "Proprietario carta non valido,inserire nome completo", null, Alert.AlertType.ERROR);
             return;
         }
 
@@ -121,9 +107,7 @@ public class InserimentoDatiPagamentoController implements Initializable {
                 caricoDati.setInt(1,DatiSessioneCliente.getIdUtente());
                 ResultSet risultato= caricoDati.executeQuery();
                 if(risultato.next()){
-                    alert.setContentText("Hai già un abbonamento attivo");
-                    alert.setTitle("Attenzione");
-                    alert.showAndWait();
+                    AlertHelper.showAlert("Attenzione", "Hai già un abbonamento attivo", null, Alert.AlertType.ERROR);
                     conn.rollback();
                     return;
                 }
@@ -137,10 +121,8 @@ public class InserimentoDatiPagamentoController implements Initializable {
                     idAbbonamento=risultato.getInt("IdTipoAbbonamento");
                     durataAbb=risultato.getInt("Durata");
                 }
-                if (durataAbb <= 0) {    // sicurezza extra
-                    alert.setTitle("Errore");
-                    alert.setContentText("Durata abbonamento non valida (" + durataAbb + ")");
-                    alert.showAndWait();
+                if (durataAbb <= 0) {// sicurezza extra
+                    AlertHelper.showAlert("Attenzione", "Durata abbonamento non valida (" + durataAbb + ")", null, Alert.AlertType.ERROR);
                     conn.rollback();
                     return;
                 }
@@ -156,9 +138,7 @@ public class InserimentoDatiPagamentoController implements Initializable {
                 caricoAbbonamento.setInt(5,1);
                 int aggiunta=caricoAbbonamento.executeUpdate();
                 if(aggiunta>0){
-                    alert.setContentText("Aggiunta con successo");
-                    alert.setTitle("Attenzione");
-                    alert.showAndWait();
+                    AlertHelper.showAlert("Attenzione", "Pagamento avvenuto con successo", null, Alert.AlertType.INFORMATION);
                     conn.commit();
                     Stage stage=(Stage) btnPaga.getScene().getWindow();
                     DatiSessioneCliente.setStatoAbbonamento(true);
@@ -171,9 +151,7 @@ public class InserimentoDatiPagamentoController implements Initializable {
 
                 }
                 else{
-                    alert.setContentText("Errore nell'attivazione dell'abbonamento");
-                    alert.setTitle("Attenzione");
-                    alert.showAndWait();
+                    AlertHelper.showAlert("Attenzione", "Errore nell'attivazione dell'abbonamento", null, Alert.AlertType.ERROR);
                     conn.rollback();
                 }
             } catch (SQLException e) {

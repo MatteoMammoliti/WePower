@@ -327,22 +327,25 @@
                                           </Label>
                                        </children>
                                     </VBox>
-                                    <VBox>
+                                    <VBox spacing="20.0">
                                        <children>
                                           <Label fx:id="labelStatoCertificato" text="statoCertificato">
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="labelSchedaAllenamento" styleClass="bottoni_profilo" text="Stato Scheda">
+                                          <Label fx:id="labelSchedaAllenamento" styleClass="bottone_scheda" text="Stato Scheda">
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets top="13.0" />
+                                                <Insets />
                                              </VBox.margin>
                                           </Label>
                                        </children>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
                                     </VBox>
                                  </children>
                               </HBox>

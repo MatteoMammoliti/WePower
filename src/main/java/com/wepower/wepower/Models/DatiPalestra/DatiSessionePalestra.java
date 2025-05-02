@@ -9,12 +9,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class DatiSessionePalestra {
-    private static int numeroMassimePrenotazioniPerFascieOrarie=50;
+    private static int numeroMassimePrenotazioniPerFascieOrarie;
     private static Map<PrenotazioneSalaPesiCliente, Integer> prenotazioniSalePesi= new HashMap<>();
     private static String[] orariPrenotazione = {"08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00"};
 
@@ -27,6 +26,21 @@ public class DatiSessionePalestra {
         }
     }
 
+    public static void svuotaPrenotazioniSalaPesi() {prenotazioniSalePesi.clear();}
+
+
+    public static void setNumeroMassimoPrenotazioni() throws SQLException {
+        String query="SELECT NumeriPostiMassimo FROM SalaPesi WHERE IdSalaPesi=1";
+        try(Connection conn=ConnessioneDatabase.getConnection()){
+            PreparedStatement ps=conn.prepareStatement(query);
+            ResultSet rs=ps.executeQuery();
+            if(rs.next()) {
+                numeroMassimePrenotazioniPerFascieOrarie=rs.getInt("NumeriPostiMassimo");
+            }
+        }
+    }
+
+    public static int getNumeroMassimePrenotazioniPerFascieOrarie() {return numeroMassimePrenotazioniPerFascieOrarie;}
     //Funzione che mi serve per capire quanti posti prenotabili rimangono per ogni fascia oraria/giorno
     public static int getNumeroPrenotazioniDataOraResidue(PrenotazioneSalaPesiCliente prenotazione) {
         if(prenotazioniSalePesi.containsKey(prenotazione)) {

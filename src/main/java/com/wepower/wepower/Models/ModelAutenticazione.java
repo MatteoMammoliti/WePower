@@ -37,6 +37,7 @@ public class ModelAutenticazione {
                     InputStream immagine = risultatoClienti.getBinaryStream("ImmagineProfilo");
                     DatiSessioneCliente.setAltezza(risultatoClienti.getString("Altezza"));
                     DatiSessioneCliente.setGenere(risultatoClienti.getString("Sesso"));
+                    DatiSessionePalestra.setNumeroMassimoPrenotazioni();
 
                     Image immagineProfilo;
                     if (immagine != null) {

@@ -1,6 +1,8 @@
 package com.wepower.wepower.Models;
 
+import com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra;
 import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
+import com.wepower.wepower.Views.AlertHelper;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
@@ -126,6 +128,7 @@ public class DatiSessioneCliente {
         genere=null;
         immagineProfilo = null;
         eserciziConMassimale.clear();
+        DatiSessionePalestra.svuotaPrenotazioniSalaPesi();
         alertScadenzaAbbonamento = false;
         alertCertificatoMancante = false;
         Model.invalidate();
@@ -342,7 +345,6 @@ public class DatiSessioneCliente {
         try(Connection conn=ConnessioneDatabase.getConnection()){
             try(PreparedStatement datiEliminaUtente=conn.prepareStatement(eliminaUtente)){
                 datiEliminaUtente.setInt(1,id);
-
                 Alert conferma=new Alert(Alert.AlertType.CONFIRMATION);
                 conferma.setTitle("Conferma eliminazione");
                 conferma.setHeaderText("Sei sicuro di voler eliminare questo cliente?");

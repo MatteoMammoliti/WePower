@@ -270,6 +270,10 @@
     -fx-background-color: #526D82;
     -fx-text-fill: #27374DFF;
 }
+
+.bottoneElimaScheda:hover{
+    -fx-text-fill:#DDE6EDFF;
+}
 #bottoniCreaChiedi {
     -fx-background-color: #526D82;
     -fx-text-fill: #27374DFF;

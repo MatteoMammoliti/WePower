@@ -118,6 +118,7 @@
     -fx-border-radius: 50;
     -fx-background-radius: 50;
 }
+
 .label_giorno{
     -fx-font-weight: bold;
 }
