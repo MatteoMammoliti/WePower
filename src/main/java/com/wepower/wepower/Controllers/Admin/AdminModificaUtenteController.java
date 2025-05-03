@@ -1,6 +1,7 @@
 package com.wepower.wepower.Controllers.Admin;
 
 import com.wepower.wepower.Models.AdminModel.TabellaUtentiDashboardAdmin;
+import com.wepower.wepower.Models.ModelValidazione;
 import com.wepower.wepower.Views.AdminView.RigaDashboardAdmin;
 import com.wepower.wepower.Views.AlertHelper;
 import javafx.fxml.FXML;
@@ -26,8 +27,6 @@ public class AdminModificaUtenteController implements Initializable{
     @FXML
     private DatePicker inputNuovaDataNascita;
     @FXML
-    private DatePicker inputNuovaDataRinnovo;
-    @FXML
     private Button inputAnnulla;
 
     private Stage dialogStage;
@@ -39,9 +38,7 @@ public class AdminModificaUtenteController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         ArrayList<String> tipiAbbonamenti=TabellaUtentiDashboardAdmin.prelevaTipiAbbonamenti();
-        inputNuovaDataRinnovo.setDisable(true);
         inputIdTipoAbbonamento.getItems().setAll(tipiAbbonamenti);
-        inputNuovaDataRinnovo.setDisable(true);
         this.inputAnnulla.setOnAction(event -> {
             onClickAnnulla();
         });
@@ -53,7 +50,6 @@ public class AdminModificaUtenteController implements Initializable{
         inputNuovoNome.setText(riga.getNome());
         inputNuovoCognome.setText(riga.getCognome());
         inputNuovaDataNascita.setValue(LocalDate.parse(riga.getDataNascita().toString()));
-        inputNuovaDataRinnovo.setValue(LocalDate.parse(LocalDate.now().toString()));
         if (riga.getStatoAbbonamento().equals("Attivo")) {
             inputIdTipoAbbonamento.setDisable(true);
         }
@@ -65,13 +61,13 @@ public class AdminModificaUtenteController implements Initializable{
         String nuovoNome = inputNuovoNome.getText();
         String nuovoCognome = inputNuovoCognome.getText();
         LocalDate nuovaDataNascita=inputNuovaDataNascita.getValue();
-        LocalDate nuovaDataRinnovo=inputNuovaDataRinnovo.getValue();
+        LocalDate nuovaDataRinnovo=LocalDate.now();
         String nomeAbbonamento = inputIdTipoAbbonamento.getValue();
         LocalDate oggi = LocalDate.now();
         LocalDate nuovaDataScadenza = null;
         int statoAbbonamento=0;
         int idTipoAbbonamento=-1;
-        if (nuovaDataRinnovo != null && nomeAbbonamento != null){
+        if (nomeAbbonamento != null){
             int mesiDaAggiungere=TabellaUtentiDashboardAdmin.prelevaDurataTipoAbbonamento(nomeAbbonamento);
             idTipoAbbonamento=TabellaUtentiDashboardAdmin.prelevaIdTipiAbbonamento(nomeAbbonamento);
             nuovaDataScadenza= nuovaDataRinnovo.plusMonths(mesiDaAggiungere);
@@ -82,10 +78,7 @@ public class AdminModificaUtenteController implements Initializable{
 
         boolean modificaUtente=false;
         try {
-            String dataInizioAbbonamento=null;
-            if (nuovaDataRinnovo!=null){
-                dataInizioAbbonamento=nuovaDataRinnovo.toString();
-            }
+
             String dataNascita=null;
             if (nuovaDataNascita!=null){
                 dataNascita=nuovaDataNascita.toString();
@@ -95,14 +88,30 @@ public class AdminModificaUtenteController implements Initializable{
             if (nuovaDataScadenza != null) {
                 dataFineAbbonamento=nuovaDataScadenza.toString();
             }
-            modificaUtente = TabellaUtentiDashboardAdmin.salvaModifiche(id, nuovoNome, nuovoCognome, inputNuovaDataNascita.getValue().toString(), dataInizioAbbonamento, dataFineAbbonamento, statoAbbonamento, idTipoAbbonamento);
+            if(nuovoNome.equals("") || nuovoCognome.equals("")||dataNascita.equals("")){
+                AlertHelper.showAlert("Errore","Compila tutti i campi", null, Alert.AlertType.ERROR);
+                return;
+            }
+            if (!ModelValidazione.controlloNome(nuovoNome)) {
+                AlertHelper.showAlert("Errore","Nome non valido", null, Alert.AlertType.ERROR);
+                return;
+            }
+            if (!ModelValidazione.controlloNome(nuovoCognome)) {
+                AlertHelper.showAlert("Errore","Cognome non valido", null, Alert.AlertType.ERROR);
+                return;
+            }
+            if(!ModelValidazione.controlloData(nuovaDataNascita)){
+                AlertHelper.showAlert("Errore","Data nascita non valida", null, Alert.AlertType.ERROR);
+                return;
+            }
+            modificaUtente = TabellaUtentiDashboardAdmin.salvaModifiche(id, nuovoNome, nuovoCognome, inputNuovaDataNascita.getValue().toString(), nuovaDataRinnovo.toString(), dataFineAbbonamento, statoAbbonamento, idTipoAbbonamento);
 
         if (modificaUtente){
             riga.setNome(nuovoNome);
             riga.setCognome(nuovoCognome);
             riga.setDataNascita(dataNascita);
-            if (dataInizioAbbonamento!=null){
-                riga.setDataRinnovo(dataInizioAbbonamento);
+            if (idTipoAbbonamento!=-1){
+                riga.setDataRinnovo(nuovaDataRinnovo.toString());
                 riga.setDataScadenza(dataFineAbbonamento);
                 if(statoAbbonamento==1){
                     riga.setStatoAbbonamento("Attivo");

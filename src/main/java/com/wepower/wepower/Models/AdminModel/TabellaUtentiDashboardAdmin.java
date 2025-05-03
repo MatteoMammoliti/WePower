@@ -119,8 +119,6 @@ public class TabellaUtentiDashboardAdmin {
             conn = ConnessioneDatabase.getConnection();
             conn.setAutoCommit(false);
             String queryUpdateCliente = "UPDATE Cliente SET Nome = ?, Cognome=?, DataNascita=? WHERE IdCliente = ?";
-
-
             try (PreparedStatement psCliente = conn.prepareStatement(queryUpdateCliente)) {
                 psCliente.setString(1, nome);
                 psCliente.setString(2, cognome);
@@ -132,7 +130,7 @@ public class TabellaUtentiDashboardAdmin {
                 throw new RuntimeException(e);
             }
 
-            if (idTipoAbbonamento !=-1 && dataRinnovo != null) {
+            if (idTipoAbbonamento !=-1) {
                 String queryAddAbbonamento="INSERT INTO AbbonamentoCliente (IdCliente,IdTipoAbbonamento, StatoAbbonamento,DataInizioAbbonamento, DataFineAbbonamento) VALUES(?,?,?,?,?)";
                 try (PreparedStatement psAddAbbonamento = conn.prepareStatement(queryAddAbbonamento)) {
                     psAddAbbonamento.setInt(1, id);
@@ -143,6 +141,7 @@ public class TabellaUtentiDashboardAdmin {
                     psAddAbbonamento.executeUpdate();
                 }
                 catch (SQLException ex) {
+                    conn.rollback();
                     throw new RuntimeException(ex);
                 }
 

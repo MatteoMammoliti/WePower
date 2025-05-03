@@ -22,7 +22,6 @@ import java.util.ResourceBundle;
 
 public class AdminUtentiController implements Initializable {
 
-    public TableColumn colResetPassword;
     @FXML
     private TableView<RigaDashboardAdmin> tableUtenti;
     @FXML
@@ -91,31 +90,6 @@ public class AdminUtentiController implements Initializable {
         });
 
 
-
-        colResetPassword.setCellFactory(column -> new TableCell<RigaDashboardAdmin, Void>() {
-            private final Button btnResetPassword = new Button("Resetta");
-            {
-                btnResetPassword.setOnAction(event ->  {
-                    try {
-                        RigaDashboardAdmin riga = getTableView().getItems().get(getIndex());
-                        onResetta(riga, btnResetPassword);
-
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                });}
-
-            @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(btnResetPassword);
-                }
-            }
-        });
 
         colElimina.setCellFactory(column -> new TableCell<RigaDashboardAdmin, Void>() {
             private final Button btnElimina = new Button("Elimina");
@@ -186,20 +160,7 @@ public class AdminUtentiController implements Initializable {
         stage.showAndWait();
     }
 
-    private void onResetta(RigaDashboardAdmin riga, Button bottoneResetta) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/ResettaPassword.fxml"));
-        Parent root = loader.load();
-        AdminResettaPasswordController controller = loader.getController();
-        controller.setIdCliente(riga.getIdCliente());
-        Stage stage = new Stage();
-        stage.setTitle("Resetta");
-        stage.setResizable(false);
-        stage.setScene(new Scene(root));
-        stage.initModality(Modality.WINDOW_MODAL);
-        Stage finestraCorrente = (Stage) bottoneResetta.getScene().getWindow();
-        stage.initOwner(finestraCorrente);
-        stage.showAndWait();
-    }
+
 
 }
 

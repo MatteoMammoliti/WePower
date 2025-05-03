@@ -29,7 +29,6 @@
                     <TableColumn fx:id="colDataScadenza" prefWidth="150" text="Data Scadenza" />
                     <TableColumn fx:id="colSesso" prefWidth="100" text="Sesso" />
                     <TableColumn fx:id="colCertificato" prefWidth="80" text="Certificato" />
-                    <TableColumn fx:id="colResetPassword"  prefWidth="75.0" text="Recupera&#10;Password" />
                     <TableColumn fx:id="colModifica" prefWidth="100" text="Modifica" />
                     <TableColumn fx:id="colElimina" prefWidth="100" text="Elimina" />
 
