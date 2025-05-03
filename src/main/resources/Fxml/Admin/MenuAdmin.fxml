@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 
-<BorderPane stylesheets="@../../Styles/MenuAdmin.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.MenuAdminController">
+<BorderPane  xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.MenuAdminController">
    <top>
-      <HBox fillHeight="false" spacing="15.0" styleClass="barraMenuAdmin" BorderPane.alignment="CENTER">
+      <HBox fillHeight="false" spacing="15.0" styleClass="sfondo_sfumato" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="80.0" pickOnBounds="true" preserveRatio="true">
                <image>

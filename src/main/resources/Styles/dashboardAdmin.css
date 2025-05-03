@@ -1,0 +1,37 @@
+.bottoneDashboardAdmin{
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-font-family: "Arial";
+    -fx-border-width: 2;
+    -fx-border-radius: 0 0 30 30;
+    -fx-background-radius: 0 0 30 30;
+    -fx-padding: 40 0 6 0;
+    -fx-pref-width: 150;
+    -fx-wrap-text: true;
+
+}
+
+
+#containerUsers {
+    -fx-spacing: 15;
+    -fx-padding: 8;
+}
+
+
+
+.riga-dashboard{
+    -fx-spacing: 50;
+
+
+}
+
+.bottoneAddUtente {
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius:30;
+    -fx-border-radius: 30;
+}
+.card{
+    -fx-padding: 20;
+}

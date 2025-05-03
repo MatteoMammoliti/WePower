@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.AdminDashboardController">
+<BorderPane styleClass="background_chiaro" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.AdminDashboardController">
    <center>
       <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
          <content>
@@ -21,7 +21,7 @@
                <children>
                   <HBox alignment="TOP_CENTER" spacing="20.0">
                      <children>
-                        <VBox alignment="TOP_CENTER" style="-fx-background-color: orange; -fx-padding: 20;" HBox.hgrow="ALWAYS">
+                        <VBox alignment="TOP_CENTER" styleClass="card" HBox.hgrow="ALWAYS">
                            <children>
                               <Label text="Totale abbonamenti attivi:">
                                  <font>
@@ -35,7 +35,7 @@
                               </Label>
                            </children>
                         </VBox>
-                        <VBox alignment="TOP_CENTER" style="-fx-background-color: orange; -fx-padding: 20;" HBox.hgrow="ALWAYS">
+                        <VBox alignment="TOP_CENTER" styleClass="card" HBox.hgrow="ALWAYS">
                            <children>
                               <Label text="Richieste schede in attesa:">
                                  <font>
@@ -49,7 +49,7 @@
                               </Label>
                            </children>
                         </VBox>
-                        <VBox alignment="TOP_CENTER" style="-fx-background-color: orange; -fx-padding: 20;" HBox.hgrow="ALWAYS">
+                        <VBox alignment="TOP_CENTER" styleClass="card" HBox.hgrow="ALWAYS">
                            <children>
                               <Label text="Certificati in attesa:">
                                  <font>
@@ -63,7 +63,7 @@
                               </Label>
                            </children>
                         </VBox>
-                        <VBox alignment="TOP_CENTER" style="-fx-background-color: orange; -fx-padding: 20;" HBox.hgrow="ALWAYS">
+                        <VBox alignment="TOP_CENTER" styleClass="card" HBox.hgrow="ALWAYS">
                            <children>
                               <Label text="Totale prenotati oggi:">
                                  <font>

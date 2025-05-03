@@ -625,5 +625,40 @@
     -fx-text-fill: #DDE6EDFF;
 }
 
+/*DASHBOARD ADMIN*/
+.bottoneDashboardAdmin{
+    -fx-background-color: linear-gradient(to bottom, #27374d, #DDE6EDFF);
+    -fx-text-fill: #27374d;
+    -fx-border-color: transparent;
+
+}
+
+
+.sfondoD{
+    -fx-background-color: #DDE6EDFF;
+}
+
+
+
+.bottoneDashboardAdmin:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #DDE6EDFF;
+}
+
+
+
+
+.riga-dashboard{
+    -fx-background-color: #DDE6EDFF;
+
+
+}
+
+.bottoneAddUtente {
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6EDFF;
+}
+.card{
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgb(221, 230, 237) 0%, rgb(39, 55, 77) 99%);}
 
 

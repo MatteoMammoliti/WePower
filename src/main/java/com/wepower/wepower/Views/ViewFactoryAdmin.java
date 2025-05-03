@@ -1,5 +1,6 @@
 package com.wepower.wepower.Views;
 
+import com.wepower.wepower.ControlloTemi;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
@@ -34,6 +35,9 @@ public class ViewFactoryAdmin {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        String cssTema=getClass().getResource("/Styles/dashboardAdmin.css").toExternalForm();
+        ControlloTemi.getInstance().aggiungiScena(scene, cssTema);
 
         Stage stage = new Stage();
         stage.setScene(scene);

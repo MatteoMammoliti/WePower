@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.BorderPane?>
 
 
-<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.AdminController" fx:id="contenitore_admin_view" stylesheets="@../../Styles/MenuAdmin.css">
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.AdminController" fx:id="contenitore_admin_view" >
 
 <top>
     <fx:include source="MenuAdmin.fxml"/>
