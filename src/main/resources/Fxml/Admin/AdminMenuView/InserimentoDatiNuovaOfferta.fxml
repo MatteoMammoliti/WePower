@@ -11,7 +11,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="background_chiaro" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.InserimentoNuovaOffertaController">
    <top>
-      <Label text="Aggiungi una promozione" BorderPane.alignment="CENTER">
+      <Label styleClass="label_admin" text="Aggiungi una promozione" BorderPane.alignment="CENTER">
          <font>
             <Font name="Arial Bold" size="16.0" />
          </font>
@@ -23,7 +23,7 @@
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="370.0" prefWidth="300.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" text="Nome abbonamento:">
+            <Label alignment="CENTER" contentDisplay="CENTER" styleClass="label_admin" text="Nome abbonamento:">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -36,7 +36,7 @@
                   <Insets left="30.0" right="30.0" top="10.0" />
                </VBox.margin>
             </TextField>
-            <Label text="Descrizione:">
+            <Label styleClass="label_admin" text="Descrizione:">
                <font>
                   <Font name="Arial Bold" size="12.0" />
                </font>
@@ -64,7 +64,7 @@
             <Insets top="10.0" />
          </BorderPane.margin>
          <children>
-            <Label text="Prezzo:">
+            <Label styleClass="label_admin" text="Prezzo:">
                <font>
                   <Font name="Arial Bold" size="12.0" />
                </font>
@@ -77,7 +77,7 @@
                   <Insets left="30.0" right="30.0" top="10.0" />
                </VBox.margin>
             </TextField>
-            <Label text="Durata(In mesi):">
+            <Label styleClass="label_admin" text="Durata(In mesi):">
                <font>
                   <Font name="Arial Bold" size="12.0" />
                </font>

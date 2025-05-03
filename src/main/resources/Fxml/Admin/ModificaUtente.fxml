@@ -13,7 +13,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="600.0" styleClass="background_chiaro" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.AdminModificaUtenteController">
    <top>
-      <Label text="Modifica utente" BorderPane.alignment="CENTER">
+      <Label styleClass="label_admin" text="Modifica utente" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="20.0" top="20.0" />
          </BorderPane.margin>
@@ -25,13 +25,13 @@
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="212.0" prefWidth="300.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Label stylesheets="@../../Styles/login.css" text="Nome:">
+            <Label styleClass="label_admin" stylesheets="@../../Styles/login.css" text="Nome:">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
             <TextField fx:id="inputNuovoNome" styleClass="input_login" stylesheets="@../../Styles/login.css" />
-            <Label text="Cognome:">
+            <Label styleClass="label_admin" text="Cognome:">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -49,13 +49,13 @@
    <right>
       <VBox alignment="TOP_CENTER" prefHeight="370.0" prefWidth="300.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Data di nascita:">
+            <Label styleClass="label_admin" text="Data di nascita:">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
             <DatePicker fx:id="inputNuovaDataNascita" prefHeight="26.0" prefWidth="314.0" styleClass="input_login" stylesheets="@../../Styles/login.css" />
-            <Label text="Seleziona tipo abbonamento:">
+            <Label styleClass="label_admin" text="Seleziona tipo abbonamento:">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>

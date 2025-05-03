@@ -8,12 +8,10 @@ import com.wepower.wepower.Models.ModelValidazione;
 import com.wepower.wepower.Views.AlertHelper;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 
-import javax.swing.*;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -158,14 +156,7 @@ public class ModificaDatiController implements Initializable {
 
 
         if(ModelModificaDati.onClickModificaDati(DatiSessioneCliente.getIdUtente(),nome,cognome,data,genere,altezza,email,telefono,peso)){
-            Alert success = new Alert(Alert.AlertType.INFORMATION);
-            success.setTitle("Dati modificati con successo");
-            success.setHeaderText("Dati modificati con successo");
-            ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/info.png")));
-            DialogPane dialogPane = success.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
-            success.setGraphic(icon);
-            success.showAndWait();
+            AlertHelper.showAlert("Dati modificati con successo", "Dati modificati con successo", null,  Alert.AlertType.INFORMATION);
             Model.getInstance().getClientMenuController().caricaMenu();
             ProfiloController.getInstance().caricaInterfacciaDatiUtente();
 

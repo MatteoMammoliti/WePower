@@ -24,7 +24,9 @@
 .sfondo_sfumato{
     -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgb(221, 230, 237) 0%, rgb(39, 55, 77) 99%);
 }
-
+.label_admin{
+    -fx-text-fill: #27374D;
+}
 /*REGISTRAZIONE E LOGIN*/
 
 .right_side_pane{

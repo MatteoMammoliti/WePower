@@ -13,13 +13,15 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 public class RigaVisualizzatoreOfferteAttive extends HBox {
-    private String nomeOfferta;
-    private String costoOfferta;
     private Button eliminaOfferta;
 
     public RigaVisualizzatoreOfferteAttive(String nomeOfferta, String costoOfferta) {
         Label nome = new Label(nomeOfferta);
         Label costo=new Label(costoOfferta);
+
+        nome.getStyleClass().add("label_admin");
+        costo.getStyleClass().add("label_admin");
+
         nome.setPrefWidth(100);
         nome.setMaxWidth(100);
         costo.setPrefWidth(50);
@@ -28,6 +30,7 @@ public class RigaVisualizzatoreOfferteAttive extends HBox {
         this.setAlignment(Pos.CENTER_LEFT);
         eliminaOfferta = new Button("Elimina");
         eliminaOfferta.setPrefHeight(20);
+        eliminaOfferta.getStyleClass().add("bottone_scheda");
         eliminaOfferta.setOnAction(e -> {
             try {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

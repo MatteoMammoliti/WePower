@@ -2,7 +2,6 @@ package com.wepower.wepower.Controllers.Admin;
 
 import com.wepower.wepower.Models.AdminModel.ModelDashboardAdmin;
 import com.wepower.wepower.Views.AdminView.RigaVisualizzatoreOfferteAttive;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -75,6 +74,7 @@ public class AdminDashboardController implements Initializable {
                 throw new RuntimeException(e);
             }
         });
+        modifica.getStyleClass().add("bottone_scheda");
         containerPromozioniAttive.getChildren().add(modifica);
     }
 

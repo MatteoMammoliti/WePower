@@ -3,18 +3,10 @@ package com.wepower.wepower.Controllers.Client.ClientViewsController;
 import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.IntegerBinding;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -97,7 +89,6 @@ public class ProfiloController implements Initializable {
     @FXML
     private BorderPane contenitoreMioProfilo;
     @FXML
-    private ScrollPane scroll_pane_principale;
     private File imgProfilo;
     private File imgCertificato;
 
