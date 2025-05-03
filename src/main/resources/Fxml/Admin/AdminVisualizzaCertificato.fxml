@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.VisualizzatoreCertificatoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="background_chiaro" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.VisualizzatoreCertificatoController">
    <center>
       <ScrollPane fitToHeight="true" fitToWidth="true" BorderPane.alignment="CENTER">
          <content>
@@ -24,12 +24,12 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnRifiuta" mnemonicParsing="false" prefWidth="57.0" text="Rifiuta">
+            <Button fx:id="btnRifiuta" mnemonicParsing="false" prefWidth="57.0" styleClass="bottone_scheda" text="Rifiuta">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnApprova" mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" text="Approva">
+            <Button fx:id="btnApprova" mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" styleClass="bottone_scheda" text="Approva">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>

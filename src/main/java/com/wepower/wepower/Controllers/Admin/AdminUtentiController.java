@@ -1,5 +1,6 @@
 package com.wepower.wepower.Controllers.Admin;
 
+import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.AdminModel.ModelDashboardAdmin;
 import com.wepower.wepower.Models.AdminModel.TabellaUtentiDashboardAdmin;
 import com.wepower.wepower.Views.AdminView.RigaDashboardAdmin;
@@ -168,7 +169,6 @@ public class AdminUtentiController implements Initializable {
     }
 
     private void onModifica(RigaDashboardAdmin riga, Button bottoneModifica) throws IOException {
-        System.out.println("passoriga");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/ModificaUtente.fxml"));
         Parent root = loader.load();
         AdminModificaUtenteController controller = loader.getController();
@@ -176,7 +176,9 @@ public class AdminUtentiController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("Modifica");
         stage.setResizable(false);
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        scene.getStylesheets().add(ControlloTemi.getInstance().getCssTemaCorrente());
         stage.initModality(Modality.WINDOW_MODAL);
         Stage finestraCorrente = (Stage) bottoneModifica.getScene().getWindow();
         stage.initOwner(finestraCorrente);

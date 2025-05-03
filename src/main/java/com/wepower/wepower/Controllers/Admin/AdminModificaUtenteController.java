@@ -50,12 +50,10 @@ public class AdminModificaUtenteController implements Initializable{
     private RigaDashboardAdmin riga;
     public void setUtente(RigaDashboardAdmin riga) {
         this.riga = riga;
-        System.out.println(riga.getNome());
         inputNuovoNome.setText(riga.getNome());
         inputNuovoCognome.setText(riga.getCognome());
         inputNuovaDataNascita.setValue(LocalDate.parse(riga.getDataNascita().toString()));
         inputNuovaDataRinnovo.setValue(LocalDate.parse(LocalDate.now().toString()));
-        System.out.println(riga.getStatoAbbonamento());
         if (riga.getStatoAbbonamento().equals("Attivo")) {
             inputIdTipoAbbonamento.setDisable(true);
         }
@@ -102,7 +100,6 @@ public class AdminModificaUtenteController implements Initializable{
         if (modificaUtente){
             riga.setNome(nuovoNome);
             riga.setCognome(nuovoCognome);
-            System.out.println(dataNascita);
             riga.setDataNascita(dataNascita);
             if (dataInizioAbbonamento!=null){
                 riga.setDataRinnovo(dataInizioAbbonamento);
@@ -127,7 +124,7 @@ public class AdminModificaUtenteController implements Initializable{
 
         String dataN=riga.getDataNascita();
         String dataNAgg=inputNuovaDataNascita.getEditor().getText();
-        System.out.println(dataNAgg+"!="+dataN);
+
 
         boolean modificaUtente = !inputNuovoNome.getText().equals(riga.getNome()) ||  !inputNuovoCognome.getText().equals(riga.getCognome()) || !dataN.equals(dataNAgg);
         if (modificaUtente){

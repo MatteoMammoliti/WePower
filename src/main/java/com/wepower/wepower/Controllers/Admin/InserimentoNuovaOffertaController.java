@@ -1,5 +1,6 @@
 package com.wepower.wepower.Controllers.Admin;
 
+import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.AdminModel.ModelDashboardAdmin;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,6 +61,7 @@ public class InserimentoNuovaOffertaController implements Initializable {
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
         Scene scene=new Scene(root);
+        scene.getStylesheets().add(ControlloTemi.getInstance().getCssTemaCorrente());
         stage.setScene(scene);
         stage.showAndWait();
     }

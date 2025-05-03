@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.InserimentoNuovaOffertaController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="background_chiaro" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.InserimentoNuovaOffertaController">
    <top>
       <Label text="Aggiungi una promozione" BorderPane.alignment="CENTER">
          <font>
@@ -96,8 +96,8 @@
    <bottom>
       <HBox alignment="BASELINE_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER_RIGHT">
          <children>
-            <Button fx:id="btnAnnulla" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="Annulla" />
-            <Button fx:id="btnConferma" mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" text="Conferma">
+            <Button fx:id="btnAnnulla" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" styleClass="bottone_scheda" text="Annulla" />
+            <Button fx:id="btnConferma" mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" styleClass="bottone_scheda" text="Conferma">
                <HBox.margin>
                   <Insets right="30.0" />
                </HBox.margin>

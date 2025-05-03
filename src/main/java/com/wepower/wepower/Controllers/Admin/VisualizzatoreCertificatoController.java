@@ -1,5 +1,6 @@
 package com.wepower.wepower.Controllers.Admin;
 
+import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.AdminModel.ModelTabellaCertificati;
 import com.wepower.wepower.Views.AlertHelper;
 import javafx.application.Platform;
@@ -105,6 +106,7 @@ public class VisualizzatoreCertificatoController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
         Scene scene=new Scene(root);
+        scene.getStylesheets().add(ControlloTemi.getInstance().getCssTemaCorrente());
         stage.setScene(scene);
         stage.showAndWait();
     }
