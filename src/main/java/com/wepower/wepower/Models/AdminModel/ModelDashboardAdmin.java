@@ -208,18 +208,9 @@ public class ModelDashboardAdmin {
 public static Map<String,Integer> getDatiGraficoAnnuale(String anno) {
     System.out.println("cri");
         Map mappa=new LinkedHashMap();
-        mappa.put("01",0);
-        mappa.put("02",0);
-        mappa.put("03",0);
-        mappa.put("04",0);
-        mappa.put("05",0);
-        mappa.put("06",0);
-        mappa.put("07",0);
-        mappa.put("08",0);
-        mappa.put("09",0);
-        mappa.put("10",0);
-        mappa.put("11",0);
-        mappa.put("12",0);
+        for (int i=1;i<13;i++){
+            mappa.put(String.format("%02d",i),0);
+        }
 
         String Dati="SELECT Mese, Totale FROM Ab Where Anno=?";
         try(Connection conn=ConnessioneDatabase.getConnection()){
