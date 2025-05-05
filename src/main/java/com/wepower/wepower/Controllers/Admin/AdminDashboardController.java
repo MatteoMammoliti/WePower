@@ -6,8 +6,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
@@ -15,10 +18,13 @@ import javafx.util.Pair;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class AdminDashboardController implements Initializable {
     static AdminDashboardController instance;
+    @FXML
+    public BarChart graficoAnnuale;
     @FXML
     private VBox containerPromozioniAttive;
     @FXML
@@ -31,6 +37,8 @@ public class AdminDashboardController implements Initializable {
     private Label labelTotaleAbbonamenti;
     @FXML
     private PieChart tortaGenere;
+    @FXML
+    private ComboBox<Integer> annoGraficoTendina;
 
 
     @Override
@@ -39,6 +47,7 @@ public class AdminDashboardController implements Initializable {
         setDatiPalestra();
         setPromozioni();
         loadGraficoGenere();
+        setTendinaAnnoGrafico();
     }
 
     public  static AdminDashboardController getInstance() {return instance;}
@@ -48,6 +57,27 @@ public class AdminDashboardController implements Initializable {
         labelCertificatiAttesa.setText(ModelDashboardAdmin.numeroCertificatiAttesa()+"");
         labelPrenotatiOggi.setText(ModelDashboardAdmin.numeroPrenotatiOggi()+"");
         labelRichiesteSchede.setText(ModelDashboardAdmin.getNumeroSchedeRichieste()+"");
+    }
+    public void setTendinaAnnoGrafico(){
+        ArrayList<Integer> lista= ModelDashboardAdmin.getAnniTendinaGrafico();
+        ObservableList<Integer> anniObs = FXCollections.observableArrayList(lista);
+
+        annoGraficoTendina.setItems(anniObs);
+        if (!anniObs.isEmpty()) {
+
+            annoGraficoTendina.getSelectionModel().selectFirst();
+            System.out.println("pino"+annoGraficoTendina.getValue().toString());
+            loadGraficoAnnuale(annoGraficoTendina.getValue());
+        }
+        System.out.println("mimmo");
+        annoGraficoTendina.setOnAction(e -> {
+            Integer anno = annoGraficoTendina.getValue();
+            if (anno != null) {
+                loadGraficoAnnuale(anno);
+            }
+
+        });
+
     }
 
     //Carico le promozioni attive
@@ -78,6 +108,23 @@ public class AdminDashboardController implements Initializable {
         modifica.getStyleClass().add("bottone_scheda");
         containerPromozioniAttive.getChildren().add(modifica);
     }
+
+    public void loadGraficoAnnuale(int anno){
+        String annoStringa=String.valueOf(anno);
+        Map<String,Integer> dati= ModelDashboardAdmin.getDatiGraficoAnnuale(annoStringa);
+        String[] mesi = { "Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic" };
+        XYChart.Series<String, Number> serie = new XYChart.Series<>();
+        serie.setName(String.valueOf(anno));
+        int i=0;
+        for (Integer totale : dati.values()) {
+            serie.getData().add(new XYChart.Data<>(mesi[i++], totale));
+        }
+        graficoAnnuale.getData().setAll(serie);
+    }
+
+
+
+
 
     public void loadGraficoGenere(){
         ArrayList<Pair<String,Integer>> dati=ModelDashboardAdmin.getSessoUtentiPalestra();
