@@ -46,11 +46,9 @@ public class InserimentoNuovaOffertaController implements Initializable {
         });
     }
 
-
     public static InserimentoNuovaOffertaController getInstance() {
         return instance;
     }
-
 
     //Permetto di far aprire la finestra dalla dashboard
     public static void apriSchermataAggiungiPromoziome() throws IOException {
@@ -66,13 +64,10 @@ public class InserimentoNuovaOffertaController implements Initializable {
         stage.showAndWait();
     }
 
-
     //Annullo l'operazione e chiudo la finestra
     public void onClickAnnulla(){
         //Chiudo la finestra
         Stage stage=(Stage) btnAnnulla.getScene().getWindow();
         stage.close();
     }
-
-
 }

@@ -2,7 +2,9 @@ package com.wepower.wepower.Views.SchedaAllenamento;
 
 import com.wepower.wepower.Models.AdminModel.DatiSessioneAdmin;
 import com.wepower.wepower.Models.Model;
+import com.wepower.wepower.Views.AlertHelper;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -38,7 +40,7 @@ public class RigaEsercizioSchedaAdmin extends HBox {
             try {
                 onRimuoviEsercizio();
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto :(", null, Alert.AlertType.ERROR );
             }
         });
 

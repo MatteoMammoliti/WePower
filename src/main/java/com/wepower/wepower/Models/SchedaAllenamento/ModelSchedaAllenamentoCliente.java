@@ -3,6 +3,9 @@ package com.wepower.wepower.Models.SchedaAllenamento;
 import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
+import com.wepower.wepower.Views.AlertHelper;
+import javafx.scene.control.Alert;
+
 import java.sql.*;
 
 public class ModelSchedaAllenamentoCliente {
@@ -27,7 +30,7 @@ public class ModelSchedaAllenamentoCliente {
                 Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Scheda");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto :(", null, Alert.AlertType.ERROR);
         }
     }
 
@@ -53,7 +56,7 @@ public class ModelSchedaAllenamentoCliente {
                 Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Scheda");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto :(", null, Alert.AlertType.ERROR);
         }
     }
 
@@ -69,7 +72,7 @@ public class ModelSchedaAllenamentoCliente {
             inserimentoScheda.setString(4, numeroSerie);
             inserimentoScheda.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto :(", null, Alert.AlertType.ERROR);
         }
     }
 
@@ -85,7 +88,7 @@ public class ModelSchedaAllenamentoCliente {
             Model.getInstance().getSchedaController().loadSchedaAllenamento();
             Model.getInstance().getSchedaController().loadEsercizi();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto :(", null, Alert.AlertType.ERROR);
         }
     }
 

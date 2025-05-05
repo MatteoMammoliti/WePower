@@ -2,6 +2,8 @@ package com.wepower.wepower.Models.AdminModel;
 
 import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.ModelValidazione;
+import com.wepower.wepower.Views.AlertHelper;
+import javafx.scene.control.Alert;
 import javafx.util.Pair;
 
 import javax.swing.*;
@@ -117,33 +119,23 @@ public class ModelDashboardAdmin {
         String aggiungo="INSERT into TipoAbbonamento (NomeAbbonamento,Descrizione,Costo,Durata) VALUES (?,?,?,?)";
 
         if(nome.isEmpty() || costo.isEmpty() || descrizione.isEmpty() || durata.isEmpty()){
-            JDialog promozioneDialog=new JDialog();
-            promozioneDialog.setTitle("Errore");
-            JOptionPane.showMessageDialog(promozioneDialog,"Compila tutti i campi");
+            AlertHelper.showAlert("Errore", "Compila tutti i campi", null, Alert.AlertType.ERROR);
             return false;
         }
         if(!ModelValidazione.controlloNomeOfferta(nome)){
-            JDialog promozioneDialog=new JDialog();
-            promozioneDialog.setTitle("Errore");
-            JOptionPane.showMessageDialog(promozioneDialog,"Nome abbonamento non valido,numeri non consentiti e non meno di 2 caratteri");
+            AlertHelper.showAlert("Errore", "Nome abbonamento non valido", "Il nome deve essere di almeno 2 caratteri e senza numeri", Alert.AlertType.ERROR);
             return false;
         }
         if(cercoNomeOfferta(nome)){
-            JDialog promozioneDialog=new JDialog();
-            promozioneDialog.setTitle("Errore");
-            JOptionPane.showMessageDialog(promozioneDialog,"Nome abbonamento già esistente");
+            AlertHelper.showAlert("Errore", "Nome abbonamento già presente", null, Alert.AlertType.ERROR);
             return false;
         }
         if(!ModelValidazione.controlloPrezzoOfferta(costo)){
-            JDialog promozioneDialog=new JDialog();
-            promozioneDialog.setTitle("Errore");
-            JOptionPane.showMessageDialog(promozioneDialog,"Prezzo non valido");
+            AlertHelper.showAlert("Errore", "Prezzo non valido", null, Alert.AlertType.ERROR);
             return false;
         }
         if(!ModelValidazione.controlloDurataOfferta(durata)){
-            JDialog promozioneDialog=new JDialog();
-            promozioneDialog.setTitle("Errore");
-            JOptionPane.showMessageDialog(promozioneDialog,"Durata non valida");
+            AlertHelper.showAlert("Errore", "Durata non valida", null, Alert.AlertType.ERROR);
             return false;
         }
 
@@ -155,9 +147,7 @@ public class ModelDashboardAdmin {
             caricoDati.setString(4,durata);
             int righeModificate=caricoDati.executeUpdate();
             if(righeModificate>0){
-                JDialog promozioneDialog=new JDialog();
-                promozioneDialog.setTitle("Promozione aggiunta");
-                JOptionPane.showMessageDialog(promozioneDialog,"Promozione aggiunta con successo");
+                AlertHelper.showAlert("Promozione aggiunta", "Promozione aggiunta con successo", null, Alert.AlertType.INFORMATION);
                 return true;
             }
         } catch (SQLException e) {
@@ -195,18 +185,4 @@ public class ModelDashboardAdmin {
             throw new RuntimeException(e);
         }
     }
-
-/*
-    public static ArrayList<Integer> prelevaAnniTendina(){
-        ArrayList<Integer> lista=new ArrayList<>();
-        String prelevaAnno="SELECT Anno FROM ";
-
-
-    }
-*/
-
-
-
-
-
 }

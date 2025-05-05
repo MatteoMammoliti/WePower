@@ -57,10 +57,10 @@ public class DatiSessioneCliente {
     public  static String getTelefono() {return telefono;}
     public static int getCertificato() {return certificato;}
     public static String getCognome() { return cognome; }
-    public static ArrayList<PrenotazioneSalaPesi> getDateOrariPrenotazioni() {return dateOrariPrenotazioni;}
     public static boolean getStatoAbbonamento(){return statoAbbonamento;}
     public static int getIdSchedaAllenamento() { return idSchedaAllenamento; }
     public static boolean getSeSchedaRichiesta() { return schedaRichiesta; }
+
     public static String getOrarioPrenotazione(String data){
         for (int i=0;i<dateOrariPrenotazioni.size();i++){
             if (dateOrariPrenotazioni.get(i).getDataPrenotazione().equals(data)){
@@ -69,6 +69,7 @@ public class DatiSessioneCliente {
         }
         return null;
     }
+
     public static String getDataNascita(){return dataNascita;}
     public static Image getImmagineProfilo() { return immagineProfilo; }
     public static String getGenere() {return genere;}
@@ -77,83 +78,6 @@ public class DatiSessioneCliente {
     }
     public static boolean getAlertScadenzaAbbonamento() { return alertScadenzaAbbonamento; }
     public static boolean getAlertCertificatoMancante() { return alertCertificatoMancante; }
-
-    // SETTER
-    public static void setStatoAbbonamento(boolean abbonamento){statoAbbonamento = abbonamento;}
-    public static void setDataNascita(String data){dataNascita=data;}
-    public static void setNomeUtente(String n) {nome=n;}
-    public static void setIdUtente(int id) {idUtente = id;}
-    public static void setEmail(String e_mail){email = e_mail;}
-    public static void setAltezza(String a) {altezza = a;}
-    public static void setPesoAttuale(Integer p) {pesoAttuale = p;}
-    public static void setPesiCliente(ArrayList<Integer> pesi){
-        for (Integer pesic : pesi) {
-            pesiCliente.add(pesic);
-        }
-    }
-    public static void setCertificato(int valore) {certificato = valore;}
-    public static void setCognome(String c) { cognome = c; }
-    public static void setTelefono(String t) {telefono = t; }
-    public static void setIdSchedaAllenamento(int id) { idSchedaAllenamento = id; }
-    public static void setSeSchedaRichiesta(boolean b) { schedaRichiesta = b; }
-    public static void setImmagineProfilo(Image immagine) { immagineProfilo = immagine; }
-    public static void setDateOrariPrenotazioni(ArrayList<PrenotazioneSalaPesi> d) {
-        dateOrariPrenotazioni = d;
-
-        datePrenotazioniSalaPesi.clear();
-        for (int i = 0; i < dateOrariPrenotazioni.size(); i++) {
-            datePrenotazioniSalaPesi.add(dateOrariPrenotazioni.get(i).getDataPrenotazione());
-        }
-    }
-
-    public static void setGenere(String s) {genere = s;}
-    public static void setAlertScadenzaAbbonamento(boolean alert) { alertScadenzaAbbonamento = alert; }
-    public static void setAlertCertificatoMancante(boolean alert) { alertCertificatoMancante = alert; }
-
-
-    // LOGOUT
-    public static void logout() {
-        idUtente = 0;
-        email = null;
-        nome = null;
-        certificato = 0;
-        telefono = null;
-        dateOrariPrenotazioni.clear();
-        datePrenotazioniSalaPesi.clear();
-        statoAbbonamento = false;
-        idSchedaAllenamento = 0;
-        schedaRichiesta = false;
-        altezza = null;
-        pesoAttuale = null;
-        genere=null;
-        immagineProfilo = null;
-        eserciziConMassimale.clear();
-        DatiSessionePalestra.svuotaPrenotazioniSalaPesi();
-        alertScadenzaAbbonamento = false;
-        alertCertificatoMancante = false;
-        Model.invalidate();
-    }
-
-    // CONTROLLO DATA PRENOTAZIONE SALA PESI
-    public static boolean controlloDataPrenotazioneSalaPesi(LocalDate data) {
-        String dataControllo = data.toString();
-
-        if (datePrenotazioniSalaPesi.contains(dataControllo)) {
-            return true;
-        }
-        return false;
-    }
-
-    // CONTROLLO DATA E ORARIO PRENOTAZIONE SALA PESI PER STORICO
-    public static boolean controlloDataPrenotazioneSalaPesi(LocalDate data,String ora) {
-        String dataControllo = data.toString();
-        PrenotazioneSalaPesi temp=new PrenotazioneSalaPesi(dataControllo,ora);
-
-        if (dateOrariPrenotazioni.contains(temp)) {
-            return true;
-        }
-        return false;
-    }
 
     //CONTROLLO TIPO DI ABBONAMENTO ATTIVO DEL CLIENTE
     public static String getTipoAbbonamentoAttivo(){
@@ -206,6 +130,116 @@ public class DatiSessioneCliente {
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    //Prelevo le date degli allenamenti già conclusi
+    public static ArrayList<PrenotazioneSalaPesi> getDateAllenamentiEffettuati(){
+        ArrayList<PrenotazioneSalaPesi> prenotazioni=new ArrayList<>();
+        String cerco="SELECT DataPrenotazione,OrarioPrenotazione FROM PrenotazioneSalaPesi WHERE IdCliente=? AND DataPrenotazione < ?  ORDER BY DataPrenotazione DESC";
+        try(Connection conn=ConnessioneDatabase.getConnection()){
+            PreparedStatement prelevamento=conn.prepareStatement(cerco);
+            prelevamento.setInt(1,DatiSessioneCliente.getIdUtente());
+            prelevamento.setString(2,LocalDate.now().toString());;
+            ResultSet rs=prelevamento.executeQuery();
+            while(rs.next()){
+                PrenotazioneSalaPesi p=new PrenotazioneSalaPesi(rs.getString("DataPrenotazione"),rs.getString("OrarioPrenotazione"));
+                prenotazioni.add(p);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return prenotazioni;
+
+    }
+
+    //Prelevo le date degli allenamenti ancora da effettuare
+    public static ArrayList<PrenotazioneSalaPesi> getDateAllenamentiDaFare() throws SQLException {
+        ArrayList<PrenotazioneSalaPesi> date=new ArrayList<>();
+        String cerco="SELECT DataPrenotazione,OrarioPrenotazione FROM PrenotazioneSalaPesi WHERE IdCliente=? AND DataPrenotazione >= ? ORDER BY DataPrenotazione ASC LIMIT 8";
+        try(Connection conn=ConnessioneDatabase.getConnection()){
+            PreparedStatement prelevamento=conn.prepareStatement(cerco);
+            prelevamento.setInt(1,DatiSessioneCliente.getIdUtente());
+            prelevamento.setString(2,LocalDate.now().toString());
+            ResultSet rs=prelevamento.executeQuery();
+            while(rs.next()){
+                PrenotazioneSalaPesi nuova=new PrenotazioneSalaPesi(rs.getString("DataPrenotazione"),rs.getString("OrarioPrenotazione"));
+                date.add(nuova);
+            }
+            return date;
+
+        }
+    }
+
+    // SETTER
+    public static void setStatoAbbonamento(boolean abbonamento){statoAbbonamento = abbonamento;}
+    public static void setDataNascita(String data){dataNascita=data;}
+    public static void setNomeUtente(String n) {nome=n;}
+    public static void setIdUtente(int id) {idUtente = id;}
+    public static void setEmail(String e_mail){email = e_mail;}
+    public static void setAltezza(String a) {altezza = a;}
+    public static void setPesoAttuale(Integer p) {pesoAttuale = p;}
+    public static void setCertificato(int valore) {certificato = valore;}
+    public static void setCognome(String c) { cognome = c; }
+    public static void setTelefono(String t) {telefono = t; }
+    public static void setIdSchedaAllenamento(int id) { idSchedaAllenamento = id; }
+    public static void setSeSchedaRichiesta(boolean b) { schedaRichiesta = b; }
+    public static void setImmagineProfilo(Image immagine) { immagineProfilo = immagine; }
+
+    public static void setDateOrariPrenotazioni(ArrayList<PrenotazioneSalaPesi> d) {
+        dateOrariPrenotazioni = d;
+
+        datePrenotazioniSalaPesi.clear();
+        for (int i = 0; i < dateOrariPrenotazioni.size(); i++) {
+            datePrenotazioniSalaPesi.add(dateOrariPrenotazioni.get(i).getDataPrenotazione());
+        }
+    }
+
+    public static void setGenere(String s) {genere = s;}
+    public static void setAlertScadenzaAbbonamento(boolean alert) { alertScadenzaAbbonamento = alert; }
+    public static void setAlertCertificatoMancante(boolean alert) { alertCertificatoMancante = alert; }
+
+    // LOGOUT
+    public static void logout() {
+        idUtente = 0;
+        email = null;
+        nome = null;
+        certificato = 0;
+        telefono = null;
+        dateOrariPrenotazioni.clear();
+        datePrenotazioniSalaPesi.clear();
+        statoAbbonamento = false;
+        idSchedaAllenamento = 0;
+        schedaRichiesta = false;
+        altezza = null;
+        pesoAttuale = null;
+        genere=null;
+        immagineProfilo = null;
+        eserciziConMassimale.clear();
+        DatiSessionePalestra.svuotaPrenotazioniSalaPesi();
+        alertScadenzaAbbonamento = false;
+        alertCertificatoMancante = false;
+        Model.invalidate();
+    }
+
+    // CONTROLLO DATA PRENOTAZIONE SALA PESI
+    public static boolean controlloDataPrenotazioneSalaPesi(LocalDate data) {
+        String dataControllo = data.toString();
+
+        if (datePrenotazioniSalaPesi.contains(dataControllo)) {
+            return true;
+        }
+        return false;
+    }
+
+    // CONTROLLO DATA E ORARIO PRENOTAZIONE SALA PESI PER STORICO
+    public static boolean controlloDataPrenotazioneSalaPesi(LocalDate data,String ora) {
+        String dataControllo = data.toString();
+        PrenotazioneSalaPesi temp=new PrenotazioneSalaPesi(dataControllo,ora);
+
+        if (dateOrariPrenotazioni.contains(temp)) {
+            return true;
+        }
+        return false;
     }
 
     //CONTROLLO SE L'ABBONAMENTO DEL CLIENTE è ATTIVO
@@ -283,7 +317,6 @@ public class DatiSessioneCliente {
             }
         }catch (SQLException e){
             throw new RuntimeException(e);
-
         }
         return null;
     }
@@ -325,9 +358,7 @@ public class DatiSessioneCliente {
 
             }
         }catch (SQLException e){
-            System.out.println("Errore caricamento certificato medico");
             throw new RuntimeException(e);
-
         }
         return false;
     }
@@ -493,43 +524,5 @@ public class DatiSessioneCliente {
             e.printStackTrace();
         }
         return 0;
-    }
-
-    //Prelevo le date degli allenamenti già conclusi
-    public static ArrayList<PrenotazioneSalaPesi> getDateAllenamentiEffettuati(){
-        ArrayList<PrenotazioneSalaPesi> prenotazioni=new ArrayList<>();
-        String cerco="SELECT DataPrenotazione,OrarioPrenotazione FROM PrenotazioneSalaPesi WHERE IdCliente=? AND DataPrenotazione < ?  ORDER BY DataPrenotazione DESC";
-        try(Connection conn=ConnessioneDatabase.getConnection()){
-            PreparedStatement prelevamento=conn.prepareStatement(cerco);
-            prelevamento.setInt(1,DatiSessioneCliente.getIdUtente());
-            prelevamento.setString(2,LocalDate.now().toString());;
-            ResultSet rs=prelevamento.executeQuery();
-            while(rs.next()){
-                PrenotazioneSalaPesi p=new PrenotazioneSalaPesi(rs.getString("DataPrenotazione"),rs.getString("OrarioPrenotazione"));
-                prenotazioni.add(p);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return prenotazioni;
-
-    }
-
-    //Prelevo le date degli allenamenti ancora da effettuare
-    public static ArrayList<PrenotazioneSalaPesi> getDateAllenamentiDaFare() throws SQLException {
-        ArrayList<PrenotazioneSalaPesi> date=new ArrayList<>();
-        String cerco="SELECT DataPrenotazione,OrarioPrenotazione FROM PrenotazioneSalaPesi WHERE IdCliente=? AND DataPrenotazione >= ? ORDER BY DataPrenotazione ASC LIMIT 8";
-        try(Connection conn=ConnessioneDatabase.getConnection()){
-            PreparedStatement prelevamento=conn.prepareStatement(cerco);
-            prelevamento.setInt(1,DatiSessioneCliente.getIdUtente());
-            prelevamento.setString(2,LocalDate.now().toString());
-            ResultSet rs=prelevamento.executeQuery();
-            while(rs.next()){
-                PrenotazioneSalaPesi nuova=new PrenotazioneSalaPesi(rs.getString("DataPrenotazione"),rs.getString("OrarioPrenotazione"));
-                date.add(nuova);
-            }
-            return date;
-
-        }
     }
 }

@@ -3,16 +3,12 @@ import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import javafx.application.Platform;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -32,13 +28,14 @@ public class ClientMenuController  implements Initializable {
     public VBox contenitorePulsantiView;
     public Button pulsanteCambioTema;
 
+    // funzione che carica i componenti del menu. verrà richiamata anche in fase di aggiornamento interfaccia post operazione di modifica
     public void caricaMenu() {
         nomeCognomeUtente.setText(DatiSessioneCliente.getNomeUtente() + " " + DatiSessioneCliente.getCognome());
         emailUtente.setText(DatiSessioneCliente.getEmail());
+
         if (DatiSessioneCliente.getStatoAbbonamento()){
             labelStatoAbbonamento.setText("Abbonamento attivo");
             labelStatoAbbonamento.setStyle("-fx-text-fill: #255a21; -fx-font-weight: bold");
-
         } else {
             labelStatoAbbonamento.setText("Abbonamento non attivo");
             labelStatoAbbonamento.setStyle("-fx-text-fill: red; -fx-font-weight: bold");
@@ -63,7 +60,6 @@ public class ClientMenuController  implements Initializable {
         });
 
         pulsanteCambioTema.setOnAction(e -> {
-
             String blutema= getClass().getResource("/Styles/TemaBlu.css").toExternalForm();
             String temaProva=getClass().getResource("/Styles/TemaProva.css").toExternalForm();
             if(ControlloTemi.getInstance().getCssTemaCorrente().equals(blutema)){
@@ -100,9 +96,7 @@ public class ClientMenuController  implements Initializable {
         Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Scheda");
     }
 
-    private void onPrenotazione() {
-        Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Prenotazione");
-    }
+    private void onPrenotazione() { Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Prenotazione"); }
 
     private void onMyProfile() {
         Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("MyProfile");

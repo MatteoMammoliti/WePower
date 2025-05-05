@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
 import java.io.InputStream;
 import java.sql.SQLException;
 
-public class RigaEsercizioLista extends HBox {
+public class RigaEsercizioListaClient extends HBox {
     private Label nomeEsercizio;
     private Label descrizioneEsercizio;
     private ImageView imageEsercizio;
@@ -22,7 +22,7 @@ public class RigaEsercizioLista extends HBox {
     private TextField numeroRipetizioni;
     private Button aggiungiEsercizioScheda;
 
-    public RigaEsercizioLista(String nomeEsercizio, String descrizioneEsercizio, String percorsoImmagine) {
+    public RigaEsercizioListaClient(String nomeEsercizio, String descrizioneEsercizio, String percorsoImmagine) {
 
         this.nomeEsercizio = new Label(nomeEsercizio);
         this.descrizioneEsercizio = new Label(descrizioneEsercizio);
@@ -99,7 +99,7 @@ public class RigaEsercizioLista extends HBox {
             Model.getInstance().getSchedaController().loadSchedaAllenamento();
             Model.getInstance().getSchedaController().loadEsercizi();
         } catch (SQLException e) {
-            e.printStackTrace();
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto :(", null, Alert.AlertType.ERROR );
         }
     }
 }

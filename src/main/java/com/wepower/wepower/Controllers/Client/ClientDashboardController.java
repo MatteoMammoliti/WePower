@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 public class ClientDashboardController implements Initializable {
     private static ClientDashboardController instance;
 
-    // frase motivazione
+    // frase motivazionale
     @FXML
     private HBox contenitoreFraseMotivazionale;
     @FXML
@@ -43,9 +43,9 @@ public class ClientDashboardController implements Initializable {
     private final String[] paroleRotazione = {"Resistente", "Potente", "Invincibile"};
     private int indiceParolaCorrente = 0;
 
+    // contenitori principali (colonna di sinistra esclusa poichè il menu è un componente a parte)
     @FXML
     private VBox containerColonnaDestra;
-
     @FXML
     private VBox containerRoot;
 
@@ -89,6 +89,7 @@ public class ClientDashboardController implements Initializable {
     private ScrollPane scrollPaneBanner;
     private double prefWidth = 350;
     @FXML
+
     // container dei banner
     private HBox displayerBanner;
 
@@ -100,7 +101,9 @@ public class ClientDashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         instance = this;
         Model.getInstance().setClientDashboardController(this);
+
         this.containerGrafici.maxHeightProperty().bind(containerRoot.heightProperty().multiply(0.5));
+
         labelNomeUtenteSaluto.setText("Ciao, "+ DatiSessioneCliente.getNomeUtente() + "👋");
         loadCalendario();
         loadBanner();
@@ -123,7 +126,7 @@ public class ClientDashboardController implements Initializable {
         this.chatVBox.minHeightProperty().bind(scrollPaneChatArea.heightProperty().multiply(1));
         this.chatVBox.setFillWidth(true);
 
-        String msg = "Ciao " + DatiSessioneCliente.getNomeUtente() + ", sono Powerino il chat bot virtuale di WePower. Chiedimi qualcosa!" + "\n";
+        String msg = "Ciao " + DatiSessioneCliente.getNomeUtente() + ", sono Powerino il chat bot virtuale di WePower." + "\n";
         HBox messaggioIniziale =  new HBox(10);
         Label messaggioInizialeApertura = new Label(msg);
         messaggioInizialeApertura.maxWidthProperty().bind(scrollPaneChatArea.widthProperty().subtract(50));
@@ -140,7 +143,7 @@ public class ClientDashboardController implements Initializable {
         caricaEserciziSchedaMenuGrafico();
         loadGraficoPrenotazioni();
         loadGraficoPeso();
-        Platform.runLater(() -> loadAlert());
+        Platform.runLater(this::loadAlert);
     }
 
     // -- FUNZIONI DISPLAYER COMPONENTI DELLA DASHBOARD
@@ -192,10 +195,10 @@ public class ClientDashboardController implements Initializable {
 
     // SEZIONE GRAFICI
     public void caricaEserciziSchedaMenuGrafico() {
-        ArrayList<String> temp = DatiSessioneCliente.getEserciziConMassimale();
+        ArrayList<String> esercizi = DatiSessioneCliente.getEserciziConMassimale();
 
-        if (!temp.isEmpty()) {
-            for (String esercizio : temp) {
+        if (!esercizi.isEmpty()) {
+            for (String esercizio : esercizi) {
                 MenuItem menuItem = new MenuItem(esercizio);
                 menuItem.setOnAction(event -> {
                     choiceEsercizioScheda.setText(menuItem.getText());
@@ -203,10 +206,9 @@ public class ClientDashboardController implements Initializable {
                 });
                 choiceEsercizioScheda.getItems().add(menuItem);
             }
+            return;
         }
-        else {
-            choiceEsercizioScheda.setVisible(false);
-        }
+        choiceEsercizioScheda.setVisible(false); // se non esistono esercizi con massimali, il menu di scelta non viene visualizato
     }
 
     public void loadGraficoMassimali(String esercizio) {
@@ -214,8 +216,11 @@ public class ClientDashboardController implements Initializable {
         massimale.setName("Andamento massimale dell'esercizio " + esercizio);
 
         ArrayList<Pair<String,Number>> lista = DatiSessioneCliente.caricaStoricoMassimalePerEsercizio(esercizio, DatiSessioneCliente.getIdUtente());
-        Pair<String, Number> min = lista.get(0);
-        Pair<String, Number> max = lista.get(lista.size()-1);
+
+        if(lista.isEmpty()) return;
+
+        Pair<String, Number> min = lista.getFirst();
+        Pair<String, Number> max = lista.getLast();
         int minY = min.getValue().intValue();
         int maxY = max.getValue().intValue();
 
@@ -241,6 +246,8 @@ public class ClientDashboardController implements Initializable {
 
         ArrayList<Pair<String,Number>> lista = DatiSessioneCliente.caricaStoricoPrenotazioni(DatiSessioneCliente.getIdUtente());
 
+        if(lista.isEmpty()) return;
+
         for(Pair<String, Number> p : lista) {
             prenotazioni.getData().add(new XYChart.Data<>(p.getKey(), p.getValue()));
         }
@@ -253,21 +260,20 @@ public class ClientDashboardController implements Initializable {
         ArrayList<Pair<String,Integer>> storico = DatiSessioneCliente.caricaStroicoPesi(DatiSessioneCliente.getIdUtente());
         XYChart.Series<String, Number> peso = new XYChart.Series<>();
 
-
         peso.setName("Andamento peso corporeo");
         for(int i=0;i<storico.size();i++){
             String data = storico.get(i).getKey();
             int pesoValore = storico.get(i).getValue();
 
-            // Aggiungi il punto al grafico
+            // aggiunta del punto al grafico
             peso.getData().add(new XYChart.Data<>(data, pesoValore));
         }
 
         if (!storico.isEmpty()) {
-            Pair<String, Integer> min = storico.get(0);
-            Pair<String, Integer> max = storico.get(storico.size()-1);
-            int minY = min.getValue().intValue();
-            int maxY = max.getValue().intValue();
+            Pair<String, Integer> min = storico.getFirst();
+            Pair<String, Integer> max = storico.getLast();
+            int minY = min.getValue();
+            int maxY = max.getValue();
             yAxisPesoCorporeo.setLowerBound(minY - 5);
             yAxisPesoCorporeo.setUpperBound(maxY + 5);
         }

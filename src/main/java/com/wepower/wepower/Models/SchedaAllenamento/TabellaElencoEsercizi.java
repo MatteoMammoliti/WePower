@@ -2,9 +2,11 @@ package com.wepower.wepower.Models.SchedaAllenamento;
 
 import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.DatiSessioneCliente;
-import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioLista;
+import com.wepower.wepower.Views.AlertHelper;
+import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioListaClient;
 import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioListaAdmin;
-import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioScheda;
+import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioSchedaClient;
+import javafx.scene.control.Alert;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,9 +15,9 @@ import java.util.ArrayList;
 
 public class TabellaElencoEsercizi {
 
-    public static ArrayList<RigaEsercizioLista> riempiRigaEsercizio() throws SQLException {
+    public static ArrayList<RigaEsercizioListaClient> riempiRigaEsercizio() throws SQLException {
 
-        ArrayList<RigaEsercizioLista> ris = new ArrayList<RigaEsercizioLista>();
+        ArrayList<RigaEsercizioListaClient> ris = new ArrayList<RigaEsercizioListaClient>();
 
         String query = "SELECT NomeEsercizio, DescrizioneEsercizio, PercorsoImmagine FROM Esercizio";
 
@@ -31,11 +33,11 @@ public class TabellaElencoEsercizi {
                 if (PercorsoImmagine == null || PercorsoImmagine.trim().isEmpty()) {
                     PercorsoImmagine = "images/LOGO.png";
                 }
-                RigaEsercizioLista esercizio = new RigaEsercizioLista(NomeEsercizio, DescrizioneEsercizio, PercorsoImmagine);
+                RigaEsercizioListaClient esercizio = new RigaEsercizioListaClient(NomeEsercizio, DescrizioneEsercizio, PercorsoImmagine);
                 ris.add(esercizio);
             }
         } catch (Exception e) {
-            throw new SQLException(e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto :(", null, Alert.AlertType.ERROR);
         }
         return ris;
     }
@@ -61,14 +63,14 @@ public class TabellaElencoEsercizi {
                 ris.add(esercizio);
             }
         } catch (Exception e) {
-            throw new SQLException(e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto :(", null, Alert.AlertType.ERROR);
         }
         return ris;
     }
 
-    public static ArrayList<RigaEsercizioScheda> riempiRigaEsercizioScheda() throws SQLException {
+    public static ArrayList<RigaEsercizioSchedaClient> riempiRigaEsercizioScheda() throws SQLException {
 
-        ArrayList<RigaEsercizioScheda> ris = new ArrayList<RigaEsercizioScheda>();
+        ArrayList<RigaEsercizioSchedaClient> ris = new ArrayList<RigaEsercizioSchedaClient>();
 
         String query = "SELECT e.NomeEsercizio, e.PercorsoImmagine,\n" +
                 "       csa.NumeroRipetizioni, csa.NumeroSerie, m.Peso, m.DataInserimento\n" +
@@ -115,11 +117,11 @@ public class TabellaElencoEsercizi {
                 if (PercorsoImmagine == null || PercorsoImmagine.trim().isEmpty()) {
                     PercorsoImmagine = "images/LOGO.png";
                 }
-                RigaEsercizioScheda esercizio = new RigaEsercizioScheda(NomeEsercizio, NumeroSerie, NumeroRipetizioni, PercorsoImmagine, massimaleAttuale, dataImpostazioneMassimale);
+                RigaEsercizioSchedaClient esercizio = new RigaEsercizioSchedaClient(NomeEsercizio, NumeroSerie, NumeroRipetizioni, PercorsoImmagine, massimaleAttuale, dataImpostazioneMassimale);
                 ris.add(esercizio);
             }
         } catch (Exception e) {
-            throw new SQLException(e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto :(", null, Alert.AlertType.ERROR);
         }
         return ris;
     }

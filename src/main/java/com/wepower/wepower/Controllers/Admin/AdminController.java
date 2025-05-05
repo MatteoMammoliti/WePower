@@ -1,6 +1,7 @@
 package com.wepower.wepower.Controllers.Admin;
 
 import com.wepower.wepower.Models.AdminModel.DatiSessioneAdmin;
+import com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra;
 import com.wepower.wepower.Models.Model;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
@@ -28,6 +29,7 @@ public class AdminController implements Initializable {
 
                 case "Logout" -> {
                     DatiSessioneAdmin.logout();
+                    DatiSessionePalestra.svuotaPrenotazioniSalaPesi();
                     Model.invalidate();
                     Stage currentStage = (Stage) contenitore_admin_view.getScene().getWindow();
                     Model.getInstance().getViewFactoryClient().closeStage(currentStage);

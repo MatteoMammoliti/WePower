@@ -8,13 +8,12 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class RigaEsercizioScheda extends HBox {
+public class RigaEsercizioSchedaClient extends HBox {
     private Label nomeEsercizio;
     private Label numeroSerie;
     private Label numeroRipetizioni;
@@ -25,7 +24,7 @@ public class RigaEsercizioScheda extends HBox {
     private Button aggiungiMassimale;
     private Button rimuoviSchedaEsercizio;
 
-    public RigaEsercizioScheda(String nomeEsercizio, String numeroSerie, String numeroRipetizioni, String percorsoImmagine, String massimaleAttuale, String dataImpostazioneMassimale) {
+    public RigaEsercizioSchedaClient(String nomeEsercizio, String numeroSerie, String numeroRipetizioni, String percorsoImmagine, String massimaleAttuale, String dataImpostazioneMassimale) {
 
         this.getStyleClass().add("rigaEsercizio");
         this.nomeEsercizio = new Label(nomeEsercizio);

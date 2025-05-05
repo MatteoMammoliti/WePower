@@ -13,14 +13,13 @@ public class AlertHelper {
         alert.setHeaderText(messaggioHeader);
         alert.setContentText(messaggioContent);
 
-        String percorsoIcona = "";
-        switch (type) {
-            case ERROR: percorsoIcona = "/Images/IconeAlert/error.png"; break;
-            case WARNING: percorsoIcona = "/Images/IconeAlert/error.png"; break;
-            case CONFIRMATION: percorsoIcona = "/Images/IconeAlert/question.png"; break;
-            case INFORMATION: percorsoIcona = "/Images/IconeAlert/info.png"; break;
-            default: percorsoIcona = "/Images/IconeAlert/error.png"; break;
-        }
+        String percorsoIcona = switch (type) {
+            case ERROR -> "/Images/IconeAlert/error.png";
+            case WARNING -> "/Images/IconeAlert/error.png";
+            case CONFIRMATION -> "/Images/IconeAlert/question.png";
+            case INFORMATION -> "/Images/IconeAlert/info.png";
+            default -> "/Images/IconeAlert/error.png";
+        };
         ImageView icon = new ImageView(new Image(AlertHelper.class.getResourceAsStream(percorsoIcona)));
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().clear();

@@ -17,7 +17,7 @@ public class ClientController implements Initializable {
         // il listener resta in ascolto sul menu e quando si passa da una view all'altra, esegue le istruzioni fissate
         Model.getInstance().getViewFactoryClient().getCurrentMenuView().addListener((observable, attualeView, nuovaView) -> {
 
-            switch (nuovaView) {
+            switch (nuovaView) { // nello switch settiamo la StringProperty su cui c'è un listener in ascolto di sue modifiche
                 case "Dashboard" -> contenitore_client_view.setCenter(Model.getInstance().getViewFactoryClient().getDashboard());
 
                 case "Logout" -> {

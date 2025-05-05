@@ -27,11 +27,6 @@ public class Abbonamento {
     public int getCosto() {return costo;}
     public String getDurataAbbonamento() {return durataAbbonamento;}
 
-
-
-
-
-
     public static ArrayList<Abbonamento> getAbbonamentiDb() throws SQLException {
         ArrayList<Abbonamento> abbonamenti=new ArrayList<>();
         String prendiDati="SELECT * FROM TipoAbbonamento";

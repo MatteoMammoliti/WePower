@@ -27,50 +27,38 @@ public class Model {
 
     // il costruttore di Model DEVE essere privato (singleton)
     private Model() {
-
         this.viewFactoryClient = new ViewFactoryClient();
         this.viewFactoryAdmin = new ViewFactoryAdmin();
     }
 
+    // GETTER
     public ViewFactoryClient getViewFactoryClient() {
         return viewFactoryClient;
     }
     public ProfiloController getProfiloController() {return profiloController;}
-    public SchermataSelezioneAbbonamentoController getSchermataSelezioneAbbonamento() {return schermataSelezioneAbbonamento;}
     public ViewFactoryAdmin getViewFactoryAdmin() { return viewFactoryAdmin; }
     public ClientMenuController getClientMenuController() { return clientMenuController; }
     public SchedaController getSchedaController() { return schedaController; }
-
-    public void setSchermataSelezioneAbbonamento(SchermataSelezioneAbbonamentoController schermataSelezioneAbbonamento) {this.schermataSelezioneAbbonamento=schermataSelezioneAbbonamento;}
-    public void setClientMenuController(ClientMenuController clientMenuController) {
-        this.clientMenuController = clientMenuController;
-    }
-    public void setProfiloController(ProfiloController profiloController) {
-        this.profiloController = profiloController;
-    }
-    public void setSchedaController(SchedaController schedaController) {
-        this.schedaController = schedaController;
-    }
-
     public ClientDashboardController getClientDashboardController() {
         return clientDashboardController;
     }
-    public SchermataCreazioneSchedaAdmin getSchermataCreazioneSchedaAdminController() {
-        return schermataCreazioneSchedaAdmin;
-    }
+    public SchermataCreazioneSchedaAdmin getSchermataCreazioneSchedaAdminController() { return schermataCreazioneSchedaAdmin; }
 
-    public void setSchermataCreazioneSchedaAdminController(SchermataCreazioneSchedaAdmin schermataCreazioneSchedaAdmin) {
-        this.schermataCreazioneSchedaAdmin = schermataCreazioneSchedaAdmin;
+    // SETTER
+    public void setClientMenuController(ClientMenuController clientMenuController) { this.clientMenuController = clientMenuController; }
+    public void setProfiloController(ProfiloController profiloController) { this.profiloController = profiloController; }
+    public void setSchedaController(SchedaController schedaController) {
+        this.schedaController = schedaController;
     }
+    public void setSchermataCreazioneSchedaAdminController(SchermataCreazioneSchedaAdmin schermataCreazioneSchedaAdmin) { this.schermataCreazioneSchedaAdmin = schermataCreazioneSchedaAdmin; }
+    public void setClientDashboardController(ClientDashboardController clientDashboardController) { this.clientDashboardController = clientDashboardController; }
 
-    public void setClientDashboardController(ClientDashboardController clientDashboardController) {
-        this.clientDashboardController = clientDashboardController;
-    }
-
+    // ??
     public void TestConnessione() {
         connessioneDatabase = new ConnessioneDatabase();
         connessioneDatabase.getConnection();
     }
+
     // ottengo l'instanza di Model (singleton)
     // synchronized per evitare che più thread possano accedere a Model contemporaneamente
     public static synchronized Model getInstance() {

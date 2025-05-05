@@ -4,7 +4,6 @@ import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Views.AdminView.RigaTabellaRichiesteScheda;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,58 +14,9 @@ import java.util.Map;
 public class DatiSessionePalestra {
     private static int numeroMassimePrenotazioniPerFascieOrarie;
     private static Map<PrenotazioneSalaPesiCliente, Integer> prenotazioniSalePesi= new HashMap<>();
+
+    // orari utilizzati dal bot per decidere se la richiesta di prenotazione ha un orario valido
     private static String[] orariPrenotazione = {"08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00"};
-
-    //Aggiungo una prenotazione, se in quella data e ora sono già state fatte delle prenotazioni, incremento il contatore
-    public static void aggiungiPrenotazioneSalaPesi(PrenotazioneSalaPesiCliente prenotazione) {
-        if(prenotazioniSalePesi.containsKey(prenotazione)) {
-            prenotazioniSalePesi.put(prenotazione, prenotazioniSalePesi.get(prenotazione) + 1);
-        } else {
-            prenotazioniSalePesi.put(prenotazione, 1);
-        }
-    }
-
-    public static void svuotaPrenotazioniSalaPesi() {prenotazioniSalePesi.clear();}
-
-
-    public static void setNumeroMassimoPrenotazioni() throws SQLException {
-        String query="SELECT NumeriPostiMassimo FROM SalaPesi WHERE IdSalaPesi=1";
-        try(Connection conn=ConnessioneDatabase.getConnection()){
-            PreparedStatement ps=conn.prepareStatement(query);
-            ResultSet rs=ps.executeQuery();
-            if(rs.next()) {
-                numeroMassimePrenotazioniPerFascieOrarie=rs.getInt("NumeriPostiMassimo");
-            }
-        }
-    }
-
-    public static int getNumeroMassimePrenotazioniPerFascieOrarie() {return numeroMassimePrenotazioniPerFascieOrarie;}
-    //Funzione che mi serve per capire quanti posti prenotabili rimangono per ogni fascia oraria/giorno
-    public static int getNumeroPrenotazioniDataOraResidue(PrenotazioneSalaPesiCliente prenotazione) {
-        if(prenotazioniSalePesi.containsKey(prenotazione)) {
-            return numeroMassimePrenotazioniPerFascieOrarie - prenotazioniSalePesi.get(prenotazione);
-        } else {
-            return numeroMassimePrenotazioniPerFascieOrarie;
-        }
-    }
-
-    public static boolean rimuoviPrenotazioneSalaPesi(PrenotazioneSalaPesiCliente prenotazione) {
-        if(prenotazioniSalePesi.containsKey(prenotazione)) {
-            int contatore = prenotazioniSalePesi.get(prenotazione);
-            if(contatore > 1) {
-                prenotazioniSalePesi.put(prenotazione, contatore - 1);
-            } else {
-                prenotazioniSalePesi.remove(prenotazione);
-            }
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public static String[] getOrariPrenotazione() {
-        return orariPrenotazione;
-    }
 
     // Vado a prelevare tutti i dati degli utenti che hanno richiesto una scheda di allenamento
     public static ObservableList<RigaTabellaRichiesteScheda> getRichiesteScheda() {
@@ -97,5 +47,52 @@ public class DatiSessionePalestra {
             throw new RuntimeException(e);
         }
         return utenti;
+    }
+
+    //Funzione che mi serve per capire quanti posti prenotabili rimangono per ogni fascia oraria/giorno
+    public static int getNumeroPrenotazioniDataOraResidue(PrenotazioneSalaPesiCliente prenotazione) {
+        if(prenotazioniSalePesi.containsKey(prenotazione)) {
+            return numeroMassimePrenotazioniPerFascieOrarie - prenotazioniSalePesi.get(prenotazione);
+        } else {
+            return numeroMassimePrenotazioniPerFascieOrarie;
+        }
+    }
+
+    public static String[] getOrariPrenotazione() { return orariPrenotazione; }
+
+    public static void setNumeroMassimoPrenotazioni() throws SQLException {
+        String query="SELECT NumeriPostiMassimo FROM SalaPesi WHERE IdSalaPesi=1";
+        try(Connection conn=ConnessioneDatabase.getConnection()){
+            PreparedStatement ps=conn.prepareStatement(query);
+            ResultSet rs=ps.executeQuery();
+            if(rs.next()) {
+                numeroMassimePrenotazioniPerFascieOrarie=rs.getInt("NumeriPostiMassimo");
+            }
+        }
+    }
+
+    //Aggiungo una prenotazione, se in quella data e ora sono già state fatte delle prenotazioni, incremento il contatore
+    public static void aggiungiPrenotazioneSalaPesi(PrenotazioneSalaPesiCliente prenotazione) {
+        if(prenotazioniSalePesi.containsKey(prenotazione)) {
+            prenotazioniSalePesi.put(prenotazione, prenotazioniSalePesi.get(prenotazione) + 1);
+        } else {
+            prenotazioniSalePesi.put(prenotazione, 1);
+        }
+    }
+
+    public static void svuotaPrenotazioniSalaPesi() {prenotazioniSalePesi.clear();}
+
+    public static boolean rimuoviPrenotazioneSalaPesi(PrenotazioneSalaPesiCliente prenotazione) {
+        if(prenotazioniSalePesi.containsKey(prenotazione)) {
+            int contatore = prenotazioniSalePesi.get(prenotazione);
+            if(contatore > 1) {
+                prenotazioniSalePesi.put(prenotazione, contatore - 1);
+            } else {
+                prenotazioniSalePesi.remove(prenotazione);
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -149,11 +149,8 @@ public class ModificaDatiController implements Initializable {
             genere = "Altro";
         }
 
-
         if (altezza != null && altezza.trim().isEmpty()) altezza = null;
         if (telefono != null && telefono.trim().isEmpty()) telefono = null;
-
-
 
         if(ModelModificaDati.onClickModificaDati(DatiSessioneCliente.getIdUtente(),nome,cognome,data,genere,altezza,email,telefono,peso)){
             AlertHelper.showAlert("Dati modificati con successo", "Dati modificati con successo", null,  Alert.AlertType.INFORMATION);

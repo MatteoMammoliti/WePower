@@ -11,7 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-
 import java.io.InputStream;
 import java.sql.SQLException;
 
@@ -92,7 +91,7 @@ public class RigaEsercizioListaAdmin extends HBox {
             Model.getInstance().getSchermataCreazioneSchedaAdminController().loadSchedaAllenamento();
             Model.getInstance().getSchermataCreazioneSchedaAdminController().loadEsercizi();
         } catch (SQLException e) {
-            e.printStackTrace();
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto :(", null, Alert.AlertType.ERROR );
         }
     }
 }
