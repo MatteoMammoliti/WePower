@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
 
 public class AdminUtentiController implements Initializable {
 
+    public Button btnGestisciCapienza;
     @FXML
     private TableView<RigaDashboardAdmin> tableUtenti;
     @FXML
@@ -121,7 +122,13 @@ public class AdminUtentiController implements Initializable {
 
 
         ObservableList<RigaDashboardAdmin> utentiData = FXCollections.observableArrayList();
-
+        btnGestisciCapienza.setOnAction(event -> {
+           try{
+               onGestisciCapienza();
+           }catch (Exception e){
+               throw new RuntimeException(e);
+           }
+        });
 
         try {
             utentiData.addAll(TabellaUtentiDashboardAdmin.riempiRiga());
@@ -140,6 +147,21 @@ public class AdminUtentiController implements Initializable {
             throw new RuntimeException(e);
         }
         tableUtenti.setItems(utentiData);
+    }
+
+    private void onGestisciCapienza() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/AdminMenuView/MassimoPrenotazioni.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Gestisci capienza");
+        Scene scene = new Scene(root);
+        stage.setResizable(false);
+        stage.setScene(scene);
+        scene.getStylesheets().add(ControlloTemi.getInstance().getCssTemaCorrente());
+        stage.initModality(Modality.WINDOW_MODAL);
+        Stage finestraCorrente = (Stage) btnGestisciCapienza.getScene().getWindow();
+        stage.initOwner(finestraCorrente);
+        stage.showAndWait();
     }
 
     private void onModifica(RigaDashboardAdmin riga, Button bottoneModifica) throws IOException {

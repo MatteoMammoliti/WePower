@@ -32,6 +32,7 @@ public class AdminDashboardController implements Initializable {
     @FXML
     private PieChart tortaGenere;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         instance = this;
