@@ -76,6 +76,16 @@ public class RigaEsercizioListaAdmin extends HBox {
             return;
         }
 
+        if (!this.numeroSerie.getText().matches("\\d+") || Integer.parseInt(this.numeroSerie.getText()) <= 0) {
+            AlertHelper.showAlert("Errore", "Campo serie non valido", null, Alert.AlertType.ERROR );
+            return;
+        }
+
+        if (!this.numeroRipetizioni.getText().matches("\\d+") || Integer.parseInt(this.numeroRipetizioni.getText()) <= 0) {
+            AlertHelper.showAlert("Errore", "Campo ripetizioni non valido", null, Alert.AlertType.ERROR );
+            return;
+        }
+
         String percorsoImmagine = ModelSchermataCreazioneScheda.ottieniPercorsoImmagine(this.nomeEsercizio.getText());
         RigaEsercizioSchedaAdmin temp = new RigaEsercizioSchedaAdmin(this.nomeEsercizio.getText(), this.numeroSerie.getText(), this.numeroRipetizioni.getText(), percorsoImmagine);
 

@@ -91,6 +91,16 @@ public class RigaEsercizioListaClient extends HBox {
             AlertHelper.showAlert("Errore", "Compila tutti i campi", null, Alert.AlertType.ERROR );
             return;
         }
+
+        if (!this.numeroSerie.getText().matches("\\d+") || Integer.parseInt(this.numeroSerie.getText()) <= 0) {
+            AlertHelper.showAlert("Errore", "Campo serie non valido", null, Alert.AlertType.ERROR );
+            return;
+        }
+
+        if (!this.numeroRipetizioni.getText().matches("\\d+") || Integer.parseInt(this.numeroRipetizioni.getText()) <= 0) {
+            AlertHelper.showAlert("Errore", "Campo ripetizioni non valido", null, Alert.AlertType.ERROR );
+            return;
+        }
         ModelSchedaAllenamentoCliente.inserisciEsercizioScheda(this.nomeEsercizio.getText(), DatiSessioneCliente.getIdSchedaAllenamento(), this.numeroRipetizioni.getText(), this.numeroSerie.getText());
     }
 
