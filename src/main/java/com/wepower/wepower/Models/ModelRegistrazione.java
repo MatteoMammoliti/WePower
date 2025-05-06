@@ -3,16 +3,17 @@ package com.wepower.wepower.Models;
 import java.sql.*;
 import java.time.LocalDate;
 
+
 public class ModelRegistrazione {
 
     public static boolean verificaEmailEsistente(String email) {
         Connection conn = ConnessioneDatabase.getConnection();
-
+        String emailLower = email.toLowerCase();
         String query="SELECT * FROM CredenzialiCliente WHERE Email = ?";
 
         try {
             PreparedStatement dati=conn.prepareStatement(query);
-            dati.setString(1,email);
+            dati.setString(1,emailLower);
             ResultSet risultato=dati.executeQuery();
 
             if(risultato.next()) return true;
@@ -25,6 +26,8 @@ public class ModelRegistrazione {
 
     public static boolean registraUtente(String nome, String cognome, LocalDate dataNascita, String email, String password) throws SQLException {
         Connection conn = ConnessioneDatabase.getConnection();
+
+        String emailLower = email.toLowerCase();
 
         String insertCliente = "INSERT INTO Cliente (Nome, Cognome, DataNascita) VALUES (?, ?, ?)";
         String insertCredenziali = "INSERT INTO CredenzialiCliente (Email, Password, IdCliente) VALUES (?, ?, ?)";
@@ -52,7 +55,7 @@ public class ModelRegistrazione {
 
                 // 3. Inserisci credenziali
                 PreparedStatement psCredenziali = conn.prepareStatement(insertCredenziali);
-                psCredenziali.setString(1, email);
+                psCredenziali.setString(1, emailLower);
                 psCredenziali.setString(2, password);
                 psCredenziali.setInt(3, idCliente);
 

@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class ModelMassimoPrenotazioni {
+    //Aggiorno la capienza massima della palestra
     public static void salvaNuovaCapienza(int nuovaCapienza) {
         Connection conn = ConnessioneDatabase.getConnection();
 

@@ -61,16 +61,24 @@ public class AdminDashboardController implements Initializable {
         labelRichiesteSchede.setText(ModelDashboardAdmin.getNumeroSchedeRichieste()+"");
     }
 
-    // ?????
+    //Carico nella tendina gli anni per cui è disponibile un grafico
     public void setTendinaAnnoGrafico(){
+        //Prelevo solo gli anni per i quali è disponibile un grafico
         ArrayList<Integer> lista= ModelDashboardAdmin.getAnniTendinaGrafico();
+
+        //Converto lista in una lista osservabile, in modo tale che si aggiorni
         ObservableList<Integer> anniObs = FXCollections.observableArrayList(lista);
 
+        //Carico i dati nel grafico
         annoGraficoTendina.setItems(anniObs);
+
+        //Verifico che ci sia almeno un anno disponibile e chiamo la funzione epr visualizzare il grafico dell'anno più recente
         if (!anniObs.isEmpty()) {
             annoGraficoTendina.getSelectionModel().selectFirst();
             loadGraficoAnnuale(annoGraficoTendina.getValue());
         }
+
+        //Pulizia e aggiornamento del grafico
         annoGraficoTendina.setOnAction(e -> {
             Integer anno = annoGraficoTendina.getValue();
             if (anno != null) {
@@ -112,25 +120,40 @@ public class AdminDashboardController implements Initializable {
         containerPromozioniAttive.getChildren().add(modifica);
     }
 
-    // ??????
+    //Carico il grafico principale della dashboard admin
     public void loadGraficoAnnuale(int anno){
+
+        //Converto anno in stringa
         String annoStringa=String.valueOf(anno);
+
+        //Prelevo i dati dal database in una map per mantenere l'ordine da 1 a 12
         Map<String,Integer> dati= ModelDashboardAdmin.getDatiGraficoAnnuale(annoStringa);
+
+        //Setto i futuri valori dell'asse x con i mesi dell'anno
         String[] mesi = { "Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic" };
+
+        //Inizializzo e carico i dati
         XYChart.Series<String, Number> serie = new XYChart.Series<>();
-        serie.setName(String.valueOf(anno));
+        serie.setName(annoStringa);
         int i=0;
         for (Integer totale : dati.values()) {
             serie.getData().add(new XYChart.Data<>(mesi[i++], totale));
         }
+
+        //Aggiorno il grafico
         graficoAnnuale.getData().clear();
         graficoAnnuale.getData().add(serie);
     }
 
-    // ???????
+    // Carico il grafico per genere dashboard admin
     public void loadGraficoGenere(){
+        //Prelevo i dati
         ArrayList<Pair<String,Integer>> dati=ModelDashboardAdmin.getSessoUtentiPalestra();
+
+        //Creo una lista osservabile per tenere aggiornato il grafico
         ObservableList<PieChart.Data> observableList= FXCollections.observableArrayList();
+
+        //Carico i dati nella lista
         for(Pair<String,Integer> i:dati){
             String nome=i.getKey();
             Integer numero=i.getValue();
@@ -140,6 +163,7 @@ public class AdminDashboardController implements Initializable {
 
             observableList.add(new PieChart.Data(nome,numero));
         }
+        //Aggiorno il grafico
         tortaGenere.setTitle("Percentuale iscritti per genere");
         tortaGenere.setData(observableList);
     }

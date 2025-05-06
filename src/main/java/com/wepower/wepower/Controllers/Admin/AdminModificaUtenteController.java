@@ -35,61 +35,79 @@ public class AdminModificaUtenteController implements Initializable {
         this.dialogStage = stage;
     }
 
-    // ?????? TUTTO
+    //Pagina utente admin
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //Prelevo i tipi di abbonamento disponibili e li carico nella comboBox
         ArrayList<String> tipiAbbonamenti = TabellaUtentiDashboardAdmin.prelevaTipiAbbonamenti();
         inputIdTipoAbbonamento.getItems().setAll(tipiAbbonamenti);
         this.inputAnnulla.setOnAction(event -> {
             onClickAnnulla();
         });
     }
-
+    //Inizializzo una RigaDashboardAdmin
     private RigaDashboardAdmin riga;
 
+    //Inizializzo i dati con quelli attuali dell'utente da modificare
     public void setUtente(RigaDashboardAdmin riga) {
+        //Setto la riga nella quale è stata chiamata la funzione onModifica
         this.riga = riga;
+        //Inizializzo i vari campi
         inputNuovoNome.setText(riga.getNome());
         inputNuovoCognome.setText(riga.getCognome());
         inputNuovaDataNascita.setValue(LocalDate.parse(riga.getDataNascita().toString()));
+        //Disabilito la comboBox per attivare l'abbonamento se ne ha già uno attivo
         if (riga.getStatoAbbonamento().equals("Attivo")) {
             inputIdTipoAbbonamento.setDisable(true);
         }
     }
 
+    //Verifico e salvo le modifiche dell'utente
     @FXML
     private void salvaModificheUtente() throws SQLException {
+        //Prelevo l'id dell'utente interessato mediante la riga dal quale è stato cliccato il bottone modifica
         int id = riga.getIdCliente();
+        //Prelevo i dati dai vari campi
         String nuovoNome = inputNuovoNome.getText();
         String nuovoCognome = inputNuovoCognome.getText();
         LocalDate nuovaDataNascita = inputNuovaDataNascita.getValue();
+        //Imposto la data di rinnovo ad oggi
         LocalDate nuovaDataRinnovo = LocalDate.now();
         String nomeAbbonamento = inputIdTipoAbbonamento.getValue();
         LocalDate oggi = LocalDate.now();
+        //Inizializzo
         LocalDate nuovaDataScadenza = null;
         int statoAbbonamento = 0;
         int idTipoAbbonamento = -1;
+
+        //Verifico se è stato assegnato un nuovo abbonamento
         if (nomeAbbonamento != null) {
+            //Prelevo i vari dati in base al nome dell'abbonamento
             int mesiDaAggiungere = TabellaUtentiDashboardAdmin.prelevaDurataTipoAbbonamento(nomeAbbonamento);
-            idTipoAbbonamento = TabellaUtentiDashboardAdmin.prelevaIdTipiAbbonamento(nomeAbbonamento);
+            idTipoAbbonamento = TabellaUtentiDashboardAdmin.prelevaIdTipoAbbonamento(nomeAbbonamento);
+            //Calcolo la scadenza
             nuovaDataScadenza = nuovaDataRinnovo.plusMonths(mesiDaAggiungere);
+
+            //Setto lo stato dell'abbonamento
             if ((oggi.isBefore(nuovaDataScadenza) || oggi.isEqual(nuovaDataScadenza)) && (oggi.isAfter(nuovaDataRinnovo) || oggi.isEqual(nuovaDataRinnovo))) {
                 statoAbbonamento = 1;
             }
         }
 
+        //Inizializzo
         boolean modificaUtente = false;
         try {
-
+            //Salvo le nuove date in una Stringa
             String dataNascita = null;
             if (nuovaDataNascita != null) {
                 dataNascita = nuovaDataNascita.toString();
             }
-
             String dataFineAbbonamento = null;
             if (nuovaDataScadenza != null) {
                 dataFineAbbonamento = nuovaDataScadenza.toString();
             }
+
+            //Verifica eccezioni
             if (nuovoNome.isEmpty() || nuovoCognome.isEmpty() || dataNascita.equals("")) {
                 AlertHelper.showAlert("Errore", "Compila tutti i campi", null, Alert.AlertType.ERROR);
                 return;
@@ -106,8 +124,11 @@ public class AdminModificaUtenteController implements Initializable {
                 AlertHelper.showAlert("Errore", "Data nascita non valida", null, Alert.AlertType.ERROR);
                 return;
             }
+
+            //Salvo le modifiche
             modificaUtente = TabellaUtentiDashboardAdmin.salvaModifiche(id, nuovoNome, nuovoCognome, inputNuovaDataNascita.getValue().toString(), nuovaDataRinnovo.toString(), dataFineAbbonamento, statoAbbonamento, idTipoAbbonamento);
 
+            //Verifico l'esito del salvataggi
             if (modificaUtente) {
                 riga.setNome(nuovoNome);
                 riga.setCognome(nuovoCognome);
@@ -122,6 +143,8 @@ public class AdminModificaUtenteController implements Initializable {
                     }
                 }
             }
+
+            //Chiudo la finestra
             dialogStage.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -129,13 +152,16 @@ public class AdminModificaUtenteController implements Initializable {
 
     }
 
+    //Chiudo la finestra e mostro gli avvertimenti solo se ci sono modifiche
     public void onClickAnnulla() {
-
+        //Creo una copia della data di nascita nella tabella e della data di nascita nella finestra modifica utente
         String dataN = riga.getDataNascita();
         String dataNAgg = inputNuovaDataNascita.getEditor().getText();
 
-
+        //Verifico se almeno un campo è stato aggiornato
         boolean modificaUtente = !inputNuovoNome.getText().equals(riga.getNome()) || !inputNuovoCognome.getText().equals(riga.getCognome()) || !dataN.equals(dataNAgg);
+
+        //Se almento un campo è stato aggiornato chiedo all'utente se è sicuro di voler annullare le modifiche
         if (modificaUtente) {
             Alert chiudi = new Alert(Alert.AlertType.ERROR);
             chiudi.setTitle("Attenzione");

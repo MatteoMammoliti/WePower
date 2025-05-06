@@ -10,11 +10,13 @@ import java.util.ArrayList;
 
 public class TabellaUtentiDashboardAdmin {
 
-    // ???????? GESTISCI LE ECCEZIONI E PULISCI IL CODICE
+    //Prelevo dal database tutti gli utenti per riempire la tabella utenti
     public static ArrayList<RigaDashboardAdmin> riempiRiga() throws SQLException {
         Connection conn = ConnessioneDatabase.getConnection();
 
         ArrayList<RigaDashboardAdmin> ris = new ArrayList<RigaDashboardAdmin>();
+
+        //Prelevo i dati dal database
         String query = """
                 SELECT
                 c.IdCliente,
@@ -37,6 +39,7 @@ public class TabellaUtentiDashboardAdmin {
             PreparedStatement datiClienti = conn.prepareStatement(query);
             ResultSet risultatoTuttiClienti = datiClienti.executeQuery();
 
+            //Per ogni utente creo un oggetto di tipo riga
             while (risultatoTuttiClienti.next()) {
                 int IdCliente = risultatoTuttiClienti.getInt("IdCliente");
                 String Nome = risultatoTuttiClienti.getString("Nome");
@@ -54,6 +57,7 @@ public class TabellaUtentiDashboardAdmin {
                 String email = risultatoTuttiClienti.getString("Email");
                 String sesso = risultatoTuttiClienti.getString("Sesso");
                 RigaDashboardAdmin A = new RigaDashboardAdmin(IdCliente, Nome, Cognome,DataNascita, StatoAbbonamento, CertificatoValido, DataInizioAbbonamento, DataFineAbbonamento, email, sesso);
+                //Aggiungo la riga a ris per poi creare la tabella utenti
                 ris.add(A);
             }
 
@@ -63,6 +67,7 @@ public class TabellaUtentiDashboardAdmin {
         return ris;
     }
 
+    //Rimuovo l'utente dal database e di conseguenza dalla tabella utenti
     public static boolean eliminaRiga(int id) throws SQLException {
         Connection conn = ConnessioneDatabase.getConnection();
 
@@ -70,22 +75,28 @@ public class TabellaUtentiDashboardAdmin {
         int risultatoEliminazione;
         try {
             PreparedStatement elimina = conn.prepareStatement(eliminaUtente);
-
             elimina.setInt(1, id);
             risultatoEliminazione = elimina.executeUpdate();
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        //Verifico se tutto è andato a buon fine
         return risultatoEliminazione > 0;
     }
 
+
+    //Aggiorno i dati dell'utente nel database
     public static boolean salvaModifiche (int id, String nome, String cognome,String dataNascita, String dataRinnovo, String dataScadenza,int statoAbbonamento, int idTipoAbbonamento) throws SQLException {
         Connection conn = ConnessioneDatabase.getConnection();
 
         try {
+            //Disabilito l'auto commit
             conn.setAutoCommit(false);
+
+            //Preparo la query
             String queryUpdateCliente = "UPDATE Cliente SET Nome = ?, Cognome=?, DataNascita=? WHERE IdCliente = ?";
+            //Aggiorno i dati
             try (PreparedStatement psCliente = conn.prepareStatement(queryUpdateCliente)) {
                 psCliente.setString(1, nome);
                 psCliente.setString(2, cognome);
@@ -97,7 +108,9 @@ public class TabellaUtentiDashboardAdmin {
                 throw new RuntimeException(e);
             }
 
+            //Verifico se è stato inserito un nuovo abbonamento
             if (idTipoAbbonamento !=-1) {
+                //Se è stato inserito un nuovo abbonamento lo inserisco nel database
                 String queryAddAbbonamento="INSERT INTO AbbonamentoCliente (IdCliente,IdTipoAbbonamento, StatoAbbonamento,DataInizioAbbonamento, DataFineAbbonamento) VALUES(?,?,?,?,?)";
                 try (PreparedStatement psAddAbbonamento = conn.prepareStatement(queryAddAbbonamento)) {
                     psAddAbbonamento.setInt(1, id);
@@ -108,16 +121,20 @@ public class TabellaUtentiDashboardAdmin {
                     psAddAbbonamento.executeUpdate();
                 }
                 catch (SQLException ex) {
+
+                    //In caso di eccezioni annullo le modifiche
                     conn.rollback();
                     throw new RuntimeException(ex);
                 }
 
             }
+            //Invio le modifiche
             conn.commit();
             return true;
         }
         catch (SQLException e) {
             try {
+                //In caso di eccezioni annullo le modifiche
                 conn.rollback();
                 return false;
             }
@@ -129,38 +146,49 @@ public class TabellaUtentiDashboardAdmin {
         }
     }
 
-    public static ArrayList<String> prelevaTipiAbbonamenti( ) {
+    //Preleva dal database tutti i tipi di abbonamenti disponibili
+    public static ArrayList<String> prelevaTipiAbbonamenti(){
+        //Prendo la connessione al database
         Connection conn = ConnessioneDatabase.getConnection();
 
+        //Inizializzo una lista vuota
         ArrayList<String> tipi = new ArrayList<>();
+
+        //Preparo la query per prelevare i tipi di abbonamenti
         String query = "SELECT NomeAbbonamento FROM TipoAbbonamento";
+
+        //Eseguo la query
         try {
             PreparedStatement psTipi = conn.prepareStatement(query);
             ResultSet rs = psTipi.executeQuery();
 
+            //Salvo i vari abbonamenti in tipi
             while (rs.next()) {
                 tipi.add(rs.getString("NomeAbbonamento"));
             }
-            return tipi;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+
+        //Restituisco un ArrayList contenente tutti gli abbonamenti disponibili
         return tipi;
     }
 
-    public static int prelevaIdTipiAbbonamento(String nomeTipoAbbonamento) {
+    //Trova l'id associato al nomeTipoAbbonamento
+    public static int prelevaIdTipoAbbonamento(String nomeTipoAbbonamento) {
+        //Prendo la connessione al database
         Connection conn = ConnessioneDatabase.getConnection();
 
+        //Preparo la query
         String query="SELECT IdTipoAbbonamento FROM TipoAbbonamento WHERE NomeAbbonamento = ?";
         try {
             PreparedStatement psIdTipo=conn.prepareStatement(query);
             psIdTipo.setString(1, nomeTipoAbbonamento);
             ResultSet rs=psIdTipo.executeQuery();
+
+            //Restituisco l'id
             if (rs.next()) {
                 return rs.getInt("IdTipoAbbonamento");
-            }
-            else{
-                return 0;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -168,16 +196,23 @@ public class TabellaUtentiDashboardAdmin {
         return 0;
     }
 
+    //Prelevo la durata dell'abbonamento in mesi
     public static int prelevaDurataTipoAbbonamento(String nomeTipoAbbonamento) throws SQLException {
+        //Prendo la connessione al database
         Connection conn = ConnessioneDatabase.getConnection();
 
+        //Preparo la query
         String query="SELECT Durata FROM TipoAbbonamento WHERE NomeAbbonamento = ?";
         try {
             PreparedStatement psDurata=conn.prepareStatement(query);
             psDurata.setString(1, nomeTipoAbbonamento);
             ResultSet rs = psDurata.executeQuery();
-            if (rs.next()) return rs.getInt("Durata");
-            else return 0;
+
+            //Restituisco la durata
+            if (rs.next()) {
+                return rs.getInt("Durata");
+            }
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

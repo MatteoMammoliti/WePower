@@ -13,13 +13,13 @@ import java.util.regex.Pattern;
 public class ModelValidazione {
 
     public static boolean controlloEmailvalida(String email){
-        return Pattern.matches("^[a-zA-Z-0-9]+@gmail.com$",email);
+        return Pattern.matches("^[A-Za-z0-9](?:[A-Za-z0-9+_.-]*[A-Za-z0-9])?@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$",email);
     }
 
     //Controllo se esiste già un email uguale registrata
     public static boolean controlloEmailEsistente(String email) {
         Connection conn = ConnessioneDatabase.getConnection();
-
+        String emailLower= email.toLowerCase();
 
         if(email.equals(DatiSessioneCliente.getEmail())) return false;
 
@@ -27,7 +27,7 @@ public class ModelValidazione {
 
         try {
             PreparedStatement ps=conn.prepareStatement(cerco);
-            ps.setString(1,email);
+            ps.setString(1,emailLower);
             ResultSet rs=ps.executeQuery();
 
             if(rs.next()) return true;

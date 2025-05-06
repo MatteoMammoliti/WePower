@@ -206,7 +206,7 @@ public class ModelDashboardAdmin {
         return lista;
     }
 
-    // ????????
+    //Prelevo dal database gli anni per i quali è disponibile un grafico
     public static ArrayList<Integer> getAnniTendinaGrafico() {
         Connection conn = ConnessioneDatabase.getConnection();
 
@@ -227,22 +227,40 @@ public class ModelDashboardAdmin {
         }
     }
 
-    // ?????????
+    /*Prelevo dal database in base all'anno mese per mese
+    il numero di abbonamenti che sono stati attivati
+    e li salvo per mese in una mappa*/
     public static Map<String,Integer> getDatiGraficoAnnuale(String anno) {
         Connection conn = ConnessioneDatabase.getConnection();
 
         Map mappa=new LinkedHashMap();
             for (int i=1;i<13;i++){
-                mappa.put(String.format("%02d",i),0);
-            }
+                //Inizializzo la mappa rispettando il formato nel database nelle chiavi
+                if (i<10){
+                    mappa.put("0"+i,0);
+                }
+                else{
+                    mappa.put(i+"",0);
+                }
 
+            }
+            //Prelevo per ogni mese il numero di abbonamenti attivati
             String Dati="SELECT Mese, Totale FROM Ab Where Anno=?";
             try {
                 PreparedStatement preparo=conn.prepareStatement(Dati);
                 preparo.setString(1,anno);
                 ResultSet rs=preparo.executeQuery();
+                //Salvo tutto nella mappa
                 while(rs.next()){
-                    String chiave = String.format("%02d", rs.getInt("Mese"));
+                    int i=rs.getInt("Mese");
+                    String chiave="";
+                    if (i<10){
+                        chiave = "0"+i;
+                    }
+                    else{
+                        chiave=""+i;
+                    }
+
                     mappa.put(chiave, rs.getInt("Totale"));
                 }
                 return mappa;
