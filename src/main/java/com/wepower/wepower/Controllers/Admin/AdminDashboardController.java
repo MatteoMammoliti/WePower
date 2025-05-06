@@ -48,6 +48,7 @@ public class AdminDashboardController implements Initializable {
         setPromozioni();
         loadGraficoGenere();
         setTendinaAnnoGrafico();
+        graficoAnnuale.setAnimated(false);
     }
 
     public  static AdminDashboardController getInstance() {return instance;}
@@ -73,6 +74,7 @@ public class AdminDashboardController implements Initializable {
         annoGraficoTendina.setOnAction(e -> {
             Integer anno = annoGraficoTendina.getValue();
             if (anno != null) {
+                graficoAnnuale.getData().clear();
                 loadGraficoAnnuale(anno);
             }
 

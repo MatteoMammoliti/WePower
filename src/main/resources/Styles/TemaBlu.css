@@ -1,16 +1,20 @@
 /*GENERALE*/
 .background_chiaro{
     -fx-background-color: #DDE6ED;
+    -fx-border-color: transparent;
 }
-.scroll-pane{
--fx-border-color: transparent;
-}
-.scroll-pane >.viewport{
+.scroll-pane {
     -fx-background-color: #DDE6ED;
+    -fx-border-color: transparent;
 }
-.scroll-pane > .corner{
-    -fx-background-color: transparent;
+.scroll-pane > .viewport {
+    -fx-background-color: #DDE6ED;
+    -fx-border-color: transparent;
 }
+.scroll-pane > .corner {
+    -fx-border-color: transparent;
+}
+
 .scroll-pane .scroll-bar{
     -fx-background-color: #DDE6ED;
 }
@@ -23,6 +27,9 @@
 }
 .sfondo_sfumato{
     -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgb(221, 230, 237) 0%, rgb(39, 55, 77) 99%);
+}
+.sfondo_sfumato2{
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgb(39, 55, 77) 0%, rgb(221, 230, 237) 99%);
 }
 .label_admin{
     -fx-text-fill: #27374D;
