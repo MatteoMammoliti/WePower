@@ -23,7 +23,7 @@
                      <children>
                         <VBox alignment="TOP_CENTER" styleClass="card" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label text="Totale abbonamenti attivi:">
+                              <Label styleClass="label_testo_scuro" text="Totale abbonamenti attivi:">
                                  <font>
                                     <Font name="Arial Bold" size="20.0" />
                                  </font>
@@ -37,7 +37,7 @@
                         </VBox>
                         <VBox alignment="TOP_CENTER" styleClass="card" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label text="Richieste schede in attesa:">
+                              <Label styleClass="label_testo_scuro" text="Richieste schede in attesa:">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -51,7 +51,7 @@
                         </VBox>
                         <VBox alignment="TOP_CENTER" styleClass="card" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label text="Certificati in attesa:">
+                              <Label styleClass="label_testo_scuro" text="Certificati in attesa:">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -65,7 +65,7 @@
                         </VBox>
                         <VBox alignment="TOP_CENTER" styleClass="card" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label text="Totale prenotati oggi:">
+                              <Label styleClass="label_testo_scuro" text="Totale prenotati oggi:">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -88,7 +88,7 @@
                            <content>
                               <VBox alignment="TOP_CENTER" prefWidth="250.0" spacing="15.0">
                                  <children>
-                                    <Label text="Promozioni attive:">
+                                    <Label styleClass="label_testo_scuro" text="Promozioni attive:">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
@@ -100,7 +100,7 @@
                         </ScrollPane>
                         <VBox alignment="TOP_CENTER" minWidth="0.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label text="Andamento abbonamenti attivi">
+                              <Label styleClass="label_testo_scuro" text="Andamento abbonamenti attivi">
                                  <font>
                                     <Font size="20.0" />
                                  </font>

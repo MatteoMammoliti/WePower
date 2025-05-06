@@ -75,11 +75,14 @@ public class SchermataPrenotazioniCliente extends VBox {
         Label labelInizio = new Label(inizio);
         Label labelFine = new Label(fine);
         labelFine.getStyleClass().add("labelFineInizio");
+        labelFine.getStyleClass().add("label_testo_chiaro");
         labelInizio.getStyleClass().add("labelFineInizio");
+        labelInizio.getStyleClass().add("label_testo_chiaro");
         sezioneOrario.setPrefWidth(200);
         sezioneOrario.setPrefHeight(80);
         sezioneOrario.getChildren().addAll(labelInizio,labelFine);
         sezioneOrario.getStyleClass().add("contenitoreSezioneOrario");
+        sezioneOrario.getStyleClass().add("background_scuro");
 
         if(data.getDayOfWeek() == DayOfWeek.SUNDAY){
             VBox dettagliRiga=new VBox(10);
@@ -101,12 +104,12 @@ public class SchermataPrenotazioniCliente extends VBox {
         dettagliRiga.setPrefWidth(500);
         dettagliRiga.setPrefHeight(50);
         Label sala=new Label("Sala Pesi");
-        sala.getStyleClass().add("labelSala");
+        sala.getStyleClass().add("label_testo_scuro");
         sala.setAlignment(Pos.TOP_LEFT);
         PrenotazioneSalaPesiCliente temp=new PrenotazioneSalaPesiCliente(DatiSessioneCliente.getIdUtente(),data.toString(),ora);
         Label postiLiberi=new Label("Posti Liberi:" + " "+ getNumeroPrenotazioniDataOraResidue(temp));
         postiLiberi.setAlignment(Pos.TOP_LEFT);
-        postiLiberi.getStyleClass().add("labelPostiDisponibili");
+        postiLiberi.getStyleClass().add("label_testo_scuro");
 
         HBox bottoniRiga = new HBox(10);
         Button btnPrenota=new Button("Prenotati");
@@ -132,6 +135,7 @@ public class SchermataPrenotazioniCliente extends VBox {
             btnPrenota.setText("Prenotazione già effettuata");
 
             sezioneOrario.getStyleClass().add("contenitoreSezioneOrarioPrenotato");
+            sezioneOrario.getStyleClass().add("background_scuro");
 
             btnEliminaPrenotazione.setVisible(true);
             btnEliminaPrenotazione.setManaged(true);

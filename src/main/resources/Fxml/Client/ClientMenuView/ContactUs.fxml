@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
@@ -15,7 +16,11 @@
         <StackPane>
             <children>
                 <VBox id="vboxSocial" alignment="CENTER" spacing="20" styleClass="vbox" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
-                    <Label id="iNostriSocial" styleClass="label-titolo" stylesheets="@../../../Styles/contactUsStyle.css" text="I nostri social" />
+                    <Label id="iNostriSocial" stylesheets="@../../../Styles/contactUsStyle.css" text="I nostri social">
+                  <styleClass>
+                     <String fx:value="label-titolo" />
+                     <String fx:value="label_testo_medio" />
+                  </styleClass></Label>
                     <Button id="bottoneSocial" styleClass="icone-socials" stylesheets="@../../../Styles/contactUsStyle.css" text="Instagram">
                       <graphic>
                          <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
@@ -40,11 +45,31 @@
         <StackPane>
             <children>
                 <VBox alignment="CENTER" spacing="20" styleClass="vbox" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
-                    <Label styleClass="label-titolo" stylesheets="@../../../Styles/contactUsStyle.css" text="I nostri contatti" />
-                    <Label styleClass="label-contenuto" stylesheets="@../../../Styles/contactUsStyle.css" text="Email: info@wepower.it" />
-                    <Label styleClass="label-contenuto" stylesheets="@../../../Styles/contactUsStyle.css" text="Telefono: 0968 943962" />
-                    <Label styleClass="label-contenuto" stylesheets="@../../../Styles/contactUsStyle.css" text="Sede: Via G. Marconi, Rende, 87036 (CS)" />
-                    <Label styleClass="label-contenuto" stylesheets="@../../../Styles/contactUsStyle.css" text="Orari segreteria: LUN-VEN 9-18" />
+                    <Label stylesheets="@../../../Styles/contactUsStyle.css" text="I nostri contatti">
+                  <styleClass>
+                     <String fx:value="label-titolo" />
+                     <String fx:value="label_testo_medio" />
+                  </styleClass></Label>
+                    <Label stylesheets="@../../../Styles/contactUsStyle.css" text="Email: info@wepower.it">
+                  <styleClass>
+                     <String fx:value="label-contenuto" />
+                     <String fx:value="label_testo_medio" />
+                  </styleClass></Label>
+                    <Label stylesheets="@../../../Styles/contactUsStyle.css" text="Telefono: 0968 943962">
+                  <styleClass>
+                     <String fx:value="label-contenuto" />
+                     <String fx:value="label_testo_medio" />
+                  </styleClass></Label>
+                    <Label stylesheets="@../../../Styles/contactUsStyle.css" text="Sede: Via G. Marconi, Rende, 87036 (CS)">
+                  <styleClass>
+                     <String fx:value="label-contenuto" />
+                     <String fx:value="label_testo_medio" />
+                  </styleClass></Label>
+                    <Label stylesheets="@../../../Styles/contactUsStyle.css" text="Orari segreteria: LUN-VEN 9-18">
+                  <styleClass>
+                     <String fx:value="label-contenuto" />
+                     <String fx:value="label_testo_medio" />
+                  </styleClass></Label>
                 </VBox>
             </children>
         </StackPane>

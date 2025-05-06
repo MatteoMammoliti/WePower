@@ -28,12 +28,14 @@ public class RigaEsercizioListaClient extends HBox {
         this.descrizioneEsercizio = new Label(descrizioneEsercizio);
         this.descrizioneEsercizio.setWrapText(true);
 
+        this.nomeEsercizio.getStyleClass().add("label_testo_scuro");
         this.nomeEsercizio.getStyleClass().add("titoloEsercizio");
         this.nomeEsercizio.setMaxWidth(250);
         this.nomeEsercizio.setPrefWidth(250);
         this.descrizioneEsercizio.setMaxWidth(250);
         this.descrizioneEsercizio.setPrefWidth(250);
-        this.descrizioneEsercizio.getStyleClass().add("descrizioneEsercizio");
+        this.descrizioneEsercizio.getStyleClass().add("stile_predefinito");
+        this.descrizioneEsercizio.getStyleClass().add("label_testo_chiaro");
 
         this.getStyleClass().add("rigaEsercizio");
         InputStream is = getClass().getResourceAsStream("/" + percorsoImmagine);

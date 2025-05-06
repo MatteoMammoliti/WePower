@@ -22,7 +22,6 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.shape.Rectangle?>
 <BorderPane stylesheets="@../../Styles/Dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Client.ClientDashboardController">
 
     <!-- Sidebar sinistra (vuota / logo) -->
@@ -43,11 +42,11 @@
                     <!-- Header / offerte -->
                     <VBox spacing="10" styleClass="pane_offerte_dashboard" stylesheets="@../../Styles/Dashboard.css">
                         <children>
-                            <Label id="saluto_nome" fx:id="labelNomeUtenteSaluto" text="Ciao, Matteo">
+                            <Label id="saluto_nome" fx:id="labelNomeUtenteSaluto" styleClass="label_testo_scuro" text="Ciao, Matteo">
 
                             </Label>
 
-                            <Label id="frase_illustrazione_offerte" styleClass="testo_offerte_dashboard" text="Ecco alcune offerte riservate per te">
+                            <Label id="frase_illustrazione_offerte" styleClass="label_testo_scuro" text="Ecco alcune offerte riservate per te">
                                 <font><Font name="Arial Bold" size="30.0" /></font>
                             </Label>
 
@@ -64,14 +63,14 @@
                     <!-- Frase motivazione -->
                    <HBox fx:id="contenitoreFraseMotivazionale" alignment="CENTER" spacing="8" VBox.vgrow="ALWAYS">
                       <children>
-                         <Label text="Ogni goccia di sudore oggi, ti rende più" id="frase_motivazionale" fx:id="labelStaticaSinistra"/>
+                         <Label id="frase_motivazionale" fx:id="labelStaticaSinistra" styleClass="label_testo_scuro" text="Ogni goccia di sudore oggi, ti rende più" />
                          <StackPane fx:id="sliderPane" prefWidth="250">
                             <children>
-                               <Label fx:id="LabelParolaAttuale" maxWidth="Infinity" id="frase_motivazionale_rotazione"/>
-                               <Label fx:id="LabelProssimaParola" maxWidth="Infinity" id="frase_motivazionale_rotazione" />
+                               <Label id="frase_motivazionale_rotazione" fx:id="LabelParolaAttuale" maxWidth="Infinity" />
+                               <Label id="frase_motivazionale_rotazione" fx:id="LabelProssimaParola" maxWidth="Infinity" styleClass="label_testo_scuro" />
                             </children>
                          </StackPane>
-                         <Label text="domani!" id="frase_motivazionale" fx:id="labelStaticaDestra"/>
+                         <Label id="frase_motivazionale" fx:id="labelStaticaDestra" styleClass="label_testo_scuro" text="domani!" />
                       </children>
                    </HBox>
 

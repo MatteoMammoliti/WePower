@@ -41,11 +41,17 @@ public class RigaEsercizioSchedaClient extends HBox {
         this.aggiungiNuovoMassimale.setPromptText("Aggiungi nuovo massimale");
         this.aggiungiNuovoMassimale.setVisible(false);
 
+        this.nomeEsercizio.getStyleClass().add("label_testo_scuro");
         this.nomeEsercizio.getStyleClass().add("titoloEsercizio");
-        this.numeroRipetizioni.getStyleClass().add("serieRipetizioni");
-        this.numeroSerie.getStyleClass().add("serieRipetizioni");
+        this.numeroRipetizioni.getStyleClass().add("label_testo_scuro");
+        this.numeroSerie.getStyleClass().add("label_testo_scuro");
+        this.numeroSerie.getStyleClass().add("stile_predefinito");
+        this.numeroRipetizioni.getStyleClass().add("label_testo_scuro");
+        this.numeroRipetizioni.getStyleClass().add("stile_predefinito");
         this.massimaleAttuale.getStyleClass().add("dettagliMassimale");
+        this.massimaleAttuale.getStyleClass().add("label_testo_chiaro");
         this.dataImpostazioneMassimale.getStyleClass().add("dettagliMassimale");
+        this.dataImpostazioneMassimale.getStyleClass().add("label_testo_chiaro");
 
         InputStream is = getClass().getResourceAsStream("/" + percorsoImmagine);
         Image image = new Image(is);

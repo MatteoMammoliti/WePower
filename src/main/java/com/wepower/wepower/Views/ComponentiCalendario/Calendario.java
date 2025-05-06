@@ -25,7 +25,7 @@ public class Calendario {
         YearMonth[] meseCorrente = {YearMonth.now()}; // wrapper per permettere modifica nel listener
 
         Label meseLabel = new Label();
-        meseLabel.getStyleClass().add("label_mese");
+        meseLabel.getStyleClass().add("label_testo_scuro");
         meseLabel.setAlignment(Pos.CENTER);
 
         GridPane grigliaGiorni = new GridPane();
@@ -45,7 +45,7 @@ public class Calendario {
         HBox barraGiorniSettimana =new HBox();
         for (int i = 0; i < giorniSettimana.length; i++) {
             Label giornoSettimanaLabel = new Label(giorniSettimana[i]);
-            giornoSettimanaLabel.getStyleClass().add("label_giorno");
+            giornoSettimanaLabel.getStyleClass().add("label_testo_scuro");
             giornoSettimanaLabel.setPrefWidth(50);
             giornoSettimanaLabel.setAlignment(Pos.CENTER);
             barraGiorniSettimana.getChildren().add(giornoSettimanaLabel);

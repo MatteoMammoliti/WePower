@@ -25,13 +25,13 @@ public class BannerAbbonamentiInSeleziona extends HBox {
         informazioniAbbonamento.setPrefWidth(500);
 
         Label nomeAbb=new Label(nomeAbbonamento);
-        nomeAbb.getStyleClass().add("labelNome");
+        nomeAbb.getStyleClass().add("label_testo_scuro");
 
         Label descrizioneAbb=new Label(descrizioneAbbonamento);
-        descrizioneAbb.getStyleClass().add("labelDescrizione");
+        descrizioneAbb.getStyleClass().add("label_testo_scuro");
 
         Label prezzoAbb=new Label("Prezzo: "+prezzoAbbonamento+"€");
-        prezzoAbb.getStyleClass().add("labelPrezzo");
+        prezzoAbb.getStyleClass().add("label_testo_scuro");
 
         informazioniAbbonamento.setSpacing(15);
         informazioniAbbonamento.setPadding(new Insets(10, 10, 10, 10));

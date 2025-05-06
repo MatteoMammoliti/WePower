@@ -1,4 +1,8 @@
-.certificatoNo{
+.stilePredefinito{
+    -fx-font-family: "Arial";
+    -fx-font-weight: bold;
+}
+.bottoni_dinamici_profilo{
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
     -fx-border-radius: 30;
@@ -6,55 +10,7 @@
     -fx-padding: 0 30;
     -fx-wrap-text: false;
 }
-
-.certificatoAttesa{
-    -fx-font-family: "Arial";
-    -fx-font-weight: bold;
-}
-.certificatoSi{
-    -fx-font-family: "Arial";
-    -fx-font-weight: bold;
-}
-
-.abbonamentoSi{
-    -fx-font-family: "Arial";
-    -fx-font-weight: bold;}
-
-.abbonamentoNo{
-    -fx-font-weight: bold;
-    -fx-font-family: "Arial";
-    -fx-border-radius: 30;
-    -fx-background-radius: 30;
-    -fx-padding: 0 30;
-    -fx-wrap-text: false;
-}
-
-
-.schedaNo{
-    -fx-font-weight: bold;
-    -fx-font-family: "Arial";
-    -fx-border-radius: 30;
-    -fx-background-radius: 30;
-    -fx-padding: 0 30;
-    -fx-wrap-text: false;
-}
-
-.schedaSi{
-    -fx-font-family: "Arial";
-    -fx-font-weight: bold;}
-
-.testo_generale{
-    -fx-font-family: "Arial";
-    -fx-font-weight: bold;
-}
-.testo_che_cambia{
-    -fx-font-family: "Arial";
-    -fx-font-weight: bold;
-}
-
-
-
-.bottoni_profilo {
+.bottoni_statici_profilo{
     -fx-font-weight: bold;
     -fx-font-family: "Arial";
     -fx-border-radius: 30;
@@ -62,39 +18,3 @@
     -fx-padding: 7 30;
     -fx-wrap-text: false;
 }
-
-
-.titolo{
-    -fx-font-weight: bold;
-    -fx-font-family: "Arial";
-}
-
-#genere{
-    -fx-font-weight: bold;
-    -fx-font-family: "Arial";
-}
-#mio_nome{
-    -fx-font-weight: bold;
-    -fx-font-family: "Arial";
-}
-
-.bottone_scheda{
-    -fx-font-weight: bold;
-    -fx-font-family: "Arial";
-    -fx-border-radius: 30;
-    -fx-background-radius: 30;
-    -fx-padding: 0 30;
-    -fx-wrap-text: false;
-}
-
-
-.bottone_carica_immagine {
-    -fx-font-weight: bold;
-    -fx-font-family: "Arial";
-    -fx-border-radius: 30;
-    -fx-background-radius: 30;
-    -fx-padding: 7 30;
-    -fx-wrap-text: false;
-}
-
-

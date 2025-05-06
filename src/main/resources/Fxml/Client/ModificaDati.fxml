@@ -16,12 +16,12 @@
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
          <children>
-            <Label id="titoloModificaDati" alignment="CENTER" prefHeight="36.0" prefWidth="909.0" text="Modifica i tuoi dati" textAlignment="CENTER" />
+            <Label id="titoloModificaDati" alignment="CENTER" prefHeight="36.0" prefWidth="909.0" styleClass="label_testo_scuro" text="Modifica i tuoi dati" textAlignment="CENTER" />
             <HBox prefHeight="426.0" prefWidth="900.0">
                <children>
                   <VBox alignment="TOP_CENTER" prefHeight="545.0" prefWidth="450.0" spacing="10.0">
                      <children>
-                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="23.0" prefWidth="292.0" text="Nome:">
+                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="23.0" prefWidth="292.0" styleClass="label_testo_scuro" text="Nome:">
                            <VBox.margin>
                               <Insets left="10.0" />
                            </VBox.margin>
@@ -31,7 +31,7 @@
                               <Insets left="20.0" right="40.0" top="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="23.0" prefWidth="289.0" text="Data di nascita:">
+                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="23.0" prefWidth="289.0" styleClass="label_testo_scuro" text="Data di nascita:">
                            <VBox.margin>
                               <Insets left="10.0" top="10.0" />
                            </VBox.margin>
@@ -41,7 +41,7 @@
                               <Insets left="20.0" right="40.0" top="10.0" />
                            </VBox.margin>
                         </DatePicker>
-                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="17.0" prefWidth="292.0" text="Telefono:">
+                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="17.0" prefWidth="292.0" styleClass="label_testo_scuro" text="Telefono:">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -59,7 +59,7 @@
                               <Insets top="45.0" />
                            </VBox.margin>
                         </Separator>
-                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="23.0" prefWidth="311.0" text="Altezza:">
+                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="23.0" prefWidth="311.0" styleClass="label_testo_scuro" text="Altezza:">
                            <VBox.margin>
                               <Insets left="10.0" top="10.0" />
                            </VBox.margin>
@@ -76,7 +76,7 @@
                   </VBox>
                   <VBox alignment="TOP_CENTER" prefHeight="545.0" prefWidth="450.0" spacing="10.0">
                      <children>
-                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="23.0" prefWidth="420.0" text="Cognome:">
+                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="23.0" prefWidth="420.0" styleClass="label_testo_scuro" text="Cognome:">
                            <VBox.margin>
                               <Insets left="10.0" />
                            </VBox.margin>
@@ -86,7 +86,7 @@
                               <Insets left="40.0" right="40.0" top="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="33.0" prefWidth="413.0" text="Email:">
+                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="33.0" prefWidth="413.0" styleClass="label_testo_scuro" text="Email:">
                            <VBox.margin>
                               <Insets left="10.0" top="10.0" />
                            </VBox.margin>
@@ -99,7 +99,7 @@
                               <Insets />
                            </opaqueInsets>
                         </TextField>
-                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="23.0" prefWidth="417.0" text="Genere:">
+                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="23.0" prefWidth="417.0" styleClass="label_testo_scuro" text="Genere:">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
@@ -109,7 +109,7 @@
                         </Label>
                         <HBox prefHeight="62.0" prefWidth="450.0">
                            <children>
-                              <RadioButton id="radioButtonModificaDati" fx:id="btnUomo" mnemonicParsing="false" prefHeight="17.0" prefWidth="101.0" text="Uomo">
+                              <RadioButton id="radioButtonModificaDati" fx:id="btnUomo" mnemonicParsing="false" prefHeight="17.0" prefWidth="101.0" styleClass="label_testo_scuro" text="Uomo">
                                  <HBox.margin>
                                     <Insets left="40.0" />
                                  </HBox.margin>
@@ -117,7 +117,7 @@
                                     <Font name="Arial Bold" size="15.0" />
                                  </font>
                               </RadioButton>
-                              <RadioButton id="radioButtonModificaDati" fx:id="btnDonna" mnemonicParsing="false" text="Donna">
+                              <RadioButton id="radioButtonModificaDati" fx:id="btnDonna" mnemonicParsing="false" styleClass="label_testo_scuro" text="Donna">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
@@ -125,7 +125,7 @@
                                     <Font name="Arial Bold" size="15.0" />
                                  </font>
                               </RadioButton>
-                              <RadioButton id="radioButtonModificaDati" fx:id="btnAltro" mnemonicParsing="false" text="Altro">
+                              <RadioButton id="radioButtonModificaDati" fx:id="btnAltro" mnemonicParsing="false" styleClass="label_testo_scuro" text="Altro">
                                  <font>
                                     <Font name="Arial Bold" size="15.0" />
                                  </font>
@@ -139,7 +139,7 @@
                            </VBox.margin>
                         </HBox>
                         <Separator prefWidth="200.0" />
-                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="23.0" prefWidth="483.0" text="Peso attuale:">
+                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="23.0" prefWidth="483.0" styleClass="label_testo_scuro" text="Peso attuale:">
                            <VBox.margin>
                               <Insets right="10.0" top="10.0" />
                            </VBox.margin></Label>

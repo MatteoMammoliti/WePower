@@ -16,13 +16,13 @@
       <VBox alignment="CENTER" fillWidth="false" spacing="10" BorderPane.alignment="CENTER">
          <children>
               <GridPane alignment="CENTER" hgap="40" vgap="20">
-                  <Label id="labelProssimiAllenamenti" fx:id="labelProssimiAllenamenti" text="I tuoi prossimi allenamenti" />
-                   <Label id="labelTitoloPagina" alignment="CENTER" text="Prenota il tuo allenamento" GridPane.columnIndex="1">
+                  <Label id="labelProssimiAllenamenti" fx:id="labelProssimiAllenamenti" styleClass="label_testo_scuro" text="I tuoi prossimi allenamenti" />
+                   <Label id="labelTitoloPagina" alignment="CENTER" styleClass="label_testo_scuro" text="Prenota il tuo allenamento" GridPane.columnIndex="1">
                        <font>
                      <Font name="Arial Bold" size="30.0" />
                   </font>
                    </Label>
-                  <Label id="labelStorico" fx:id="labelStorico" text="Storico delle tue prenotazioni" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                  <Label id="labelStorico" fx:id="labelStorico" styleClass="label_testo_scuro" text="Storico delle tue prenotazioni" GridPane.columnIndex="2" GridPane.rowIndex="0" />
                   <ScrollPane fx:id="scrollPrenotazione" fitToWidth="true" maxWidth="500.0" vbarPolicy="AS_NEEDED" GridPane.columnIndex="1" GridPane.rowIndex="1">
                       <content>
                           <HBox id="containerGiorniPrenotazione" fx:id="containerGiorniPrenotazione" fillHeight="false" spacing="10" />

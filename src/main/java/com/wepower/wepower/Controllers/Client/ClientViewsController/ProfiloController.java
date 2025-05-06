@@ -130,9 +130,10 @@ public class ProfiloController implements Initializable {
         String genere=DatiSessioneCliente.getGenere();
         //Resetto gli eventi per un eventuale reload
         labelStatoCertificato.setOnMouseClicked(null);
-        labelStatoCertificato.getStyleClass().removeAll("certificatoSi", "certificatoNo","certificatoAttesa");
+        labelStatoCertificato.getStyleClass().clear();
         labelStatoPagamento.setOnMouseClicked(null);
-        labelStatoPagamento.getStyleClass().removeAll("abbonamentoSi", "abbonamentoNo");
+        labelStatoPagamento.getStyleClass().clear();
+        labelSchedaAllenamento.getStyleClass().clear();
 
         labelGenere.setText(genere);
         labelNomeCognomeSuperiore.setText(nome + " " + cognome);
@@ -159,10 +160,11 @@ public class ProfiloController implements Initializable {
             labelDataInizioAbbonamento.setText(DatiSessioneCliente.getDataInizioAbbonamentoAttivo());
             labelDataFineAbbonamento.setText(DatiSessioneCliente.getDataFineAbbonamentoAttivo());
             labelStatoPagamento.setText("Attivo");
-            labelStatoPagamento.getStyleClass().add("abbonamentoSi");
+            labelStatoPagamento.getStyleClass().add("label_testo_scuro");
+            labelStatoPagamento.getStyleClass().add("stilePredefinito");
         } else {
             labelStatoPagamento.setText("Riattiva il tuo abbonamento");
-            labelStatoPagamento.getStyleClass().add("abbonamentoNo");
+            labelStatoPagamento.getStyleClass().add("bottoni_dinamici_profilo");
             labelStatoPagamento.setOnMouseClicked(event -> {
                 try {
                     onClickLabelAbbonamenti();
@@ -175,12 +177,13 @@ public class ProfiloController implements Initializable {
             labelDataInizioAbbonamento.setText("Non attivo");
             labelDataFineAbbonamento.setText("Non attivo");
         }
+        labelSchedaAllenamento.getStyleClass().add("bottoni_dinamici_profilo");
         if (DatiSessioneCliente.getIdSchedaAllenamento() == 0) {
             labelSchedaAllenamento.setText("Gestisci la tua scheda");
-            labelSchedaAllenamento.getStyleClass().add("schedaNo");
         } else {
             labelSchedaAllenamento.setText("Visualizza la tua scheda");
-            labelSchedaAllenamento.getStyleClass().add("schedaSi");
+            labelSchedaAllenamento.getStyleClass().add("label_testo_scuro");
+            labelSchedaAllenamento.getStyleClass().add("stilePredefinito");
         }
         labelSchedaAllenamento.setOnMouseClicked(event -> onClickLabelScheda());
         if(telefono!=null){
@@ -191,13 +194,15 @@ public class ProfiloController implements Initializable {
         }
         if(DatiSessioneCliente.getCertificato()==2) {
             labelStatoCertificato.setText("Certificato valido");
-            labelStatoCertificato.getStyleClass().add("certificatoSi");
+            labelStatoCertificato.getStyleClass().add("label_testo_scuro");
+            labelStatoCertificato.getStyleClass().add("stilePredefinito");
         }else if(DatiSessioneCliente.getCertificato()==1){
             labelStatoCertificato.setText("Certificato in attesa di approvazione");
-            labelStatoCertificato.getStyleClass().add("certificatoAttesa");
+            labelStatoCertificato.getStyleClass().add("label_testo_scuro");
+            labelStatoCertificato.getStyleClass().add("stilePredefinito");
         }else{
             labelStatoCertificato.setText("Carica il tuo certificato");
-            labelStatoCertificato.getStyleClass().add("certificatoNo");
+            labelStatoCertificato.getStyleClass().add("bottoni_dinamici_profilo");
             labelStatoCertificato.setOnMouseClicked(event -> {
                 try {
                     caricaCertificato();

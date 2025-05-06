@@ -10,7 +10,7 @@
    <children>
       <VBox maxHeight="500.0" maxWidth="1020.0" minHeight="500.0" minWidth="1020.0" styleClass="background_chiaro">
          <children>
-            <Label id="titoloPaginaSelezioneAbbonamento" alignment="CENTER" contentDisplay="CENTER" prefHeight="36.0" prefWidth="1026.0" text="Seleziona un abbonamento" />
+            <Label id="titoloPaginaSelezioneAbbonamento" alignment="CENTER" contentDisplay="CENTER" prefHeight="36.0" prefWidth="1026.0" styleClass="label_testo_scuro" text="Seleziona un abbonamento" />
             <ScrollPane id="scrollPaneAbbonamenti" pannable="true">
                <content>
                   <VBox id="contenitoreAbbonamenti" fx:id="contenitoreAbbonamenti" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />

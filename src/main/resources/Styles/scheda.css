@@ -1,20 +1,12 @@
-
+.stile_predefinito{
+    -fx-font-size: 1.2em;
+    -fx-font-weight: bold;
+}
 
 .dettagliMassimale{
     -fx-font-size: 1em;
     -fx-font-weight: bold;
 }
-
-.descrizioneEsercizio{
-    -fx-font-size: 1.2em;
-    -fx-font-weight: bold;
-}
-
-.serieRipetizioni{
-    -fx-font-size: 1.2em;
-    -fx-font-weight: bold;
-}
-
 .btnScheda{
     -fx-font-size: 0.9em;
     -fx-font-weight: bold;
@@ -47,11 +39,6 @@
     -fx-font-weight: bold;
 }
 
-.testo{
-    -fx-font-size: 1.2em;
-    -fx-font-weight: bold;
-}
-
 .rigaEsercizio{
     -fx-border-widht: 2;
     -fx-background-radius: 10;
@@ -70,10 +57,4 @@
     -fx-background-radius: 30;
     -fx-padding: 10;
     -fx-pref-width: 350;
-}
-
-
-#labelNoScheda {
-    -fx-font-size: 1.2em;
-    -fx-font-weight: bold;
 }

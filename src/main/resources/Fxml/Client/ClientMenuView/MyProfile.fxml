@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -17,16 +18,20 @@
          <content>
             <VBox>
                <children>
-                  <Label fx:id="titoloPrincipale" styleClass="titolo" text="Gestisci il tuo profilo">
+                  <Label fx:id="titoloPrincipale" text="Gestisci il tuo profilo">
                      <VBox.margin>
                         <Insets bottom="25.0" top="10.0" />
-                     </VBox.margin></Label>
+                     </VBox.margin>
+                     <styleClass>
+                        <String fx:value="label_testo_scuro" />
+                        <String fx:value="stilePredefinito" />
+                     </styleClass></Label>
                   <HBox spacing="25.0">
                      <children>
                         <VBox alignment="TOP_CENTER">
                            <children>
                               <ImageView fx:id="contenitoreImmagine" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                              <Button fx:id="pulsanteCambiaImmagine" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="bottoni_profilo" text="Cambia immagine" textAlignment="CENTER">
+                              <Button fx:id="pulsanteCambiaImmagine" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="bottoni_statici_profilo" text="Cambia immagine" textAlignment="CENTER">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
@@ -42,6 +47,10 @@
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
+                                 <styleClass>
+                                    <String fx:value="stilePredefinito" />
+                                    <String fx:value="label_testo_scuro" />
+                                 </styleClass>
                               </Label>
                               <Label id="genere" fx:id="labelGenere" text="Genere">
                                  <font>
@@ -50,6 +59,10 @@
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
+                                 <styleClass>
+                                    <String fx:value="stilePredefinito" />
+                                    <String fx:value="label_testo_scuro" />
+                                 </styleClass>
                               </Label>
                            </children>
                         </VBox>
@@ -67,76 +80,112 @@
                      <children>
                         <VBox fx:id="contenitoreDati1" spacing="20.0">
                            <children>
-                              <Label fx:id="titoloDatiPersonali" styleClass="testo_generale" text="Dati Personali">
+                              <Label fx:id="titoloDatiPersonali" text="Dati Personali">
                                  <font>
                                     <Font name="Arial Bold" size="20.0" />
                                  </font>
+                                 <styleClass>
+                                    <String fx:value="stilePredefinito" />
+                                    <String fx:value="label_testo_scuro" />
+                                 </styleClass>
                               </Label>
                               <HBox spacing="25.0">
                                  <children>
                                     <VBox spacing="20.0">
                                        <children>
-                                          <Label fx:id="infoNome" styleClass="testo_generale" text="Nome competo:">
+                                          <Label fx:id="infoNome" text="Nome competo:">
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
+                                             <styleClass>
+                                                <String fx:value="stilePredefinito" />
+                                                <String fx:value="label_testo_scuro" />
+                                             </styleClass>
                                           </Label>
-                                          <Label fx:id="infoDataNascita" styleClass="testo_generale" text="Data di nascita:">
+                                          <Label fx:id="infoDataNascita" text="Data di nascita:">
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
+                                             <styleClass>
+                                                <String fx:value="stilePredefinito" />
+                                                <String fx:value="label_testo_scuro" />
+                                             </styleClass>
                                           </Label>
-                                          <Label fx:id="infoEmail" styleClass="testo_generale" text="Email:">
+                                          <Label fx:id="infoEmail" text="Email:">
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
+                                             <styleClass>
+                                                <String fx:value="stilePredefinito" />
+                                                <String fx:value="label_testo_scuro" />
+                                             </styleClass>
                                           </Label>
-                                          <Label fx:id="infoTelefono" styleClass="testo_generale" text="Telefono:">
+                                          <Label fx:id="infoTelefono" text="Telefono:">
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
+                                             <styleClass>
+                                                <String fx:value="stilePredefinito" />
+                                                <String fx:value="label_testo_scuro" />
+                                             </styleClass>
                                           </Label>
                                        </children>
                                     </VBox>
                                     <VBox spacing="20.0">
                                        <children>
-                                          <Label fx:id="labelNomeCognomeInferiore" styleClass="testo_generale" text="nome_cognome">
+                                          <Label fx:id="labelNomeCognomeInferiore" text="nome_cognome">
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
+                                             <styleClass>
+                                                <String fx:value="stilePredefinito" />
+                                                <String fx:value="label_testo_scuro" />
+                                             </styleClass>
                                           </Label>
-                                          <Label fx:id="labelDataNascita" styleClass="testo_generale" text="Data">
+                                          <Label fx:id="labelDataNascita" text="Data">
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
+                                             <styleClass>
+                                                <String fx:value="stilePredefinito" />
+                                                <String fx:value="label_testo_scuro" />
+                                             </styleClass>
                                           </Label>
-                                          <Label fx:id="labelEmail" styleClass="testo_generale" text="email">
+                                          <Label fx:id="labelEmail" text="email">
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
+                                             <styleClass>
+                                                <String fx:value="stilePredefinito" />
+                                                <String fx:value="label_testo_scuro" />
+                                             </styleClass>
                                           </Label>
-                                          <Label fx:id="labelTellefono" styleClass="testo_generale" text="telefono">
+                                          <Label fx:id="labelTellefono" text="telefono">
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
+                                             <styleClass>
+                                                <String fx:value="stilePredefinito" />
+                                                <String fx:value="label_testo_scuro" />
+                                             </styleClass>
                                           </Label>
                                        </children>
                                     </VBox>
@@ -149,74 +198,106 @@
                         </VBox>
                         <VBox spacing="20.0">
                            <children>
-                              <Label fx:id="titoloDatiAbbonamento" styleClass="testo_generale" text="Dati Abbonamento">
+                              <Label fx:id="titoloDatiAbbonamento" text="Dati Abbonamento">
                                  <font>
                                     <Font name="Arial Bold" size="20.0" />
                                  </font>
+                                 <styleClass>
+                                    <String fx:value="stilePredefinito" />
+                                    <String fx:value="label_testo_scuro" />
+                                 </styleClass>
                               </Label>
                               <HBox spacing="25.0">
                                  <children>
                                     <VBox spacing="20.0">
                                        <children>
-                                          <Label fx:id="infoTipoAbbonamento" styleClass="testo_generale" text="Tipo:">
+                                          <Label fx:id="infoTipoAbbonamento" text="Tipo:">
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
+                                             <styleClass>
+                                                <String fx:value="stilePredefinito" />
+                                                <String fx:value="label_testo_scuro" />
+                                             </styleClass>
                                           </Label>
-                                          <Label fx:id="infoDataInizio" styleClass="testo_generale" text="Data inizio:">
+                                          <Label fx:id="infoDataInizio" text="Data inizio:">
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
+                                             <styleClass>
+                                                <String fx:value="stilePredefinito" />
+                                                <String fx:value="label_testo_scuro" />
+                                             </styleClass>
                                           </Label>
-                                          <Label fx:id="infoDataFine" styleClass="testo_generale" text="Data fine:">
+                                          <Label fx:id="infoDataFine" text="Data fine:">
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
+                                             <styleClass>
+                                                <String fx:value="stilePredefinito" />
+                                                <String fx:value="label_testo_scuro" />
+                                             </styleClass>
                                           </Label>
-                                          <Label fx:id="infoStatoPagamento" styleClass="testo_generale" text="Stato pagamento:">
+                                          <Label fx:id="infoStatoPagamento" text="Stato pagamento:">
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
+                                             <styleClass>
+                                                <String fx:value="stilePredefinito" />
+                                                <String fx:value="label_testo_scuro" />
+                                             </styleClass>
                                           </Label>
                                        </children>
                                     </VBox>
                                     <VBox spacing="20.0">
                                        <children>
-                                          <Label fx:id="labelTipoAbbonamento" styleClass="testo_generale" text="Stato pagamento">
+                                          <Label fx:id="labelTipoAbbonamento" text="Stato pagamento">
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
+                                             <styleClass>
+                                                <String fx:value="stilePredefinito" />
+                                                <String fx:value="label_testo_scuro" />
+                                             </styleClass>
                                           </Label>
-                                          <Label fx:id="labelDataInizioAbbonamento" styleClass="testo_generale" text="Stato pagamento">
+                                          <Label fx:id="labelDataInizioAbbonamento" text="Stato pagamento">
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
+                                             <styleClass>
+                                                <String fx:value="stilePredefinito" />
+                                                <String fx:value="label_testo_scuro" />
+                                             </styleClass>
                                           </Label>
-                                          <Label fx:id="labelDataFineAbbonamento" styleClass="testo_generale" text="Stato pagamento">
+                                          <Label fx:id="labelDataFineAbbonamento" text="Stato pagamento">
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
+                                             <styleClass>
+                                                <String fx:value="stilePredefinito" />
+                                                <String fx:value="label_testo_scuro" />
+                                             </styleClass>
                                           </Label>
                                           <Label fx:id="labelStatoPagamento" text="Stato pagamento">
                                              <font>
@@ -246,30 +327,42 @@
                      <children>
                         <VBox fx:id="contenitoreDati2" spacing="20.0">
                            <children>
-                              <Label fx:id="titoloDatiFisici" styleClass="testo_generale" text="Dati Fisici">
+                              <Label fx:id="titoloDatiFisici" text="Dati Fisici">
                                  <font>
                                     <Font name="Arial Bold" size="20.0" />
                                  </font>
+                                 <styleClass>
+                                    <String fx:value="stilePredefinito" />
+                                    <String fx:value="label_testo_scuro" />
+                                 </styleClass>
                               </Label>
                               <HBox spacing="25.0">
                                  <children>
                                     <VBox spacing="20.0">
                                        <children>
-                                          <Label fx:id="infoPeso" styleClass="testo_generale" text="Peso attuale:">
+                                          <Label fx:id="infoPeso" text="Peso attuale:">
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
+                                             <styleClass>
+                                                <String fx:value="stilePredefinito" />
+                                                <String fx:value="label_testo_scuro" />
+                                             </styleClass>
                                           </Label>
-                                          <Label fx:id="infoAltezza" styleClass="testo_generale" text="Altezza:">
+                                          <Label fx:id="infoAltezza" text="Altezza:">
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
+                                             <styleClass>
+                                                <String fx:value="stilePredefinito" />
+                                                <String fx:value="label_testo_scuro" />
+                                             </styleClass>
                                           </Label>
                                        </children>
                                        <HBox.margin>
@@ -278,21 +371,29 @@
                                     </VBox>
                                     <VBox spacing="20.0">
                                        <children>
-                                          <Label fx:id="labelPesoAttuale" styleClass="testo_che_cambia" text="pesoattuale">
+                                          <Label fx:id="labelPesoAttuale" text="pesoattuale">
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
+                                             <styleClass>
+                                                <String fx:value="stilePredefinito" />
+                                                <String fx:value="label_testo_scuro" />
+                                             </styleClass>
                                           </Label>
-                                          <Label fx:id="labelAltezza" styleClass="testo_che_cambia" text="aaaltezza">
+                                          <Label fx:id="labelAltezza" text="aaaltezza">
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
+                                             <styleClass>
+                                                <String fx:value="stilePredefinito" />
+                                                <String fx:value="label_testo_scuro" />
+                                             </styleClass>
                                           </Label>
                                        </children>
                                     </VBox>
@@ -306,24 +407,36 @@
                         </VBox>
                         <VBox spacing="20.0">
                            <children>
-                              <Label fx:id="titoloGenerale" styleClass="testo_generale" text="Generale">
+                              <Label fx:id="titoloGenerale" text="Generale">
                                  <font>
                                     <Font name="Arial Bold" size="20.0" />
                                  </font>
+                                 <styleClass>
+                                    <String fx:value="stilePredefinito" />
+                                    <String fx:value="label_testo_scuro" />
+                                 </styleClass>
                               </Label>
                               <HBox spacing="25.0">
                                  <children>
                                     <VBox spacing="20.0">
                                        <children>
-                                          <Label fx:id="infoCertificatoMedico" styleClass="testo_generale" text="Certificato medico:">
+                                          <Label fx:id="infoCertificatoMedico" text="Certificato medico:">
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
+                                             <styleClass>
+                                                <String fx:value="stilePredefinito" />
+                                                <String fx:value="label_testo_scuro" />
+                                             </styleClass>
                                           </Label>
-                                          <Label fx:id="infoScheda" styleClass="testo_generale" text="Scheda allenamento:">
+                                          <Label fx:id="infoScheda" text="Scheda allenamento:">
                                              <font>
                                                 <Font name="Arial Bold" size="20.0" />
                                              </font>
+                                             <styleClass>
+                                                <String fx:value="stilePredefinito" />
+                                                <String fx:value="label_testo_scuro" />
+                                             </styleClass>
                                           </Label>
                                        </children>
                                     </VBox>
@@ -358,7 +471,7 @@
                   </HBox>
                   <HBox alignment="BOTTOM_RIGHT" fillHeight="false" spacing="30.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Button fx:id="btnModificaDati" mnemonicParsing="false" styleClass="bottoni_profilo" text="Modifica dati">
+                        <Button fx:id="btnModificaDati" mnemonicParsing="false" styleClass="bottoni_statici_profilo" text="Modifica dati">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
@@ -366,7 +479,7 @@
                               <Insets />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="btnPulsanteEliminaUtente" mnemonicParsing="false" styleClass="bottoni_profilo" text="Elimina utente">
+                        <Button fx:id="btnPulsanteEliminaUtente" mnemonicParsing="false" styleClass="bottoni_statici_profilo" text="Elimina utente">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>

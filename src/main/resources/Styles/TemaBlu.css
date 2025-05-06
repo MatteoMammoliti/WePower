@@ -1,10 +1,23 @@
 /*GENERALE*/
+
+/* Background stili*/
 .background_chiaro{
     -fx-background-color: #DDE6ED;
     -fx-border-color: transparent;
 }
+.background_scuro{
+    -fx-background-color: #27374DFF;
+
+}
+.sfondo_sfumato{
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgb(221, 230, 237) 0%, rgb(39, 55, 77) 99%);
+}
+.sfondo_sfumato2{
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgb(39, 55, 77) 0%, rgb(221, 230, 237) 99%);
+}
+
+/* ScrollPane stile */
 .scroll-pane {
-    -fx-background-color: #DDE6ED;
     -fx-border-color: transparent;
 }
 .scroll-pane > .viewport {
@@ -25,15 +38,20 @@
     -fx-background-color: #526D82;
     -fx-background-radius: 5;
 }
-.sfondo_sfumato{
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgb(221, 230, 237) 0%, rgb(39, 55, 77) 99%);
-}
-.sfondo_sfumato2{
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgb(39, 55, 77) 0%, rgb(221, 230, 237) 99%);
-}
-.label_admin{
+
+/* Label stile generale */
+.label_testo_scuro{
     -fx-text-fill: #27374D;
 }
+
+.label_testo_chiaro{
+    -fx-text-fill: #DDE6ED;
+}
+.label_testo_medio{
+    -fx-text-fill: #526D82;
+
+}
+
 /*REGISTRAZIONE E LOGIN*/
 
 .right_side_pane{
@@ -70,13 +88,7 @@
 
 /*Menu latelare*/
 
-.label_nomeutente{
-    -fx-text-fill: #27374D;
-}
 
-.label_email{
-    -fx-text-fill: #27374D;
-}
 .my_button_window {
     -fx-background-color: #dde6ed;
     -fx-text-fill: #27374DFF;
@@ -90,12 +102,7 @@
 .my_button_window FontAwesomeIconView{
     -fx-fill: #526D82;
 }
-.scrollPaneMenu > .viewport{
-    -fx-background-color: transparent;
-}
-.scrollPaneMenu{
-    -fx-background-color: transparent;
-}
+
 .contenitoreViewMenu{
     -fx-background-color: transparent;
 }
@@ -115,21 +122,13 @@
     -fx-background-color: #DDE6ED;
 }
 
-#frase_illustrazione_offerte{
-    -fx-text-fill: #27374D;
-}
-#saluto_nome{
-    -fx-text-fill:#27374D;
-}
+
 
 /*Espositore offerte*/
 .pane_offerte_dashboard{
     -fx-background-color: transparent;
 }
 
-.testo_offerte_dashboard{
-    -fx-text-fill: #27374D;
-}
 #contenitore_bannerini .viewport{
     -fx-background-color: #DDE6ED;
 
@@ -142,9 +141,6 @@
     -fx-text-fill: #dde6ed;
 }
 
-#frase_motivazionale {
-    -fx-text-fill: #27374D
-}
 
 #frase_motivazionale_rotazione {
     -fx-text-fill: linear-gradient(from 0% 0% to 100% 100%, #9DB2BF, #27374D);;
@@ -156,9 +152,7 @@
     -fx-background-color: transparent;
     -fx-text-fill: #27374d;
 }
-.label_giorno{
-    -fx-text-fill: #27374d;
-}
+
 .bottoniCambioMese{
     -fx-background-color: transparent;
     -fx-text-fill: #27374d;
@@ -167,9 +161,6 @@
 .button_calendario:hover{
     -fx-background-color: #27374d;
     -fx-text-fill: white;
-}
-.label_mese{
-    -fx-text-fill: #27374d;
 }
 
 .giorno_prenotato{
@@ -256,17 +247,13 @@
 
 
 /*SEZIONE SCHEDA*/
-.dettagliMassimale{
-    -fx-text-fill: #DDE6ED;
-}
-.descrizioneEsercizio{
-    -fx-text-fill: #DDE6ED;
-}
-.serieRipetizioni{
-    -fx-text-fill: #27374D;
-}
 .btnScheda{
     -fx-background-color: #dde6ed;
+    -fx-text-fill: #27374DFF;
+}
+
+.btnCreaChiediElimina{
+    -fx-background-color: #526D82;
     -fx-text-fill: #27374DFF;
 }
 .btnScheda:hover {
@@ -275,41 +262,16 @@
     -fx-text-fill: #DDE6EDFF;
     -fx-fill: #DDE6EDFF;
 }
-.bottoneElimaScheda {
-    -fx-background-color: #526D82;
-    -fx-text-fill: #27374DFF;
-}
-
-.bottoneElimaScheda:hover{
-    -fx-text-fill:#DDE6EDFF;
-}
-#bottoniCreaChiedi {
-    -fx-background-color: #526D82;
-    -fx-text-fill: #27374DFF;
-    -fx-font-size: 1.5em;
-}
-#bottoniCreaChiedi:hover {
+.btnCreaChiediElimina:hover {
     -fx-cursor: hand;
     -fx-background-color: #27374d;
     -fx-text-fill: #DDE6EDFF;
     -fx-fill: #DDE6EDFF;
 }
 
-.titoloContenitore{
-    -fx-text-fill:#27374D;
-}
-.titoloEsercizio{
-    -fx-text-fill: #27374D;
-}
-.testo{
-    -fx-text-fill: #27374D;
-}
 .rigaEsercizio {
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #9DB2BF, #27374D);
     -fx-border-color: #27374D;
-}
-#labelNoScheda {
-    -fx-text-fill: #27374D;
 }
 #SplitPane > .split-pane-divider {
     -fx-background-color: #526D82;
@@ -320,44 +282,17 @@
     -fx-background-color: #DDE6ED;
     -fx-border-color: #DDE6ED;
 }
-.contenitoreSezioneOrario{
-    -fx-background-color: #27374DFF;
-}
-.contenitoreSezioneOrarioPrenotato{
-    -fx-background-color: #27374DFF;
-}
-.labelSala {
-    -fx-text-fill: #27374D;
-}
-.labelPostiDisponibili {
-    -fx-text-fill: #27374D;
-}
-.contenitoreRigaStorico{
-    -fx-background-color:  #526D82;
-    -fx-text-fill: #DDE6ED;
-}
-.contenitoreRigaProssimiAllenamenti{
+.contenitoreRigaStoricoProssimi{
     -fx-background-color:  #526D82;
     -fx-text-fill: #DDE6ED;
 }
 .contenitoreDettagliRiga{
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #9DB2BF, #27374D);
 }
-.labelFineInizio{
-    -fx-text-fill: #dde6ed;
-}
 .labelInfoStorico{
     -fx-text-fill:  #1B262C;
 }
-#labelTitoloPagina {
-    -fx-text-fill: #27374D;
-}
-#labelProssimiAllenamenti{
-    -fx-text-fill:#27374D;
-}
-#labelStorico{
-    -fx-text-fill:#27374D;
-}
+
 .btnGiornoChiusura{
     -fx-background-color: #BBE1FA;
 }
@@ -400,88 +335,22 @@
 }
 
 /*DATI PROFILO CLIENTE*/
-.certificatoNo{
+.bottoni_dinamici_profilo{
     -fx-background-color: #27374d;
     -fx-text-fill: #DDE6ED;
 }
-.certificatoNo:hover {
+
+.bottoni_dinamici_profilo:hover {
     -fx-cursor: hand;
     -fx-background-color: #526D82;
     -fx-text-fill: #DDE6EDFF;
     -fx-fill: #DDE6EDFF;
 }
-.certificatoAttesa{
-    -fx-text-fill: #27374D;
-}
-.certificatoSi{
-    -fx-text-fill: #27374D;
-}
-.abbonamentoSi{
-    -fx-text-fill: #27374D;
-}
-.abbonamentoNo{
+.bottoni_statici_profilo{
     -fx-background-color: #27374d;
     -fx-text-fill: #DDE6ED;
 }
-.abbonamentoNo:hover {
-    -fx-cursor: hand;
-    -fx-background-color: #526D82;
-    -fx-text-fill: #DDE6EDFF;
-    -fx-fill: #DDE6EDFF;
-}
-.schedaNo{
-    -fx-background-color: #27374d;
-    -fx-text-fill: #DDE6ED;
-}
-.schedaNo:hover {
-    -fx-cursor: hand;
-    -fx-background-color: #526D82;
-    -fx-text-fill: #DDE6EDFF;
-    -fx-fill: #DDE6EDFF;
-}
-.schedaSi{
-    -fx-text-fill: #27374D;
-}
-.testo_generale{
-    -fx-text-fill: #27374D;
-}
-.testo_che_cambia{
-    -fx-text-fill: #27374D;
-}
-.bottoni_profilo {
-    -fx-background-color: #27374d;
-    -fx-text-fill: #DDE6ED;
-}
-.bottoni_profilo:hover {
-    -fx-cursor: hand;
-    -fx-background-color: #526D82;
-    -fx-text-fill: #DDE6EDFF;
-    -fx-fill: #DDE6EDFF;
-}
-.titolo{
-    -fx-text-fill: #27374D;
-}
-#genere{
-    -fx-text-fill: #27374D;
-}
-#mio_nome{
-    -fx-text-fill: #27374D;
-}
-.bottone_scheda{
-    -fx-background-color: #27374d;
-    -fx-text-fill: #DDE6ED;
-}
-.bottone_scheda:hover {
-    -fx-cursor: hand;
-    -fx-background-color: #526D82;
-    -fx-text-fill: #DDE6EDFF;
-    -fx-fill: #DDE6EDFF;
-}
-.bottone_carica_immagine {
-    -fx-background-color: #27374d;
-    -fx-text-fill: #DDE6ED;
-}
-.bottone_carica_immagine:hover {
+.bottoni_statici_profilo:hover{
     -fx-cursor: hand;
     -fx-background-color: #526D82;
     -fx-text-fill: #DDE6EDFF;
@@ -492,12 +361,6 @@
 #contenitorePagina >.split-pane-divider {
     -fx-background-color: #526D82;
     -fx-padding: 0;
-}
-.label-titolo {
-    -fx-text-fill: #526D82;
-}
-.label-contenuto {
-    -fx-text-fill: #526D82;
 }
 .icone-socials {
     -fx-background-color: #526D82;
@@ -510,15 +373,7 @@
 }
 
 /*MODIFICA DATI CLIENTI*/
-#titoloModificaDati {
-    -fx-text-fill:#27374D;
-}
-#labelModificaDati {
-    -fx-text-fill:#27374D;
-}
-#radioButtonModificaDati {
-    -fx-text-fill: #27374DFF;
-}
+
 #radioButtonModificaDati .radio{
     -fx-background-color: #526D82;
 }
@@ -562,50 +417,28 @@
 
 /*SELEZIONE ABBONAMENTO*/
 
-#titoloPaginaSelezioneAbbonamento{
-    -fx-text-fill: #27374D;
-}
 
 #contenitoreAbbonamenti {
     -fx-background-color: #DDE6ED;
     -fx-border-color: #DDE6ED;
 }
-
-
 #scrollPaneAbbonamenti:focused {
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
-
-
-
-.labelNome {
-    -fx-text-fill:#27374D;
-}
-.labelDescrizione{
-    -fx-text-fill:#27374D;
-}
-
-.labelPrezzo{
-    -fx-text-fill: #27374D;
-}
-
 .buttonAbbonati{
     -fx-background-color: #DDE6ED;
     -fx-text-fill: #27374DFF
 }
-
 .buttonAbbonati:hover{
     -fx-cursor: hand;
     -fx-background-color: #27374d;
     -fx-text-fill: #DDE6EDFF;
     -fx-fill: #DDE6EDFF;
 }
-
 .contenitoreRiga{
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #9DB2BF, #27374D);
 }
-
 .anchorPaneContenitore{
     -fx-background-color: transparent;
     -fx-border-color: transparent,transparent,transparent;
@@ -639,30 +472,17 @@
     -fx-background-color: linear-gradient(to bottom, #27374d, #DDE6EDFF);
     -fx-text-fill: #27374d;
     -fx-border-color: transparent;
-
 }
-
-
 .sfondoD{
     -fx-background-color: #DDE6EDFF;
 }
-
-
-
 .bottoneDashboardAdmin:hover {
     -fx-cursor: hand;
     -fx-background-color: #DDE6EDFF;
 }
-
-
-
-
 .riga-dashboard{
     -fx-background-color: #DDE6EDFF;
-
-
 }
-
 .bottoneAddUtente {
     -fx-background-color: #27374d;
     -fx-text-fill: #DDE6EDFF;

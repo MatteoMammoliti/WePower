@@ -16,8 +16,8 @@
    <VBox fx:id="profileSection" alignment="TOP_CENTER" maxHeight="300.0" maxWidth="250.0" spacing="5" stylesheets="@../../Styles/Dashboard.css">
       <children>
          <ImageView fx:id="imageUtente" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true"> </ImageView>
-         <Label fx:id="nomeCognomeUtente" styleClass="label_nomeutente" textAlignment="CENTER" wrapText="true" />
-         <Label fx:id="emailUtente" styleClass="label_email" text="" textAlignment="CENTER" wrapText="true" />
+         <Label fx:id="nomeCognomeUtente" styleClass="label_testo_scuro" textAlignment="CENTER" wrapText="true" />
+         <Label fx:id="emailUtente" styleClass="label_testo_scuro" text="" textAlignment="CENTER" wrapText="true" />
          <Label fx:id="labelStatoAbbonamento" styleClass="label_statoAbbonamento" text="" textAlignment="CENTER" wrapText="true" />
       </children>
       <padding>

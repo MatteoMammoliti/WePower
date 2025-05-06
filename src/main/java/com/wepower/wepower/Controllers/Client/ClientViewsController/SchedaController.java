@@ -66,7 +66,8 @@ public class SchedaController implements Initializable {
 
     public void loadSchedaAllenamento() throws SQLException {
         Label titolo = new Label("Scheda allenamento");
-        titolo.getStyleClass().add("titoloContenitore");
+        titolo.getStyleClass().add("label_testo_scuro");
+        titolo.getStyleClass().add("titoloEsercizio");
 
         ArrayList<RigaEsercizioSchedaClient> schedaAllenamento = TabellaElencoEsercizi.riempiRigaEsercizioScheda();
         containerSchedaAllenamento.getChildren().clear();
@@ -77,7 +78,8 @@ public class SchedaController implements Initializable {
             containerSchedaAllenamento.getChildren().addAll(schedaAllenamento);
         } else {
             Label nessunEsercizio = new Label("");
-            nessunEsercizio.getStyleClass().add("testo");
+            nessunEsercizio.getStyleClass().add("label_testo_scuro");
+            nessunEsercizio.getStyleClass().add("titoloContenitore");
             if(!DatiSessioneCliente.getSeSchedaRichiesta()) {
                 nessunEsercizio.setText("Nessun esercizio presente nella scheda. Componila!");
             } else {
@@ -89,6 +91,7 @@ public class SchedaController implements Initializable {
 
     public void loadEsercizi() throws SQLException {
         Label titolo = new Label("Esercizi disponibili in palestra");
+        titolo.getStyleClass().add("label_testo_scuro");
         titolo.getStyleClass().add("titoloContenitore");
         ArrayList<RigaEsercizioListaClient> esercizi = TabellaElencoEsercizi.riempiRigaEsercizio();
         containerEsercizi.getChildren().clear();

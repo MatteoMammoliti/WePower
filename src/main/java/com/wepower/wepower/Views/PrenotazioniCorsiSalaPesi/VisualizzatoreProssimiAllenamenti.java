@@ -49,6 +49,7 @@ public class VisualizzatoreProssimiAllenamenti extends VBox {
         oraPrenotazione.getStyleClass().add("labelInfoStorico");
 
         contenitoreRiga.getStyleClass().add("contenitoreRigaProssimiAllenamenti");
+        contenitoreRiga.getStyleClass().add("contenitoreRigaStoricoProssimi");
         contenitoreRiga.setAlignment(Pos.CENTER);
 
         contenitoreRiga.getChildren().addAll(dataPrenotazione,oraPrenotazione);
