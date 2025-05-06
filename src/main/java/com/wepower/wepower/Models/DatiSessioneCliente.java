@@ -2,7 +2,6 @@ package com.wepower.wepower.Models;
 
 import com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra;
 import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
-import com.wepower.wepower.Views.AlertHelper;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
@@ -20,6 +19,9 @@ import java.util.Optional;
 import java.util.Set;
 
 public class DatiSessioneCliente {
+
+    static Connection conn = ConnessioneDatabase.getConnection();
+
     private static int idUtente;
     private static boolean statoAbbonamento;
     private static String email;
@@ -83,17 +85,16 @@ public class DatiSessioneCliente {
     public static String getTipoAbbonamentoAttivo(){
         String abbonamentoAttivo;
         String nomeTipoAbbonamento="SELECT t.NomeAbbonamento from TipoAbbonamento t join AbbonamentoCliente a on t.IdTipoAbbonamento=a.IdTipoAbbonamento where a.IdCliente=?";
-        try(Connection conn=ConnessioneDatabase.getConnection()){
-            try(PreparedStatement nomeAbbonamento=conn.prepareStatement(nomeTipoAbbonamento)){
-                nomeAbbonamento.setInt(1,idUtente);
-                ResultSet risultato=nomeAbbonamento.executeQuery();
-                if(risultato.next()){
-                    abbonamentoAttivo=risultato.getString("NomeAbbonamento");
-                    return abbonamentoAttivo;
-                }
+        try {
+            PreparedStatement nomeAbbonamento=conn.prepareStatement(nomeTipoAbbonamento);
+            nomeAbbonamento.setInt(1,idUtente);
+            ResultSet risultato=nomeAbbonamento.executeQuery();
+            if(risultato.next()){
+                abbonamentoAttivo=risultato.getString("NomeAbbonamento");
+                return abbonamentoAttivo;
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
         return null;
     }
@@ -101,16 +102,13 @@ public class DatiSessioneCliente {
     //RECUPERO DATA INIZIO ABBONAMENTO ATTIVO DEL CLIENTE
     public static String getDataInizioAbbonamentoAttivo(){
         String dataInizioAbbonamento="SELECT ac.DataInizioAbbonamento from AbbonamentoCliente ac where ac.IdCliente=? and ac.StatoAbbonamento=1";
-        try(Connection conn=ConnessioneDatabase.getConnection()){
-            try(PreparedStatement dataInizio=conn.prepareStatement(dataInizioAbbonamento)){
-                dataInizio.setInt(1,idUtente);
-                ResultSet risultato=dataInizio.executeQuery();
-                if(risultato.next()){
-                    return risultato.getString("DataInizioAbbonamento");
-                }
-            }
+        try {
+            PreparedStatement dataInizio=conn.prepareStatement(dataInizioAbbonamento);
+            dataInizio.setInt(1,idUtente);
+            ResultSet risultato=dataInizio.executeQuery();
+            if(risultato.next()) return risultato.getString("DataInizioAbbonamento");
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
         return null;
     }
@@ -118,16 +116,14 @@ public class DatiSessioneCliente {
     //RECUPERO DATA FINE ABBONAMENTO ATTIVO DEL CLIENTE
     public static String getDataFineAbbonamentoAttivo() throws SQLException {
         String dataFineAbbonamentoAttivo="SELECT ac.DataFineAbbonamento from AbbonamentoCliente ac where ac.IdCliente= ? and ac.StatoAbbonamento=1";
-        try(Connection conn=ConnessioneDatabase.getConnection()){
-            try (PreparedStatement dataFine=conn.prepareStatement(dataFineAbbonamentoAttivo)){
-                dataFine.setInt(1, idUtente);
-                ResultSet risultato=dataFine.executeQuery();
-                if (risultato.next()) {
-                    return risultato.getString("DataFineAbbonamento");
-                }
-            }
+        try {
+            PreparedStatement dataFine=conn.prepareStatement(dataFineAbbonamentoAttivo);
+            dataFine.setInt(1, idUtente);
+            ResultSet risultato=dataFine.executeQuery();
+            if (risultato.next()) return risultato.getString("DataFineAbbonamento");
+
         }catch (SQLException e){
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
         return null;
     }
@@ -136,7 +132,7 @@ public class DatiSessioneCliente {
     public static ArrayList<PrenotazioneSalaPesi> getDateAllenamentiEffettuati(){
         ArrayList<PrenotazioneSalaPesi> prenotazioni=new ArrayList<>();
         String cerco="SELECT DataPrenotazione,OrarioPrenotazione FROM PrenotazioneSalaPesi WHERE IdCliente=? AND DataPrenotazione < ?  ORDER BY DataPrenotazione DESC";
-        try(Connection conn=ConnessioneDatabase.getConnection()){
+        try {
             PreparedStatement prelevamento=conn.prepareStatement(cerco);
             prelevamento.setInt(1,DatiSessioneCliente.getIdUtente());
             prelevamento.setString(2,LocalDate.now().toString());;
@@ -146,17 +142,16 @@ public class DatiSessioneCliente {
                 prenotazioni.add(p);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
         return prenotazioni;
-
     }
 
     //Prelevo le date degli allenamenti ancora da effettuare
-    public static ArrayList<PrenotazioneSalaPesi> getDateAllenamentiDaFare() throws SQLException {
+    public static ArrayList<PrenotazioneSalaPesi> getDateAllenamentiDaFare() {
         ArrayList<PrenotazioneSalaPesi> date=new ArrayList<>();
         String cerco="SELECT DataPrenotazione,OrarioPrenotazione FROM PrenotazioneSalaPesi WHERE IdCliente=? AND DataPrenotazione >= ? ORDER BY DataPrenotazione ASC LIMIT 8";
-        try(Connection conn=ConnessioneDatabase.getConnection()){
+        try {
             PreparedStatement prelevamento=conn.prepareStatement(cerco);
             prelevamento.setInt(1,DatiSessioneCliente.getIdUtente());
             prelevamento.setString(2,LocalDate.now().toString());
@@ -166,8 +161,10 @@ public class DatiSessioneCliente {
                 date.add(nuova);
             }
             return date;
-
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
+        return date;
     }
 
     // SETTER
@@ -200,6 +197,7 @@ public class DatiSessioneCliente {
 
     // LOGOUT
     public static void logout() {
+        ConnessioneDatabase.closeConnection();
         idUtente = 0;
         email = null;
         nome = null;
@@ -225,10 +223,7 @@ public class DatiSessioneCliente {
     public static boolean controlloDataPrenotazioneSalaPesi(LocalDate data) {
         String dataControllo = data.toString();
 
-        if (datePrenotazioniSalaPesi.contains(dataControllo)) {
-            return true;
-        }
-        return false;
+        return datePrenotazioniSalaPesi.contains(dataControllo);
     }
 
     // CONTROLLO DATA E ORARIO PRENOTAZIONE SALA PESI PER STORICO
@@ -236,10 +231,7 @@ public class DatiSessioneCliente {
         String dataControllo = data.toString();
         PrenotazioneSalaPesi temp=new PrenotazioneSalaPesi(dataControllo,ora);
 
-        if (dateOrariPrenotazioni.contains(temp)) {
-            return true;
-        }
-        return false;
+        return dateOrariPrenotazioni.contains(temp);
     }
 
     //CONTROLLO SE L'ABBONAMENTO DEL CLIENTE è ATTIVO
@@ -252,9 +244,7 @@ public class DatiSessioneCliente {
             LocalDate dataFine = LocalDate.parse(dataFineAbbonamento);
             LocalDate oggi = LocalDate.now();
 
-            if ((oggi.isAfter(dataInizio) || oggi.equals(dataInizio))&& oggi.isBefore(dataFine)) {
-                return true;
-            }
+            return (oggi.isAfter(dataInizio) || oggi.equals(dataInizio)) && oggi.isBefore(dataFine);
         }
         return false;
     }
@@ -269,9 +259,6 @@ public class DatiSessioneCliente {
     public static void rimuoviPrenotazione(PrenotazioneSalaPesi p) {
         dateOrariPrenotazioni.remove(p);
         datePrenotazioniSalaPesi.remove(p.getDataPrenotazione());
-        for (int i=0;dateOrariPrenotazioni.size()>i;i++){
-            System.out.println(dateOrariPrenotazioni.get(i).getDataPrenotazione());
-        }
     }
 
     //SALVO L'IMMAGINE DEL CLIENTE NEL DB
@@ -286,22 +273,21 @@ public class DatiSessioneCliente {
         //Quindi, dato che la funzione richiede un oggetto di tipo Path, e con .getAbsolutePath otteniamo il percorso sotto forma di String
         //dobbiamo convertire la stringa ottenuta in un Path.
 
-        try (Connection conn = ConnessioneDatabase.getConnection()) {
-            try (PreparedStatement immagineProfilo = conn.prepareStatement(salvaImmagine)) {
-                //Passo il contenuto dell'immagine,è uno stream binario
-                immagineProfilo.setBytes(1, imageBytes);
-                immagineProfilo.setInt(2, idUtente);
-                immagineProfilo.executeUpdate();
-            }
+        try {
+            PreparedStatement immagineProfilo = conn.prepareStatement(salvaImmagine);
+            //Passo il contenuto dell'immagine,è uno stream binario
+            immagineProfilo.setBytes(1, imageBytes);
+            immagineProfilo.setInt(2, idUtente);
+            immagineProfilo.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
     }
 
     //CARICO L'IMMAGINE DEL CLIENTE DAL DB
     public static Image caricaImmagineProfiloUtente(int idUtente) throws SQLException {
         String caricaImmagine="Select ImmagineProfilo from Cliente where IdCliente=?";
-        try(Connection conn=ConnessioneDatabase.getConnection()){
+        try {
             PreparedStatement immagineProfilo=conn.prepareStatement(caricaImmagine);
             immagineProfilo.setInt(1,idUtente);
             ResultSet risultato=immagineProfilo.executeQuery();
@@ -316,49 +302,52 @@ public class DatiSessioneCliente {
                 }
             }
         }catch (SQLException e){
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
         return null;
     }
 
     //SALVO CERTIFICATO MEDICO DEL CLIENTE NEL DB
     public static boolean salvaCertificatoMeidico(int idUtente,File certificato) throws SQLException, IOException{
-        if(certificato==null){
-           return false;}
+
+        if(certificato==null) return false;
+
         String caricoCertificato="INSERT INTO Certificato (IdCliente,Stato,ImgCertificato,DataCaricamentoCertificato) VALUES (?,?,?,?)";
         String aggiornoCliente="UPDATE Cliente SET CertificatoValido=1 WHERE IdCliente=?";
         byte[] certificatoBytes = Files.readAllBytes(Paths.get(certificato.getAbsolutePath()));
-        if(certificatoBytes.length==0){
-           return false;}
-        try(Connection conn=ConnessioneDatabase.getConnection()){
+
+        if(certificatoBytes.length==0) return false;
+
+        try {
             conn.setAutoCommit(false);
-            try(PreparedStatement datiCertificato=conn.prepareStatement(caricoCertificato)){
-                datiCertificato.setInt(1, idUtente);
-                datiCertificato.setString(2,"Attesa");
-                datiCertificato.setBytes(3,certificatoBytes);
-                datiCertificato.setString(4, LocalDate.now().toString());
-                if(datiCertificato.executeUpdate()<=0){
+            PreparedStatement datiCertificato=conn.prepareStatement(caricoCertificato);
+            datiCertificato.setInt(1, idUtente);
+            datiCertificato.setString(2,"Attesa");
+            datiCertificato.setBytes(3,certificatoBytes);
+            datiCertificato.setString(4, LocalDate.now().toString());
+
+            if(datiCertificato.executeUpdate()<=0){
+                conn.rollback();
+                return false;
+            }
+
+            try {
+                PreparedStatement datiCliente=conn.prepareStatement(aggiornoCliente);
+                datiCliente.setInt(1, idUtente);
+                int risultato=datiCliente.executeUpdate();
+                if (risultato<=0) {
                     conn.rollback();
                     return false;
                 }
-                try {
-                    PreparedStatement datiCliente=conn.prepareStatement(aggiornoCliente);
-                    datiCliente.setInt(1, idUtente);
-                    int risultato=datiCliente.executeUpdate();
-                    if (risultato<=0) {
-                        conn.rollback();
-                        return false;
-                    }
-                    conn.commit();
-                    return true;
-                }
-                catch (SQLException e){
-                    conn.rollback();
-                }
-
+                conn.commit();
+                return true;
             }
+            catch (SQLException e){
+                conn.rollback();
+            }
+
         }catch (SQLException e){
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
         return false;
     }
@@ -373,39 +362,42 @@ public class DatiSessioneCliente {
     //ELIMINA UTENTE
     public static boolean onClickEliminaUtente(int id) throws SQLException {
         String eliminaUtente="DELETE FROM Cliente WHERE IdCliente=?";
-        try(Connection conn=ConnessioneDatabase.getConnection()){
-            try(PreparedStatement datiEliminaUtente=conn.prepareStatement(eliminaUtente)){
-                datiEliminaUtente.setInt(1,id);
-                Alert conferma=new Alert(Alert.AlertType.CONFIRMATION);
-                conferma.setTitle("Conferma eliminazione");
-                conferma.setHeaderText("Sei sicuro di voler eliminare questo cliente?");
-                conferma.setContentText("Questa azione è irreversibile!");
-                ImageView icon = new ImageView(new Image(DatiSessioneCliente.class.getResourceAsStream("/Images/IconeAlert/question.png")));
-                DialogPane dialogPane = conferma.getDialogPane();
-                dialogPane.getStylesheets().add(DatiSessioneCliente.class.getResource("/Styles/alertStyle.css").toExternalForm());
-                conferma.setGraphic(icon);
-                Optional<ButtonType> resultat = conferma.showAndWait();
-                    if (resultat.isPresent() && resultat.get() == ButtonType.OK) {
-                        // Se l'utente ha confermato l'eliminazione, eseguiamo la query
-                        int righeModificate = datiEliminaUtente.executeUpdate();
-                        if(righeModificate>0) {
-                            DatiSessioneCliente.logout();
-                            Model.getInstance().getViewFactoryClient().showLoginWindow();
-                            return true;
-                        }
-                        else{
-                            return false;
-                        }
+        try {
+            PreparedStatement datiEliminaUtente=conn.prepareStatement(eliminaUtente);
+            datiEliminaUtente.setInt(1,id);
+
+            Alert conferma=new Alert(Alert.AlertType.CONFIRMATION);
+            conferma.setTitle("Conferma eliminazione");
+            conferma.setHeaderText("Sei sicuro di voler eliminare questo cliente?");
+            conferma.setContentText("Questa azione è irreversibile!");
+            ImageView icon = new ImageView(new Image(DatiSessioneCliente.class.getResourceAsStream("/Images/IconeAlert/question.png")));
+            DialogPane dialogPane = conferma.getDialogPane();
+            dialogPane.getStylesheets().add(DatiSessioneCliente.class.getResource("/Styles/alertStyle.css").toExternalForm());
+            conferma.setGraphic(icon);
+
+            Optional<ButtonType> resultat = conferma.showAndWait();
+            if (resultat.isPresent() && resultat.get() == ButtonType.OK) {
+                // Se l'utente ha confermato l'eliminazione, eseguiamo la query
+                int righeModificate = datiEliminaUtente.executeUpdate();
+
+                if(righeModificate>0) {
+                    DatiSessioneCliente.logout();
+                    Model.getInstance().getViewFactoryClient().showLoginWindow();
+                    return true;
                 }
+                else return false;
             }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return false;
     }
 
     //PRELEVO DAL TADABASE L'ULTIMO AGGIORNAMENTO PESO INSERITO DALL'UTENTE
-    public static void caricaPesoAttuale(int IdUtente){
+    public static void caricaPesoAttuale(int IdUtente) {
         String caricaPeso="SELECT Peso FROM PesoCliente WHERE IdCliente=? ORDER BY DataRegistrazionePeso DESC LIMIT 1";
-        try(Connection conn=ConnessioneDatabase.getConnection()){
+
+        try {
             PreparedStatement datiCaricaPeso=conn.prepareStatement(caricaPeso);
             datiCaricaPeso.setInt(1,IdUtente);
             ResultSet risultato=datiCaricaPeso.executeQuery();
@@ -413,7 +405,7 @@ public class DatiSessioneCliente {
                 pesoAttuale=risultato.getInt("Peso");
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
     }
 
@@ -421,18 +413,21 @@ public class DatiSessioneCliente {
     public static ArrayList<Pair<String,Integer>> caricaStroicoPesi(int IdUtente){
         ArrayList<Pair<String,Integer>> storicoPesi=new ArrayList<>();
         String caricaStoricoPesi="SELECT DataRegistrazionePeso,Peso FROM PesoCliente WHERE IdCliente=? ORDER BY DataRegistrazionePeso DESC LIMIT 10";
-        try(Connection conn=ConnessioneDatabase.getConnection()){
+
+        try {
             PreparedStatement datiCaricaStorico=conn.prepareStatement(caricaStoricoPesi);
             datiCaricaStorico.setInt(1,IdUtente);
             ResultSet risultato=datiCaricaStorico.executeQuery();
+
             while(risultato.next()){
                 System.out.println(risultato.getString("DataRegistrazionePeso"));
                 System.out.println(risultato.getInt("Peso"));
                 Pair<String,Integer> peso=new Pair<>(risultato.getString("DataRegistrazionePeso"),risultato.getInt("Peso"));
-                storicoPesi.add(0,peso);
+                storicoPesi.addFirst(peso);
             }
+            return storicoPesi;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
         return storicoPesi;
     }
@@ -443,7 +438,7 @@ public class DatiSessioneCliente {
         String prelevamento = "SELECT Peso, DataInserimento FROM MassimaleImpostatoCliente WHERE IDCliente = ? AND NomeEsercizio = ? ORDER BY DataInserimento DESC LIMIT 10";
         ArrayList<Pair<String,Number>> lista = new ArrayList<>();
 
-        try (Connection conn = ConnessioneDatabase.getConnection()) {
+        try {
             PreparedStatement prelievo = conn.prepareStatement(prelevamento);
             prelievo.setInt(1, DatiSessioneCliente.getIdUtente());
             prelievo.setString(2, esercizio);
@@ -457,13 +452,14 @@ public class DatiSessioneCliente {
                 // Converti il timestamp in una stringa formattata
                 String data = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(dataInserimento));
                 Pair<String,Number> pair = new Pair<>(data,peso);
-                lista.add(0,pair);
+                lista.addFirst(pair);
             }
-
             return lista;
+
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
+        return lista;
     }
 
     // PRELIEVO STORICO PRENOTAZIONI PER GRAFICO
@@ -472,7 +468,7 @@ public class DatiSessioneCliente {
         String prelevaPrenotazioni = "SELECT SUBSTR(DataPrenotazione, 1, 7) AS Mese, COUNT(*) AS numeroPrenotazioni FROM PrenotazioneSalaPesi WHERE IdCliente = ? GROUP BY Mese ORDER BY Mese";
         ArrayList<Pair<String,Number>> lista = new ArrayList<>();
 
-        try (Connection conn = ConnessioneDatabase.getConnection()) {
+        try {
             PreparedStatement prelevamento = conn.prepareStatement(prelevaPrenotazioni);
             prelevamento.setInt(1, IdUtente);
             ResultSet rs = prelevamento.executeQuery();
@@ -486,24 +482,23 @@ public class DatiSessioneCliente {
             }
             return lista;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
+        return lista;
     }
 
     // PRELIEVO DATA DI SCADENZA DELL'ABBONAMENTO
     public static String caricaDataScadenzaAbbonamento(int IdUtente) {
         String fetchDataScadenza = "SELECT DataFineAbbonamento FROM AbbonamentoCliente WHERE IdCliente = ? AND StatoAbbonamento = 1";
 
-        try (Connection conn = ConnessioneDatabase.getConnection()) {
+        try {
             PreparedStatement prelevamento = conn.prepareStatement(fetchDataScadenza);
             prelevamento.setInt(1, IdUtente);
             ResultSet rs = prelevamento.executeQuery();
 
-            if (rs.next()) {
-                return rs.getString("DataFineAbbonamento");
-            }
+            if (rs.next()) return rs.getString("DataFineAbbonamento");
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return null;
     }
@@ -512,16 +507,15 @@ public class DatiSessioneCliente {
     public static int caricaPresenzaCertificato(int IdUtente) {
         String fetchCertificato = "SELECT IdCertificato FROM Certificato WHERE IdCliente = ?";
 
-        try (Connection conn = ConnessioneDatabase.getConnection()) {
+        try {
             PreparedStatement prelevamento = conn.prepareStatement(fetchCertificato);
             prelevamento.setInt(1, IdUtente);
             ResultSet rs = prelevamento.executeQuery();
 
-            if (rs.next()) {
-                return rs.getInt("IdCertificato");
-            }
+            if (rs.next()) return rs.getInt("IdCertificato");
+
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return 0;
     }
