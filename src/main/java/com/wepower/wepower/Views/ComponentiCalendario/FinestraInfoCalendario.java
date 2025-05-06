@@ -1,6 +1,5 @@
 package com.wepower.wepower.Views.ComponentiCalendario;
 
-import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

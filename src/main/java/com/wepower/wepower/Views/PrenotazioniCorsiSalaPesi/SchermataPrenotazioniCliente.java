@@ -22,8 +22,6 @@ import java.util.Objects;
 
 import static com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra.getNumeroPrenotazioniDataOraResidue;
 
-
-
 public class SchermataPrenotazioniCliente extends VBox {
     private  LocalDate data;
     private Label giornoSettimana;

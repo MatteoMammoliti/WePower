@@ -9,7 +9,7 @@ public class WePower extends Application
 {
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
 
         ViewFactoryClient viewFactory = Model.getInstance().getViewFactoryClient();
         String temaDefault=getClass().getResource("/Styles/TemaBlu.css").toExternalForm();

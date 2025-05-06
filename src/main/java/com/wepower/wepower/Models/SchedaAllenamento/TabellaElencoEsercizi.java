@@ -10,14 +10,12 @@ import javafx.scene.control.Alert;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TabellaElencoEsercizi {
 
-    static Connection conn = ConnessioneDatabase.getConnection();
-
     public static ArrayList<RigaEsercizioListaClient> riempiRigaEsercizio() {
+        Connection conn = ConnessioneDatabase.getConnection();
 
         ArrayList<RigaEsercizioListaClient> ris = new ArrayList<RigaEsercizioListaClient>();
 
@@ -45,6 +43,8 @@ public class TabellaElencoEsercizi {
     }
 
     public static ArrayList<RigaEsercizioListaAdmin> riempiRigaEsercizioAdmin() {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         ArrayList<RigaEsercizioListaAdmin> ris = new ArrayList<>();
 
         String query = "SELECT NomeEsercizio, DescrizioneEsercizio, PercorsoImmagine FROM Esercizio";
@@ -71,6 +71,8 @@ public class TabellaElencoEsercizi {
     }
 
     public static ArrayList<RigaEsercizioSchedaClient> riempiRigaEsercizioScheda() {
+        Connection conn = ConnessioneDatabase.getConnection();
+
 
         ArrayList<RigaEsercizioSchedaClient> ris = new ArrayList<RigaEsercizioSchedaClient>();
 

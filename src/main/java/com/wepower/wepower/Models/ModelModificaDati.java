@@ -14,9 +14,9 @@ import java.util.Objects;
 
 public class ModelModificaDati {
 
-    static Connection conn = ConnessioneDatabase.getConnection();
-
     public static boolean onClickModificaDati(int id,String nome,String cogn,String Data,String sesso,String alt,String email,String telefono,Integer peso) throws IOException, SQLException {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String aggiornaDati="UPDATE Cliente SET Nome=?, Cognome=?, DataNascita=?, Sesso=?, Altezza=? WHERE IdCliente=?";
         String aggiornaDatiCredenziali="UPDATE CredenzialiCliente SET Email=?,Telefono=? WHERE IdCliente=?";
         String aggiornaPeso="INSERT INTO PesoCliente (IdCliente,Peso,DataRegistrazionePeso) VALUES (?,?,?)";

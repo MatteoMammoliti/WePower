@@ -13,6 +13,7 @@ public class ConnessioneDatabase {
             if (conn == null || conn.isClosed()) {
                 conn = DriverManager.getConnection(DB_URL);
                 conn.createStatement().execute("PRAGMA foreign_keys = ON");
+                System.out.println("creo una connessione");
             }
         }catch (SQLException e){
             System.out.println(e.getMessage());
@@ -24,6 +25,7 @@ public class ConnessioneDatabase {
         try {
             if(conn != null) {
                 conn.close();
+                System.out.println("connessione close");
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

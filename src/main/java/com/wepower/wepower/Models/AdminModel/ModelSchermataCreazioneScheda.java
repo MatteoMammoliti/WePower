@@ -4,7 +4,6 @@ import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Views.AlertHelper;
 import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioSchedaAdmin;
 import javafx.scene.control.Alert;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,10 +13,11 @@ import java.util.ArrayList;
 public class ModelSchermataCreazioneScheda {
 
     private static int idSchedaAllenamento = 0;
-    static Connection conn = ConnessioneDatabase.getConnection();
 
     // prelievo dell'immagine per ciascun esercizio per poterla visualizzare
     public static String ottieniPercorsoImmagine(String nomeEsercizio) {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String fetch = "SELECT PercorsoImmagine FROM Esercizio WHERE NomeEsercizio = ?";
 
         try {
@@ -36,6 +36,8 @@ public class ModelSchermataCreazioneScheda {
     }
 
     public static void onConfermaScheda(int idUtente) throws SQLException {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         ArrayList<RigaEsercizioSchedaAdmin> schedaFinita = DatiSessioneAdmin.getEserciziSchedaTemp();
 
         // prelevo l'id della scheda associata all'utente

@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DatiSessionePalestra {
-    static Connection conn = ConnessioneDatabase.getConnection();
     private static int numeroMassimePrenotazioniPerFascieOrarie;
     private static Map<PrenotazioneSalaPesiCliente, Integer> prenotazioniSalePesi= new HashMap<>();
 
@@ -21,6 +20,8 @@ public class DatiSessionePalestra {
 
     // Vado a prelevare tutti i dati degli utenti che hanno richiesto una scheda di allenamento
     public static ObservableList<RigaTabellaRichiesteScheda> getRichiesteScheda() {
+        Connection conn = ConnessioneDatabase.getConnection();
+
 
         //Inizializzo la ObservableList vuota
         ObservableList<RigaTabellaRichiesteScheda> utenti= FXCollections.observableArrayList();
@@ -63,6 +64,8 @@ public class DatiSessionePalestra {
     public static String[] getOrariPrenotazione() { return orariPrenotazione; }
 
     public static void setNumeroMassimoPrenotazioni() throws SQLException {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String query="SELECT NumeriPostiMassimo FROM SalaPesi WHERE IdSalaPesi=1";
 
         try {

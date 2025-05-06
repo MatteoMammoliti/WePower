@@ -85,7 +85,7 @@ public class RigaEsercizioListaClient extends HBox {
         this.setPadding(new Insets(10));
     }
 
-    public void onInserisci() throws SQLException {
+    public void onInserisci() {
 
         if (this.numeroSerie.getText().isEmpty() || this.numeroRipetizioni.getText().isEmpty()) {
             AlertHelper.showAlert("Errore", "Compila tutti i campi", null, Alert.AlertType.ERROR );

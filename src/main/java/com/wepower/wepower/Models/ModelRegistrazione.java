@@ -5,9 +5,9 @@ import java.time.LocalDate;
 
 public class ModelRegistrazione {
 
-    static Connection conn = ConnessioneDatabase.getConnection();
-
     public static boolean verificaEmailEsistente(String email) {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String query="SELECT * FROM CredenzialiCliente WHERE Email = ?";
 
         try {
@@ -24,6 +24,8 @@ public class ModelRegistrazione {
     }
 
     public static boolean registraUtente(String nome, String cognome, LocalDate dataNascita, String email, String password) throws SQLException {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String insertCliente = "INSERT INTO Cliente (Nome, Cognome, DataNascita) VALUES (?, ?, ?)";
         String insertCredenziali = "INSERT INTO CredenzialiCliente (Email, Password, IdCliente) VALUES (?, ?, ?)";
 

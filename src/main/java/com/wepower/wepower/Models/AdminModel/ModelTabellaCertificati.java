@@ -15,10 +15,10 @@ import java.sql.SQLException;
 
 public class ModelTabellaCertificati {
 
-    static Connection conn = ConnessioneDatabase.getConnection();
-
     //In questo metodo possiamo inizializzare la tabella, carichiamo i dati dal DB
     public static ObservableList<RigaTabellaCertificati> caricaDati(){
+        Connection conn = ConnessioneDatabase.getConnection();
+
         //Creo una lista osservabile di RigaTabellaCertificati, che conterrà i dati della tabella
         //Inizializzo la lista con FXCollections.observableArrayList(),cosi sarà vuota.
         //Una lista osservabile è una lista che può essere osservata da altri oggetti, in questo caso dalla tabella,ogni volta
@@ -47,6 +47,8 @@ public class ModelTabellaCertificati {
     }
 
     public static Image prelevoImmagineCertificato(int id) throws SQLException {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         System.out.println("Query eseguita con ID: " + id);
 
         String immagine="SELECT ImgCertificato from Certificato WHERE IDCliente=?";
@@ -69,6 +71,8 @@ public class ModelTabellaCertificati {
 
     //Se clicco su conferma, aggiorno il certificato e il cliente
     public static boolean onClickConferma(int id) throws SQLException {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String aggiornoCertificato="UPDATE Certificato SET Stato='Accettato' WHERE IdCliente=?";
         String aggiornoCliente="UPDATE Cliente SET CertificatoValido=2 WHERE IdCliente=?";
         try {
@@ -96,6 +100,8 @@ public class ModelTabellaCertificati {
 
     //Se clicco su Rifiuta,rifiuto il certificato, lo elimino e aggiorno il cliente
     public static boolean onClickRifiuta(int id) throws SQLException {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String eliminoCertificato="DELETE FROM Certificato WHERE IdCliente=?";
         String aggiornoCliente="UPDATE Cliente SET CertificatoValido=0 WHERE IdCliente=?";
         try {

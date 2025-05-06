@@ -12,14 +12,14 @@ import java.util.regex.Pattern;
 
 public class ModelValidazione {
 
-    static Connection conn = ConnessioneDatabase.getConnection();
-
     public static boolean controlloEmailvalida(String email){
         return Pattern.matches("^[a-zA-Z-0-9]+@gmail.com$",email);
     }
 
     //Controllo se esiste già un email uguale registrata
     public static boolean controlloEmailEsistente(String email) {
+        Connection conn = ConnessioneDatabase.getConnection();
+
 
         if(email.equals(DatiSessioneCliente.getEmail())) return false;
 

@@ -36,7 +36,7 @@ public class SchermataSelezioneAbbonamentoController implements Initializable {
         try {
             caricaAbbonamenti();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
     }

@@ -16,9 +16,9 @@ import java.util.Map;
 
 public class ModelDashboardAdmin {
 
-    static Connection conn = ConnessioneDatabase.getConnection();
     //Conto il numero di abbonamenti attivi
     public static int numeroAbbonamentiAttivi(){
+        Connection conn = ConnessioneDatabase.getConnection();
 
         String numeroAbbonamenti="SELECT COUNT(*) FROM AbbonamentoCliente WHERE StatoAbbonamento=1";
         try {
@@ -33,6 +33,7 @@ public class ModelDashboardAdmin {
 
     //Conto il numero di certificati in attesa
     public static int numeroCertificatiAttesa(){
+        Connection conn = ConnessioneDatabase.getConnection();
 
         String numeroCertificati="SELECT COUNT(*) FROM Certificato WHERE Stato='Attesa'";
         try {
@@ -47,6 +48,8 @@ public class ModelDashboardAdmin {
 
     //Conto il numero di prenotati per oggi
     public static int numeroPrenotatiOggi(){
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String numeroPrenotatiOggi="SELECT COUNT(*) FROM PrenotazioneSalaPesi WHERE DataPrenotazione=?";
         try {
             PreparedStatement pst=conn.prepareStatement(numeroPrenotatiOggi);
@@ -63,6 +66,8 @@ public class ModelDashboardAdmin {
 
     //Prelevo i nomi e i costi delle promozioni attive
     public static ArrayList<Pair<String,String>> promozioniAttive(){
+        Connection conn = ConnessioneDatabase.getConnection();
+
         ArrayList<Pair<String,String>> promozioniAttive=new ArrayList<>();
         String promozioni="SELECT NomeAbbonamento,Costo FROM TipoAbbonamento";
 
@@ -84,6 +89,8 @@ public class ModelDashboardAdmin {
 
     //Elimina una promozione attiva
     public static boolean eliminaPromozione(String nome) throws SQLException {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String eliminaPromozione="DELETE FROM TipoAbbonamento WHERE NomeAbbonamento=?";
 
         try{
@@ -99,6 +106,8 @@ public class ModelDashboardAdmin {
 
     //Controllo se nome promozione è già esistente
     public static boolean cercoNomeOfferta(String nome){
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String cerco="SELECT NomeAbbonamento FROM TipoAbbonamento WHERE NomeAbbonamento=?";
 
         try {
@@ -116,6 +125,8 @@ public class ModelDashboardAdmin {
 
     //Aggiungo una promozione
     public static boolean aggiungiPromozione(String nome,String costo,String descrizione,String durata){
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String aggiungo="INSERT into TipoAbbonamento (NomeAbbonamento,Descrizione,Costo,Durata) VALUES (?,?,?,?)";
 
         if(nome.isEmpty() || costo.isEmpty() || descrizione.isEmpty() || durata.isEmpty()){
@@ -160,6 +171,8 @@ public class ModelDashboardAdmin {
 
     //Vado a calcolare quanti clienti hanno richiesto una scheda all'admin
     public static int getNumeroSchedeRichieste(){
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String conto="SELECT COUNT(*) AS numSchede FROM SchedaAllenamento WHERE IdAdmin=1 AND SchedaAncoraInUso=1 AND SchedaCompilata=0";
         try {
             PreparedStatement preparo=conn.prepareStatement(conto);
@@ -171,6 +184,8 @@ public class ModelDashboardAdmin {
     }
 
     public static ArrayList<Pair<String,Integer>> getSessoUtentiPalestra(){
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String genere="SELECT Genere, NSesso FROM GraficoPerGenere";
         ArrayList<Pair<String,Integer>> lista=new ArrayList<>();
 
@@ -193,6 +208,8 @@ public class ModelDashboardAdmin {
 
     // ????????
     public static ArrayList<Integer> getAnniTendinaGrafico() {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         ArrayList<Integer> lista=new ArrayList<>();
         String anni="SELECT DISTINCT ANNO FROM Ab ORDER  BY Anno DESC";
 
@@ -212,7 +229,9 @@ public class ModelDashboardAdmin {
 
     // ?????????
     public static Map<String,Integer> getDatiGraficoAnnuale(String anno) {
-            Map mappa=new LinkedHashMap();
+        Connection conn = ConnessioneDatabase.getConnection();
+
+        Map mappa=new LinkedHashMap();
             for (int i=1;i<13;i++){
                 mappa.put(String.format("%02d",i),0);
             }
@@ -232,5 +251,5 @@ public class ModelDashboardAdmin {
                 // gestisci l'eccezione con l'alert
             }
             return mappa;
-        }
     }
+}

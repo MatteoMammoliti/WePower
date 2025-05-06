@@ -20,8 +20,6 @@ import java.util.Set;
 
 public class DatiSessioneCliente {
 
-    static Connection conn = ConnessioneDatabase.getConnection();
-
     private static int idUtente;
     private static boolean statoAbbonamento;
     private static String email;
@@ -38,9 +36,6 @@ public class DatiSessioneCliente {
     private static Image immagineProfilo;
     private static boolean alertScadenzaAbbonamento = false;
     private static boolean alertCertificatoMancante = false;
-
-    //Tutto lo storico dei pesi del Cliente
-    private static ArrayList<Integer> pesiCliente=new ArrayList<>();
 
     //Tutto lo storico delle prenotazioni sala pesi dell'utente
     private static ArrayList<PrenotazioneSalaPesi> dateOrariPrenotazioni = new ArrayList<>();
@@ -86,6 +81,7 @@ public class DatiSessioneCliente {
         String abbonamentoAttivo;
         String nomeTipoAbbonamento="SELECT t.NomeAbbonamento from TipoAbbonamento t join AbbonamentoCliente a on t.IdTipoAbbonamento=a.IdTipoAbbonamento where a.IdCliente=?";
         try {
+            Connection conn = ConnessioneDatabase.getConnection();
             PreparedStatement nomeAbbonamento=conn.prepareStatement(nomeTipoAbbonamento);
             nomeAbbonamento.setInt(1,idUtente);
             ResultSet risultato=nomeAbbonamento.executeQuery();
@@ -94,7 +90,7 @@ public class DatiSessioneCliente {
                 return abbonamentoAttivo;
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("CIAO1" + e.getMessage());
         }
         return null;
     }
@@ -103,12 +99,13 @@ public class DatiSessioneCliente {
     public static String getDataInizioAbbonamentoAttivo(){
         String dataInizioAbbonamento="SELECT ac.DataInizioAbbonamento from AbbonamentoCliente ac where ac.IdCliente=? and ac.StatoAbbonamento=1";
         try {
+            Connection conn = ConnessioneDatabase.getConnection();
             PreparedStatement dataInizio=conn.prepareStatement(dataInizioAbbonamento);
             dataInizio.setInt(1,idUtente);
             ResultSet risultato=dataInizio.executeQuery();
             if(risultato.next()) return risultato.getString("DataInizioAbbonamento");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("CIAO2" +e.getMessage());
         }
         return null;
     }
@@ -117,13 +114,14 @@ public class DatiSessioneCliente {
     public static String getDataFineAbbonamentoAttivo() throws SQLException {
         String dataFineAbbonamentoAttivo="SELECT ac.DataFineAbbonamento from AbbonamentoCliente ac where ac.IdCliente= ? and ac.StatoAbbonamento=1";
         try {
+            Connection conn = ConnessioneDatabase.getConnection();
             PreparedStatement dataFine=conn.prepareStatement(dataFineAbbonamentoAttivo);
             dataFine.setInt(1, idUtente);
             ResultSet risultato=dataFine.executeQuery();
             if (risultato.next()) return risultato.getString("DataFineAbbonamento");
 
         }catch (SQLException e){
-            System.out.println(e.getMessage());
+            System.out.println("CIAO3" +e.getMessage());
         }
         return null;
     }
@@ -133,6 +131,7 @@ public class DatiSessioneCliente {
         ArrayList<PrenotazioneSalaPesi> prenotazioni=new ArrayList<>();
         String cerco="SELECT DataPrenotazione,OrarioPrenotazione FROM PrenotazioneSalaPesi WHERE IdCliente=? AND DataPrenotazione < ?  ORDER BY DataPrenotazione DESC";
         try {
+            Connection conn = ConnessioneDatabase.getConnection();
             PreparedStatement prelevamento=conn.prepareStatement(cerco);
             prelevamento.setInt(1,DatiSessioneCliente.getIdUtente());
             prelevamento.setString(2,LocalDate.now().toString());;
@@ -142,7 +141,7 @@ public class DatiSessioneCliente {
                 prenotazioni.add(p);
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("CIAO4" +e.getMessage());
         }
         return prenotazioni;
     }
@@ -152,6 +151,7 @@ public class DatiSessioneCliente {
         ArrayList<PrenotazioneSalaPesi> date=new ArrayList<>();
         String cerco="SELECT DataPrenotazione,OrarioPrenotazione FROM PrenotazioneSalaPesi WHERE IdCliente=? AND DataPrenotazione >= ? ORDER BY DataPrenotazione ASC LIMIT 8";
         try {
+            Connection conn = ConnessioneDatabase.getConnection();
             PreparedStatement prelevamento=conn.prepareStatement(cerco);
             prelevamento.setInt(1,DatiSessioneCliente.getIdUtente());
             prelevamento.setString(2,LocalDate.now().toString());
@@ -162,7 +162,7 @@ public class DatiSessioneCliente {
             }
             return date;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("CIAO5" +e.getMessage());
         }
         return date;
     }
@@ -274,13 +274,14 @@ public class DatiSessioneCliente {
         //dobbiamo convertire la stringa ottenuta in un Path.
 
         try {
+            Connection conn = ConnessioneDatabase.getConnection();
             PreparedStatement immagineProfilo = conn.prepareStatement(salvaImmagine);
             //Passo il contenuto dell'immagine,è uno stream binario
             immagineProfilo.setBytes(1, imageBytes);
             immagineProfilo.setInt(2, idUtente);
             immagineProfilo.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("CIAO6" +e.getMessage());
         }
     }
 
@@ -288,6 +289,7 @@ public class DatiSessioneCliente {
     public static Image caricaImmagineProfiloUtente(int idUtente) throws SQLException {
         String caricaImmagine="Select ImmagineProfilo from Cliente where IdCliente=?";
         try {
+            Connection conn = ConnessioneDatabase.getConnection();
             PreparedStatement immagineProfilo=conn.prepareStatement(caricaImmagine);
             immagineProfilo.setInt(1,idUtente);
             ResultSet risultato=immagineProfilo.executeQuery();
@@ -302,7 +304,7 @@ public class DatiSessioneCliente {
                 }
             }
         }catch (SQLException e){
-            System.out.println(e.getMessage());
+            System.out.println("CIAO7" +e.getMessage());
         }
         return null;
     }
@@ -319,6 +321,7 @@ public class DatiSessioneCliente {
         if(certificatoBytes.length==0) return false;
 
         try {
+            Connection conn = ConnessioneDatabase.getConnection();
             conn.setAutoCommit(false);
             PreparedStatement datiCertificato=conn.prepareStatement(caricoCertificato);
             datiCertificato.setInt(1, idUtente);
@@ -347,7 +350,7 @@ public class DatiSessioneCliente {
             }
 
         }catch (SQLException e){
-            System.out.println(e.getMessage());
+            System.out.println("CIAO7" +e.getMessage());
         }
         return false;
     }
@@ -363,6 +366,7 @@ public class DatiSessioneCliente {
     public static boolean onClickEliminaUtente(int id) throws SQLException {
         String eliminaUtente="DELETE FROM Cliente WHERE IdCliente=?";
         try {
+            Connection conn = ConnessioneDatabase.getConnection();
             PreparedStatement datiEliminaUtente=conn.prepareStatement(eliminaUtente);
             datiEliminaUtente.setInt(1,id);
 
@@ -388,7 +392,7 @@ public class DatiSessioneCliente {
                 else return false;
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("CIAO8" +e.getMessage());
         }
         return false;
     }
@@ -398,6 +402,7 @@ public class DatiSessioneCliente {
         String caricaPeso="SELECT Peso FROM PesoCliente WHERE IdCliente=? ORDER BY DataRegistrazionePeso DESC LIMIT 1";
 
         try {
+            Connection conn = ConnessioneDatabase.getConnection();
             PreparedStatement datiCaricaPeso=conn.prepareStatement(caricaPeso);
             datiCaricaPeso.setInt(1,IdUtente);
             ResultSet risultato=datiCaricaPeso.executeQuery();
@@ -405,7 +410,7 @@ public class DatiSessioneCliente {
                 pesoAttuale=risultato.getInt("Peso");
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("CIAO9" +e.getMessage());
         }
     }
 
@@ -415,6 +420,7 @@ public class DatiSessioneCliente {
         String caricaStoricoPesi="SELECT DataRegistrazionePeso,Peso FROM PesoCliente WHERE IdCliente=? ORDER BY DataRegistrazionePeso DESC LIMIT 10";
 
         try {
+            Connection conn = ConnessioneDatabase.getConnection();
             PreparedStatement datiCaricaStorico=conn.prepareStatement(caricaStoricoPesi);
             datiCaricaStorico.setInt(1,IdUtente);
             ResultSet risultato=datiCaricaStorico.executeQuery();
@@ -427,7 +433,7 @@ public class DatiSessioneCliente {
             }
             return storicoPesi;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("CIAO10" +e.getMessage());
         }
         return storicoPesi;
     }
@@ -439,6 +445,7 @@ public class DatiSessioneCliente {
         ArrayList<Pair<String,Number>> lista = new ArrayList<>();
 
         try {
+            Connection conn = ConnessioneDatabase.getConnection();
             PreparedStatement prelievo = conn.prepareStatement(prelevamento);
             prelievo.setInt(1, DatiSessioneCliente.getIdUtente());
             prelievo.setString(2, esercizio);
@@ -457,7 +464,7 @@ public class DatiSessioneCliente {
             return lista;
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("CIAO11" +e.getMessage());
         }
         return lista;
     }
@@ -469,6 +476,7 @@ public class DatiSessioneCliente {
         ArrayList<Pair<String,Number>> lista = new ArrayList<>();
 
         try {
+            Connection conn = ConnessioneDatabase.getConnection();
             PreparedStatement prelevamento = conn.prepareStatement(prelevaPrenotazioni);
             prelevamento.setInt(1, IdUtente);
             ResultSet rs = prelevamento.executeQuery();
@@ -482,7 +490,7 @@ public class DatiSessioneCliente {
             }
             return lista;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("CIAO12" +e.getMessage());
         }
         return lista;
     }
@@ -492,13 +500,14 @@ public class DatiSessioneCliente {
         String fetchDataScadenza = "SELECT DataFineAbbonamento FROM AbbonamentoCliente WHERE IdCliente = ? AND StatoAbbonamento = 1";
 
         try {
+            Connection conn = ConnessioneDatabase.getConnection();
             PreparedStatement prelevamento = conn.prepareStatement(fetchDataScadenza);
             prelevamento.setInt(1, IdUtente);
             ResultSet rs = prelevamento.executeQuery();
 
             if (rs.next()) return rs.getString("DataFineAbbonamento");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("CIAO13" +e.getMessage());
         }
         return null;
     }
@@ -508,6 +517,7 @@ public class DatiSessioneCliente {
         String fetchCertificato = "SELECT IdCertificato FROM Certificato WHERE IdCliente = ?";
 
         try {
+            Connection conn = ConnessioneDatabase.getConnection();
             PreparedStatement prelevamento = conn.prepareStatement(fetchCertificato);
             prelevamento.setInt(1, IdUtente);
             ResultSet rs = prelevamento.executeQuery();
@@ -515,7 +525,7 @@ public class DatiSessioneCliente {
             if (rs.next()) return rs.getInt("IdCertificato");
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("CIAO14" +e.getMessage());
         }
         return 0;
     }

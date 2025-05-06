@@ -10,9 +10,9 @@ import java.sql.*;
 
 public class ModelSchedaAllenamentoCliente {
 
-    static Connection conn = ConnessioneDatabase.getConnection();
-
     public static void creaScheda() {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String creazioneScheda = "INSERT INTO SchedaAllenamento (IdCliente) VALUES (?)";
         String prelevaIDScheda = "SELECT IdScheda FROM SchedaAllenamento WHERE IdCliente = ? AND SchedaAncoraInUso = 1 LIMIT 1";
 
@@ -37,6 +37,8 @@ public class ModelSchedaAllenamentoCliente {
     }
 
     public static void richiediScheda() {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String creazioneScheda = "INSERT INTO SchedaAllenamento (IdCliente, IdAdmin) VALUES (?, ?)";
         String prelevaIDScheda = "SELECT IdScheda FROM SchedaAllenamento WHERE IdCliente = ? AND SchedaAncoraInUso = 1 AND IdAdmin = 1 AND SchedaCompilata = 0 LIMIT 1";
 
@@ -63,6 +65,8 @@ public class ModelSchedaAllenamentoCliente {
     }
 
     public static void inserisciEsercizioScheda(String nomeEsercizio, int idSchedaAllenamento, String numeroRipetizioni, String numeroSerie) {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String inserimentoEsercizio = "INSERT INTO ComposizioneSchedaAllenamento (NomeEsercizio, IdSchedaAllenamento, NumeroRipetizioni, NumeroSerie) " +
                 "VALUES (?, ?, ?, ?)";
 
@@ -79,6 +83,8 @@ public class ModelSchedaAllenamentoCliente {
     }
 
     public static void onRimuoviEsercizio(String nomeEsercizio, int idSchedaAllenamento) {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String eliminaEsercizio = "DELETE FROM ComposizioneSchedaAllenamento WHERE NomeEsercizio = ? AND IdSchedaAllenamento = ?";
 
         try {
@@ -95,6 +101,8 @@ public class ModelSchedaAllenamentoCliente {
     }
 
     public static void onAggiungiNuovoMassimale(int idUtente, String nomeEsercizio, String dataInserimento, double peso) throws SQLException {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String massimale = "INSERT INTO MassimaleImpostatoCliente (IdCliente, NomeEsercizio, DataInserimento, Peso) VALUES (?, ?, ?, ?)";
 
         try {
@@ -115,6 +123,8 @@ public class ModelSchedaAllenamentoCliente {
     }
 
     public static void onUpdateMassimale(double nuovoMassimale, int idCliente, String nomeEsercizio) {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String updateMassimale = "UPDATE MassimaleImpostatoCliente SET Peso = ? WHERE IdCliente = ? AND NomeEsercizio = ?";
         try {
             PreparedStatement inserimento = conn.prepareStatement(updateMassimale);
@@ -131,6 +141,8 @@ public class ModelSchedaAllenamentoCliente {
     }
 
     public static void eliminaSchedaAllenamento(int idScheda) throws SQLException {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String eliminazioneScheda = "DELETE FROM SchedaAllenamento WHERE IdScheda = ?";
         int statusQuery = 0;
 

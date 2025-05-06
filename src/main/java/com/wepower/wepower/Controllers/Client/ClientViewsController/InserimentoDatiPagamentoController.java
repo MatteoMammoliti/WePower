@@ -8,8 +8,6 @@ import com.wepower.wepower.Views.AlertHelper;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -68,6 +66,8 @@ public class InserimentoDatiPagamentoController implements Initializable {
     }
 
     public void onClickPaga() throws SQLException {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String proprietarioCarta = textFieldProprietarioCarta.getText();
         String numeroCarta = textFieldNumeroCarta.getText().replaceAll("[\\s-]", "");
 
@@ -101,26 +101,31 @@ public class InserimentoDatiPagamentoController implements Initializable {
         String controlloBonamentoGiàEsistente="SELECT * from AbbonamentoCliente WHERE StatoAbbonamento=1 and IdCliente=?";
         String cercoIdAbbonamento="SELECT IdTipoAbbonamento,Durata from TipoAbbonamento WHERE NomeAbbonamento=?";
         String aggiungoAbbonamento="INSERT INTO AbbonamentoCliente (IdCliente,IdTipoAbbonamento,DataInizioAbbonamento,DataFineAbbonamento,StatoAbbonamento) VALUES (?,?,?,?,?)";
-        try(Connection conn= ConnessioneDatabase.getConnection()){
+        try {
             conn.setAutoCommit(false);
-            try (PreparedStatement caricoDati= conn.prepareStatement(controlloBonamentoGiàEsistente)){
-                caricoDati.setInt(1,DatiSessioneCliente.getIdUtente());
-                ResultSet risultato= caricoDati.executeQuery();
-                if(risultato.next()){
-                    AlertHelper.showAlert("Attenzione", "Hai già un abbonamento attivo", null, Alert.AlertType.ERROR);
-                    conn.rollback();
-                    return;
-                }
+            PreparedStatement caricoDati= conn.prepareStatement(controlloBonamentoGiàEsistente);
+            caricoDati.setInt(1,DatiSessioneCliente.getIdUtente());
+            ResultSet risultatoPrimaQuery = caricoDati.executeQuery();
+
+            if(risultatoPrimaQuery.next()){
+                AlertHelper.showAlert("Attenzione", "Hai già un abbonamento attivo", null, Alert.AlertType.ERROR);
+                conn.rollback();
+                return;
             }
-            try(PreparedStatement abbonamento=conn.prepareStatement(cercoIdAbbonamento)){
-                String testoLabel       = labelNomeAbbonamento.getText();
-                String nomeAbbonamento  = testoLabel.substring(testoLabel.indexOf(':') + 1).trim();
+
+            try {
+                PreparedStatement abbonamento=conn.prepareStatement(cercoIdAbbonamento);
+                String testoLabel = labelNomeAbbonamento.getText();
+                String nomeAbbonamento = testoLabel.substring(testoLabel.indexOf(':') + 1).trim();
                 abbonamento.setString(1,nomeAbbonamento);
-                ResultSet risultato= abbonamento.executeQuery();
-                if(risultato.next()){
-                    idAbbonamento=risultato.getInt("IdTipoAbbonamento");
-                    durataAbb=risultato.getInt("Durata");
+
+                ResultSet risultatoSecondaQuery = abbonamento.executeQuery();
+
+                if(risultatoSecondaQuery.next()){
+                    idAbbonamento= risultatoSecondaQuery.getInt("IdTipoAbbonamento");
+                    durataAbb= risultatoSecondaQuery.getInt("Durata");
                 }
+
                 if (durataAbb <= 0) {// sicurezza extra
                     AlertHelper.showAlert("Attenzione", "Durata abbonamento non valida (" + durataAbb + ")", null, Alert.AlertType.ERROR);
                     conn.rollback();
@@ -130,25 +135,31 @@ public class InserimentoDatiPagamentoController implements Initializable {
                 conn.rollback();
                 return;
             }
-            try (PreparedStatement caricoAbbonamento=conn.prepareStatement(aggiungoAbbonamento)){
+
+            try {
+                PreparedStatement caricoAbbonamento=conn.prepareStatement(aggiungoAbbonamento);
                 caricoAbbonamento.setInt(1,DatiSessioneCliente.getIdUtente());
                 caricoAbbonamento.setInt(2,idAbbonamento);
                 caricoAbbonamento.setString(3, LocalDate.now().toString());
                 caricoAbbonamento.setString(4,data.plusMonths(durataAbb).toString());
                 caricoAbbonamento.setInt(5,1);
+
                 int aggiunta=caricoAbbonamento.executeUpdate();
+
                 if(aggiunta>0){
                     AlertHelper.showAlert("Attenzione", "Pagamento avvenuto con successo", null, Alert.AlertType.INFORMATION);
                     conn.commit();
                     Stage stage=(Stage) btnPaga.getScene().getWindow();
                     DatiSessioneCliente.setStatoAbbonamento(true);
+
                     if(Model.getInstance().getProfiloController()!=null){
                         Model.getInstance().getProfiloController().caricaInterfacciaDatiUtente();
                     }
+
                     Model.getInstance().getClientMenuController().caricaMenu();
                     stage.close();
-                    if(finestraPrecedente!=null){finestraPrecedente.close();}
 
+                    if(finestraPrecedente!=null){finestraPrecedente.close();}
                 }
                 else{
                     AlertHelper.showAlert("Attenzione", "Errore nell'attivazione dell'abbonamento", null, Alert.AlertType.ERROR);
@@ -158,6 +169,8 @@ public class InserimentoDatiPagamentoController implements Initializable {
                 conn.rollback();
                 throw e;
             }
+        } catch (SQLException e) {
+            AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il pagamento", null, Alert.AlertType.ERROR);
         }
     }
 }

@@ -10,10 +10,10 @@ import java.util.ArrayList;
 
 public class TabellaUtentiDashboardAdmin {
 
-    static Connection conn = ConnessioneDatabase.getConnection();
-
     // ???????? GESTISCI LE ECCEZIONI E PULISCI IL CODICE
     public static ArrayList<RigaDashboardAdmin> riempiRiga() throws SQLException {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         ArrayList<RigaDashboardAdmin> ris = new ArrayList<RigaDashboardAdmin>();
         String query = """
                 SELECT
@@ -64,6 +64,8 @@ public class TabellaUtentiDashboardAdmin {
     }
 
     public static boolean eliminaRiga(int id) throws SQLException {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String eliminaUtente = "DELETE FROM Cliente WHERE IdCliente = ?";
         int risultatoEliminazione;
         try {
@@ -79,6 +81,8 @@ public class TabellaUtentiDashboardAdmin {
     }
 
     public static boolean salvaModifiche (int id, String nome, String cognome,String dataNascita, String dataRinnovo, String dataScadenza,int statoAbbonamento, int idTipoAbbonamento) throws SQLException {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         try {
             conn.setAutoCommit(false);
             String queryUpdateCliente = "UPDATE Cliente SET Nome = ?, Cognome=?, DataNascita=? WHERE IdCliente = ?";
@@ -126,6 +130,8 @@ public class TabellaUtentiDashboardAdmin {
     }
 
     public static ArrayList<String> prelevaTipiAbbonamenti( ) {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         ArrayList<String> tipi = new ArrayList<>();
         String query = "SELECT NomeAbbonamento FROM TipoAbbonamento";
         try {
@@ -143,6 +149,8 @@ public class TabellaUtentiDashboardAdmin {
     }
 
     public static int prelevaIdTipiAbbonamento(String nomeTipoAbbonamento) {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String query="SELECT IdTipoAbbonamento FROM TipoAbbonamento WHERE NomeAbbonamento = ?";
         try {
             PreparedStatement psIdTipo=conn.prepareStatement(query);
@@ -161,6 +169,8 @@ public class TabellaUtentiDashboardAdmin {
     }
 
     public static int prelevaDurataTipoAbbonamento(String nomeTipoAbbonamento) throws SQLException {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String query="SELECT Durata FROM TipoAbbonamento WHERE NomeAbbonamento = ?";
         try {
             PreparedStatement psDurata=conn.prepareStatement(query);

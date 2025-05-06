@@ -10,9 +10,9 @@ import java.sql.SQLException;
 
 public class ModelPrenotazioni {
 
-    static Connection conn = ConnessioneDatabase.getConnection();
-
     public static boolean aggiuntiPrenotazioneSalaPesi(String data, String orario, int idUtente) throws SQLException {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         if (!DatiSessioneCliente.getStatoAbbonamento()) {
             AlertHelper.showAlert("Errore", "Non hai un abbonamento attivo, impossibile prenotare", null, Alert.AlertType.ERROR);
             return false;
@@ -47,6 +47,8 @@ public class ModelPrenotazioni {
     }
 
     public static boolean rimuoviPrenotazioneSalaPesi(String data,String orario,int idUtente)  {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         if (orario.matches("\\d{1,2}")) {
             int ora = Integer.parseInt(orario);
             orario = String.format("%02d:00", ora);

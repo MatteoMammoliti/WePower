@@ -8,9 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class ModelMassimoPrenotazioni {
-    static Connection conn = ConnessioneDatabase.getConnection();
-
     public static void salvaNuovaCapienza(int nuovaCapienza) {
+        Connection conn = ConnessioneDatabase.getConnection();
+
         String query="UPDATE SalaPesi SET NumeriPostiMassimo = ? WHERE IdSalaPesi = 1";
 
         try {

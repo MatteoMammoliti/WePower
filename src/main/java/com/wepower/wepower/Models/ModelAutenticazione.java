@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ModelAutenticazione {
-    static Connection conn = ConnessioneDatabase.getConnection();
+
 
     public static boolean verificaCredenziali(String email, String password) {
 
@@ -23,6 +23,7 @@ public class ModelAutenticazione {
 
         // prelievo dati in base al tipo di utente
         try {
+            Connection conn = ConnessioneDatabase.getConnection();
             PreparedStatement datiCliente = conn.prepareStatement(loginCliente);
             datiCliente.setString(1, email);
             datiCliente.setString(2, password);
@@ -62,42 +63,59 @@ public class ModelAutenticazione {
                     } else {
                         DatiSessioneCliente.setStatoAbbonamento(false);
                         String updateStatoAbbonamento = "UPDATE AbbonamentoCliente SET StatoAbbonamento = 0 WHERE IdCliente = ? AND StatoAbbonamento = 1";
-                        PreparedStatement updateStato = conn.prepareStatement(updateStatoAbbonamento);
-                        updateStato.setInt(1, DatiSessioneCliente.getIdUtente());
-                        updateStato.executeUpdate();
+
+                        try {
+                            conn = ConnessioneDatabase.getConnection();
+                            PreparedStatement updateStato = conn.prepareStatement(updateStatoAbbonamento);
+                            updateStato.setInt(1, DatiSessioneCliente.getIdUtente());
+                            updateStato.executeUpdate();
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
 
                     // prelievo dell'id scheda allenamento del cliente
                     String querySchedaAllenamento = "SELECT IdScheda, IdAdmin FROM SchedaAllenamento WHERE IdCliente = ? AND SchedaAncoraInUso = 1";
-                    PreparedStatement datiSchedaAllenamento = conn.prepareStatement(querySchedaAllenamento);
-                    datiSchedaAllenamento.setInt(1, DatiSessioneCliente.getIdUtente());
-                    ResultSet risultatoScheda = datiSchedaAllenamento.executeQuery();
 
-                    if (risultatoScheda.next()) {
-                        DatiSessioneCliente.setIdSchedaAllenamento(risultatoScheda.getInt("IdScheda"));
-                        DatiSessioneCliente.setSeSchedaRichiesta(risultatoScheda.getInt("IdAdmin") == 1);
-                    } else {
-                        DatiSessioneCliente.setIdSchedaAllenamento(0);
-                        DatiSessioneCliente.setSeSchedaRichiesta(false);
+                    try {
+                         conn = ConnessioneDatabase.getConnection();
+                        PreparedStatement datiSchedaAllenamento = conn.prepareStatement(querySchedaAllenamento);
+                        datiSchedaAllenamento.setInt(1, DatiSessioneCliente.getIdUtente());
+                        ResultSet risultatoScheda = datiSchedaAllenamento.executeQuery();
+
+                        if (risultatoScheda.next()) {
+                            DatiSessioneCliente.setIdSchedaAllenamento(risultatoScheda.getInt("IdScheda"));
+                            DatiSessioneCliente.setSeSchedaRichiesta(risultatoScheda.getInt("IdAdmin") == 1);
+                        } else {
+                            DatiSessioneCliente.setIdSchedaAllenamento(0);
+                            DatiSessioneCliente.setSeSchedaRichiesta(false);
+                        }
+
+                        // riempimento della lista con gli esercizi a cui l'utente ha assegnato almeno un massimale (per il grafico)
+                        riempiListaEserciziConMassimali(DatiSessioneCliente.getIdUtente());
+                        return true;
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
                     }
-
-                    // riempimento della lista con gli esercizi a cui l'utente ha assegnato almeno un massimale (per il grafico)
-                    riempiListaEserciziConMassimali(DatiSessioneCliente.getIdUtente());
-                    return true;
                 }
 
-                //Se non trovo il cliente, vado a vedere se è un admin e prelevo i suoi dati
-                PreparedStatement datiAdmin =conn.prepareStatement(loginAdmin);
-                datiAdmin.setString(1, email);
-                datiAdmin.setString(2, password);
-                ResultSet risultatoAdmin = datiAdmin.executeQuery();
+                try {
+                     conn = ConnessioneDatabase.getConnection();
+                    //Se non trovo il cliente, vado a vedere se è un admin e prelevo i suoi dati
+                    PreparedStatement datiAdmin =conn.prepareStatement(loginAdmin);
+                    datiAdmin.setString(1, email);
+                    datiAdmin.setString(2, password);
+                    ResultSet risultatoAdmin = datiAdmin.executeQuery();
 
-                if(risultatoAdmin.next()) {
-                    DatiSessioneCliente.setNomeUtente("Admin");
-                    return true;
+                    if(risultatoAdmin.next()) {
+                        DatiSessioneCliente.setNomeUtente("Admin");
+                        return true;
+                    }
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
                 }
         } catch (Exception e) {
-            AlertHelper.showAlert("Questo non doveva succedere", " ehsisisi", null, Alert.AlertType.ERROR);
+            AlertHelper.showAlert("Questo non doveva succedere", " Errore durante l'autenticazione", null, Alert.AlertType.ERROR);
         }
         return false;
     }
@@ -105,6 +123,7 @@ public class ModelAutenticazione {
     // preleviamo tutte le prenotazioni nelle sale pesi per il conteggio dei posti disponibili per ogni giorno e per ogni ora
     public static void prelevaDatiPalestra() throws SQLException {
         String prelevaDatiPrenotazioniSalaPesi="SELECT * FROM PrenotazioneSalaPesi";
+        Connection conn = ConnessioneDatabase.getConnection();
         try {
             PreparedStatement datiPrenotazioni = conn.prepareStatement(prelevaDatiPrenotazioniSalaPesi);
             ResultSet risultato = datiPrenotazioni.executeQuery();
@@ -122,6 +141,8 @@ public class ModelAutenticazione {
     // vado a prendermi dal Database tutte le date in cui il cliente ha prenotato la salapesi per mostrarle nel calendario
     public static ArrayList<PrenotazioneSalaPesi> caricaDatePrenotazioniSalaPesi(int idUtente) throws SQLException{
         ArrayList<PrenotazioneSalaPesi>  datePrenotazioni = new ArrayList<>();
+
+        Connection conn = ConnessioneDatabase.getConnection();
 
         String query = "SELECT DataPrenotazione, OrarioPrenotazione FROM PrenotazioneSalaPesi WHERE idCliente = ?";
         try {
@@ -144,7 +165,7 @@ public class ModelAutenticazione {
 
     // prelevo tutti gli esercizi a cui l'utente ha assegnato un massimale per mostrarli nel menu a tendina del grafico in dashboard
     public static void riempiListaEserciziConMassimali(int Id) {
-
+        Connection conn = ConnessioneDatabase.getConnection();
         String query = "SELECT NomeEsercizio FROM MassimaleImpostatoCliente WHERE IdCliente = ?";
         try {
             PreparedStatement datiEsercizi = conn.prepareStatement(query);
@@ -165,7 +186,8 @@ public class ModelAutenticazione {
         String fetchEsercizi = "SELECT NomeEsercizio FROM Esercizio";
         ArrayList<String> eserciziInPalestra = new ArrayList<>();
 
-        try (Connection conn = ConnessioneDatabase.getConnection()) {
+        try {
+            Connection conn = ConnessioneDatabase.getConnection();
             PreparedStatement esercizi =  conn.prepareStatement(fetchEsercizi);
             ResultSet risultato = esercizi.executeQuery();
 
