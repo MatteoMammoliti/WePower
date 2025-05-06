@@ -1,7 +1,7 @@
 package com.wepower.wepower.Controllers.Admin;
 
 import com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra;
-import com.wepower.wepower.Views.AdminView.RigaTabellaCertificati;
+import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Views.AdminView.RigaTabellaRichiesteScheda;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,7 +11,6 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -33,38 +32,39 @@ public class SchedeAdminController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Model.getInstance().setSchedeAdminController(this);
         colID.setCellValueFactory(new PropertyValueFactory<>("idUtente"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colCognome.setCellValueFactory(new PropertyValueFactory<>("cognome"));
         colPeso.setCellValueFactory(new PropertyValueFactory<>("peso"));
         colSesso.setCellValueFactory(new PropertyValueFactory<>("sesso"));
+
         //Carico i dati delle richieste di scheda
-        aggiornaTabbella();
+        aggiornaTabella();
         aggiungiBottone();
     }
 
-    public void aggiornaTabbella() {
+    public void aggiornaTabella() {
         ObservableList<RigaTabellaRichiesteScheda> utenti = DatiSessionePalestra.getRichiesteScheda();
         tabellaSchede.setItems(utenti);
     }
 
     private void aggiungiBottone() {
-        SchedeAdminController controller = this;
         colCrea.setCellFactory(col -> new TableCell<>() {
             private final Button btn = new Button("Visualizza");
-
             {
                 btn.setOnAction(event -> {
                     RigaTabellaRichiesteScheda riga = getTableView().getItems().get(getIndex());
                     int id = riga.getIdUtente();
                     //Quando clicchiamo sul bottone, chiamiamo il metodo onClickVisualizza e gli passiamo l'id del cliente
                     try {
-                        SchermataCreazioneSchedaAdmin.visualizzaSchermataCreazioneScheda(id,  controller);
+                        SchermataCreazioneSchedaAdmin.visualizzaSchermataCreazioneScheda(id,  Model.getInstance().getSchedeAdminController());
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
                 });
             }
+
             //Sovrascriviamo un metodo della classe TableCell.
             //Questo metodo viene chiamato automaticamante da javaFX ogni volta che la tabella si aggiorna.
             //empty è true se la riga è vuota.

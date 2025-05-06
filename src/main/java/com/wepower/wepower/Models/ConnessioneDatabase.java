@@ -6,15 +6,27 @@ import java.sql.SQLException;
 
 public class ConnessioneDatabase {
     private static final String DB_URL ="jdbc:sqlite:Database/database.db";
+    private static Connection conn = null;
 
     public static Connection getConnection() {
-        Connection conn = null;
         try{
-            conn = DriverManager.getConnection(DB_URL);
-            conn.createStatement().execute("PRAGMA foreign_keys = ON");
+            if (conn == null || conn.isClosed()) {
+                conn = DriverManager.getConnection(DB_URL);
+                conn.createStatement().execute("PRAGMA foreign_keys = ON");
+            }
         }catch (SQLException e){
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return  conn;
+    }
+
+    public static void closeConnection() {
+        try {
+            if(conn != null) {
+                conn.close();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

@@ -56,15 +56,11 @@ public class RigaEsercizioSchedaClient extends HBox {
 
         this.aggiungiMassimale = new Button("Aggiungi massimale");
         this.aggiungiMassimale.setOnAction(event -> {
-            try {
-                this.aggiungiNuovoMassimale.setVisible(true);
-                if(Integer.parseInt(this.massimaleAttuale.getText().replace("Massimale attuale: ", "")) > Integer.parseInt(this.aggiungiNuovoMassimale.getText())) {
-                    AlertHelper.showAlert("Errore", "Il nuovo massimale è minore di quello già presente", null, Alert.AlertType.ERROR );
-                    this.aggiungiNuovoMassimale.clear();
-                } else onAggiungiNuovoMassimale();
-            } catch (SQLException e) {
-                AlertHelper.showAlert("Errore", "Qualcosa è andato storto", null, Alert.AlertType.ERROR );
-            }
+            this.aggiungiNuovoMassimale.setVisible(true);
+            if(Integer.parseInt(this.massimaleAttuale.getText().replace("Massimale attuale: ", "")) > Integer.parseInt(this.aggiungiNuovoMassimale.getText())) {
+                AlertHelper.showAlert("Errore", "Il nuovo massimale è minore di quello già presente", null, Alert.AlertType.ERROR );
+                this.aggiungiNuovoMassimale.clear();
+            } else onAggiungiNuovoMassimale();
         });
         aggiungiMassimale.getStyleClass().add("btnScheda");
 
@@ -98,7 +94,7 @@ public class RigaEsercizioSchedaClient extends HBox {
         this.setPadding(new Insets(10));
     }
 
-    private void onAggiungiNuovoMassimale () throws SQLException {
+    private void onAggiungiNuovoMassimale () {
         try {
             ModelSchedaAllenamentoCliente.onAggiungiNuovoMassimale(DatiSessioneCliente.getIdUtente(),
                     this.nomeEsercizio.getText(), LocalDate.now().toString(), Double.parseDouble(this.aggiungiNuovoMassimale.getText()));

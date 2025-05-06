@@ -1,6 +1,8 @@
 package com.wepower.wepower.Models;
 
+import com.wepower.wepower.Controllers.Admin.SchedeAdminController;
 import com.wepower.wepower.Controllers.Admin.SchermataCreazioneSchedaAdmin;
+import com.wepower.wepower.Controllers.Admin.TabellaCertificatiAdminController;
 import com.wepower.wepower.Controllers.Client.ClientDashboardController;
 import com.wepower.wepower.Controllers.Client.ClientMenuController;
 import com.wepower.wepower.Controllers.Client.ClientViewsController.ProfiloController;
@@ -15,11 +17,12 @@ public class Model {
     private ProfiloController profiloController;
     private SchermataSelezioneAbbonamentoController schermataSelezioneAbbonamento;
     private static Model model;
-    private ConnessioneDatabase connessioneDatabase;
     private ClientMenuController clientMenuController;
     private ClientDashboardController  clientDashboardController;
     private SchedaController schedaController;
     private SchermataCreazioneSchedaAdmin  schermataCreazioneSchedaAdmin;
+    private SchedeAdminController schedeAdminController;
+    private TabellaCertificatiAdminController tabellaCertificatiAdminController;
 
     // la classe Model (di business) è collegata alla gestione delle viste (viewFactory)
     private final ViewFactoryClient viewFactoryClient;
@@ -43,6 +46,8 @@ public class Model {
         return clientDashboardController;
     }
     public SchermataCreazioneSchedaAdmin getSchermataCreazioneSchedaAdminController() { return schermataCreazioneSchedaAdmin; }
+    public SchedeAdminController getSchedeAdminController() { return schedeAdminController; }
+    public TabellaCertificatiAdminController getTabellaCertificatiAdminController() { return tabellaCertificatiAdminController; }
 
     // SETTER
     public void setClientMenuController(ClientMenuController clientMenuController) { this.clientMenuController = clientMenuController; }
@@ -52,12 +57,8 @@ public class Model {
     }
     public void setSchermataCreazioneSchedaAdminController(SchermataCreazioneSchedaAdmin schermataCreazioneSchedaAdmin) { this.schermataCreazioneSchedaAdmin = schermataCreazioneSchedaAdmin; }
     public void setClientDashboardController(ClientDashboardController clientDashboardController) { this.clientDashboardController = clientDashboardController; }
-
-    // ??
-    public void TestConnessione() {
-        connessioneDatabase = new ConnessioneDatabase();
-        connessioneDatabase.getConnection();
-    }
+    public void setSchedeAdminController(SchedeAdminController schedeAdminController) { this.schedeAdminController = schedeAdminController; }
+    public void setTabellaCertificatiAdminController(TabellaCertificatiAdminController tabellaCertificatiAdminController) { this.tabellaCertificatiAdminController = tabellaCertificatiAdminController; }
 
     // ottengo l'instanza di Model (singleton)
     // synchronized per evitare che più thread possano accedere a Model contemporaneamente

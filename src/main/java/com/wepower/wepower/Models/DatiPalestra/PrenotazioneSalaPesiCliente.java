@@ -17,19 +17,6 @@ public class PrenotazioneSalaPesiCliente {
         this.OrarioPrenotazione = orarioPrenotazione;
     }
 
-    //Getter
-    public int getIdCliente() {
-        return IdCliente;
-    }
-    public int getIdSalaPesi() {
-        return IdSalaPesi;
-    }
-    public String getDataPrenotazione() {
-        return DataPrenotazione;
-    }
-    public String getOrarioPrenotazione() {
-        return OrarioPrenotazione;
-    }
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -41,5 +28,4 @@ public class PrenotazioneSalaPesiCliente {
     public int hashCode() {
         return 31 * IdSalaPesi + DataPrenotazione.hashCode() + OrarioPrenotazione.hashCode();
     }
-
 }

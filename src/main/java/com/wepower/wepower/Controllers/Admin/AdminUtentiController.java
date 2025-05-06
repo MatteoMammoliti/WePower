@@ -51,7 +51,7 @@ public class AdminUtentiController implements Initializable {
     @FXML
     private TableColumn<RigaDashboardAdmin, Void> colElimina;
 
-
+    // TUTTO ????? (GESTIONE DELLE ECCEZIONI CON ALERT (classe nostra) O STAMPE)
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colId.setCellValueFactory(cellData -> cellData.getValue().idClienteProperty());

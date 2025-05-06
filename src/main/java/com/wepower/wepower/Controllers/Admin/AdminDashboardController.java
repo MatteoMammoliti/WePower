@@ -1,7 +1,7 @@
 package com.wepower.wepower.Controllers.Admin;
-
 import com.wepower.wepower.Models.AdminModel.ModelDashboardAdmin;
 import com.wepower.wepower.Views.AdminView.RigaVisualizzatoreOfferteAttive;
+import com.wepower.wepower.Views.AlertHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,12 +9,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -52,42 +52,41 @@ public class AdminDashboardController implements Initializable {
     }
 
     public  static AdminDashboardController getInstance() {return instance;}
-    //Carico i dati della palestra visibili nella dashboard(Totale abbonamenti,richieste schede,certificati in attesa,ecc..)
+
+    //Carico i dati della palestra visibili nella dashboard (Totale abbonamenti,richieste schede,certificati in attesa,ecc..)
     public void setDatiPalestra(){
         labelTotaleAbbonamenti.setText(ModelDashboardAdmin.numeroAbbonamentiAttivi()+"");
         labelCertificatiAttesa.setText(ModelDashboardAdmin.numeroCertificatiAttesa()+"");
         labelPrenotatiOggi.setText(ModelDashboardAdmin.numeroPrenotatiOggi()+"");
         labelRichiesteSchede.setText(ModelDashboardAdmin.getNumeroSchedeRichieste()+"");
     }
+
+    // ?????
     public void setTendinaAnnoGrafico(){
         ArrayList<Integer> lista= ModelDashboardAdmin.getAnniTendinaGrafico();
         ObservableList<Integer> anniObs = FXCollections.observableArrayList(lista);
 
         annoGraficoTendina.setItems(anniObs);
         if (!anniObs.isEmpty()) {
-
             annoGraficoTendina.getSelectionModel().selectFirst();
-            System.out.println("pino"+annoGraficoTendina.getValue().toString());
             loadGraficoAnnuale(annoGraficoTendina.getValue());
         }
-        System.out.println("mimmo");
         annoGraficoTendina.setOnAction(e -> {
             Integer anno = annoGraficoTendina.getValue();
             if (anno != null) {
                 graficoAnnuale.getData().clear();
                 loadGraficoAnnuale(anno);
             }
-
         });
-
     }
 
-    //Carico le promozioni attive
+    // Carico le promozioni attive
     public void setPromozioni(){
         //Svuoto il container
         containerPromozioniAttive.getChildren().clear();
+
         //Prelevo le promozioni attive
-        ArrayList<Pair<String,String>> promozioni=new ArrayList<>();
+        ArrayList<Pair<String,String>> promozioni;
         promozioni=ModelDashboardAdmin.promozioniAttive();
 
         for(int i=0;i<promozioni.size();i++){
@@ -97,20 +96,23 @@ public class AdminDashboardController implements Initializable {
             //Aggiungo il banner
             containerPromozioniAttive.getChildren().add(new RigaVisualizzatoreOfferteAttive(nome,costo));
         }
+
         //Aggiungo il pulsante per le modifiche
         Button modifica=new Button("Aggiungi promozione");
         modifica.setOnAction(event -> {
+
             //Apro la finestra per l'inserimento di una nuova offerta
             try {
                 InserimentoNuovaOffertaController.apriSchermataAggiungiPromoziome();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                AlertHelper.showAlert("Questo non doveva succeda", "Errore durante l'apertura della schermata di inserimento offerte", null, Alert.AlertType.ERROR);
             }
         });
         modifica.getStyleClass().add("bottone_scheda");
         containerPromozioniAttive.getChildren().add(modifica);
     }
 
+    // ??????
     public void loadGraficoAnnuale(int anno){
         String annoStringa=String.valueOf(anno);
         Map<String,Integer> dati= ModelDashboardAdmin.getDatiGraficoAnnuale(annoStringa);
@@ -121,13 +123,11 @@ public class AdminDashboardController implements Initializable {
         for (Integer totale : dati.values()) {
             serie.getData().add(new XYChart.Data<>(mesi[i++], totale));
         }
-        graficoAnnuale.getData().setAll(serie);
+        graficoAnnuale.getData().clear();
+        graficoAnnuale.getData().add(serie);
     }
 
-
-
-
-
+    // ???????
     public void loadGraficoGenere(){
         ArrayList<Pair<String,Integer>> dati=ModelDashboardAdmin.getSessoUtentiPalestra();
         ObservableList<PieChart.Data> observableList= FXCollections.observableArrayList();
@@ -139,12 +139,8 @@ public class AdminDashboardController implements Initializable {
             }
 
             observableList.add(new PieChart.Data(nome,numero));
-
-
         }
         tortaGenere.setTitle("Percentuale iscritti per genere");
         tortaGenere.setData(observableList);
-
     }
-
 }

@@ -1,6 +1,6 @@
 package com.wepower.wepower.Controllers.Admin;
-
 import com.wepower.wepower.Models.AdminModel.DatiSessioneAdmin;
+import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra;
 import com.wepower.wepower.Models.Model;
 import javafx.fxml.Initializable;
@@ -16,6 +16,8 @@ public class AdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        // listener che rimane in ascolto di modifiche alla String Property della ViewFactory Admin
+        // in base al valore assunto dalla string, visualizza nel contenitore dell'admin view (insieme al menu)
         Model.getInstance().getViewFactoryAdmin().getCurrentMenuView().addListener((observableValue, attualeView, nuovaView) -> {
 
             switch (nuovaView) {
@@ -27,17 +29,20 @@ public class AdminController implements Initializable {
 
                 case "Certificati" -> contenitore_admin_view.setCenter(Model.getInstance().getViewFactoryAdmin().getCertificatiView());
 
-                case "Logout" -> {
-                    DatiSessioneAdmin.logout();
-                    DatiSessionePalestra.svuotaPrenotazioniSalaPesi();
-                    Model.invalidate();
-                    Stage currentStage = (Stage) contenitore_admin_view.getScene().getWindow();
-                    Model.getInstance().getViewFactoryClient().closeStage(currentStage);
-                    Model.getInstance().getViewFactoryClient().showLoginWindow();
-                }
+                case "Logout" -> onLogout();
 
                 default -> contenitore_admin_view.setCenter(Model.getInstance().getViewFactoryAdmin().getDashboard());
             }
         });
+    }
+
+    private void onLogout() {
+        DatiSessioneAdmin.logout();
+        DatiSessionePalestra.svuotaPrenotazioniSalaPesi();
+        ConnessioneDatabase.closeConnection();
+        Model.invalidate();
+        Stage currentStage = (Stage) contenitore_admin_view.getScene().getWindow();
+        Model.getInstance().getViewFactoryClient().closeStage(currentStage);
+        Model.getInstance().getViewFactoryClient().showLoginWindow();
     }
 }

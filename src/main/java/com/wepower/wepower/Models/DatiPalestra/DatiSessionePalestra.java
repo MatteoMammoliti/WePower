@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DatiSessionePalestra {
+    static Connection conn = ConnessioneDatabase.getConnection();
     private static int numeroMassimePrenotazioniPerFascieOrarie;
     private static Map<PrenotazioneSalaPesiCliente, Integer> prenotazioniSalePesi= new HashMap<>();
 
@@ -35,7 +36,8 @@ public class DatiSessionePalestra {
                 "WHERE s.IdAdmin = 1\n" +
                 "  AND s.SchedaAncoraInUso = 1\n" +
                 "  AND s.SchedaCompilata = 0;\n";
-        try(Connection conn= ConnessioneDatabase.getConnection()) {
+
+        try {
             PreparedStatement preparo=conn.prepareStatement(prendoIClienti);
             ResultSet rs=preparo.executeQuery();
             //In questo ciclo while, per ogni riga della tabella, creo un oggetto RigaTabellaRichiesteScheda e lo aggiungo alla lista
@@ -44,7 +46,7 @@ public class DatiSessionePalestra {
                 utenti.add(utente);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
         return utenti;
     }
@@ -62,12 +64,15 @@ public class DatiSessionePalestra {
 
     public static void setNumeroMassimoPrenotazioni() throws SQLException {
         String query="SELECT NumeriPostiMassimo FROM SalaPesi WHERE IdSalaPesi=1";
-        try(Connection conn=ConnessioneDatabase.getConnection()){
+
+        try {
             PreparedStatement ps=conn.prepareStatement(query);
             ResultSet rs=ps.executeQuery();
             if(rs.next()) {
                 numeroMassimePrenotazioniPerFascieOrarie=rs.getInt("NumeriPostiMassimo");
             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -91,8 +96,6 @@ public class DatiSessionePalestra {
                 prenotazioniSalePesi.remove(prenotazione);
             }
             return true;
-        } else {
-            return false;
-        }
+        } else return false;
     }
 }

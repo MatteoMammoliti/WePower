@@ -1,4 +1,5 @@
 package com.wepower.wepower.Controllers.Client;
+import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import javafx.fxml.Initializable;
@@ -21,6 +22,7 @@ public class ClientController implements Initializable {
                 case "Dashboard" -> contenitore_client_view.setCenter(Model.getInstance().getViewFactoryClient().getDashboard());
 
                 case "Logout" -> {
+                    ConnessioneDatabase.closeConnection();
                     DatiSessioneCliente.logout();
                     Stage currentStage = (Stage) contenitore_client_view.getScene().getWindow();
                     Model.getInstance().getViewFactoryClient().closeStage(currentStage);

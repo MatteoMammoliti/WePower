@@ -1,7 +1,6 @@
 package com.wepower.wepower.Models.DatiPalestra;
 
 import com.wepower.wepower.Models.ConnessioneDatabase;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +12,7 @@ public class Abbonamento {
     private String descrizioneAbbonamento;
     private int costo;
     private String durataAbbonamento;
+    static Connection conn = ConnessioneDatabase.getConnection();
 
     public Abbonamento(String nome,String descrizione,int costo,String durata){
         this.nomeAbbonamento=nome;
@@ -30,18 +30,17 @@ public class Abbonamento {
     public static ArrayList<Abbonamento> getAbbonamentiDb() throws SQLException {
         ArrayList<Abbonamento> abbonamenti=new ArrayList<>();
         String prendiDati="SELECT * FROM TipoAbbonamento";
-        try(Connection conn= ConnessioneDatabase.getConnection()){
-            try(PreparedStatement preparo=conn.prepareStatement(prendiDati)){
-                ResultSet risultato=preparo.executeQuery();
 
-                while(risultato.next()){
-                    Abbonamento nuovo=new Abbonamento(risultato.getString("NomeAbbonamento"),risultato.getString("Descrizione"),risultato.getInt("Costo"),risultato.getString("Durata"));
-                    abbonamenti.add(nuovo);
-                }
+        try {
+            PreparedStatement preparo=conn.prepareStatement(prendiDati);
+            ResultSet risultato=preparo.executeQuery();
+
+            while(risultato.next()){
+                Abbonamento nuovo=new Abbonamento(risultato.getString("NomeAbbonamento"),risultato.getString("Descrizione"),risultato.getInt("Costo"),risultato.getString("Durata"));
+                abbonamenti.add(nuovo);
             }
-
-        }catch(SQLException e){
-            e.printStackTrace();
+        } catch(SQLException e){
+            System.out.println(e.getMessage());
         }
         return abbonamenti;
     }

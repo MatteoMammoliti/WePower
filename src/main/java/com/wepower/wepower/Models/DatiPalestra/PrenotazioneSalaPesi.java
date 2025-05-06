@@ -21,20 +21,11 @@ public class PrenotazioneSalaPesi {
         return dataPrenotazione.equals(that.dataPrenotazione) && orarioPrenotazione.equals(that.orarioPrenotazione);
     }
 
-
     public String getDataPrenotazione() {
         return dataPrenotazione;
     }
 
     public String getOrarioPrenotazione() {
         return orarioPrenotazione;
-    }
-
-    public void setDataPrenotazione(String dataPrenotazione) {
-        this.dataPrenotazione = dataPrenotazione;
-    }
-
-    public void setOrarioPrenotazione(String orarioPrenotazione) {
-        this.orarioPrenotazione = orarioPrenotazione;
     }
 }

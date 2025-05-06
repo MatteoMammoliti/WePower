@@ -1,7 +1,5 @@
 package com.wepower.wepower.Models;
 
-import com.dlsc.formsfx.model.validators.RegexValidator;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,34 +11,36 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
 public class ModelValidazione {
+
+    static Connection conn = ConnessioneDatabase.getConnection();
+
     public static boolean controlloEmailvalida(String email){
         return Pattern.matches("^[a-zA-Z-0-9]+@gmail.com$",email);
     }
 
     //Controllo se esiste già un email uguale registrata
-    public static boolean controlloEmailEsistente(String email) throws SQLException {
-        if(email.equals(DatiSessioneCliente.getEmail())){
-            return false;
-        }
+    public static boolean controlloEmailEsistente(String email) {
+
+        if(email.equals(DatiSessioneCliente.getEmail())) return false;
+
         String cerco="SELECT Email FROM CredenzialiCliente WHERE Email=?";
-        try(Connection conn=ConnessioneDatabase.getConnection()){
-            try(PreparedStatement ps=conn.prepareStatement(cerco)){
-                ps.setString(1,email);
-                try(ResultSet rs=ps.executeQuery()){
-                    if(rs.next()){
-                        return true;
-                    }
-                }
-            }
+
+        try {
+            PreparedStatement ps=conn.prepareStatement(cerco);
+            ps.setString(1,email);
+            ResultSet rs=ps.executeQuery();
+
+            if(rs.next()) return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
         return false;
     }
 
+    public static boolean controlloNome(String nome){return Pattern.matches("^[A-Za-z]+(\\s+[A-Za-z]+)*$", nome.trim()); }
 
-    public static boolean controlloNome(String nome){return Pattern.matches("^[A-Za-z]+(\\s+[A-Za-z]+)*$", nome.trim());    }
-    public static boolean controlloCognome(String cognome){
-        return Pattern.matches("^[a-zA-Z-]+",cognome);
-    }
+    public static boolean controlloCognome(String cognome){ return Pattern.matches("^[a-zA-Z-]+",cognome); }
+
     public static boolean controllonomeCognome(String nomeCognome){
         String regexNomeCognome="^[a-zA-Z]+(\\s[a-zA-Z]+)+$";
         return Pattern.matches(regexNomeCognome,nomeCognome);
@@ -49,19 +49,17 @@ public class ModelValidazione {
         return Pattern.matches("^\\d{13,19}$",nCarta);
     }
 
-    public static boolean controlloNumeroCVC(String cvc){
-        return Pattern.matches("^\\d{3}$",cvc);
-    }
+    public static boolean controlloNumeroCVC(String cvc){ return Pattern.matches("^\\d{3}$",cvc); }
+
     public static boolean controlloDataScadenzacarta(String data){
             // verifica sintattica (01-12)/(00-99)
             data=data.trim();
-            if (!Pattern.matches("^(0[1-9]|1[0-2])/\\d{2}$",data)) {
-                return false;
-            }
+            if (!Pattern.matches("^(0[1-9]|1[0-2])/\\d{2}$",data)) return false;
 
             // parsing sicuro con YearMonth
             DateTimeFormatter fmt = DateTimeFormatter.ofPattern("MM/yy");
             YearMonth scadenza;
+
             try {
                 scadenza = YearMonth.parse(data, fmt);
             } catch (DateTimeParseException ex) {
@@ -70,16 +68,16 @@ public class ModelValidazione {
 
             // confronto con il mese/anno corrente
             YearMonth adesso = YearMonth.now();
-        System.out.println("Scadenza: " + scadenza+"Adesso: " + adesso);
-            return !scadenza.isBefore(adesso);
-        }
 
+            return !scadenza.isBefore(adesso);
+    }
 
     public static boolean controlloAltezza(String altezza){
-        if (altezza == null || altezza.isEmpty()) {return true;}
-        if (!Pattern.matches("^[0-9]{1,3}$", altezza)) {return false;}
-        if (Integer.parseInt(altezza) < 50 || Integer.parseInt(altezza) > 250) {return false;}
-        return true;
+        if (altezza == null || altezza.isEmpty()) { return true; }
+
+        if (!Pattern.matches("^[0-9]{1,3}$", altezza)) { return false; }
+
+        return Integer.parseInt(altezza) >= 50 && Integer.parseInt(altezza) <= 250;
     }
 
     public static boolean controlloData(LocalDate data){
@@ -87,30 +85,19 @@ public class ModelValidazione {
         LocalDate dataMinima = LocalDate.now().minusYears(80); // limite minimo: massimo 80 anni fa
 
         return (data.isEqual(dataMassima) || data.isBefore(dataMassima)) && (data.isEqual(dataMinima) || data.isAfter(dataMinima));
-
     }
-
 
     public static boolean controlloPeso(String peso) {
-        if (peso == null || peso.isEmpty()) {return true;}
-        if (!Pattern.matches("^[0-9]{1,3}$", peso)) {return false;}
-        if (Integer.parseInt(peso) < 30 || Integer.parseInt(peso) > 200) {return false;}
-        return true;
+        if (peso == null || peso.isEmpty()) { return true; }
+        if (!Pattern.matches("^[0-9]{1,3}$", peso)) { return false; }
+        return Integer.parseInt(peso) >= 30 && Integer.parseInt(peso) <= 200;
     }
 
-    public static boolean controlloNomeOfferta(String nome){
-        return Pattern.matches("^[A-Za-zÀ-ÿ\s]{2,50}$",nome);
-    }
+    public static boolean controlloNomeOfferta(String nome){ return Pattern.matches("^[A-Za-zÀ-ÿ\s]{2,50}$",nome); }
 
-    public static boolean controlloNumeroTelefono(String telefono){
-        return Pattern.matches("^(\\+39)?\\s?\\d{9,10}$",telefono) || telefono.isEmpty();
-    }
+    public static boolean controlloNumeroTelefono(String telefono){ return Pattern.matches("^(\\+39)?\\s?\\d{9,10}$",telefono) || telefono.isEmpty(); }
 
-    public static boolean controlloPrezzoOfferta(String prezzo){
-        return Pattern.matches("^[1-9][0-9]{0,3}$",prezzo);
-    }
+    public static boolean controlloPrezzoOfferta(String prezzo){ return Pattern.matches("^[1-9][0-9]{0,3}$",prezzo); }
 
-    public static boolean controlloDurataOfferta(String durata){
-        return Pattern.matches("^[1-9][0-9]*$",durata);
-    }
+    public static boolean controlloDurataOfferta(String durata){ return Pattern.matches("^[1-9][0-9]*$",durata); }
 }

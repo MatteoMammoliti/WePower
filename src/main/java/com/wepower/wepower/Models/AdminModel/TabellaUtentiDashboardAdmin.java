@@ -2,7 +2,6 @@ package com.wepower.wepower.Models.AdminModel;
 
 import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Views.AdminView.RigaDashboardAdmin;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TabellaUtentiDashboardAdmin {
+
+    static Connection conn = ConnessioneDatabase.getConnection();
+
+    // ???????? GESTISCI LE ECCEZIONI E PULISCI IL CODICE
     public static ArrayList<RigaDashboardAdmin> riempiRiga() throws SQLException {
         ArrayList<RigaDashboardAdmin> ris = new ArrayList<RigaDashboardAdmin>();
         String query = """
@@ -29,7 +32,8 @@ public class TabellaUtentiDashboardAdmin {
                 ON c.IdCliente = a.IdCliente AND a.StatoAbbonamento=1
                 LEFT JOIN TipoAbbonamento t ON a.IdTipoAbbonamento = t.IdTipoAbbonamento
                 LEFT JOIN CredenzialiCliente cc ON c.IdCliente = cc.IdCliente""";
-        try (Connection conn = ConnessioneDatabase.getConnection()) {
+
+        try {
             PreparedStatement datiClienti = conn.prepareStatement(query);
             ResultSet risultatoTuttiClienti = datiClienti.executeQuery();
 
@@ -47,76 +51,35 @@ public class TabellaUtentiDashboardAdmin {
                    DataFineAbbonamento = risultatoTuttiClienti.getString("DataFineAbbonamento");
                 }
 
-                String NomeAbbonamento = risultatoTuttiClienti.getString("NomeAbbonamento");
                 String email = risultatoTuttiClienti.getString("Email");
                 String sesso = risultatoTuttiClienti.getString("Sesso");
-                System.out.println(DataNascita);
                 RigaDashboardAdmin A = new RigaDashboardAdmin(IdCliente, Nome, Cognome,DataNascita, StatoAbbonamento, CertificatoValido, DataInizioAbbonamento, DataFineAbbonamento, email, sesso);
                 ris.add(A);
             }
 
         } catch (Exception e) {
-
             throw new RuntimeException(e);
         }
-
         return ris;
     }
-
-
 
     public static boolean eliminaRiga(int id) throws SQLException {
         String eliminaUtente = "DELETE FROM Cliente WHERE IdCliente = ?";
         int risultatoEliminazione;
-        try (Connection conn = ConnessioneDatabase.getConnection()) {
+        try {
             PreparedStatement elimina = conn.prepareStatement(eliminaUtente);
 
             elimina.setInt(1, id);
             risultatoEliminazione = elimina.executeUpdate();
 
         } catch (Exception e) {
-            // Se gestisci transazioni, puoi eventualmente chiamare conn.rollback(),
-            // ma qui non sembra necessario.
             throw new RuntimeException(e);
         }
         return risultatoEliminazione > 0;
-
-    }
-
-    public static boolean aggiornaNome(int idCliente, String nuovoNome) throws SQLException {
-        String queryUpdate = "UPDATE Cliente SET Nome = ? WHERE IdCliente = ?";
-        try (Connection conn = ConnessioneDatabase.getConnection();
-             PreparedStatement ps = conn.prepareStatement(queryUpdate)) {
-
-            ps.setString(1, nuovoNome);
-            ps.setInt(2, idCliente);
-
-            int righeAggiornate = ps.executeUpdate();
-            return righeAggiornate > 0;
-        }
-    }
-
-    public static boolean aggiornaCognome(int idCliente, String nuovoCognome) throws SQLException {
-        String queryUpdate = "UPDATE Cliente SET Cognome = ? WHERE IdCliente = ?";
-        try (Connection conn = ConnessioneDatabase.getConnection();
-             PreparedStatement ps = conn.prepareStatement(queryUpdate)) {
-
-            ps.setString(1, nuovoCognome);
-            ps.setInt(2, idCliente);
-
-            int righeAggiornate = ps.executeUpdate();
-            return righeAggiornate > 0;
-        }
-    }
-    public static boolean annulla(){
-        return false;
     }
 
     public static boolean salvaModifiche (int id, String nome, String cognome,String dataNascita, String dataRinnovo, String dataScadenza,int statoAbbonamento, int idTipoAbbonamento) throws SQLException {
-
-        Connection conn = null;
         try {
-            conn = ConnessioneDatabase.getConnection();
             conn.setAutoCommit(false);
             String queryUpdateCliente = "UPDATE Cliente SET Nome = ?, Cognome=?, DataNascita=? WHERE IdCliente = ?";
             try (PreparedStatement psCliente = conn.prepareStatement(queryUpdateCliente)) {
@@ -146,8 +109,6 @@ public class TabellaUtentiDashboardAdmin {
                 }
 
             }
-
-            System.out.println("ora sto inviando");
             conn.commit();
             return true;
         }
@@ -162,83 +123,29 @@ public class TabellaUtentiDashboardAdmin {
             throw e;
 
         }
-        finally {
-            conn.close();
-
-        }
     }
 
-
-    public static boolean aggiornaDataNascita(int idCliente, String dataNascita) throws SQLException {
-        String queryUpdate = "UPDATE Cliente SET DataNascita = ? WHERE IdCliente = ?";
-        try (Connection conn = ConnessioneDatabase.getConnection();
-             PreparedStatement ps = conn.prepareStatement(queryUpdate)) {
-
-            ps.setString(1, dataNascita);
-            ps.setInt(2, idCliente);
-            int righeAggiornate = ps.executeUpdate();
-            return righeAggiornate > 0;
-        }
-    }
-
-    public static boolean aggiornaDataRinnovo(int idCliente, String dataRinnovo) throws SQLException {
-        String queryUpdate = "UPDATE AbbonamentoCliente SET DataInizioAbbonamento = ? WHERE IdCliente = ?";
-        try (Connection conn = ConnessioneDatabase.getConnection();
-             PreparedStatement ps = conn.prepareStatement(queryUpdate)) {
-
-            ps.setString(1, dataRinnovo);
-            ps.setInt(2, idCliente);
-            int righeAggiornate = ps.executeUpdate();
-            return righeAggiornate > 0;
-        }
-
-
-    }
-
-    public static boolean aggiornaDataScadenza(int idCliente, String dataScadenza) throws SQLException {
-        String queryUpdate = "UPDATE AbbonamentoCliente SET DataFineAbbonamento = ? WHERE IdCliente = ?";
-        try (Connection conn = ConnessioneDatabase.getConnection();
-             PreparedStatement ps = conn.prepareStatement(queryUpdate)) {
-
-            ps.setString(1, dataScadenza);
-            ps.setInt(2, idCliente);
-            int righeAggiornate = ps.executeUpdate();
-            return righeAggiornate > 0;
-        }
-
-
-    }
-
-    public static boolean aggiornaStatoAbbonamento(int idCliente, int statoAbbonamento) throws SQLException {
-        String queryUpdate = "UPDATE AbbonamentoCliente SET StatoAbbonamento = ? WHERE IdCliente = ?";
-        try (Connection conn = ConnessioneDatabase.getConnection();
-             PreparedStatement ps = conn.prepareStatement(queryUpdate)) {
-
-            ps.setInt(1, statoAbbonamento);
-            ps.setInt(2, idCliente);
-            int righeAggiornate = ps.executeUpdate();
-            return righeAggiornate > 0;
-        }}
-
-    public static ArrayList<String> prelevaTipiAbbonamenti( ){
+    public static ArrayList<String> prelevaTipiAbbonamenti( ) {
         ArrayList<String> tipi = new ArrayList<>();
         String query = "SELECT NomeAbbonamento FROM TipoAbbonamento";
-        try (Connection conn=ConnessioneDatabase.getConnection();
-             PreparedStatement psTipi=conn.prepareStatement(query)) {
-            ResultSet rs=psTipi.executeQuery();
+        try {
+            PreparedStatement psTipi = conn.prepareStatement(query);
+            ResultSet rs = psTipi.executeQuery();
+
             while (rs.next()) {
                 tipi.add(rs.getString("NomeAbbonamento"));
             }
             return tipi;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
+        return tipi;
     }
 
-    public static int prelevaIdTipiAbbonamento(String nomeTipoAbbonamento) throws SQLException {
+    public static int prelevaIdTipiAbbonamento(String nomeTipoAbbonamento) {
         String query="SELECT IdTipoAbbonamento FROM TipoAbbonamento WHERE NomeAbbonamento = ?";
-        try(Connection conn=ConnessioneDatabase.getConnection();
-            PreparedStatement psIdTipo=conn.prepareStatement(query)){
+        try {
+            PreparedStatement psIdTipo=conn.prepareStatement(query);
             psIdTipo.setString(1, nomeTipoAbbonamento);
             ResultSet rs=psIdTipo.executeQuery();
             if (rs.next()) {
@@ -247,28 +154,23 @@ public class TabellaUtentiDashboardAdmin {
             else{
                 return 0;
             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-
-
-
+        return 0;
     }
-
-
-
-
 
     public static int prelevaDurataTipoAbbonamento(String nomeTipoAbbonamento) throws SQLException {
         String query="SELECT Durata FROM TipoAbbonamento WHERE NomeAbbonamento = ?";
-        try(Connection conn=ConnessioneDatabase.getConnection();
-            PreparedStatement psDurata=conn.prepareStatement(query)) {
+        try {
+            PreparedStatement psDurata=conn.prepareStatement(query);
             psDurata.setString(1, nomeTipoAbbonamento);
             ResultSet rs = psDurata.executeQuery();
-            if (rs.next()) {
-                return rs.getInt("Durata");
-            } else {
-                return 0;
-            }
+            if (rs.next()) return rs.getInt("Durata");
+            else return 0;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-
+        return 0;
     }
 }

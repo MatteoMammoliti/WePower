@@ -34,14 +34,11 @@ public class VisualizzatoreCertificatoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Il metodo Platform.runLater
-        // serve per eseguire del codice sulla JavaFX Application Thread, ovvero il thread responsabile dell’aggiornamento dell’interfaccia grafica.
-        //Tutto quello che metti dentro runLater() verrà eseguito appena possibile sul thread giusto per modificare l'interfaccia.
-        Platform.runLater(() -> {
+        Platform.runLater(() -> { // questo thread aspetta che l'intera interfaccia sia caricata (e quindi anche il controller) prima di settare l'id utente
             try {
                 immagine.setImage(ModelTabellaCertificati.prelevoImmagineCertificato(idCliente));
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                System.out.println(e.getMessage());
             }
 
             btnApprova.setOnAction(e -> {
@@ -54,7 +51,7 @@ public class VisualizzatoreCertificatoController implements Initializable {
                         stage.close();
                     }
                 } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
+                    AlertHelper.showAlert("Errore", "Errore durante l'approvazione del certificato", null,  Alert.AlertType.ERROR);
                 }
             });
 
@@ -72,28 +69,29 @@ public class VisualizzatoreCertificatoController implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
 
                 if (result.isPresent() && result.get() == si) {
-                    if (ModelTabellaCertificati.onClickRifiuta(idCliente)) {
-                        AlertHelper.showAlert("Certificato", "Certificato rifiutato", "Il certificato è stato rifiutato",  Alert.AlertType.INFORMATION);
-                        Stage stage = (Stage) btnRifiuta.getScene().getWindow();
-                        AdminDashboardController.getInstance().setDatiPalestra();
-                        tabellaCertificati.aggiornaTabella();
-                        stage.close();
+                    try {
+                        if (ModelTabellaCertificati.onClickRifiuta(idCliente)) {
+                            AlertHelper.showAlert("Certificato", "Certificato rifiutato", "Il certificato è stato rifiutato",  Alert.AlertType.INFORMATION);
+                            Stage stage = (Stage) btnRifiuta.getScene().getWindow();
+                            AdminDashboardController.getInstance().setDatiPalestra();
+                            tabellaCertificati.aggiornaTabella();
+                            stage.close();
+                        }
+                    } catch (SQLException ex) {
+                        AlertHelper.showAlert("Errore", "Errore durante il rifiuto del certificato", null,  Alert.AlertType.ERROR);
                     }
                 }
             });
         });
     }
 
-    public void setTabellaCertificati(TabellaCertificatiAdminController tabellaCertificati) {
-        this.tabellaCertificati = tabellaCertificati;
-    }
-
+    public void setTabellaCertificati(TabellaCertificatiAdminController tabellaCertificati) { this.tabellaCertificati = tabellaCertificati; }
 
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
 
-    public static void apriSchermataVisualizzatoreCertificato(int id,TabellaCertificatiAdminController chiamante) throws IOException, SQLException {
+    public static void apriSchermataVisualizzatoreCertificato(int id,TabellaCertificatiAdminController chiamante) throws IOException {
         FXMLLoader loader=new FXMLLoader(VisualizzatoreCertificatoController.class.getResource("/Fxml/Admin/AdminVisualizzaCertificato.fxml"));
         Parent root=loader.load();
 

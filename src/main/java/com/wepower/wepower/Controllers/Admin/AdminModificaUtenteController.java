@@ -35,6 +35,7 @@ public class AdminModificaUtenteController implements Initializable {
         this.dialogStage = stage;
     }
 
+    // ?????? TUTTO
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ArrayList<String> tipiAbbonamenti = TabellaUtentiDashboardAdmin.prelevaTipiAbbonamenti();
@@ -89,7 +90,7 @@ public class AdminModificaUtenteController implements Initializable {
             if (nuovaDataScadenza != null) {
                 dataFineAbbonamento = nuovaDataScadenza.toString();
             }
-            if (nuovoNome.equals("") || nuovoCognome.equals("") || dataNascita.equals("")) {
+            if (nuovoNome.isEmpty() || nuovoCognome.isEmpty() || dataNascita.equals("")) {
                 AlertHelper.showAlert("Errore", "Compila tutti i campi", null, Alert.AlertType.ERROR);
                 return;
             }

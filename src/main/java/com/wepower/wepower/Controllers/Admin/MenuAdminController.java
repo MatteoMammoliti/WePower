@@ -31,6 +31,7 @@ public class MenuAdminController implements Initializable {
     }
 
     // FUNZIONI DI NAVIGAZIONE
+    // settiamo la StringProperty della view factory admin su cui è in ascolto il AdminController
     private void onDashboard() { Model.getInstance().getViewFactoryAdmin().getCurrentMenuView().set("Dashboard"); }
     private void onUtenti() { Model.getInstance().getViewFactoryAdmin().getCurrentMenuView().set("Utenti"); }
     private void onSchede() { Model.getInstance().getViewFactoryAdmin().getCurrentMenuView().set("Schede"); }

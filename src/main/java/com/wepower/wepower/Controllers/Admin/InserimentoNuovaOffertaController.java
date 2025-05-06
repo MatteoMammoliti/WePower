@@ -11,14 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class InserimentoNuovaOffertaController implements Initializable {
-    static InserimentoNuovaOffertaController instance;
     @FXML
     private Button btnConferma;
     @FXML
@@ -34,20 +31,16 @@ public class InserimentoNuovaOffertaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        instance = this;
         btnAnnulla.setOnAction(e -> onClickAnnulla());
         btnConferma.setOnAction(e -> {
             if(ModelDashboardAdmin.aggiungiPromozione(textNomeAbbonamento.getText(),textPrezzoAbbonamento.getText(),textDescrizioneAbbonamento.getText(),textDurataAbbonamento.getText())){
-                //Chiudo la finestra
+
+                //Chiudo la finestra se va a buon fine
                 Stage stage = (Stage) btnConferma.getScene().getWindow();
                 AdminDashboardController.getInstance().setPromozioni();
                 stage.close();
             }
         });
-    }
-
-    public static InserimentoNuovaOffertaController getInstance() {
-        return instance;
     }
 
     //Permetto di far aprire la finestra dalla dashboard

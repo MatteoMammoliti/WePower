@@ -1,16 +1,14 @@
 package com.wepower.wepower.Controllers.Admin;
 
 import com.wepower.wepower.Models.AdminModel.ModelTabellaCertificati;
+import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Views.AdminView.RigaTabellaCertificati;
+import com.wepower.wepower.Views.AlertHelper;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -33,14 +31,16 @@ public class TabellaCertificatiAdminController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Model.getInstance().setTabellaCertificatiAdminController(this);
         colID.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colCognome.setCellValueFactory(new PropertyValueFactory<>("cognome"));
         colDataCaricamento.setCellValueFactory(new PropertyValueFactory<>("dataCaricamento"));
+
         ObservableList<RigaTabellaCertificati> utenti= ModelTabellaCertificati.caricaDati();
+
         tabellaCertificati.setItems(utenti);
         aggiungiBottone();
-
     }
 
     public void aggiornaTabella(){
@@ -49,21 +49,20 @@ public class TabellaCertificatiAdminController implements Initializable {
     }
 
     private void aggiungiBottone(){
-        TabellaCertificatiAdminController controller=this;
         colVisualizza.setCellFactory(col -> new TableCell<>() {
             private final Button btn = new Button("Visualizza");
-
             {
                 btn.setOnAction(event -> {
                     RigaTabellaCertificati riga = getTableView().getItems().get(getIndex());
                     int id=riga.id();
                     System.out.println("ID1"+id);
+
                     //Quando clicchiamo sul bottone, chiamiamo il metodo onClickVisualizza e gli passiamo l'id del cliente
                     try {
                         int idRiga=riga.id();
-                       VisualizzatoreCertificatoController.apriSchermataVisualizzatoreCertificato(idRiga,controller);
+                        VisualizzatoreCertificatoController.apriSchermataVisualizzatoreCertificato(idRiga, Model.getInstance().getTabellaCertificatiAdminController());
                     } catch (Exception e) {
-                        throw new RuntimeException(e);
+                        AlertHelper.showAlert("Questo non doveva succedere", "Imposibile aprire il visualizzatore dei certificati", null, Alert.AlertType.ERROR);
                     }
                 });
             }
@@ -83,10 +82,5 @@ public class TabellaCertificatiAdminController implements Initializable {
                 }
             }
         });
-
-
-
     }
-
-
 }

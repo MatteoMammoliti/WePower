@@ -15,6 +15,7 @@ import java.sql.SQLException;
 
 public class ModelTabellaCertificati {
 
+    static Connection conn = ConnessioneDatabase.getConnection();
 
     //In questo metodo possiamo inizializzare la tabella, carichiamo i dati dal DB
     public static ObservableList<RigaTabellaCertificati> caricaDati(){
@@ -25,7 +26,7 @@ public class ModelTabellaCertificati {
 
         ObservableList<RigaTabellaCertificati> clienti= FXCollections.observableArrayList();
         String dati="SELECT c.IdCliente,c.Nome,c.Cognome,ce.DataCaricamentoCertificato From Cliente c JOIN Certificato ce on c.IdCliente=ce.IdCliente AND ce.Stato='Attesa' ";
-        try(Connection conn= ConnessioneDatabase.getConnection()) {
+        try {
             PreparedStatement preparoQuery=conn.prepareStatement(dati);
             ResultSet risultati=preparoQuery.executeQuery();
             //In questo ciclo while, per ogni riga della tabella, creo un oggetto RigaTabellaCertificati e lo aggiungo alla lista
@@ -49,7 +50,7 @@ public class ModelTabellaCertificati {
         System.out.println("Query eseguita con ID: " + id);
 
         String immagine="SELECT ImgCertificato from Certificato WHERE IDCliente=?";
-        try(Connection conn=ConnessioneDatabase.getConnection()){
+        try {
             PreparedStatement preparoQuery=conn.prepareStatement(immagine);
             preparoQuery.setInt(1,id);
             ResultSet risultati=preparoQuery.executeQuery();
@@ -60,6 +61,8 @@ public class ModelTabellaCertificati {
                 System.out.println("ttttt");
                 return image;
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return null;
     }
@@ -68,7 +71,7 @@ public class ModelTabellaCertificati {
     public static boolean onClickConferma(int id) throws SQLException {
         String aggiornoCertificato="UPDATE Certificato SET Stato='Accettato' WHERE IdCliente=?";
         String aggiornoCliente="UPDATE Cliente SET CertificatoValido=2 WHERE IdCliente=?";
-        try(Connection conn=ConnessioneDatabase.getConnection()){
+        try {
             conn.setAutoCommit(false);
             PreparedStatement preparoQuery=conn.prepareStatement(aggiornoCertificato);
             preparoQuery.setInt(1,id);
@@ -86,14 +89,16 @@ public class ModelTabellaCertificati {
             }
             conn.commit();
             return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
     //Se clicco su Rifiuta,rifiuto il certificato, lo elimino e aggiorno il cliente
-    public static boolean onClickRifiuta(int id){
+    public static boolean onClickRifiuta(int id) throws SQLException {
         String eliminoCertificato="DELETE FROM Certificato WHERE IdCliente=?";
         String aggiornoCliente="UPDATE Cliente SET CertificatoValido=0 WHERE IdCliente=?";
-        try(Connection conn=ConnessioneDatabase.getConnection()) {
+        try {
             conn.setAutoCommit(false);
             PreparedStatement preparoQuery=conn.prepareStatement(eliminoCertificato);
             preparoQuery.setInt(1,id);

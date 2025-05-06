@@ -15,13 +15,15 @@ import java.util.ArrayList;
 
 public class TabellaElencoEsercizi {
 
-    public static ArrayList<RigaEsercizioListaClient> riempiRigaEsercizio() throws SQLException {
+    static Connection conn = ConnessioneDatabase.getConnection();
+
+    public static ArrayList<RigaEsercizioListaClient> riempiRigaEsercizio() {
 
         ArrayList<RigaEsercizioListaClient> ris = new ArrayList<RigaEsercizioListaClient>();
 
         String query = "SELECT NomeEsercizio, DescrizioneEsercizio, PercorsoImmagine FROM Esercizio";
 
-        try (Connection conn = ConnessioneDatabase.getConnection()) {
+        try {
             PreparedStatement datiEsercizi = conn.prepareStatement(query);
             ResultSet risultatoTuttiEsercizi = datiEsercizi.executeQuery();
 
@@ -42,12 +44,12 @@ public class TabellaElencoEsercizi {
         return ris;
     }
 
-    public static ArrayList<RigaEsercizioListaAdmin> riempiRigaEsercizioAdmin() throws SQLException {
+    public static ArrayList<RigaEsercizioListaAdmin> riempiRigaEsercizioAdmin() {
         ArrayList<RigaEsercizioListaAdmin> ris = new ArrayList<>();
 
         String query = "SELECT NomeEsercizio, DescrizioneEsercizio, PercorsoImmagine FROM Esercizio";
 
-        try (Connection conn = ConnessioneDatabase.getConnection()) {
+        try {
             PreparedStatement datiEsercizi = conn.prepareStatement(query);
             ResultSet risultatoTuttiEsercizi = datiEsercizi.executeQuery();
 
@@ -68,7 +70,7 @@ public class TabellaElencoEsercizi {
         return ris;
     }
 
-    public static ArrayList<RigaEsercizioSchedaClient> riempiRigaEsercizioScheda() throws SQLException {
+    public static ArrayList<RigaEsercizioSchedaClient> riempiRigaEsercizioScheda() {
 
         ArrayList<RigaEsercizioSchedaClient> ris = new ArrayList<RigaEsercizioSchedaClient>();
 
@@ -91,7 +93,7 @@ public class TabellaElencoEsercizi {
                 ") m ON csa.NomeEsercizio = m.NomeEsercizio AND m.IdCliente = s.IdCliente\n" +
                 "WHERE s.IdCliente = ? AND s.SchedaAncoraInUso = 1\n";
 
-        try (Connection conn = ConnessioneDatabase.getConnection()) {
+        try {
             PreparedStatement datiEsercizi = conn.prepareStatement(query);
             datiEsercizi.setInt(1, DatiSessioneCliente.getIdUtente());
             ResultSet risultatoTuttiEsercizi = datiEsercizi.executeQuery();
