@@ -490,5 +490,16 @@
 .card{
     -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgb(221, 230, 237) 0%, rgb(39, 55, 77) 99%);
 }
+.bottoni_offerte{
+    -fx-background-color: #27374d;
+    -fx-text-fill: #DDE6ED;
+}
+
+.bottoni_offerte:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #526D82;
+    -fx-text-fill: #DDE6EDFF;
+    -fx-fill: #DDE6EDFF;
+}
 
 

@@ -19,8 +19,11 @@ public class RigaVisualizzatoreOfferteAttive extends HBox {
         Label nome = new Label(nomeOfferta);
         Label costo=new Label(costoOfferta);
 
-        nome.getStyleClass().add("label_admin");
-        costo.getStyleClass().add("label_admin");
+        nome.getStyleClass().add("label_testo_scuro");
+        nome.getStyleClass().add("stilePredefinito");
+
+        costo.getStyleClass().add("label_testo_scuro");
+        costo.getStyleClass().add("stilePredefinito");
 
         nome.setPrefWidth(100);
         nome.setMaxWidth(100);
@@ -30,7 +33,7 @@ public class RigaVisualizzatoreOfferteAttive extends HBox {
         this.setAlignment(Pos.CENTER_LEFT);
         eliminaOfferta = new Button("Elimina");
         eliminaOfferta.setPrefHeight(20);
-        eliminaOfferta.getStyleClass().add("bottone_scheda");
+        eliminaOfferta.getStyleClass().add("bottoni_offerte");
         eliminaOfferta.setOnAction(e -> {
             try {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

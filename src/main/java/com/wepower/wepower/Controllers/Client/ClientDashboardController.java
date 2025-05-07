@@ -215,7 +215,7 @@ public class ClientDashboardController implements Initializable {
         graficoMassimali.getData().add(massimale);
     }
 
-    private void loadGraficoPrenotazioni() {
+    public void loadGraficoPrenotazioni() {
         XYChart.Series<String, Number> prenotazioni = new XYChart.Series<>();
         prenotazioni.setName("Andamento prenotazioni");
 

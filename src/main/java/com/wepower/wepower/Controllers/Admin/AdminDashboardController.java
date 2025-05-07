@@ -101,6 +101,7 @@ public class AdminDashboardController implements Initializable {
 
         //Aggiungo il pulsante per le modifiche
         Button modifica=new Button("Aggiungi promozione");
+        modifica.getStyleClass().add("bottoni_offerte");
         modifica.setOnAction(event -> {
 
             //Apro la finestra per l'inserimento di una nuova offerta

@@ -176,6 +176,7 @@ public class Llama4_API {
                                 else if (prenotaAllenamento(DatiSessioneCliente.getIdUtente(), data, ora)) {
                                     Platform.runLater(() -> {
                                         risposta.accept("✅ Prenotazione registrata per " + data + " alle " + ora + "\n");
+                                        Model.getInstance().getClientDashboardController().loadGraficoPrenotazioni();
                                         Model.getInstance().getClientDashboardController().loadCalendario();
                                     });
                                 }
