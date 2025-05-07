@@ -18,13 +18,15 @@
 
 /* ScrollPane stile */
 .scroll-pane {
+    -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
 .scroll-pane > .viewport {
-    -fx-background-color: #DDE6ED;
+    -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
 .scroll-pane > .corner {
+    -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
 
@@ -35,6 +37,29 @@
     -fx-background-color: #DDE6ED;
 }
 .scroll-pane .scroll-bar .thumb{
+    -fx-background-color: #526D82;
+    -fx-background-radius: 5;
+}
+
+/* ScrollPane stile */
+.scroll-pane_admin {
+    -fx-background-color: #DDE6ED;
+    -fx-border-color: transparent;
+}
+.scroll-pane_admin > .viewport {
+    -fx-background-color: #DDE6ED;
+    -fx-border-color: transparent;
+}
+.scroll-pane_admin > .corner {
+    -fx-background-color: #DDE6ED;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane_admin .scroll-bar{
+    -fx-background-color: #DDE6ED;
+}
+
+.scroll-pane_admin .scroll-bar .thumb{
     -fx-background-color: #526D82;
     -fx-background-radius: 5;
 }
@@ -199,6 +224,8 @@
     -fx-background-color: #DDE6EDFF;
 }
 /*Grafici*/
+
+/*Grafico a candele*/
 .grafico{
     -fx-background-color: #DDE6ED;
 }
@@ -219,6 +246,8 @@
     -fx-background-color: #DDE6ED;
 
 }
+
+
 
 .grafico .chart-horizontal-grid-lines, .chart-vertical-grid-lines{
     -fx-stroke: transparent;

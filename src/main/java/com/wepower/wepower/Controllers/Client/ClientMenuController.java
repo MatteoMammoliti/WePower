@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 
 public class ClientMenuController  implements Initializable {
 
+    public static VBox contenitoreMenuClient;
     @FXML private Button dashboardButton;
     @FXML private Button prenotazioneButton;
     @FXML private Button myProfileButton;
@@ -26,7 +27,7 @@ public class ClientMenuController  implements Initializable {
     @FXML private Label emailUtente;
     @FXML private Label labelStatoAbbonamento;
     @FXML private VBox profileSection;
-    @FXML private VBox contenitorePulsantiView;
+    @FXML private static VBox contenitorePulsantiView;
     @FXML private Button pulsanteCambioTema;
 
     public ClientMenuController() {}
@@ -54,14 +55,6 @@ public class ClientMenuController  implements Initializable {
         Model.getInstance().setClientMenuController(this);
         addListeners();
         caricaMenu();
-        Platform.runLater(() -> {
-            Stage stage = (Stage) contenitorePulsantiView.getScene().getWindow();
-            stage.widthProperty().addListener((obs, oldVal, newVal) -> aggiustaSpazioPulsanti());
-            stage.heightProperty().addListener((obs, oldVal, newVal) -> aggiustaSpazioPulsanti());
-
-            aggiustaSpazioPulsanti();
-        });
-
         pulsanteCambioTema.setOnAction(e -> {
             String blutema= getClass().getResource("/Styles/TemaBlu.css").toExternalForm();
             String temaProva=getClass().getResource("/Styles/TemaProva.css").toExternalForm();
@@ -72,12 +65,6 @@ public class ClientMenuController  implements Initializable {
                 ControlloTemi.getInstance().cambiaTema(blutema);
             }
         });
-    }
-
-    private void aggiustaSpazioPulsanti() {
-        double altezza = contenitorePulsantiView.getScene().getHeight();
-        double spacing=altezza*0.02;
-        setSpacing(spacing);
     }
 
     // LISTENERS DEI BOTTONI DEL MENU
@@ -113,5 +100,5 @@ public class ClientMenuController  implements Initializable {
         Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Logout");
     }
 
-    private void setSpacing(double spacing) { contenitorePulsantiView.setSpacing(spacing); }
+    private static void setSpacing(double spacing) { contenitorePulsantiView.setSpacing(spacing); }
 }

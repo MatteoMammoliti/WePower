@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane styleClass="background_chiaro scroll-pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.AdminDashboardController">
+<BorderPane styleClass="background_chiaro" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.AdminDashboardController">
    <center>
-      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="scroll-pane_admin" vbarPolicy="AS_NEEDED">
          <content>
             <VBox fillWidth="true" spacing="25.0">
                <children>
@@ -110,8 +110,8 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="annoGraficoTendina" prefWidth="150.0" />
-                              <BarChart fx:id="graficoAnnuale" VBox.vgrow="ALWAYS">
+                              <ComboBox id="tendina_grafico" fx:id="annoGraficoTendina" prefWidth="150.0" />
+                              <BarChart fx:id="graficoAnnuale" styleClass="grafico" VBox.vgrow="ALWAYS">
                                 <xAxis>
                                   <CategoryAxis side="BOTTOM" />
                                 </xAxis>
@@ -121,9 +121,9 @@
                               </BarChart>
                            </children>
                         </VBox>
-                        <VBox minWidth="200.0" HBox.hgrow="NEVER">
+                        <VBox fx:id="containerTortaGenere" minWidth="200.0" HBox.hgrow="NEVER">
                            <children>
-                              <PieChart fx:id="tortaGenere" VBox.vgrow="ALWAYS" />
+                              <PieChart fx:id="tortaGenere" VBox.vgrow="ALWAYS" styleClass="chart-pie" />
                            </children>
                         </VBox>
                      </children>
