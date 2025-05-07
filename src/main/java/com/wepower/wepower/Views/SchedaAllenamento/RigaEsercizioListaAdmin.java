@@ -36,6 +36,14 @@ public class RigaEsercizioListaAdmin extends HBox {
         this.imageEsercizio.setPreserveRatio(true);
         this.imageEsercizio.setSmooth(true);
 
+        this.nomeEsercizio.getStyleClass().add("label_testo_scuro");
+        this.nomeEsercizio.getStyleClass().add("titoloEsercizio");
+
+        this.descrizioneEsercizio.getStyleClass().add("stile_predefinito");
+        this.descrizioneEsercizio.getStyleClass().add("label_testo_chiaro");
+
+        this.getStyleClass().add("rigaEsercizio");
+
         this.numeroSerie = new TextField();
         this.numeroSerie.setPromptText("Numero serie");
 
@@ -44,6 +52,8 @@ public class RigaEsercizioListaAdmin extends HBox {
 
         this.aggiungiEsercizioScheda = new Button("Aggiungi Esercizio");
         this.aggiungiEsercizioScheda.setOnAction(e -> onInserisci());
+
+        aggiungiEsercizioScheda.getStyleClass().add("btnScheda");
 
         VBox containerSinistra = new VBox();
         VBox sopra = new VBox();

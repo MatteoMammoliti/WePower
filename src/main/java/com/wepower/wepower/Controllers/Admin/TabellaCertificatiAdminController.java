@@ -71,7 +71,6 @@ public class TabellaCertificatiAdminController implements Initializable {
 
             @Override
             protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
                 if (empty) {
                     setGraphic(null); // nessun bottone nelle righe vuote
                 } else {

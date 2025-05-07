@@ -1,6 +1,7 @@
 package com.wepower.wepower.Controllers.Admin;
 
-import com.wepower.wepower.Controllers.Client.ClientViewsController.SchermataCreazioneSchedaController;
+
+import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.AdminModel.DatiSessioneAdmin;
 import com.wepower.wepower.Models.AdminModel.ModelSchermataCreazioneScheda;
 import com.wepower.wepower.Models.Model;
@@ -80,6 +81,10 @@ public class SchermataCreazioneSchedaAdmin implements Initializable {
     // carichiamo gli esercizi disponibili in palestra
     public void loadEsercizi() throws SQLException {
         Label titolo = new Label("Esercizi disponibili in palestra");
+
+        titolo.getStyleClass().add("label_testo_scuro");
+        titolo.getStyleClass().add("titoloContenitore");
+
         ArrayList<RigaEsercizioListaAdmin> esercizi = TabellaElencoEsercizi.riempiRigaEsercizioAdmin();
         containerEsercizi.getChildren().clear();
         containerEsercizi.getChildren().add(titolo);
@@ -106,6 +111,9 @@ public class SchermataCreazioneSchedaAdmin implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
         Scene scene=new Scene(root);
+
+        String cssTema= SchermataCreazioneSchedaAdmin.class.getResource("/Styles/scheda.css").toExternalForm();
+        ControlloTemi.getInstance().aggiungiScena(scene,cssTema);
         stage.setScene(scene);
         stage.showAndWait();
     }

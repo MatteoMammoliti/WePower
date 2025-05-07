@@ -24,9 +24,23 @@ public class RigaEsercizioSchedaAdmin extends HBox {
     private Button rimuoviSchedaEsercizio;
 
     public RigaEsercizioSchedaAdmin(String nomeEsercizio, String numeroSerie, String numeroRipetizioni, String percorsoImmagine) {
+        this.getStyleClass().add("rigaEsercizio");
+
         this.nomeEsercizio = new Label(nomeEsercizio);
+
         this.numeroSerie = new Label("Numero serie: " + numeroSerie);
         this.numeroRipetizioni = new Label("Numero ripetizioni: " + numeroRipetizioni);
+
+        this.nomeEsercizio.getStyleClass().add("label_testo_scuro");
+        this.nomeEsercizio.getStyleClass().add("titoloEsercizio");
+
+        this.numeroRipetizioni.getStyleClass().add("stile_predefinito");
+        this.numeroRipetizioni.getStyleClass().add("label_testo_scuro");
+
+        this.numeroSerie.getStyleClass().add("label_testo_scuro");
+        this.numeroSerie.getStyleClass().add("stile_predefinito");
+
+
 
         InputStream is = getClass().getResourceAsStream("/" + percorsoImmagine);
         Image image = new Image(is);
@@ -36,6 +50,9 @@ public class RigaEsercizioSchedaAdmin extends HBox {
         this.imageEsercizio.setPreserveRatio(true);
 
         this.rimuoviSchedaEsercizio = new Button("Rimuovi esercizio dalla scheda");
+
+        rimuoviSchedaEsercizio.getStyleClass().add("btnScheda");
+
         this.rimuoviSchedaEsercizio.setOnAction(event -> {
             try {
                 onRimuoviEsercizio();

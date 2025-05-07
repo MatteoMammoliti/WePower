@@ -488,6 +488,7 @@
     -fx-text-fill: #DDE6EDFF;
 }
 .card{
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgb(221, 230, 237) 0%, rgb(39, 55, 77) 99%);}
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgb(221, 230, 237) 0%, rgb(39, 55, 77) 99%);
+}
 
 
