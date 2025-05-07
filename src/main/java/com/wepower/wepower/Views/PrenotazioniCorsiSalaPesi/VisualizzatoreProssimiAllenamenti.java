@@ -17,7 +17,6 @@ public class VisualizzatoreProssimiAllenamenti extends VBox {
     private Label oraPrenotazione;
     ArrayList<PrenotazioneSalaPesi> prenotazioni = new ArrayList<>();
 
-
     public VisualizzatoreProssimiAllenamenti() throws SQLException {
         this.getStylesheets().add(
                 Objects.requireNonNull(getClass().getResource("/Styles/Prenotazioni.css")).toExternalForm());
@@ -54,7 +53,6 @@ public class VisualizzatoreProssimiAllenamenti extends VBox {
 
         contenitoreRiga.getChildren().addAll(dataPrenotazione,oraPrenotazione);
         return contenitoreRiga;
-
     }
 }
 

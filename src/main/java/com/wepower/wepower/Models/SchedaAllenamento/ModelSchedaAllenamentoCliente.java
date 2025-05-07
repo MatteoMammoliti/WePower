@@ -118,7 +118,7 @@ public class ModelSchedaAllenamentoCliente {
             Model.getInstance().getViewFactoryClient().invalidateDashboard();
             DatiSessioneCliente.aggiungiEsercizioConMassimale(nomeEsercizio);
         } catch (SQLException e) {
-            throw new SQLException();
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nell'aggiunta di un nuovo massimale", null, Alert.AlertType.ERROR);
         }
     }
 
@@ -136,7 +136,7 @@ public class ModelSchedaAllenamentoCliente {
             Model.getInstance().getSchedaController().loadSchedaAllenamento();
             Model.getInstance().getViewFactoryClient().invalidateDashboard();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nell'aggiornamento del massimale", null, Alert.AlertType.ERROR);
         }
     }
 

@@ -1,6 +1,9 @@
 package com.wepower.wepower.Models.DatiPalestra;
 
 import com.wepower.wepower.Models.ConnessioneDatabase;
+import com.wepower.wepower.Views.AlertHelper;
+import javafx.scene.control.Alert;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,7 +43,7 @@ public class Abbonamento {
                 abbonamenti.add(nuovo);
             }
         } catch(SQLException e){
-            System.out.println(e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel prelevamento dei dati", null, Alert.AlertType.ERROR);
         }
         return abbonamenti;
     }

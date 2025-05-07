@@ -86,7 +86,7 @@ public class ModificaDatiController implements Initializable {
             try {
                 onClickAggiorna();
             } catch (SQLException | IOException e) {
-                System.out.println("Aggiornamento dati utenti" + e.getMessage());
+                AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nell'aggiornamento", null, Alert.AlertType.ERROR);
             }
         });
 

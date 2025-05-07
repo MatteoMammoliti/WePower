@@ -2,8 +2,11 @@ package com.wepower.wepower.Models.DatiPalestra;
 
 import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Views.AdminView.RigaTabellaRichiesteScheda;
+import com.wepower.wepower.Views.AlertHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,7 +50,7 @@ public class DatiSessionePalestra {
                 utenti.add(utente);
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel prelevamento delle schede richieste", null, Alert.AlertType.ERROR);
         }
         return utenti;
     }
@@ -63,7 +66,7 @@ public class DatiSessionePalestra {
 
     public static String[] getOrariPrenotazione() { return orariPrenotazione; }
 
-    public static void setNumeroMassimoPrenotazioni() throws SQLException {
+    public static void setNumeroMassimoPrenotazioni() {
         Connection conn = ConnessioneDatabase.getConnection();
 
         String query="SELECT NumeriPostiMassimo FROM SalaPesi WHERE IdSalaPesi=1";
@@ -75,7 +78,7 @@ public class DatiSessionePalestra {
                 numeroMassimePrenotazioniPerFascieOrarie=rs.getInt("NumeriPostiMassimo");
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nell'impostazione", null, Alert.AlertType.ERROR);
         }
     }
 

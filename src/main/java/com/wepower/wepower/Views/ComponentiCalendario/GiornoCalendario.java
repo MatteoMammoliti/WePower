@@ -21,11 +21,9 @@ public class GiornoCalendario  extends Button {
 
         this.setOnMouseClicked(mouseEvent -> {
             finestra=new FinestraInfoCalendario(this, mouseEvent);
-            finestra.mostra();});
-
+            finestra.mostra();
+        });
     }
-
-
 
     public String getDataPrenotazione() {
         return dataPrenotazione;
@@ -37,13 +35,10 @@ public class GiornoCalendario  extends Button {
         return chiuso;
     }
 
-
     public void setPrenotato(boolean prenotato) {
         this.prenotato = prenotato;
     }
     public void setChiusura(boolean chiuso) {this.chiuso = chiuso;}
-
-
 }
 
 

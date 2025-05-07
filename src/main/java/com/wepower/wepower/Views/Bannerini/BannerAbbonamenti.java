@@ -52,7 +52,7 @@ public class BannerAbbonamenti extends VBox {
             try {
                 ProfiloController.getInstance().onClickLabelAbbonamenti();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                AlertHelper.showAlert("Questo non doveva succedere", " Qualcosa è andato storto", null, Alert.AlertType.ERROR);
             }
         });
 
@@ -87,7 +87,7 @@ public class BannerAbbonamenti extends VBox {
                 bannerAbbonamenti.add(banner);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            AlertHelper.showAlert("Questo non doveva succedere", " Qualcosa è andato storto", null, Alert.AlertType.ERROR);
         }
         return bannerAbbonamenti;
     }

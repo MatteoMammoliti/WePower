@@ -45,6 +45,4 @@ public class FinestraInfoCalendario {
         popup.setAutoHide(true);
         popup.show(giorno.getScene().getWindow(), event.getScreenX(), event.getScreenY());
     }
-
-
 }

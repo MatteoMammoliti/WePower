@@ -1,5 +1,8 @@
 package com.wepower.wepower.Models;
 
+import com.wepower.wepower.Views.AlertHelper;
+import javafx.scene.control.Alert;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,7 +35,7 @@ public class ModelValidazione {
 
             if(rs.next()) return true;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", " Errore durante la verifica campo email", null, Alert.AlertType.ERROR);
         }
         return false;
     }

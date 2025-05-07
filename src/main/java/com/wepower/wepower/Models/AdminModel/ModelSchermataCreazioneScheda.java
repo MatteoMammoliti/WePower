@@ -30,7 +30,7 @@ public class ModelSchermataCreazioneScheda {
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel prelievo del percorso immagine", null, Alert.AlertType.ERROR);
         }
         return null;
     }

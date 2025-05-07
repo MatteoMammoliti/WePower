@@ -65,12 +65,11 @@ public class ModelAutenticazione {
                         String updateStatoAbbonamento = "UPDATE AbbonamentoCliente SET StatoAbbonamento = 0 WHERE IdCliente = ? AND StatoAbbonamento = 1";
 
                         try {
-                            conn = ConnessioneDatabase.getConnection();
                             PreparedStatement updateStato = conn.prepareStatement(updateStatoAbbonamento);
                             updateStato.setInt(1, DatiSessioneCliente.getIdUtente());
                             updateStato.executeUpdate();
                         } catch (SQLException e) {
-                            throw new RuntimeException(e);
+                            AlertHelper.showAlert("Questo non doveva succedere", "Errore durante l'autenticazione", null, Alert.AlertType.ERROR);
                         }
                     }
 
@@ -78,7 +77,6 @@ public class ModelAutenticazione {
                     String querySchedaAllenamento = "SELECT IdScheda, IdAdmin FROM SchedaAllenamento WHERE IdCliente = ? AND SchedaAncoraInUso = 1";
 
                     try {
-                         conn = ConnessioneDatabase.getConnection();
                         PreparedStatement datiSchedaAllenamento = conn.prepareStatement(querySchedaAllenamento);
                         datiSchedaAllenamento.setInt(1, DatiSessioneCliente.getIdUtente());
                         ResultSet risultatoScheda = datiSchedaAllenamento.executeQuery();
@@ -95,12 +93,11 @@ public class ModelAutenticazione {
                         riempiListaEserciziConMassimali(DatiSessioneCliente.getIdUtente());
                         return true;
                     } catch (SQLException e) {
-                        throw new RuntimeException(e);
+                        AlertHelper.showAlert("Questo non doveva succedere", "Errore durante l'autenticazione", null, Alert.AlertType.ERROR);
                     }
                 }
 
                 try {
-                     conn = ConnessioneDatabase.getConnection();
                     //Se non trovo il cliente, vado a vedere se è un admin e prelevo i suoi dati
                     PreparedStatement datiAdmin =conn.prepareStatement(loginAdmin);
                     datiAdmin.setString(1, email);
@@ -112,7 +109,7 @@ public class ModelAutenticazione {
                         return true;
                     }
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    AlertHelper.showAlert("Questo non doveva succedere", "Errore durante l'autenticazione", null, Alert.AlertType.ERROR);
                 }
         } catch (Exception e) {
             AlertHelper.showAlert("Questo non doveva succedere", " Errore durante l'autenticazione", null, Alert.AlertType.ERROR);
@@ -121,7 +118,7 @@ public class ModelAutenticazione {
     }
 
     // preleviamo tutte le prenotazioni nelle sale pesi per il conteggio dei posti disponibili per ogni giorno e per ogni ora
-    public static void prelevaDatiPalestra() throws SQLException {
+    public static void prelevaDatiPalestra() {
         String prelevaDatiPrenotazioniSalaPesi="SELECT * FROM PrenotazioneSalaPesi";
         Connection conn = ConnessioneDatabase.getConnection();
         try {
@@ -134,12 +131,12 @@ public class ModelAutenticazione {
             }
 
         } catch (Exception e) {
-            System.out.printf(e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", " Errore durante il prelevamento dei dati della palestra", null, Alert.AlertType.ERROR);
         }
     };
 
     // vado a prendermi dal Database tutte le date in cui il cliente ha prenotato la salapesi per mostrarle nel calendario
-    public static ArrayList<PrenotazioneSalaPesi> caricaDatePrenotazioniSalaPesi(int idUtente) throws SQLException{
+    public static ArrayList<PrenotazioneSalaPesi> caricaDatePrenotazioniSalaPesi(int idUtente) {
         ArrayList<PrenotazioneSalaPesi>  datePrenotazioni = new ArrayList<>();
 
         Connection conn = ConnessioneDatabase.getConnection();
@@ -177,7 +174,7 @@ public class ModelAutenticazione {
                 DatiSessioneCliente.aggiungiEsercizioConMassimale(NomeEsercizio);
             }
         } catch (SQLException e) {
-            System.out.printf(e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", " Errore durante il prelevamento degli esercizi con massimali", null, Alert.AlertType.ERROR);
         }
     }
 
@@ -196,7 +193,7 @@ public class ModelAutenticazione {
             }
             return eserciziInPalestra;
         } catch (SQLException e) {
-            System.out.printf(e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", " Errore durante il prelevamento degli esercizi della palestra", null, Alert.AlertType.ERROR);
         }
         return eserciziInPalestra;
     }

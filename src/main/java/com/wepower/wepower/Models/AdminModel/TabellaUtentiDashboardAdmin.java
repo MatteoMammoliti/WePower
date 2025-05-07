@@ -2,6 +2,9 @@ package com.wepower.wepower.Models.AdminModel;
 
 import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Views.AdminView.RigaDashboardAdmin;
+import com.wepower.wepower.Views.AlertHelper;
+import javafx.scene.control.Alert;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,6 +52,7 @@ public class TabellaUtentiDashboardAdmin {
                 int StatoAbbonamento = risultatoTuttiClienti.getInt("StatoAbbonamento");
                 String DataInizioAbbonamento = ("Scaduto");
                 String DataFineAbbonamento = ("Scaduto");
+
                 if (!(risultatoTuttiClienti.getString("DataInizioAbbonamento")==null)){
                    DataInizioAbbonamento = risultatoTuttiClienti.getString("DataInizioAbbonamento");
                    DataFineAbbonamento = risultatoTuttiClienti.getString("DataFineAbbonamento");
@@ -60,9 +64,8 @@ public class TabellaUtentiDashboardAdmin {
                 //Aggiungo la riga a ris per poi creare la tabella utenti
                 ris.add(A);
             }
-
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto durante il caricamento degli utenti", null, Alert.AlertType.ERROR);
         }
         return ris;
     }
@@ -77,12 +80,11 @@ public class TabellaUtentiDashboardAdmin {
             PreparedStatement elimina = conn.prepareStatement(eliminaUtente);
             elimina.setInt(1, id);
             risultatoEliminazione = elimina.executeUpdate();
-
+            return risultatoEliminazione > 0;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nell'eliminazione", null, Alert.AlertType.ERROR);
         }
-        //Verifico se tutto è andato a buon fine
-        return risultatoEliminazione > 0;
+        return false;
     }
 
 
@@ -105,7 +107,7 @@ public class TabellaUtentiDashboardAdmin {
                 psCliente.executeUpdate();
             }
             catch (SQLException e) {
-                throw new RuntimeException(e);
+                AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel salvataggio delle modifiche", null, Alert.AlertType.ERROR);
             }
 
             //Verifico se è stato inserito un nuovo abbonamento
@@ -121,12 +123,10 @@ public class TabellaUtentiDashboardAdmin {
                     psAddAbbonamento.executeUpdate();
                 }
                 catch (SQLException ex) {
-
                     //In caso di eccezioni annullo le modifiche
                     conn.rollback();
-                    throw new RuntimeException(ex);
+                    AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nell'eliminazione", null, Alert.AlertType.ERROR);
                 }
-
             }
             //Invio le modifiche
             conn.commit();
@@ -139,11 +139,10 @@ public class TabellaUtentiDashboardAdmin {
                 return false;
             }
             catch (SQLException ex) {
-                ex.printStackTrace();
+                AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nell'eliminazione", null, Alert.AlertType.ERROR);
             }
-            throw e;
-
         }
+        return false;
     }
 
     //Preleva dal database tutti i tipi di abbonamenti disponibili
@@ -167,7 +166,7 @@ public class TabellaUtentiDashboardAdmin {
                 tipi.add(rs.getString("NomeAbbonamento"));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel reperimento degli abbonamenti", null, Alert.AlertType.ERROR);
         }
 
         //Restituisco un ArrayList contenente tutti gli abbonamenti disponibili
@@ -191,13 +190,13 @@ public class TabellaUtentiDashboardAdmin {
                 return rs.getInt("IdTipoAbbonamento");
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto", null, Alert.AlertType.ERROR);
         }
         return 0;
     }
 
     //Prelevo la durata dell'abbonamento in mesi
-    public static int prelevaDurataTipoAbbonamento(String nomeTipoAbbonamento) throws SQLException {
+    public static int prelevaDurataTipoAbbonamento(String nomeTipoAbbonamento) {
         //Prendo la connessione al database
         Connection conn = ConnessioneDatabase.getConnection();
 
@@ -214,7 +213,7 @@ public class TabellaUtentiDashboardAdmin {
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto", null, Alert.AlertType.ERROR);
         }
         return 0;
     }

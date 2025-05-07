@@ -29,8 +29,8 @@ public class VisualizzatoreStoricoPrenotazioni extends VBox {
         this.getChildren().clear();
         prenotazioni= DatiSessioneCliente.getDateAllenamentiEffettuati();
 
-        for (int i=0;i<prenotazioni.size();i++){
-            HBox riga=creaRigaStorico(prenotazioni.get(i).getDataPrenotazione(),prenotazioni.get(i).getOrarioPrenotazione());
+        for (PrenotazioneSalaPesi prenotazioneSalaPesi : prenotazioni) {
+            HBox riga = creaRigaStorico(prenotazioneSalaPesi.getDataPrenotazione(), prenotazioneSalaPesi.getOrarioPrenotazione());
             this.getChildren().add(riga);
         }
     }

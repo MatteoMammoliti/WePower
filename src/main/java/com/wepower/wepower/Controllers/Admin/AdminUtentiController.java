@@ -3,7 +3,9 @@ package com.wepower.wepower.Controllers.Admin;
 import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.AdminModel.ModelDashboardAdmin;
 import com.wepower.wepower.Models.AdminModel.TabellaUtentiDashboardAdmin;
+import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Views.AdminView.RigaDashboardAdmin;
+import com.wepower.wepower.Views.AlertHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,12 +14,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AdminUtentiController implements Initializable {
@@ -53,6 +58,7 @@ public class AdminUtentiController implements Initializable {
         colDataScadenza.setCellValueFactory(cellData -> cellData.getValue().dataScadenzaProperty());
         colSesso.setCellValueFactory(cellData -> cellData.getValue().sessoProperty());
         colModifica.setCellFactory(column -> new TableCell<RigaDashboardAdmin, Void>() {
+
             private final Button btnModifica = new Button("Modifica");
             {
                 btnModifica.setOnAction(event ->  {
@@ -62,9 +68,10 @@ public class AdminUtentiController implements Initializable {
 
 
                     } catch (IOException e) {
-                        throw new RuntimeException(e);
+                        AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto", null, Alert.AlertType.ERROR);
                     }
-                });}
+                });
+            }
 
             @Override
             protected void updateItem(Void item, boolean empty) {
@@ -82,21 +89,33 @@ public class AdminUtentiController implements Initializable {
 
             {
                 btnElimina.setOnAction(event -> {
-                    RigaDashboardAdmin riga = getTableView().getItems().get(getIndex());
-                    getTableView().getItems().remove(riga);
-                    int id=riga.idClienteProperty().get();
-                    try {
-                        TabellaUtentiDashboardAdmin.eliminaRiga(id);
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
+                    Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
+                    conferma.setTitle("Conferma eliminazione");
+                    conferma.setHeaderText("Sei sicuro di voler eliminare questo cliente?");
+                    ImageView icon = new ImageView(new Image(DatiSessioneCliente.class.getResourceAsStream("/Images/IconeAlert/question.png")));
+                    DialogPane dialogPane = conferma.getDialogPane();
+                    dialogPane.getStylesheets().add(DatiSessioneCliente.class.getResource("/Styles/alertStyle.css").toExternalForm());
+                    conferma.setGraphic(icon);
+
+                    Optional<ButtonType> resultConferma = conferma.showAndWait();
+                    if (resultConferma.isPresent() && resultConferma.get() == ButtonType.OK) {
+                        RigaDashboardAdmin riga = getTableView().getItems().get(getIndex());
+                        getTableView().getItems().remove(riga);
+                        int id=riga.idClienteProperty().get();
+
+                        try {
+                            TabellaUtentiDashboardAdmin.eliminaRiga(id);
+                        } catch (SQLException e) {
+                            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto", null, Alert.AlertType.ERROR);
+                        }
                     }
-                    }
-                );
+                });
             }
 
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
+
                 if (empty) {
                     setGraphic(null);
                 } else {
@@ -107,29 +126,19 @@ public class AdminUtentiController implements Initializable {
 
 
         ObservableList<RigaDashboardAdmin> utentiData = FXCollections.observableArrayList();
+
         btnGestisciCapienza.setOnAction(event -> {
-           try{
+            try{
                onGestisciCapienza();
            }catch (Exception e){
-               throw new RuntimeException(e);
-           }
+                AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nell'aggiornamento della capienza", null, Alert.AlertType.ERROR);
+            }
         });
 
         try {
             utentiData.addAll(TabellaUtentiDashboardAdmin.riempiRiga());
         } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        tableUtenti.setItems(utentiData);
-
-    }
-
-    public void aggiornaUtenti() {
-        ObservableList<RigaDashboardAdmin> utentiData = FXCollections.observableArrayList();
-        try {
-            utentiData.addAll(TabellaUtentiDashboardAdmin.riempiRiga());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto", null, Alert.AlertType.ERROR);
         }
         tableUtenti.setItems(utentiData);
     }
@@ -166,10 +175,4 @@ public class AdminUtentiController implements Initializable {
         controller.setDialogStage(stage);
         stage.showAndWait();
     }
-
-
-
 }
-
-
-

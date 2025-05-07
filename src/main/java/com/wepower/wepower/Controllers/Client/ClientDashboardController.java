@@ -190,7 +190,7 @@ public class ClientDashboardController implements Initializable {
         XYChart.Series<String, Number> massimale = new XYChart.Series<>();
         massimale.setName("Andamento massimale dell'esercizio " + esercizio);
 
-        ArrayList<Pair<String,Number>> lista = DatiSessioneCliente.caricaStoricoMassimalePerEsercizio(esercizio, DatiSessioneCliente.getIdUtente());
+        ArrayList<Pair<String,Number>> lista = DatiSessioneCliente.caricaStoricoMassimalePerEsercizio(esercizio);
 
         if(lista.isEmpty()) return;
 

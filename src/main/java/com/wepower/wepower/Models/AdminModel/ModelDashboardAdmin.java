@@ -26,7 +26,7 @@ public class ModelDashboardAdmin {
             ResultSet rs=pst.executeQuery();
             if(rs.next()) return rs.getInt(1);
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il reperimento degli abbonamenti attivi", null, Alert.AlertType.ERROR);
         }
         return 0;
     }
@@ -41,7 +41,7 @@ public class ModelDashboardAdmin {
             ResultSet rs=pst.executeQuery();
             if(rs.next())return rs.getInt(1);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il reperimento dei certificati in attesa", null, Alert.AlertType.ERROR);
         }
         return 0;
     }
@@ -59,7 +59,7 @@ public class ModelDashboardAdmin {
             if(rs.next()) return rs.getInt(1);
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il reperimento dei prenotati per oggi", null, Alert.AlertType.ERROR);
         }
         return 0;
     }
@@ -118,7 +118,7 @@ public class ModelDashboardAdmin {
             if(risultato.next()) return true;
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            AlertHelper.showAlert("Questo non doveva succedere", "Errore durante la ricerca", null, Alert.AlertType.ERROR);
         }
         return false;
     }
@@ -223,8 +223,9 @@ public class ModelDashboardAdmin {
             return lista;
         }
          catch (SQLException e) {
-            throw new RuntimeException(e);
+             AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il reperimento degli anni", null, Alert.AlertType.ERROR);
         }
+        return lista;
     }
 
     /*Prelevo dal database in base all'anno mese per mese
@@ -234,40 +235,41 @@ public class ModelDashboardAdmin {
         Connection conn = ConnessioneDatabase.getConnection();
 
         Map mappa=new LinkedHashMap();
-            for (int i=1;i<13;i++){
-                //Inizializzo la mappa rispettando il formato nel database nelle chiavi
+        for (int i=1;i<13;i++){
+            //Inizializzo la mappa rispettando il formato nel database nelle chiavi
+            if (i<10){
+                mappa.put("0"+i,0);
+            }
+            else{
+                mappa.put(i+"",0);
+            }
+
+        }
+
+        //Prelevo per ogni mese il numero di abbonamenti attivati
+        String Dati="SELECT Mese, Totale FROM Ab Where Anno=?";
+        try {
+            PreparedStatement preparo=conn.prepareStatement(Dati);
+            preparo.setString(1,anno);
+            ResultSet rs=preparo.executeQuery();
+            //Salvo tutto nella mappa
+            while(rs.next()){
+                int i=rs.getInt("Mese");
+                String chiave="";
                 if (i<10){
-                    mappa.put("0"+i,0);
+                    chiave = "0"+i;
                 }
                 else{
-                    mappa.put(i+"",0);
+                    chiave=""+i;
                 }
 
-            }
-            //Prelevo per ogni mese il numero di abbonamenti attivati
-            String Dati="SELECT Mese, Totale FROM Ab Where Anno=?";
-            try {
-                PreparedStatement preparo=conn.prepareStatement(Dati);
-                preparo.setString(1,anno);
-                ResultSet rs=preparo.executeQuery();
-                //Salvo tutto nella mappa
-                while(rs.next()){
-                    int i=rs.getInt("Mese");
-                    String chiave="";
-                    if (i<10){
-                        chiave = "0"+i;
-                    }
-                    else{
-                        chiave=""+i;
-                    }
-
-                    mappa.put(chiave, rs.getInt("Totale"));
-                }
-                return mappa;
-            }
-            catch(SQLException e){
-                // gestisci l'eccezione con l'alert
+                mappa.put(chiave, rs.getInt("Totale"));
             }
             return mappa;
+        }
+        catch(SQLException e){
+            AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il reperimento dei dati", null, Alert.AlertType.ERROR);
+        }
+        return mappa;
     }
 }

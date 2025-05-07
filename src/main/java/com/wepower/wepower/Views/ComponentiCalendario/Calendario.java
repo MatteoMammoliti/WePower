@@ -101,7 +101,4 @@ public class Calendario {
         aggiornaCalendario.accept(meseCorrente[0]);
         return calendarioBox;
     }
-
-
-
 }

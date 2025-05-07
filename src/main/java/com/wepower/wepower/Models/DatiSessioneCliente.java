@@ -2,6 +2,7 @@ package com.wepower.wepower.Models;
 
 import com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra;
 import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
+import com.wepower.wepower.Views.AlertHelper;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
@@ -59,9 +60,9 @@ public class DatiSessioneCliente {
     public static boolean getSeSchedaRichiesta() { return schedaRichiesta; }
 
     public static String getOrarioPrenotazione(String data){
-        for (int i=0;i<dateOrariPrenotazioni.size();i++){
-            if (dateOrariPrenotazioni.get(i).getDataPrenotazione().equals(data)){
-                return dateOrariPrenotazioni.get(i).getOrarioPrenotazione();
+        for (PrenotazioneSalaPesi prenotazioneSalaPesi : dateOrariPrenotazioni) {
+            if (prenotazioneSalaPesi.getDataPrenotazione().equals(data)) {
+                return prenotazioneSalaPesi.getOrarioPrenotazione();
             }
         }
         return null;
@@ -90,7 +91,7 @@ public class DatiSessioneCliente {
                 return abbonamentoAttivo;
             }
         } catch (SQLException e) {
-            System.out.println("CIAO1" + e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel reperimento del tipo di abbonamento", null, Alert.AlertType.ERROR);
         }
         return null;
     }
@@ -105,7 +106,7 @@ public class DatiSessioneCliente {
             ResultSet risultato=dataInizio.executeQuery();
             if(risultato.next()) return risultato.getString("DataInizioAbbonamento");
         } catch (SQLException e) {
-            System.out.println("CIAO2" +e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel reperimento della data inizio dell'abbonamento", null, Alert.AlertType.ERROR);
         }
         return null;
     }
@@ -121,7 +122,7 @@ public class DatiSessioneCliente {
             if (risultato.next()) return risultato.getString("DataFineAbbonamento");
 
         }catch (SQLException e){
-            System.out.println("CIAO3" +e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel reperimento della data fine dell'abbonamento", null, Alert.AlertType.ERROR);
         }
         return null;
     }
@@ -141,7 +142,7 @@ public class DatiSessioneCliente {
                 prenotazioni.add(p);
             }
         } catch (SQLException e) {
-            System.out.println("CIAO4" +e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel reperimento degli allenamenti effettuati", null, Alert.AlertType.ERROR);
         }
         return prenotazioni;
     }
@@ -162,7 +163,7 @@ public class DatiSessioneCliente {
             }
             return date;
         } catch (SQLException e) {
-            System.out.println("CIAO5" +e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel reperimento degli allenamenti da fare", null, Alert.AlertType.ERROR);
         }
         return date;
     }
@@ -186,8 +187,8 @@ public class DatiSessioneCliente {
         dateOrariPrenotazioni = d;
 
         datePrenotazioniSalaPesi.clear();
-        for (int i = 0; i < dateOrariPrenotazioni.size(); i++) {
-            datePrenotazioniSalaPesi.add(dateOrariPrenotazioni.get(i).getDataPrenotazione());
+        for (PrenotazioneSalaPesi prenotazioneSalaPesi : dateOrariPrenotazioni) {
+            datePrenotazioniSalaPesi.add(prenotazioneSalaPesi.getDataPrenotazione());
         }
     }
 
@@ -281,7 +282,7 @@ public class DatiSessioneCliente {
             immagineProfilo.setInt(2, idUtente);
             immagineProfilo.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("CIAO6" +e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel salvataggio dell'immagine profilo", null, Alert.AlertType.ERROR);
         }
     }
 
@@ -304,13 +305,13 @@ public class DatiSessioneCliente {
                 }
             }
         }catch (SQLException e){
-            System.out.println("CIAO7" +e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel caricamento dell'immagine profilo", null, Alert.AlertType.ERROR);
         }
         return null;
     }
 
     //SALVO CERTIFICATO MEDICO DEL CLIENTE NEL DB
-    public static boolean salvaCertificatoMeidico(int idUtente,File certificato) throws SQLException, IOException{
+    public static boolean salvaCertificatoMeidico(int idUtente,File certificato)throws IOException{
 
         if(certificato==null) return false;
 
@@ -338,6 +339,7 @@ public class DatiSessioneCliente {
                 PreparedStatement datiCliente=conn.prepareStatement(aggiornoCliente);
                 datiCliente.setInt(1, idUtente);
                 int risultato=datiCliente.executeUpdate();
+
                 if (risultato<=0) {
                     conn.rollback();
                     return false;
@@ -347,10 +349,11 @@ public class DatiSessioneCliente {
             }
             catch (SQLException e){
                 conn.rollback();
+                AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel salvataggio del certificato", null, Alert.AlertType.ERROR);
             }
 
         }catch (SQLException e){
-            System.out.println("CIAO7" +e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel salvataggio del certificato", null, Alert.AlertType.ERROR);
         }
         return false;
     }
@@ -392,7 +395,7 @@ public class DatiSessioneCliente {
                 else return false;
             }
         } catch (Exception e) {
-            System.out.println("CIAO8" +e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nell'eliminazione dell'utente", null, Alert.AlertType.ERROR);
         }
         return false;
     }
@@ -410,7 +413,7 @@ public class DatiSessioneCliente {
                 pesoAttuale=risultato.getInt("Peso");
             }
         } catch (SQLException e) {
-            System.out.println("CIAO9" +e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel caricamento del peso", null, Alert.AlertType.ERROR);
         }
     }
 
@@ -426,20 +429,18 @@ public class DatiSessioneCliente {
             ResultSet risultato=datiCaricaStorico.executeQuery();
 
             while(risultato.next()){
-                System.out.println(risultato.getString("DataRegistrazionePeso"));
-                System.out.println(risultato.getInt("Peso"));
                 Pair<String,Integer> peso=new Pair<>(risultato.getString("DataRegistrazionePeso"),risultato.getInt("Peso"));
                 storicoPesi.addFirst(peso);
             }
             return storicoPesi;
         } catch (SQLException e) {
-            System.out.println("CIAO10" +e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel caricamento dello storico dei pesi", null, Alert.AlertType.ERROR);
         }
         return storicoPesi;
     }
 
     // PRELEVO DAL DATABASE STORICO DEI MASSIMALI CON DATE PER CIASCUN ESERCIZIO
-    public static ArrayList<Pair<String,Number>> caricaStoricoMassimalePerEsercizio(String esercizio, int IdUtente){
+    public static ArrayList<Pair<String,Number>> caricaStoricoMassimalePerEsercizio(String esercizio){
 
         String prelevamento = "SELECT Peso, DataInserimento FROM MassimaleImpostatoCliente WHERE IDCliente = ? AND NomeEsercizio = ? ORDER BY DataInserimento DESC LIMIT 10";
         ArrayList<Pair<String,Number>> lista = new ArrayList<>();
@@ -464,7 +465,7 @@ public class DatiSessioneCliente {
             return lista;
 
         } catch (SQLException e) {
-            System.out.println("CIAO11" +e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel caricamento degli esercizi con massimali", null, Alert.AlertType.ERROR);
         }
         return lista;
     }
@@ -490,7 +491,7 @@ public class DatiSessioneCliente {
             }
             return lista;
         } catch (SQLException e) {
-            System.out.println("CIAO12" +e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel caricamento dello storico delle prenotazioni", null, Alert.AlertType.ERROR);
         }
         return lista;
     }
@@ -507,7 +508,7 @@ public class DatiSessioneCliente {
 
             if (rs.next()) return rs.getString("DataFineAbbonamento");
         } catch (SQLException e) {
-            System.out.println("CIAO13" +e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel caricamento della data di scadenza abbonamento", null, Alert.AlertType.ERROR);
         }
         return null;
     }
@@ -525,7 +526,7 @@ public class DatiSessioneCliente {
             if (rs.next()) return rs.getInt("IdCertificato");
 
         } catch (SQLException e) {
-            System.out.println("CIAO14" +e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel caricamento del certificato", null, Alert.AlertType.ERROR);
         }
         return 0;
     }

@@ -1,5 +1,8 @@
 package com.wepower.wepower.Models;
 
+import com.wepower.wepower.Views.AlertHelper;
+import javafx.scene.control.Alert;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -13,10 +16,9 @@ public class ConnessioneDatabase {
             if (conn == null || conn.isClosed()) {
                 conn = DriverManager.getConnection(DB_URL);
                 conn.createStatement().execute("PRAGMA foreign_keys = ON");
-                System.out.println("creo una connessione");
             }
         }catch (SQLException e){
-            System.out.println(e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato nella connessione al database", null, Alert.AlertType.ERROR);
         }
         return  conn;
     }
@@ -25,10 +27,9 @@ public class ConnessioneDatabase {
         try {
             if(conn != null) {
                 conn.close();
-                System.out.println("connessione close");
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato nella chiusura della connessione al database", null, Alert.AlertType.ERROR);
         }
     }
 }

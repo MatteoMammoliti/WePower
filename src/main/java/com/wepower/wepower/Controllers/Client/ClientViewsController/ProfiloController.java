@@ -84,7 +84,7 @@ public class ProfiloController implements Initializable {
             caricaInterfacciaDatiUtente();
             testoProfiloResponsive();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto durante il caricamento della pagina", null, Alert.AlertType.ERROR);
         }
     }
 
@@ -116,6 +116,7 @@ public class ProfiloController implements Initializable {
         labelEmail.setText(email);
         contenitoreImmagine.setPreserveRatio(true);
         Image fotoProfilo = DatiSessioneCliente.caricaImmagineProfiloUtente(DatiSessioneCliente.getIdUtente());
+
         if (fotoProfilo != null) {
             contenitoreImmagine.setImage(fotoProfilo);
         }
@@ -142,7 +143,7 @@ public class ProfiloController implements Initializable {
                 try {
                     onClickLabelAbbonamenti();
                 } catch (IOException e) {
-                    System.out.println("Label abbonamento" + e.getMessage());
+                    AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto", null, Alert.AlertType.ERROR);
                 }
             });
 
@@ -178,7 +179,7 @@ public class ProfiloController implements Initializable {
                 try {
                     caricaCertificato();
                 } catch (SQLException | IOException e) {
-                    System.out.println("Caricamento certificato" + e.getMessage());
+                    AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel caricamento del certificato", null, Alert.AlertType.ERROR);
                 }
             });
         }
@@ -219,7 +220,6 @@ public class ProfiloController implements Initializable {
 
     private void adatta_testo(Label label, double percentuale) {
         label.setStyle("-fx-font-size: " +1500*percentuale + "px;");
-
     }
 
     public void cambiaImmagineProfilo() throws SQLException, IOException {

@@ -6,8 +6,10 @@ import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesiCliente;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.DatiPalestra.ModelPrenotazioni;
 import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
+import com.wepower.wepower.Views.AlertHelper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -149,7 +151,7 @@ public class SchermataPrenotazioniCliente extends VBox {
                        try {
                            prossimiAllenamenti.aggiornaLista();
                        } catch (SQLException ex) {
-                           throw new RuntimeException(ex);
+                           AlertHelper.showAlert("Questo non doveva succedere", " Qualcosa è andato storto nell'eliminazione", null, Alert.AlertType.ERROR);
                        }
                        aggiornaFasceorarie();
                         }
@@ -167,10 +169,8 @@ public class SchermataPrenotazioniCliente extends VBox {
                     aggiornaFasceorarie();
 
                 }
-
-
             } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+                AlertHelper.showAlert("Questo non doveva succedere", " Qualcosa è andato storto nella prenotazione", null, Alert.AlertType.ERROR);
             }
         });
 
@@ -189,7 +189,6 @@ public class SchermataPrenotazioniCliente extends VBox {
         aggiornaLabel();
         aggiornaPrecSucc();
         aggiornaFasceorarie();
-
     }
 
     private void aggiornaLabel(){
@@ -206,7 +205,6 @@ public class SchermataPrenotazioniCliente extends VBox {
         for(int ora=8;ora<=20;ora+=2){
             String inizio=String.format("%02d:00",ora);
             String fine=String.format("%02d:00",ora+2);
-
 
             HBox quadratino=creaRigaPrenotazione(inizio,fine, DatiSessioneCliente.controlloDataPrenotazioneSalaPesi(data,inizio),data, String.valueOf(ora));
             contenitoreFascieOrario.getChildren().add(quadratino);

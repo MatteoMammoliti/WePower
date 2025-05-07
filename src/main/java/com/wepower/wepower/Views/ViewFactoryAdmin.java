@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -33,7 +34,7 @@ public class ViewFactoryAdmin {
 
             scene = new Scene(dashboardAdmin.load());
         } catch (Exception e) {
-            e.printStackTrace();
+            AlertHelper.showAlert("Questo non doveva succedere", " Qualcosa è andato storto nel caricamento della pagina", null, Alert.AlertType.ERROR);
         }
 
         String cssTema=getClass().getResource("/Styles/dashboardAdmin.css").toExternalForm();
@@ -65,7 +66,7 @@ public class ViewFactoryAdmin {
             try {
                 dashboard = new FXMLLoader(getClass().getResource("/Fxml/Admin/DashboardAdmin.fxml")).load();
             } catch (Exception e) {
-                e.printStackTrace();
+                AlertHelper.showAlert("Questo non doveva succedere", " Qualcosa è andato storto nel caricamento della pagina", null, Alert.AlertType.ERROR);
             }
         } else if (dashboard.getParent() != null) {
             ((javafx.scene.layout.Pane) dashboard.getParent()).getChildren().remove(dashboard);
@@ -78,7 +79,7 @@ public class ViewFactoryAdmin {
             try {
                 utenti = new FXMLLoader(getClass().getResource("/Fxml/Admin/AdminMenuView/UtentiAdmin.fxml")).load();
             } catch (Exception e) {
-                e.printStackTrace();
+                AlertHelper.showAlert("Questo non doveva succedere", " Qualcosa è andato storto nel caricamento della pagina", null, Alert.AlertType.ERROR);
             }
         } else if (utenti.getParent() != null) {
             ((javafx.scene.layout.Pane) utenti.getParent()).getChildren().remove(utenti);
@@ -91,7 +92,7 @@ public class ViewFactoryAdmin {
             try {
                 schede = new FXMLLoader(getClass().getResource("/Fxml/Admin/AdminMenuView/SchedeAdmin.fxml")).load();
             } catch (Exception e) {
-                e.printStackTrace();
+                AlertHelper.showAlert("Questo non doveva succedere", " Qualcosa è andato storto nel caricamento della pagina", null, Alert.AlertType.ERROR);
             }
         } else if (schede.getParent() != null) {
             ((javafx.scene.layout.Pane) schede.getParent()).getChildren().remove(schede);
@@ -104,7 +105,7 @@ public class ViewFactoryAdmin {
             try {
                 certificati = new FXMLLoader(getClass().getResource("/Fxml/Admin/AdminMenuView/CertificatiAdmin.fxml")).load();
             } catch (Exception e) {
-                e.printStackTrace();
+                AlertHelper.showAlert("Questo non doveva succedere", " Qualcosa è andato storto nel caricamento della pagina", null, Alert.AlertType.ERROR);
             }
         } else if (certificati.getParent() != null) {
             ((javafx.scene.layout.Pane) certificati.getParent()).getChildren().remove(certificati);

@@ -67,7 +67,12 @@ public class RigaEsercizioSchedaClient extends HBox {
         this.aggiungiMassimale = new Button("Aggiungi massimale");
         this.aggiungiMassimale.setOnAction(event -> {
             this.aggiungiNuovoMassimale.setVisible(true);
-            if(Integer.parseInt(this.massimaleAttuale.getText().replace("Massimale attuale: ", "")) > Integer.parseInt(this.aggiungiNuovoMassimale.getText())) {
+
+            if (Integer.parseInt(this.aggiungiNuovoMassimale.getText()) <= 0) {
+                AlertHelper.showAlert("Attenzione", "Valore massimale non valido", null, Alert.AlertType.ERROR );
+                this.aggiungiNuovoMassimale.clear();
+            }
+            else if(Integer.parseInt(this.massimaleAttuale.getText().replace("Massimale attuale: ", "")) > Integer.parseInt(this.aggiungiNuovoMassimale.getText())) {
                 AlertHelper.showAlert("Errore", "Il nuovo massimale è minore di quello già presente", null, Alert.AlertType.ERROR );
                 this.aggiungiNuovoMassimale.clear();
             } else onAggiungiNuovoMassimale();

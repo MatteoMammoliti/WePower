@@ -18,12 +18,6 @@ public class RigaTabellaRichiesteScheda {
         this.peso = new SimpleIntegerProperty(peso);
         this.sesso = new SimpleStringProperty(sesso);
     }
-    public SimpleIntegerProperty idUtenteProperty() {return idUtente;}
-    public SimpleStringProperty nomeProperty() {return nome;}
-    public SimpleStringProperty cognomeProperty() {return cognome;}
-    public SimpleIntegerProperty pesoProperty() {return peso;}
-    public SimpleStringProperty sessoProperty() {return sesso;}
-
 
     public int getIdUtente() {return idUtente.get();}
 }

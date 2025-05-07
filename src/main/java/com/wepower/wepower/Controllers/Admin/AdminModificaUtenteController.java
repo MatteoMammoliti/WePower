@@ -146,7 +146,7 @@ public class AdminModificaUtenteController implements Initializable {
             //Chiudo la finestra
             dialogStage.close();
         } catch (SQLException e) {
-            System.out.println("Modifica dei dati" + e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto durante il salvataggio", null, Alert.AlertType.ERROR);
         }
     }
 

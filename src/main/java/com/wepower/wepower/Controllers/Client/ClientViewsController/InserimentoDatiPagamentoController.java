@@ -37,7 +37,7 @@ public class InserimentoDatiPagamentoController implements Initializable {
             try {
                 onClickPaga();
             } catch (SQLException ex) {
-                System.out.println("Pagamento" + ex.getMessage());// gestione non necessaria
+                AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto durante il pagamento", null, Alert.AlertType.ERROR);
             }
         });
     }
@@ -117,6 +117,7 @@ public class InserimentoDatiPagamentoController implements Initializable {
                 }
             } catch (SQLException e){
                 conn.rollback();
+                AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto", null, Alert.AlertType.ERROR);
                 return;
             }
 
@@ -151,7 +152,7 @@ public class InserimentoDatiPagamentoController implements Initializable {
                 }
             } catch (SQLException e) {
                 conn.rollback();
-                System.out.println("Caricamento abbonamento" + e.getMessage());
+                AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel caricamento dell'abbonamento", null, Alert.AlertType.ERROR);
             }
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il pagamento", null, Alert.AlertType.ERROR);

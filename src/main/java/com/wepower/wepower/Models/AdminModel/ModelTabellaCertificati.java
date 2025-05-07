@@ -2,8 +2,10 @@ package com.wepower.wepower.Models.AdminModel;
 
 import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Views.AdminView.RigaTabellaCertificati;
+import com.wepower.wepower.Views.AlertHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 
 import java.io.ByteArrayInputStream;
@@ -41,15 +43,13 @@ public class ModelTabellaCertificati {
                 clienti.add(riga);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il reperimento dei dati", null, Alert.AlertType.ERROR);
         }
         return clienti;
     }
 
     public static Image prelevoImmagineCertificato(int id) throws SQLException {
         Connection conn = ConnessioneDatabase.getConnection();
-
-        System.out.println("Query eseguita con ID: " + id);
 
         String immagine="SELECT ImgCertificato from Certificato WHERE IDCliente=?";
         try {
@@ -64,7 +64,7 @@ public class ModelTabellaCertificati {
                 return image;
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il prelevamento dell'immagine del certificato", null, Alert.AlertType.ERROR);
         }
         return null;
     }
@@ -94,8 +94,9 @@ public class ModelTabellaCertificati {
             conn.commit();
             return true;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto", null, Alert.AlertType.ERROR);
         }
+        return false;
     }
 
     //Se clicco su Rifiuta,rifiuto il certificato, lo elimino e aggiorno il cliente
@@ -109,22 +110,26 @@ public class ModelTabellaCertificati {
             PreparedStatement preparoQuery=conn.prepareStatement(eliminoCertificato);
             preparoQuery.setInt(1,id);
             int riga=preparoQuery.executeUpdate();
+
             if(riga<=0){
                 conn.rollback();
                 return false;
-
             }
+
             PreparedStatement preparoQuery2=conn.prepareStatement(aggiornoCliente);
             preparoQuery2.setInt(1,id);
             int righeModificate=preparoQuery2.executeUpdate();
+
             if(righeModificate<=0){
                 conn.rollback();
                 return false;
             }
+
             conn.commit();
             return true;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto", null, Alert.AlertType.ERROR);
         }
+        return false;
     }
 }

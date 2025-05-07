@@ -57,7 +57,7 @@ public class RigaVisualizzatoreOfferteAttive extends HBox {
                     }
                 }
             } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+                AlertHelper.showAlert("Questo non doveva succedere", " Errore durante la visualizzazione delle offerte attive", null, Alert.AlertType.ERROR);
             }
         });
         this.getChildren().addAll(nome,costo,eliminaOfferta);

@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -37,7 +38,7 @@ public class ViewFactoryClient {
         try {
             scene = new Scene(loginWindow.load());
         } catch (Exception e) {
-            e.printStackTrace();
+            AlertHelper.showAlert("Questo non doveva succedere", " Qualcosa è andato storto nel caricamento della pagina", null, Alert.AlertType.ERROR);
         }
         String cssTema=getClass().getResource("/Styles/login.css").toExternalForm();
         ControlloTemi.getInstance().aggiungiScena(scene,cssTema);
@@ -57,7 +58,7 @@ public class ViewFactoryClient {
         try {
             scene = new Scene(loginWindow.load());
         } catch (Exception e) {
-            e.printStackTrace();
+            AlertHelper.showAlert("Questo non doveva succedere", " Qualcosa è andato storto nel caricamento della pagina", null, Alert.AlertType.ERROR);
         }
 
         String cssTema= getClass().getResource("/Styles/login.css").toExternalForm();
@@ -78,7 +79,7 @@ public class ViewFactoryClient {
         try {
             scene = new Scene(dashboardClient.load());
         } catch (Exception e) {
-            e.printStackTrace();
+            AlertHelper.showAlert("Questo non doveva succedere", " Qualcosa è andato storto nel caricamento della pagina", null, Alert.AlertType.ERROR);
         }
 
         Stage stage = new Stage();
@@ -111,7 +112,7 @@ public class ViewFactoryClient {
             try {
                 dashboard = new FXMLLoader(getClass().getResource("/Fxml/Client/DashboardClient.fxml")).load();
             } catch (Exception e) {
-                e.printStackTrace();
+                AlertHelper.showAlert("Questo non doveva succedere", " Qualcosa è andato storto nel caricamento della pagina", null, Alert.AlertType.ERROR);
             }
         }
         else if (dashboard.getParent() != null) {
@@ -131,7 +132,7 @@ public class ViewFactoryClient {
                     scheda = new FXMLLoader(getClass().getResource("/Fxml/Client/ClientMenuView/SchermataCreazioneScheda.fxml")).load();
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                AlertHelper.showAlert("Questo non doveva succedere", " Qualcosa è andato storto nel caricamento della pagina", null, Alert.AlertType.ERROR);
             }
         } else if (scheda.getParent() != null) {
             ((javafx.scene.layout.Pane) scheda.getParent()).getChildren().remove(scheda);
@@ -144,7 +145,7 @@ public class ViewFactoryClient {
             try {
                 prenotazioni = new FXMLLoader(getClass().getResource("/Fxml/Client/ClientMenuView/Prenotazioni.fxml")).load();
             } catch (Exception e) {
-                e.printStackTrace();
+                AlertHelper.showAlert("Questo non doveva succedere", " Qualcosa è andato storto nel caricamento della pagina", null, Alert.AlertType.ERROR);
             }
         } else if (prenotazioni.getParent() != null) {
             ((javafx.scene.layout.Pane) prenotazioni.getParent()).getChildren().remove(prenotazioni);
@@ -158,7 +159,7 @@ public class ViewFactoryClient {
             try {
                 myProfile = new FXMLLoader(getClass().getResource("/Fxml/Client/ClientMenuView/MyProfile.fxml")).load();
             } catch (Exception e) {
-                e.printStackTrace();
+                AlertHelper.showAlert("Questo non doveva succedere", " Qualcosa è andato storto nel caricamento della pagina", null, Alert.AlertType.ERROR);
             }
         } else if (myProfile.getParent() != null) {
             ((javafx.scene.layout.Pane) myProfile.getParent()).getChildren().remove(myProfile);
@@ -171,7 +172,7 @@ public class ViewFactoryClient {
             try {
                 contactUs = new FXMLLoader(getClass().getResource("/Fxml/Client/ClientMenuView/ContactUs.fxml")).load();
             } catch (Exception e) {
-                e.printStackTrace();
+                AlertHelper.showAlert("Questo non doveva succedere", " Qualcosa è andato storto nel caricamento della pagina", null, Alert.AlertType.ERROR);
             }
         } else if (contactUs.getParent() != null) {
             ((javafx.scene.layout.Pane) contactUs.getParent()).getChildren().remove(contactUs);
