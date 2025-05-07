@@ -6,6 +6,7 @@ import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.ModelModificaDati;
 import com.wepower.wepower.Models.ModelValidazione;
 import com.wepower.wepower.Views.AlertHelper;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -19,18 +20,21 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class ModificaDatiController implements Initializable {
-    public TextField textNome;
-    public TextField textTelefono;
-    public TextField textAltezza;
-    public TextField textCognome;
-    public TextField textEmail;
-    public TextField textPesoAttuale;
-    public Button btnAggiorna;
-    public Button btnAnnulla;
-    public RadioButton btnUomo;
-    public RadioButton btnDonna;
-    public RadioButton btnAltro;
-    public DatePicker textDataNascita;
+
+    @FXML private TextField textNome;
+    @FXML private TextField textTelefono;
+    @FXML private TextField textAltezza;
+    @FXML private TextField textCognome;
+    @FXML private TextField textEmail;
+    @FXML private TextField textPesoAttuale;
+    @FXML private Button btnAggiorna;
+    @FXML private Button btnAnnulla;
+    @FXML private RadioButton btnUomo;
+    @FXML private RadioButton btnDonna;
+    @FXML private RadioButton btnAltro;
+    @FXML private DatePicker textDataNascita;
+
+    public ModificaDatiController() {}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -47,6 +51,7 @@ public class ModificaDatiController implements Initializable {
         textDataNascita.setValue(LocalDate.parse(DatiSessioneCliente.getDataNascita()));
 
         String telefono = DatiSessioneCliente.getTelefono();
+
         if (telefono != null) {
             textTelefono.setText(telefono);
         } else {
@@ -80,10 +85,8 @@ public class ModificaDatiController implements Initializable {
         btnAggiorna.setOnAction(event -> {
             try {
                 onClickAggiorna();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            } catch (SQLException | IOException e) {
+                System.out.println("Aggiornamento dati utenti" + e.getMessage());
             }
         });
 

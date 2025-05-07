@@ -18,39 +18,25 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class SignUpController implements Initializable {
-    @FXML
-    private Label labelErroreNome;
-    @FXML
-    private Label labelErroreCognome;
-    @FXML
-    private Label labelEmailNonValida;
-    @FXML
-    private Label labelDataErrata;
-    @FXML
-    private Label labelPasswordDiverse;
-    @FXML
-    private Button loginButton;
-    @FXML
-    private PasswordField passwordField;
-    @FXML
-    private TextField passwordVisibile;
-    @FXML
-    private TextField repeatPasswordVisibile;
-    @FXML
-    private PasswordField repeatPasswordField;
-    @FXML
-    private Button eyeButton;
-    @FXML
-    private Button signUpButton;
-    @FXML
-    private TextField emailText;
-    @FXML
-    private TextField textCognome;
-    @FXML
-    private DatePicker dataNascitaText;
-    @FXML
-    private TextField textNome;
 
+    @FXML private Label labelErroreNome;
+    @FXML private Label labelErroreCognome;
+    @FXML private Label labelEmailNonValida;
+    @FXML private Label labelDataErrata;
+    @FXML private Label labelPasswordDiverse;
+    @FXML private Button loginButton;
+    @FXML private PasswordField passwordField;
+    @FXML private TextField passwordVisibile;
+    @FXML private TextField repeatPasswordVisibile;
+    @FXML private PasswordField repeatPasswordField;
+    @FXML private Button eyeButton;
+    @FXML private Button signUpButton;
+    @FXML private TextField emailText;
+    @FXML private TextField textCognome;
+    @FXML private DatePicker dataNascitaText;
+    @FXML private TextField textNome;
+
+    public SignUpController() {}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -61,7 +47,7 @@ public class SignUpController implements Initializable {
             try {
                 registrazione();
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                AlertHelper.showAlert("Questo non doveva succedere", "Errore durante la registrazione", null, Alert.AlertType.ERROR);
             }
         });
 

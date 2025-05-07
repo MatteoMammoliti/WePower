@@ -2,12 +2,12 @@ package com.wepower.wepower.Controllers.Admin;
 
 import com.wepower.wepower.Models.AdminModel.ModelMassimoPrenotazioni;
 import com.wepower.wepower.Views.AlertHelper;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
@@ -15,9 +15,12 @@ import java.util.regex.Pattern;
 
 //Setto la capienza massima giornaliera della palestra per gestire le prenotazioni
 public class SettaggioNumeroMassimoPrenotazioniController implements Initializable {
-    public Button btnSalva;
-    public Button btnAnnulla;
-    public TextField inputNumeroMax;
+
+    @FXML private Button btnSalva;
+    @FXML private Button btnAnnulla;
+    @FXML private TextField inputNumeroMax;
+
+    public SettaggioNumeroMassimoPrenotazioniController() {}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

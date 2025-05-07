@@ -23,23 +23,17 @@ import java.util.ResourceBundle;
 
 public class AdminDashboardController implements Initializable {
     static AdminDashboardController instance;
-    @FXML
-    public BarChart graficoAnnuale;
-    @FXML
-    private VBox containerPromozioniAttive;
-    @FXML
-    private Label labelPrenotatiOggi;
-    @FXML
-    private Label labelCertificatiAttesa;
-    @FXML
-    private Label labelRichiesteSchede;
-    @FXML
-    private Label labelTotaleAbbonamenti;
-    @FXML
-    private PieChart tortaGenere;
-    @FXML
-    private ComboBox<Integer> annoGraficoTendina;
 
+    @FXML private BarChart graficoAnnuale;
+    @FXML private VBox containerPromozioniAttive;
+    @FXML private Label labelPrenotatiOggi;
+    @FXML private Label labelCertificatiAttesa;
+    @FXML private Label labelRichiesteSchede;
+    @FXML private Label labelTotaleAbbonamenti;
+    @FXML private PieChart tortaGenere;
+    @FXML private ComboBox<Integer> annoGraficoTendina;
+
+    public AdminDashboardController() {}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -97,12 +91,12 @@ public class AdminDashboardController implements Initializable {
         ArrayList<Pair<String,String>> promozioni;
         promozioni=ModelDashboardAdmin.promozioniAttive();
 
-        for(int i=0;i<promozioni.size();i++){
-            String nome=promozioni.get(i).getKey();
-            String costo=promozioni.get(i).getValue();
+        for (Pair<String, String> stringStringPair : promozioni) {
+            String nome = stringStringPair.getKey();
+            String costo = stringStringPair.getValue();
 
             //Aggiungo il banner
-            containerPromozioniAttive.getChildren().add(new RigaVisualizzatoreOfferteAttive(nome,costo));
+            containerPromozioniAttive.getChildren().add(new RigaVisualizzatoreOfferteAttive(nome, costo));
         }
 
         //Aggiungo il pulsante per le modifiche

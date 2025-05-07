@@ -20,31 +20,17 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class InserimentoDatiPagamentoController implements Initializable {
+
     private Stage finestraPrecedente;
-    @FXML
-    private Label labelNomeAbbonamento;
-    @FXML
-    private  Label labelPrezzoAbbonamento;
-    @FXML
-    private Label labelProprietarioCarta;
-    @FXML
-    private TextField textFieldProprietarioCarta;
-    @FXML
-    private Label labelNumeroCarta;
-    @FXML
-    private TextField textFieldNumeroCarta;
-    @FXML
-    private Label labelDataScadenzaCarta;
-    @FXML
-    private TextField textFieldDataScadenzacarta;
-    @FXML
-    private Label labelCvc;
-    @FXML
-    private TextField textFieldCvc;
-    @FXML
-    private Button btnPaga;
-    @FXML
-    private AnchorPane contenitoreDatiPagamento;
+    @FXML private Label labelNomeAbbonamento;
+    @FXML private  Label labelPrezzoAbbonamento;
+    @FXML private TextField textFieldProprietarioCarta;
+    @FXML private TextField textFieldNumeroCarta;
+    @FXML private TextField textFieldDataScadenzacarta;
+    @FXML private TextField textFieldCvc;
+    @FXML private Button btnPaga;
+
+    public InserimentoDatiPagamentoController() {}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -52,13 +38,12 @@ public class InserimentoDatiPagamentoController implements Initializable {
             try {
                 onClickPaga();
             } catch (SQLException ex) {
-                throw new RuntimeException(ex); // gestione non necessaria
+                System.out.println("Pagamento" + ex.getMessage());// gestione non necessaria
             }
         });
     }
 
     public void setFinestraPrecedente(Stage finestraPrecedente) {this.finestraPrecedente = finestraPrecedente;}
-
 
     public void setNomeEPrezzoAbb(String nomeAbbonamento,double PrezzoAbbonamento) {
         labelNomeAbbonamento.setText("Abbonamento: " + nomeAbbonamento);
@@ -77,7 +62,7 @@ public class InserimentoDatiPagamentoController implements Initializable {
         int durataAbb=-1;
         LocalDate data=LocalDate.now();
 
-        if(dataScadenza.equals("") || cvc.equals("") || proprietarioCarta.equals("") || numeroCarta.equals("")){
+        if(dataScadenza.isEmpty() || cvc.isEmpty() || proprietarioCarta.isEmpty() || numeroCarta.isEmpty()){
             AlertHelper.showAlert("Attenzione", "Compila tutti i campi", null, Alert.AlertType.ERROR);
             return;
         }
@@ -167,7 +152,7 @@ public class InserimentoDatiPagamentoController implements Initializable {
                 }
             } catch (SQLException e) {
                 conn.rollback();
-                throw e;
+                System.out.println("Caricamento abbonamento" + e.getMessage());
             }
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il pagamento", null, Alert.AlertType.ERROR);

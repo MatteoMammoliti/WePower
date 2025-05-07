@@ -1,5 +1,4 @@
 package com.wepower.wepower.Controllers.Client;
-
 import com.wepower.wepower.APIs.Llama4_API;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
@@ -28,70 +27,46 @@ public class ClientDashboardController implements Initializable {
     private static ClientDashboardController instance;
 
     // frase motivazionale
-    @FXML
-    private HBox contenitoreFraseMotivazionale;
-    @FXML
-    private Label LabelParolaAttuale;
-    @FXML
-    private Label LabelProssimaParola;
-    @FXML
-    private StackPane sliderPane;
-    @FXML
-    private Label labelStaticaSinistra;
-    @FXML
-    private Label labelStaticaDestra;
+    @FXML private Label LabelParolaAttuale;
+    @FXML private Label LabelProssimaParola;
+    @FXML private StackPane sliderPane;
+
     private final String[] paroleRotazione = {"Resistente", "Potente", "Invincibile"};
     private int indiceParolaCorrente = 0;
 
     // contenitori principali (colonna di sinistra esclusa poichè il menu è un componente a parte)
-    @FXML
-    private VBox containerColonnaDestra;
-    @FXML
-    private VBox containerRoot;
+    @FXML private VBox containerColonnaDestra;
+    @FXML private VBox containerRoot;
 
     // sezione calendario
-    @FXML
-    private AnchorPane containerCalendario;
+    @FXML private AnchorPane containerCalendario;
 
     // chatbot powerino
-    @FXML
-    private Button inviaButton;
-    @FXML
-    private TextField inputField;
-    @FXML
-    private ScrollPane scrollPaneChatArea;
-    @FXML
-    private VBox chatVBox;
+    @FXML private Button inviaButton;
+    @FXML private TextField inputField;
+    @FXML private ScrollPane scrollPaneChatArea;
+    @FXML private VBox chatVBox;
 
     // sezione grafici
-    @FXML
-    private LineChart<String, Number> graficoMassimali;
-    @FXML
-    private BarChart<String, Number> graficoPresenzePalestra;
-    @FXML
-    private MenuButton choiceEsercizioScheda;
-    @FXML
-    private LineChart<String,Number> graficoPeso;
-    @FXML
-    private CategoryAxis xAxisMassimali;
-    @FXML
-    private NumberAxis yAxisMassimali;
-    @FXML
-    private NumberAxis yAxisPesoCorporeo;
-    @FXML
-    private HBox containerGrafici;
+    @FXML private LineChart<String, Number> graficoMassimali;
+    @FXML private BarChart<String, Number> graficoPresenzePalestra;
+    @FXML private MenuButton choiceEsercizioScheda;
+    @FXML private LineChart<String,Number> graficoPeso;
+    @FXML private CategoryAxis xAxisMassimali;
+    @FXML private NumberAxis yAxisMassimali;
+    @FXML private NumberAxis yAxisPesoCorporeo;
+    @FXML private HBox containerGrafici;
 
-    @FXML
-    private Label labelNomeUtenteSaluto;
+    @FXML private Label labelNomeUtenteSaluto;
 
     // sezione banner abbonamenti
-    @FXML
-    private ScrollPane scrollPaneBanner;
+    @FXML private ScrollPane scrollPaneBanner;
     private double prefWidth = 350;
-    @FXML
 
     // container dei banner
-    private HBox displayerBanner;
+    @FXML private HBox displayerBanner;
+
+    public ClientDashboardController() {}
 
     public static ClientDashboardController getInstance() {
         return instance;

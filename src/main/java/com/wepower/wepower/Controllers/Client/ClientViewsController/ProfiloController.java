@@ -3,10 +3,11 @@ package com.wepower.wepower.Controllers.Client.ClientViewsController;
 import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
+import com.wepower.wepower.Views.AlertHelper;
 import javafx.fxml.FXMLLoader;
-
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -18,7 +19,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -27,72 +27,50 @@ import java.util.ResourceBundle;
 
 public class ProfiloController implements Initializable {
     private static ProfiloController instance;
-    public VBox contenitoreDati1;
-    public VBox contenitoreDati2;
-    public Label infoNome;
-    public Label infoDataNascita;
-    public Label infoEmail;
-    public Label infoTelefono;
-    public Label infoTipoAbbonamento;
-    public Label infoDataInizio;
-    public Label infoDataFine;
-    public Label infoStatoPagamento;
-    public Label infoPeso;
-    public Label infoAltezza;
-    public Label infoCertificatoMedico;
-    public Label infoScheda;
-    public Label titoloPrincipale;
-    public Label titoloDatiAbbonamento;
-    public Label titoloDatiFisici;
-    public Label titoloGenerale;
-    public Label titoloDatiPersonali;
 
-    @FXML
-    private Label labelGenere;
+    @FXML private VBox contenitoreDati1;
+    @FXML private VBox contenitoreDati2;
+    @FXML private Label infoNome;
+    @FXML private Label infoDataNascita;
+    @FXML private Label infoEmail;
+    @FXML private Label infoTelefono;
+    @FXML private Label infoTipoAbbonamento;
+    @FXML private Label infoDataInizio;
+    @FXML private Label infoDataFine;
+    @FXML private Label infoStatoPagamento;
+    @FXML private Label infoPeso;
+    @FXML private Label infoAltezza;
+    @FXML private Label infoCertificatoMedico;
+    @FXML private Label infoScheda;
+    @FXML private Label titoloPrincipale;
+    @FXML private Label titoloDatiAbbonamento;
+    @FXML private Label titoloDatiFisici;
+    @FXML private Label titoloGenerale;
+    @FXML private Label titoloDatiPersonali;
+    @FXML private Label labelGenere;
+    @FXML private ImageView contenitoreImmagine;
+    @FXML private Button pulsanteCambiaImmagine;
+    @FXML private Label labelNomeCognomeSuperiore;
+    @FXML private Label labelNomeCognomeInferiore;
+    @FXML private Label labelDataNascita;
+    @FXML private Label labelEmail;
+    @FXML private Label labelTellefono;
+    @FXML private Label labelStatoCertificato;
+    @FXML private Label labelSchedaAllenamento;
+    @FXML private Label labelTipoAbbonamento;
+    @FXML private Label labelDataInizioAbbonamento;
+    @FXML private Label labelDataFineAbbonamento;
+    @FXML private Label labelStatoPagamento;
+    @FXML private Label labelPesoAttuale;
+    @FXML private Label labelAltezza;
+    @FXML private Button btnModificaDati;
+    @FXML private Button btnPulsanteEliminaUtente;
+    @FXML private BorderPane contenitoreMioProfilo;
+    @FXML private File imgProfilo;
 
-
-    @FXML
-    private ImageView contenitoreImmagine;
-    @FXML
-    private Button pulsanteCambiaImmagine;
-    @FXML
-    private Label labelNomeCognomeSuperiore;
-    @FXML
-
-    private Label labelNomeCognomeInferiore;
-    @FXML
-    private Label labelDataNascita;
-    @FXML
-    private Label labelEmail;
-    @FXML
-    private Label labelTellefono;
-    @FXML
-    private Label labelStatoCertificato;
-    @FXML
-    private Label labelSchedaAllenamento;
-    @FXML
-    private Label labelTipoAbbonamento;
-    @FXML
-    private Label labelDataInizioAbbonamento;
-    @FXML
-    private Label labelDataFineAbbonamento;
-    @FXML
-    private Label labelStatoPagamento;
-    @FXML
-    private Label labelPesoAttuale;
-    @FXML
-    private Label labelAltezza;
-    @FXML
-    private Button btnModificaDati;
-    @FXML
-    private Button btnPulsanteEliminaUtente;
-    @FXML
-    private BorderPane contenitoreMioProfilo;
-    @FXML
-    private File imgProfilo;
     private File imgCertificato;
 
-
+    public ProfiloController() {}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -108,16 +86,12 @@ public class ProfiloController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
     }
-
-    public ProfiloController(){}
-
 
     public static ProfiloController getInstance(){
         return instance;
     }
+
     public void caricaInterfacciaDatiUtente() throws SQLException {
         String nome = DatiSessioneCliente.getNomeUtente();
         String cognome = DatiSessioneCliente.getCognome();
@@ -149,12 +123,11 @@ public class ProfiloController implements Initializable {
         pulsanteCambiaImmagine.setOnAction(event -> {
             try {
                 cambiaImmagineProfilo();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            } catch (SQLException | IOException e) {
+                AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il caricamento dell'immagine profilo", null, Alert.AlertType.ERROR);
             }
         });
+
         if (statoAbbonamento) {
             labelTipoAbbonamento.setText(DatiSessioneCliente.getTipoAbbonamentoAttivo());
             labelDataInizioAbbonamento.setText(DatiSessioneCliente.getDataInizioAbbonamentoAttivo());
@@ -169,7 +142,7 @@ public class ProfiloController implements Initializable {
                 try {
                     onClickLabelAbbonamenti();
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    System.out.println("Label abbonamento" + e.getMessage());
                 }
             });
 
@@ -186,12 +159,10 @@ public class ProfiloController implements Initializable {
             labelSchedaAllenamento.getStyleClass().add("stilePredefinito");
         }
         labelSchedaAllenamento.setOnMouseClicked(event -> onClickLabelScheda());
-        if(telefono!=null){
-            labelTellefono.setText(telefono);
-        }
-        else{
-            labelTellefono.setText("Nessun numero di telefono");
-        }
+
+        if(telefono!=null) labelTellefono.setText(telefono);
+        else labelTellefono.setText("Nessun numero di telefono");
+
         if(DatiSessioneCliente.getCertificato()==2) {
             labelStatoCertificato.setText("Certificato valido");
             labelStatoCertificato.getStyleClass().add("label_testo_scuro");
@@ -206,13 +177,12 @@ public class ProfiloController implements Initializable {
             labelStatoCertificato.setOnMouseClicked(event -> {
                 try {
                     caricaCertificato();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                } catch (SQLException | IOException e) {
+                    System.out.println("Caricamento certificato" + e.getMessage());
                 }
             });
         }
+
         if(altezza!=null){
             labelAltezza.setText(altezza+" cm");
         }
@@ -221,21 +191,20 @@ public class ProfiloController implements Initializable {
         }
 
         if(pesoAttuale!=null){
-            labelPesoAttuale.setText(pesoAttuale.toString()+" kg");
+            labelPesoAttuale.setText(pesoAttuale +" kg");
         }
         else{
             labelPesoAttuale.setText("Nessun peso registrato");
         }
 
-
-
         btnModificaDati.setOnAction(event -> {
             try {
                 onClickModificaDati();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                AlertHelper.showAlert("Questo non doveva succedere", "Errore durante la modifica dei dati", null, Alert.AlertType.ERROR);
             }
         });
+
         btnPulsanteEliminaUtente.setOnAction(event -> {
             try {
                 if (DatiSessioneCliente.onClickEliminaUtente(DatiSessioneCliente.getIdUtente())) {
@@ -243,10 +212,9 @@ public class ProfiloController implements Initializable {
                     Model.getInstance().getViewFactoryClient().closeStage(temp);
                 }
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                AlertHelper.showAlert("Questo non doveva succedere", "Errore durante l'eliminazione dell'utente", null, Alert.AlertType.ERROR);
             }
         });
-
     }
 
     private void adatta_testo(Label label, double percentuale) {

@@ -22,34 +22,22 @@ import java.util.ResourceBundle;
 
 public class AdminUtentiController implements Initializable {
 
-    public Button btnGestisciCapienza;
-    @FXML
-    private TableView<RigaDashboardAdmin> tableUtenti;
-    @FXML
-    private TableColumn<RigaDashboardAdmin, Number> colId;
-    @FXML
-    private TableColumn<RigaDashboardAdmin, String> colNome;
-    @FXML
-    private TableColumn<RigaDashboardAdmin, String> colCognome;
-    @FXML
-    private TableColumn<RigaDashboardAdmin,String> colDataNascita;
-    @FXML
-    private TableColumn<RigaDashboardAdmin, String> colEmail;
-    @FXML
-    private TableColumn<RigaDashboardAdmin, String> colStatoAbbonamento;
+    @FXML private Button btnGestisciCapienza;
+    @FXML private TableView<RigaDashboardAdmin> tableUtenti;
+    @FXML private TableColumn<RigaDashboardAdmin, Number> colId;
+    @FXML private TableColumn<RigaDashboardAdmin, String> colNome;
+    @FXML private TableColumn<RigaDashboardAdmin, String> colCognome;
+    @FXML private TableColumn<RigaDashboardAdmin,String> colDataNascita;
+    @FXML private TableColumn<RigaDashboardAdmin, String> colEmail;
+    @FXML private TableColumn<RigaDashboardAdmin, String> colStatoAbbonamento;
+    @FXML private TableColumn<RigaDashboardAdmin, String> colDataRinnovo;
+    @FXML private TableColumn<RigaDashboardAdmin, String> colDataScadenza;
+    @FXML private TableColumn<RigaDashboardAdmin, String> colSesso;
+    @FXML private TableColumn<RigaDashboardAdmin, String> colCertificato;
+    @FXML private TableColumn<RigaDashboardAdmin, Void> colModifica;
+    @FXML private TableColumn<RigaDashboardAdmin, Void> colElimina;
 
-    @FXML
-    private TableColumn<RigaDashboardAdmin, String> colDataRinnovo;
-    @FXML
-    private TableColumn<RigaDashboardAdmin, String> colDataScadenza;
-    @FXML
-    private TableColumn<RigaDashboardAdmin, String> colSesso;
-    @FXML
-    private TableColumn<RigaDashboardAdmin, String> colCertificato;
-    @FXML
-    private TableColumn<RigaDashboardAdmin, Void> colModifica;
-    @FXML
-    private TableColumn<RigaDashboardAdmin, Void> colElimina;
+    public AdminUtentiController() {}
 
     // TUTTO ????? (GESTIONE DELLE ECCEZIONI CON ALERT (classe nostra) O STAMPE)
     @Override
@@ -76,7 +64,6 @@ public class AdminUtentiController implements Initializable {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-
                 });}
 
             @Override
@@ -89,8 +76,6 @@ public class AdminUtentiController implements Initializable {
                 }
             }
         });
-
-
 
         colElimina.setCellFactory(column -> new TableCell<RigaDashboardAdmin, Void>() {
             private final Button btnElimina = new Button("Elimina");

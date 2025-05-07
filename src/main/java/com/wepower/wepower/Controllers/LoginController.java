@@ -3,12 +3,10 @@ package com.wepower.wepower.Controllers;
 import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.ModelAutenticazione;
 import com.wepower.wepower.Models.DatiSessioneCliente;
+import com.wepower.wepower.Views.AlertHelper;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.net.URL;
 import java.util.Objects;
@@ -17,27 +15,15 @@ import java.sql.SQLException;
 
 public class LoginController implements Initializable {
 
+    @FXML private Button loginButton;
+    @FXML private Label labelLoginError;
+    @FXML private TextField textEmail;
+    @FXML private Button signupButton;
+    @FXML private PasswordField passwordField;
+    @FXML private TextField showPassword;
+    @FXML private Button eyeButton;
 
-    @FXML
-    private Button loginButton;
-
-    @FXML
-    private Label labelLoginError;
-
-    @FXML
-    private TextField textEmail;
-
-    @FXML
-    private Button signupButton;
-
-    @FXML
-    private PasswordField passwordField;
-
-    @FXML
-    private TextField showPassword;
-
-    @FXML
-    private Button eyeButton;
+    public LoginController() {}
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -50,11 +36,10 @@ public class LoginController implements Initializable {
             try {
                 clickLogin();
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il login", null, Alert.AlertType.ERROR);
             }
         });
     }
-
 
     public void sincronizzaPassword(){
         passwordField.textProperty().addListener((obs, oldText, newText) -> {

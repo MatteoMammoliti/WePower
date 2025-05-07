@@ -3,32 +3,26 @@ package com.wepower.wepower.Controllers.Admin;
 import com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra;
 import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Views.AdminView.RigaTabellaRichiesteScheda;
+import com.wepower.wepower.Views.AlertHelper;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SchedeAdminController implements Initializable {
-    @FXML
-    private TableView<RigaTabellaRichiesteScheda> tabellaSchede;
-    @FXML
-    private TableColumn<RigaTabellaRichiesteScheda, Void> colCrea;
-    @FXML
-    private TableColumn<RigaTabellaRichiesteScheda, String> colSesso;
-    @FXML
-    private TableColumn<RigaTabellaRichiesteScheda, Integer> colPeso;
-    @FXML
-    private TableColumn<RigaTabellaRichiesteScheda, String> colCognome;
-    @FXML
-    private TableColumn<RigaTabellaRichiesteScheda, String> colNome;
-    @FXML
-    private TableColumn<RigaTabellaRichiesteScheda, Integer> colID;
+
+    @FXML private TableView<RigaTabellaRichiesteScheda> tabellaSchede;
+    @FXML private TableColumn<RigaTabellaRichiesteScheda, Void> colCrea;
+    @FXML private TableColumn<RigaTabellaRichiesteScheda, String> colSesso;
+    @FXML private TableColumn<RigaTabellaRichiesteScheda, Integer> colPeso;
+    @FXML private TableColumn<RigaTabellaRichiesteScheda, String> colCognome;
+    @FXML private TableColumn<RigaTabellaRichiesteScheda, String> colNome;
+    @FXML private TableColumn<RigaTabellaRichiesteScheda, Integer> colID;
+
+    public SchedeAdminController() {}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -56,11 +50,12 @@ public class SchedeAdminController implements Initializable {
                 btn.setOnAction(event -> {
                     RigaTabellaRichiesteScheda riga = getTableView().getItems().get(getIndex());
                     int id = riga.getIdUtente();
+
                     //Quando clicchiamo sul bottone, chiamiamo il metodo onClickVisualizza e gli passiamo l'id del cliente
                     try {
                         SchermataCreazioneSchedaAdmin.visualizzaSchermataCreazioneScheda(id,  Model.getInstance().getSchedeAdminController());
                     } catch (Exception e) {
-                        throw new RuntimeException(e);
+                        AlertHelper.showAlert("Questo non doveva succedere", "Errore durante l'apertura della pagina", null, Alert.AlertType.ERROR);
                     }
                 });
             }

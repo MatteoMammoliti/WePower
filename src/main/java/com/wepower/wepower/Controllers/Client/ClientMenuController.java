@@ -3,6 +3,7 @@ import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,19 +15,21 @@ import java.util.ResourceBundle;
 
 public class ClientMenuController  implements Initializable {
 
-    public Button dashboardButton;
-    public Button prenotazioneButton;
-    public Button myProfileButton;
-    public Button contactUsButton;
-    public Button logoutButton;
-    public Button schedaButton;
-    public ImageView imageUtente;
-    public Label nomeCognomeUtente;
-    public Label emailUtente;
-    public Label labelStatoAbbonamento;
-    public VBox profileSection;
-    public VBox contenitorePulsantiView;
-    public Button pulsanteCambioTema;
+    @FXML private Button dashboardButton;
+    @FXML private Button prenotazioneButton;
+    @FXML private Button myProfileButton;
+    @FXML private Button contactUsButton;
+    @FXML private Button logoutButton;
+    @FXML private Button schedaButton;
+    @FXML private ImageView imageUtente;
+    @FXML private Label nomeCognomeUtente;
+    @FXML private Label emailUtente;
+    @FXML private Label labelStatoAbbonamento;
+    @FXML private VBox profileSection;
+    @FXML private VBox contenitorePulsantiView;
+    @FXML private Button pulsanteCambioTema;
+
+    public ClientMenuController() {}
 
     // funzione che carica i componenti del menu. verrà richiamata anche in fase di aggiornamento interfaccia post operazione di modifica
     public void caricaMenu() {

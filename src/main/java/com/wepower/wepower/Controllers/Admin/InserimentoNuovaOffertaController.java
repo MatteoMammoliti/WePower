@@ -16,18 +16,15 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class InserimentoNuovaOffertaController implements Initializable {
-    @FXML
-    private Button btnConferma;
-    @FXML
-    private Button btnAnnulla;
-    @FXML
-    private TextField textDurataAbbonamento;
-    @FXML
-    private TextField textPrezzoAbbonamento;
-    @FXML
-    private TextField textDescrizioneAbbonamento;
-    @FXML
-    private TextField textNomeAbbonamento;
+
+    @FXML private Button btnConferma;
+    @FXML private Button btnAnnulla;
+    @FXML private TextField textDurataAbbonamento;
+    @FXML private TextField textPrezzoAbbonamento;
+    @FXML private TextField textDescrizioneAbbonamento;
+    @FXML private TextField textNomeAbbonamento;
+
+    public InserimentoNuovaOffertaController() {}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -22,15 +22,14 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class VisualizzatoreCertificatoController implements Initializable {
-    @FXML
-    private ImageView immagine;
-    @FXML
-    private Button btnApprova;
-    @FXML
-    private Button btnRifiuta;
+
+    @FXML private ImageView immagine;
+    @FXML private Button btnApprova;
+    @FXML private Button btnRifiuta;
     private int idCliente;
     private TabellaCertificatiAdminController tabellaCertificati;
 
+    public VisualizzatoreCertificatoController() {}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -38,7 +37,7 @@ public class VisualizzatoreCertificatoController implements Initializable {
             try {
                 immagine.setImage(ModelTabellaCertificati.prelevoImmagineCertificato(idCliente));
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il caricamento dell'immagine profilo", null, Alert.AlertType.ERROR);
             }
 
             btnApprova.setOnAction(e -> {

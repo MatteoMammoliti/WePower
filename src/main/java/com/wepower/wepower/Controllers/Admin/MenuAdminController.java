@@ -1,6 +1,7 @@
 package com.wepower.wepower.Controllers.Admin;
 
 import com.wepower.wepower.Models.Model;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -10,11 +11,13 @@ import java.util.ResourceBundle;
 
 public class MenuAdminController implements Initializable {
 
-    public Button certificatiButton;
-    public Button schedeButton;
-    public Button usersButton;
-    public Button dashboardButton;
-    public Button logoutButton;
+    @FXML private Button certificatiButton;
+    @FXML private Button schedeButton;
+    @FXML private Button usersButton;
+    @FXML private Button dashboardButton;
+    @FXML private Button logoutButton;
+
+    public MenuAdminController() {}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

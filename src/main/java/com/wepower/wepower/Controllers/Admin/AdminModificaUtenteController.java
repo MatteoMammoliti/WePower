@@ -18,22 +18,18 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AdminModificaUtenteController implements Initializable {
-    @FXML
-    private ComboBox<String> inputIdTipoAbbonamento;
-    @FXML
-    private TextField inputNuovoNome;
-    @FXML
-    private TextField inputNuovoCognome;
-    @FXML
-    private DatePicker inputNuovaDataNascita;
-    @FXML
-    private Button inputAnnulla;
 
+    @FXML private ComboBox<String> inputIdTipoAbbonamento;
+    @FXML private TextField inputNuovoNome;
+    @FXML private TextField inputNuovoCognome;
+    @FXML private DatePicker inputNuovaDataNascita;
+    @FXML private Button inputAnnulla;
     private Stage dialogStage;
 
-    public void setDialogStage(Stage stage) {
-        this.dialogStage = stage;
-    }
+    //Inizializzo una RigaDashboardAdmin
+    private RigaDashboardAdmin riga;
+
+    public AdminModificaUtenteController() {}
 
     //Pagina utente admin
     @Override
@@ -45,8 +41,10 @@ public class AdminModificaUtenteController implements Initializable {
             onClickAnnulla();
         });
     }
-    //Inizializzo una RigaDashboardAdmin
-    private RigaDashboardAdmin riga;
+
+    public void setDialogStage(Stage stage) {
+        this.dialogStage = stage;
+    }
 
     //Inizializzo i dati con quelli attuali dell'utente da modificare
     public void setUtente(RigaDashboardAdmin riga) {
@@ -55,7 +53,7 @@ public class AdminModificaUtenteController implements Initializable {
         //Inizializzo i vari campi
         inputNuovoNome.setText(riga.getNome());
         inputNuovoCognome.setText(riga.getCognome());
-        inputNuovaDataNascita.setValue(LocalDate.parse(riga.getDataNascita().toString()));
+        inputNuovaDataNascita.setValue(LocalDate.parse(riga.getDataNascita()));
         //Disabilito la comboBox per attivare l'abbonamento se ne ha già uno attivo
         if (riga.getStatoAbbonamento().equals("Attivo")) {
             inputIdTipoAbbonamento.setDisable(true);
@@ -95,7 +93,7 @@ public class AdminModificaUtenteController implements Initializable {
         }
 
         //Inizializzo
-        boolean modificaUtente = false;
+        boolean modificaUtente;
         try {
             //Salvo le nuove date in una Stringa
             String dataNascita = null;
@@ -133,6 +131,7 @@ public class AdminModificaUtenteController implements Initializable {
                 riga.setNome(nuovoNome);
                 riga.setCognome(nuovoCognome);
                 riga.setDataNascita(dataNascita);
+
                 if (idTipoAbbonamento != -1) {
                     riga.setDataRinnovo(nuovaDataRinnovo.toString());
                     riga.setDataScadenza(dataFineAbbonamento);
@@ -147,9 +146,8 @@ public class AdminModificaUtenteController implements Initializable {
             //Chiudo la finestra
             dialogStage.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Modifica dei dati" + e.getMessage());
         }
-
     }
 
     //Chiudo la finestra e mostro gli avvertimenti solo se ci sono modifiche

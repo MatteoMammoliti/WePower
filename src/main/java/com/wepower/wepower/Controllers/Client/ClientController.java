@@ -2,6 +2,7 @@ package com.wepower.wepower.Controllers.Client;
 import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.DatiSessioneCliente;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -10,7 +11,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ClientController implements Initializable {
-    public BorderPane contenitore_client_view;
+
+    @FXML private BorderPane contenitore_client_view;
+
+    public ClientController() {}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

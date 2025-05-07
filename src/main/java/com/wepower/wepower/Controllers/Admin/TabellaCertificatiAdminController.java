@@ -14,20 +14,17 @@ import java.util.ResourceBundle;
 
 public class TabellaCertificatiAdminController implements Initializable {
     //Qui dichiariamo che le colonne della tabella appartiene ad una tabella di ogetti RigaTabellaCertificati, e mostrerà una proprietà di tipo Sting
-    @FXML
-    private TableColumn<RigaTabellaCertificati,Void>colVisualizza;
-    @FXML
-    private TableColumn<RigaTabellaCertificati,String> colDataCaricamento;
-    @FXML
-    private TableColumn<RigaTabellaCertificati,String> colCognome;
-    @FXML
-    private TableColumn<RigaTabellaCertificati,String> colNome;
-    @FXML
-    private TableColumn<RigaTabellaCertificati,String> colID;
 
+    @FXML private TableColumn<RigaTabellaCertificati,Void>colVisualizza;
+    @FXML private TableColumn<RigaTabellaCertificati,String> colDataCaricamento;
+    @FXML private TableColumn<RigaTabellaCertificati,String> colCognome;
+    @FXML private TableColumn<RigaTabellaCertificati,String> colNome;
+    @FXML private TableColumn<RigaTabellaCertificati,String> colID;
     //Qua diciamo che la tabella conterrà righe basate su oggetti di tipo RigaTabellaCertificati
     @FXML
     private TableView<RigaTabellaCertificati> tabellaCertificati;
+
+    public TabellaCertificatiAdminController() {}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -23,17 +23,12 @@ import java.util.ResourceBundle;
 
 public class SchedaController implements Initializable {
 
-    @FXML
-    private SplitPane splitPane;
+    @FXML private SplitPane splitPane;
+    @FXML private Button eliminaSchedaButton;
+    @FXML private VBox containerSchedaAllenamento;
+    @FXML private VBox containerEsercizi;
 
-    @FXML
-    private Button eliminaSchedaButton;
-
-    @FXML
-    private VBox containerSchedaAllenamento;
-
-    @FXML
-    private VBox containerEsercizi;
+    public SchedaController() {}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

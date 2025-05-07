@@ -3,6 +3,7 @@ import com.wepower.wepower.Models.AdminModel.DatiSessioneAdmin;
 import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra;
 import com.wepower.wepower.Models.Model;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -11,7 +12,9 @@ import java.util.ResourceBundle;
 
 public class AdminController implements Initializable {
 
-    public BorderPane contenitore_admin_view;
+    @FXML private BorderPane contenitore_admin_view;
+
+    public AdminController() {}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

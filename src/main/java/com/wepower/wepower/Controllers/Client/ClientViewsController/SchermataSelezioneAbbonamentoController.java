@@ -1,7 +1,7 @@
 package com.wepower.wepower.Controllers.Client.ClientViewsController;
-
 import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.DatiPalestra.Abbonamento;
+import com.wepower.wepower.Views.AlertHelper;
 import com.wepower.wepower.Views.Bannerini.BannerAbbonamentiInSeleziona;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,11 +10,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -23,11 +23,12 @@ import java.util.ResourceBundle;
 
 public class SchermataSelezioneAbbonamentoController implements Initializable {
     private static SchermataSelezioneAbbonamentoController instance;
+
     private Stage stage;
-    @FXML
-    private AnchorPane anchorPaneContenitore;
-    @FXML
-    private VBox contenitoreAbbonamenti;
+    @FXML private AnchorPane anchorPaneContenitore;
+    @FXML private VBox contenitoreAbbonamenti;
+
+    public SchermataSelezioneAbbonamentoController() {}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -36,18 +37,20 @@ public class SchermataSelezioneAbbonamentoController implements Initializable {
         try {
             caricaAbbonamenti();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il caricamento degli abbonamenti", null, Alert.AlertType.ERROR);
         }
-
     }
+
     public static SchermataSelezioneAbbonamentoController getInstance() {return instance;}
-    public void setStage(Stage stage){this.stage=stage;}
+
+    public void setStage(Stage stage){ this.stage=stage; }
 
     public void caricaAbbonamenti() throws SQLException {
         ArrayList<Abbonamento> abbonamenti= Abbonamento.getAbbonamentiDb();
-        for(int i=0;i<abbonamenti.size();i++){
-            BannerAbbonamentiInSeleziona nuovo= new BannerAbbonamentiInSeleziona(abbonamenti.get(i).getNomeAbbonamento(),abbonamenti.get(i).getDescrizioneAbbonamento(),abbonamenti.get(i).getCosto(),abbonamenti.get(i).getDurataAbbonamento(),onClickAbbonati(abbonamenti.get(i).getNomeAbbonamento(),abbonamenti.get(i).getCosto()));
-            VBox.setMargin(nuovo,new Insets(10,0,10,0));
+
+        for (Abbonamento abbonamento : abbonamenti) {
+            BannerAbbonamentiInSeleziona nuovo = new BannerAbbonamentiInSeleziona(abbonamento.getNomeAbbonamento(), abbonamento.getDescrizioneAbbonamento(), abbonamento.getCosto(), abbonamento.getDurataAbbonamento(), onClickAbbonati(abbonamento.getNomeAbbonamento(), abbonamento.getCosto()));
+            VBox.setMargin(nuovo, new Insets(10, 0, 10, 0));
             contenitoreAbbonamenti.getChildren().add(nuovo);
         }
     }
@@ -73,9 +76,8 @@ public class SchermataSelezioneAbbonamentoController implements Initializable {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                AlertHelper.showAlert("Questo non doveva succedere", "Errore durante l'apertura della schermata", null, Alert.AlertType.ERROR);
             }
-
         };
     }
 }

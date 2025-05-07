@@ -1,5 +1,6 @@
 package com.wepower.wepower.Controllers.Admin;
 
+import com.wepower.wepower.Controllers.Client.ClientViewsController.SchermataCreazioneSchedaController;
 import com.wepower.wepower.Models.AdminModel.DatiSessioneAdmin;
 import com.wepower.wepower.Models.AdminModel.ModelSchermataCreazioneScheda;
 import com.wepower.wepower.Models.Model;
@@ -27,17 +28,14 @@ import java.util.ResourceBundle;
 
 public class SchermataCreazioneSchedaAdmin implements Initializable {
 
-    @FXML
-    private SplitPane splitPane;
-
-    @FXML
-    private VBox containerEsercizi;
-
-    @FXML
-    private VBox containerSchedaAllenamento;
+    @FXML private SplitPane splitPane;
+    @FXML private VBox containerEsercizi;
+    @FXML private VBox containerSchedaAllenamento;
 
     private int idUtente;
     private SchedeAdminController schedeAdminController;
+
+    public SchermataCreazioneSchedaAdmin() {}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -47,7 +45,7 @@ public class SchermataCreazioneSchedaAdmin implements Initializable {
             loadEsercizi();
             loadSchedaAllenamento();
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il caricamento degli esercizi", null, Alert.AlertType.ERROR);
         }
     }
 
