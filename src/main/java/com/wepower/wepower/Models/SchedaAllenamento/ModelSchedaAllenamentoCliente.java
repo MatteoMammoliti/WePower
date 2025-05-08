@@ -146,8 +146,6 @@ public class ModelSchedaAllenamentoCliente {
             Model.getInstance().getSchedaController().loadEsercizi();
             Model.getInstance().getViewFactoryClient().invalidateDashboard();
             DatiSessioneCliente.aggiungiEsercizioConMassimale(nomeEsercizio);
-        } catch (SQLException e) {
-            AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nell'aggiunta di un nuovo massimale", null, Alert.AlertType.ERROR);
         } finally {
             if (inserimento != null) {
                 try { inserimento.close(); } catch (SQLException ignored) {}

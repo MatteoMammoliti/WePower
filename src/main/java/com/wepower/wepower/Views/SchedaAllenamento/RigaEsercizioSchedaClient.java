@@ -73,6 +73,8 @@ public class RigaEsercizioSchedaClient extends HBox {
         this.aggiungiMassimale.setOnAction(event -> {
             this.aggiungiNuovoMassimale.setVisible(true);
 
+            if (this.aggiungiNuovoMassimale.getText().isEmpty()) return;
+
             if (Integer.parseInt(this.aggiungiNuovoMassimale.getText()) <= 0) {
                 AlertHelper.showAlert("Attenzione", "Valore massimale non valido", null, Alert.AlertType.ERROR );
                 this.aggiungiNuovoMassimale.clear();
