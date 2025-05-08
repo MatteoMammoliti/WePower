@@ -106,6 +106,7 @@ public class BannerAbbonamenti extends VBox {
         Stage stage = new Stage();
         stage.setTitle("Pagamento abbonamento");
         stage.setScene(scena);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/Images/favicon.png")));
         stage.setResizable(false);
         stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
         stage.showAndWait();

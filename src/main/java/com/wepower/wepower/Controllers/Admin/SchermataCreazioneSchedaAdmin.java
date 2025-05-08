@@ -19,6 +19,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -130,6 +131,7 @@ public class SchermataCreazioneSchedaAdmin implements Initializable {
         double pct = 0.8;
         stage.setWidth(bounds.getWidth() * pct);
         stage.setHeight(bounds.getHeight() * pct);
+        stage.getIcons().add(new Image(SchermataCreazioneSchedaAdmin.class.getResourceAsStream("/Images/favicon.png")));
 
         stage.setScene(scene);
         stage.centerOnScreen();

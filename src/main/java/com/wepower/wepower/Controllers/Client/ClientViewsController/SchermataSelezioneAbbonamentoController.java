@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -74,6 +75,7 @@ public class SchermataSelezioneAbbonamentoController implements Initializable {
                 stage.setTitle("Pagamento abbonamento");
                 stage.setResizable(false);
                 stage.initModality(Modality.APPLICATION_MODAL);
+                stage.getIcons().add(new Image(getClass().getResourceAsStream("/Images/favicon.png")));
                 stage.showAndWait();
             } catch (IOException ex) {
                 AlertHelper.showAlert("Questo non doveva succedere", "Errore durante l'apertura della schermata", null, Alert.AlertType.ERROR);

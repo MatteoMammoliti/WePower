@@ -1,5 +1,6 @@
 package com.wepower.wepower.Controllers.Admin;
 
+import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.AdminModel.TabellaUtentiDashboardAdmin;
 import com.wepower.wepower.Models.ModelValidazione;
 import com.wepower.wepower.Views.AdminView.RigaDashboardAdmin;
@@ -168,6 +169,9 @@ public class AdminModificaUtenteController implements Initializable {
             ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/error.png")));
             DialogPane dialogPane = chiudi.getDialogPane();
             dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
+            Stage alertStage = (Stage) dialogPane.getScene().getWindow();
+            alertStage.getIcons().add(new Image(getClass().getResource("/Images/favicon.png").toExternalForm()));
+            dialogPane.getStylesheets().add(ControlloTemi.getInstance().getCssTemaCorrente());
             chiudi.setGraphic(icon);
             ButtonType conferma = new ButtonType("Sì", ButtonBar.ButtonData.OK_DONE);
             ButtonType annulla = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);

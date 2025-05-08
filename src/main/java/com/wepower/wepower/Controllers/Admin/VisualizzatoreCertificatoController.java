@@ -104,6 +104,7 @@ public class VisualizzatoreCertificatoController implements Initializable {
         stage.setResizable(false);
         Scene scene=new Scene(root);
         scene.getStylesheets().add(ControlloTemi.getInstance().getCssTemaCorrente());
+        stage.getIcons().add(new Image(VisualizzatoreCertificatoController.class.getResourceAsStream("/Images/favicon.png")));
         stage.setScene(scene);
         stage.showAndWait();
     }

@@ -321,6 +321,7 @@ public class ProfiloController implements Initializable {
         ControlloTemi.getInstance().aggiungiScena(scena,cssTema);
         stage.setScene(scena);
         stage.setResizable(false);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/Images/favicon.png")));
         stage.initModality(Modality.APPLICATION_MODAL);
 
         //Passo lo stage al controller
@@ -338,6 +339,7 @@ public class ProfiloController implements Initializable {
         String cssTema=getClass().getResource("/Styles/modificaDati.css").toExternalForm();
         ControlloTemi.getInstance().aggiungiScena(scena,cssTema);
         stage.setTitle("Modifica dati");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/Images/favicon.png")));
         stage.setScene(scena);
         stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);

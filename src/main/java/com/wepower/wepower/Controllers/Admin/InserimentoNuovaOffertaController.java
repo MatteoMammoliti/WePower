@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -51,6 +52,7 @@ public class InserimentoNuovaOffertaController implements Initializable {
         Scene scene=new Scene(root);
         scene.getStylesheets().add(ControlloTemi.getInstance().getCssTemaCorrente());
         stage.setScene(scene);
+        stage.getIcons().add(new Image(InserimentoNuovaOffertaController.class.getResourceAsStream("/Images/favicon.png")));
         stage.showAndWait();
     }
 

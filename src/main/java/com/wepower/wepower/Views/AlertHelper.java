@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 public class AlertHelper {
     public static void showAlert(String titolo, String messaggioHeader, String messaggioContent, Alert.AlertType type) {
@@ -26,6 +27,8 @@ public class AlertHelper {
         dialogPane.getStylesheets().add(AlertHelper.class.getResource("/Styles/alertStyle.css").toExternalForm());
         dialogPane.getStylesheets().add(ControlloTemi.getInstance().getCssTemaCorrente());
         alert.setGraphic(icon);
+        Stage alertStage = (Stage) alert.getDialogPane().getScene().getWindow();
+        alertStage.getIcons().add(new Image(AlertHelper.class.getResourceAsStream("/Images/favicon.png")));
         alert.showAndWait();
     }
 }

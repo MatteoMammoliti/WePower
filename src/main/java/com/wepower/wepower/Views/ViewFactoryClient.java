@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.SplitPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
@@ -47,6 +48,7 @@ public class ViewFactoryClient {
         stage.setScene(scene);
         stage.setTitle("WePower - Login");
         stage.setResizable(false);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/Images/favicon.png")));
         stage.show();
     }
 
@@ -65,8 +67,9 @@ public class ViewFactoryClient {
         ControlloTemi.getInstance().aggiungiScena(scene,cssTema);
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.setTitle("WePower - Login");
+        stage.setTitle("WePower - Registrazione");
         stage.setResizable(false);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/Images/favicon.png")));
         stage.show();
     }
 
@@ -88,6 +91,7 @@ public class ViewFactoryClient {
         stage.setMinHeight(600);
         stage.setMinWidth(1300);
         stage.setMaximized(true);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/Images/favicon.png")));
 
         String cssTema=getClass().getResource("/Styles/Dashboard.css").toExternalForm();
         ControlloTemi.getInstance().aggiungiScena(scene,cssTema);
@@ -101,9 +105,7 @@ public class ViewFactoryClient {
                 stage.centerOnScreen();
             }
         });
-
     }
-
                                                     // -- FUNZIONI DI CAMBIO VIEW DEL MENU --
 
     // Visualizziamo l'intera dashboard (senza menu)

@@ -6,6 +6,7 @@ import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -46,6 +47,7 @@ public class ViewFactoryAdmin {
         stage.setMaximized(true);
         stage.setMinHeight(600);
         stage.setMinWidth(1300);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/Images/favicon.png")));
 
         stage.centerOnScreen();
         stage.show();

@@ -95,6 +95,9 @@ public class AdminUtentiController implements Initializable {
                     ImageView icon = new ImageView(new Image(DatiSessioneCliente.class.getResourceAsStream("/Images/IconeAlert/question.png")));
                     DialogPane dialogPane = conferma.getDialogPane();
                     dialogPane.getStylesheets().add(DatiSessioneCliente.class.getResource("/Styles/alertStyle.css").toExternalForm());
+                    Stage alertStage = (Stage) dialogPane.getScene().getWindow();
+                    alertStage.getIcons().add(new Image(getClass().getResource("/Images/favicon.png").toExternalForm()));
+                    dialogPane.getStylesheets().add(ControlloTemi.getInstance().getCssTemaCorrente());
                     conferma.setGraphic(icon);
 
                     Optional<ButtonType> resultConferma = conferma.showAndWait();
@@ -154,6 +157,7 @@ public class AdminUtentiController implements Initializable {
         scene.getStylesheets().add(ControlloTemi.getInstance().getCssTemaCorrente());
         stage.initModality(Modality.WINDOW_MODAL);
         Stage finestraCorrente = (Stage) btnGestisciCapienza.getScene().getWindow();
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/Images/favicon.png")));
         stage.initOwner(finestraCorrente);
         stage.showAndWait();
     }
@@ -171,6 +175,7 @@ public class AdminUtentiController implements Initializable {
         stage.setScene(scene);
         scene.getStylesheets().add(ControlloTemi.getInstance().getCssTemaCorrente());
         stage.initModality(Modality.WINDOW_MODAL);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/Images/favicon.png")));
         Stage finestraCorrente = (Stage) bottoneModifica.getScene().getWindow();
         stage.initOwner(finestraCorrente);
         controller.setDialogStage(stage);
