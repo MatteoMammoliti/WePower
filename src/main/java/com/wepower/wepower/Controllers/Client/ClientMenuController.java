@@ -1,21 +1,20 @@
 package com.wepower.wepower.Controllers.Client;
+import com.jfoenix.controls.JFXToggleButton;
 import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.DatiSessioneCliente;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ClientMenuController  implements Initializable {
 
-    public static VBox contenitoreMenuClient;
     @FXML private Button dashboardButton;
     @FXML private Button prenotazioneButton;
     @FXML private Button myProfileButton;
@@ -27,8 +26,7 @@ public class ClientMenuController  implements Initializable {
     @FXML private Label emailUtente;
     @FXML private Label labelStatoAbbonamento;
     @FXML private VBox profileSection;
-    @FXML private static VBox contenitorePulsantiView;
-    @FXML private Button pulsanteCambioTema;
+    @FXML private JFXToggleButton pulsanteCambioTema;
 
     public ClientMenuController() {}
 
@@ -55,9 +53,15 @@ public class ClientMenuController  implements Initializable {
         Model.getInstance().setClientMenuController(this);
         addListeners();
         caricaMenu();
+
+        String temaDefault=getClass().getResource("/Styles/TemaBlu.css").toExternalForm();
+        if(!Objects.equals(ControlloTemi.getInstance().getCssTemaCorrente(), temaDefault)) {
+            this.pulsanteCambioTema.setSelected(true);
+        }
+
         pulsanteCambioTema.setOnAction(e -> {
             String blutema= getClass().getResource("/Styles/TemaBlu.css").toExternalForm();
-            String temaProva=getClass().getResource("/Styles/TemaProva.css").toExternalForm();
+            String temaProva=getClass().getResource("/Styles/TemaVerde.css").toExternalForm();
             if(ControlloTemi.getInstance().getCssTemaCorrente().equals(blutema)){
                 ControlloTemi.getInstance().cambiaTema(temaProva);
             }
@@ -100,5 +104,4 @@ public class ClientMenuController  implements Initializable {
         Model.getInstance().getViewFactoryClient().getCurrentMenuView().set("Logout");
     }
 
-    private static void setSpacing(double spacing) { contenitorePulsantiView.setSpacing(spacing); }
 }

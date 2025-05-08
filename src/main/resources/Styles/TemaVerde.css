@@ -1,0 +1,574 @@
+/*GENERALE*/
+
+/* Background stili*/
+.background_chiaro{
+    -fx-background-color: #D2E3C8;
+    -fx-border-color: transparent;
+}
+.background_scuro{
+    -fx-background-color: #4F6F52;
+
+}
+.sfondo_sfumato{
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgb(210, 227, 200) 0%, rgb(79, 111, 82) 99%);
+}
+.sfondo_sfumato2{
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgb(79, 111, 82) 0%, rgb(210, 227, 200) 99%);
+}
+
+/* ScrollPane stile */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.scroll-pane > .corner {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane .scroll-bar{
+    -fx-background-color: #D2E3C8;
+}
+.scroll-bar:vertical{
+    -fx-background-color: #D2E3C8;
+}
+.scroll-pane .scroll-bar .thumb{
+    -fx-background-color: #739072;
+    -fx-background-radius: 5;
+}
+
+/* ScrollPane stile */
+.scroll-pane_admin {
+    -fx-background-color: #D2E3C8;
+    -fx-border-color: transparent;
+}
+.scroll-pane_admin > .viewport {
+    -fx-background-color: #D2E3C8;
+    -fx-border-color: transparent;
+}
+.scroll-pane_admin > .corner {
+    -fx-background-color: #D2E3C8;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane_admin .scroll-bar{
+    -fx-background-color: #D2E3C8;
+}
+
+.scroll-pane_admin .scroll-bar .thumb{
+    -fx-background-color: #739072;
+    -fx-background-radius: 5;
+}
+
+/* Label stile generale */
+.label_testo_scuro{
+    -fx-text-fill: #4F6F52;
+}
+
+.label_testo_chiaro{
+    -fx-text-fill: #D2E3C8;
+}
+.label_testo_medio{
+    -fx-text-fill: #739072;
+
+}
+
+/*REGISTRAZIONE E LOGIN*/
+
+.right_side_pane{
+    -fx-background-image: url("../Images/background_login_form_temaVerde.png")
+}
+.input_login{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #4F6F52 transparent;
+    -fx-text-fill: #4F6F52;
+}
+.my_button_login {
+    -fx-background-color: #4F6F52;
+    -fx-text-fill: #D2E3C8;
+    -fx-border-color: #4F6F52;
+}
+.my_button_login:hover {
+    -fx-cursor: hand;
+    -fx-opacity:1;
+}
+.my_button_toggle_pasword {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+.text_login{
+    -fx-text-fill: #4F6F52;
+    -fx-fill-width: bold;
+    -fx-fill:#4F6F52;
+}
+
+
+
+
+/*Dashboaord*/
+
+/*Menu latelare*/
+
+
+.my_button_window {
+    -fx-background-color: #D2E3C8;
+    -fx-text-fill: #4F6F52;
+}
+.my_button_window:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #4F6F52;
+    -fx-text-fill: #D2E3C8FF;
+    -fx-fill: #D2E3C8FF;
+}
+
+.logout_button {
+    -fx-background-color: #D2E3C8;
+    -fx-text-fill: #4F6F52;
+}
+.logout_button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #4F6F52;
+    -fx-text-fill: #D2E3C8FF;
+    -fx-fill: #D2E3C8FF;
+}
+
+.my_button_window FontAwesomeIconView{
+    -fx-fill: #739072;
+}
+
+.contenitoreViewMenu{
+    -fx-background-color: transparent;
+}
+.footer {
+    -fx-background-color: transparent;
+}
+.cambioTema{
+    -fx-background-color: #D2E3C8FF;
+}
+.cambioTema:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #4F6F52;
+}
+
+/*Head*/
+#contenitore_centrale{
+    -fx-background-color: #D2E3C8;
+}
+
+
+
+/*Espositore offerte*/
+.pane_offerte_dashboard{
+    -fx-background-color: transparent;
+}
+
+#contenitore_bannerini .viewport{
+    -fx-background-color: #D2E3C8;
+
+}
+.bannerino {
+    -fx-background-color:  linear-gradient(from 0% 0% to 100% 100%, #86A789, #4F6F52);
+    -fx-border-color: #4F6F52;
+}
+.bannerino .label {
+    -fx-text-fill: #D2E3C8;
+}
+
+
+#frase_motivazionale_rotazione {
+    -fx-text-fill: linear-gradient(from 0% 0% to 100% 100%, #86A789, #4F6F52);;
+}
+
+/*Calendario*/
+
+.button_calendario{
+    -fx-background-color: transparent;
+    -fx-text-fill: #4F6F52;
+}
+
+.bottoniCambioMese{
+    -fx-background-color: transparent;
+    -fx-text-fill: #4F6F52;
+    -fx-bold: true;
+}
+.button_calendario:hover{
+    -fx-background-color: #4F6F52;
+    -fx-text-fill: white;
+}
+
+.giorno_prenotato{
+    -fx-background-color: #4F6F52;
+    -fx-text-fill: #D2E3C8;
+}
+.giorno_prenotato:hover{
+    -fx-opacity:1;
+    -fx-text-fill: white;
+}
+#circlePrenotato{
+    -fx-fill:#4F6F52;
+    -fx-opacity:0.9;
+}
+#circleChiusura{
+    -fx-fill: #4F6F52;
+    -fx-opacity:0.5;
+}
+
+
+/*ChatBox*/
+#bottone_chat_bot{
+    -fx-background-color: #D2E3C8;
+    -fx-text-fill: #4F6F52;
+}
+
+#text_field_bot{
+    -fx-background-color: #D2E3C8;
+}
+
+#vbox_chatbot {
+    -fx-background-color: white;
+}
+
+.rispostaBot{
+    -fx-background-color: #D2E3C8FF;
+}
+/*Grafici*/
+
+/*Grafico a candele*/
+.grafico{
+    -fx-background-color: #D2E3C8;
+}
+
+.grafico .chart-bar{
+    -fx-bar-fill: #4F6F52;
+}
+
+.grafico .chart-series-line	{
+    -fx-stroke: #4F6F52;
+
+}
+.grafico .chart-line-symbol{
+    -fx-background-color: #86A789;
+
+}
+.grafico .chart-plot-background{
+    -fx-background-color: #D2E3C8;
+
+}
+
+.grafico .chart-horizontal-grid-lines, .chart-vertical-grid-lines{
+    -fx-stroke: transparent;
+}
+
+.grafico .axis-tick-mark{
+    -fx-stroke: #4F6F52;
+}
+.grafico .axis-minor-tick-mark{
+    -fx-stroke: transparent;
+}
+
+.grafico .axis-label{
+    -fx-text-fill: #4F6F52;
+}
+
+#tendina_grafico{
+    -fx-border-color:#4F6F52;
+    -fx-background-color:#86A789 ;
+    -fx-text-fill: #4F6F52;
+}
+#tendina_grafico .menu-item{
+    -fx-text-fill: #4F6F52;
+    -fx-background-color:#86A789 ;
+    -fx-border-color: #D2E3C8;
+}
+
+#tendina_grafico .list-cell{
+    -fx-text-fill: #4F6F52;
+    -fx-background-color:#86A789 ;
+    -fx-border-color: #D2E3C8;
+}
+
+/*SEZIONE SCHEDA*/
+.btnScheda{
+    -fx-background-color: #D2E3C8;
+    -fx-text-fill: #4F6F52;
+}
+
+.btnCreaChiediElimina{
+    -fx-background-color: #739072;
+    -fx-text-fill: #4F6F52;
+}
+.btnScheda:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #4F6F52;
+    -fx-text-fill: #D2E3C8FF;
+    -fx-fill: #D2E3C8FF;
+}
+.btnCreaChiediElimina:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #4F6F52;
+    -fx-text-fill: #D2E3C8FF;
+    -fx-fill: #D2E3C8FF;
+}
+
+.rigaEsercizio {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #86A789, #4F6F52);
+    -fx-border-color: #4F6F52;
+}
+#SplitPane > .split-pane-divider {
+    -fx-background-color: #739072;
+}
+
+/*SEZIONE PRENOTAZIONE*/
+.rigaCompleta{
+    -fx-background-color: #D2E3C8;
+    -fx-border-color: #D2E3C8;
+}
+.contenitoreRigaStoricoProssimi{
+    -fx-background-color: linear-gradient(from 0% 0% to 90% 90%, #86A789, #739072);
+    -fx-text-fill: #4F6F52;
+}
+.contenitoreDettagliRiga{
+    -fx-background-color: linear-gradient(from 0% 0% to 90% 90%, #86A789, #739072);
+}
+.labelInfoStorico{
+    -fx-text-fill:  #4F6F52;
+}
+
+.btnGiornoChiusura{
+    -fx-background-color: #4F6F52;
+}
+.btnPrenotato{
+    -fx-background-color: #4F6F52;
+    -fx-text-fill: #86A789;
+}
+.btnPrenotati{
+    -fx-background-color: #4F6F52;
+    -fx-text-fill: #86A789;
+}
+.btnPrenotati:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #4F6F52;
+    -fx-text-fill: #D2E3C8FF;
+    -fx-fill: #D2E3C8FF;
+}
+.btnEliminaPrenotazione{
+    -fx-background-color: #4F6F52;
+    -fx-text-fill: #86A789;
+}
+.btnEliminaPrenotazione:hover{
+    -fx-opacity: 1;
+    -fx-cursor: hand;
+    -fx-background-color: #4F6F52;
+    -fx-text-fill: #D2E3C8FF;
+    -fx-fill: #D2E3C8FF;
+}
+.btnPrecedenteNO{
+    -fx-background-color: #D2E3C8;
+    -fx-text-fill: #4F6F52;
+}
+.btnPrecSucc{
+    -fx-background-color: #D2E3C8;
+    -fx-text-fill: #4F6F52;
+}
+
+.btnPrecSucc:hover{
+    -fx-opacity: 1;
+}
+
+/*DATI PROFILO CLIENTE*/
+.bottoni_dinamici_profilo{
+    -fx-background-color: #4F6F52;
+    -fx-text-fill: #D2E3C8;
+}
+
+.bottoni_dinamici_profilo:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #739072;
+    -fx-text-fill: #D2E3C8FF;
+    -fx-fill: #D2E3C8FF;
+}
+.bottoni_statici_profilo{
+    -fx-background-color: #4F6F52;
+    -fx-text-fill: #D2E3C8;
+}
+.bottoni_statici_profilo:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #739072;
+    -fx-text-fill: #D2E3C8FF;
+    -fx-fill: #D2E3C8FF;
+}
+
+/*SEZIONE CONTATTI */
+#contenitorePagina >.split-pane-divider {
+    -fx-background-color: #739072;
+    -fx-padding: 0;
+}
+.icone-socials {
+    -fx-background-color: #739072;
+    -fx-text-fill: #D2E3C8;
+}
+.icone-socials:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #4F6F52;
+    -fx-text-fill: #D2E3C8FF;
+}
+
+/*MODIFICA DATI CLIENTI*/
+
+#radioButtonModificaDati .radio{
+    -fx-background-color: #739072;
+}
+
+#radioButtonModificaDati:selected .radio{
+    -fx-background-color: #4F6F52;
+}
+#bottoniConfermaModifica {
+    -fx-background-color: #739072;
+    -fx-text-fill: #4F6F52;
+}
+#bottoniConfermaModifica:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #4F6F52;
+    -fx-text-fill: #D2E3C8FF;
+    -fx-fill: #D2E3C8FF;
+}
+
+/*INSERIMENTO DATI PAGAMENTO*/
+#tipoAbbonamento {
+    -fx-text-fill:#4F6F52;
+}
+#prezzoAbbonamento {
+    -fx-text-fill:#4F6F52;
+}
+#labelInserimentoDati {
+    -fx-text-fill:#4F6F52;
+}
+
+#bottonePaga {
+    -fx-background-color: #739072;
+    -fx-text-fill: #4F6F52;
+}
+
+#bottonePaga:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #4F6F52;
+    -fx-text-fill: #D2E3C8FF;
+    -fx-fill: #D2E3C8FF;
+}
+
+/*SELEZIONE ABBONAMENTO*/
+
+
+#contenitoreAbbonamenti {
+    -fx-background-color: #D2E3C8;
+    -fx-border-color: #D2E3C8;
+}
+#scrollPaneAbbonamenti:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+.buttonAbbonati{
+    -fx-background-color: #D2E3C8;
+    -fx-text-fill: #4F6F52
+}
+.buttonAbbonati:hover{
+    -fx-cursor: hand;
+    -fx-background-color: #4F6F52;
+    -fx-text-fill: #D2E3C8FF;
+    -fx-fill: #D2E3C8FF;
+}
+.contenitoreRiga{
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #86A789, #4F6F52);
+}
+.anchorPaneContenitore{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent,transparent,transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/*ALLERT*/
+.dialog-pane {
+    -fx-background-color: #D2E3C8;
+}
+.dialog-pane .content.label {
+    -fx-text-fill: #4F6F52;
+}
+.dialog-pane .header-panel {
+    -fx-background-color:  #D2E3C8;
+    -fx-text-fill: #4F6F52;
+}
+.dialog-pane .button-bar .button {
+    -fx-background-color: #739072;
+    -fx-text-fill: #D2E3C8;
+}
+.dialog-pane .button-bar .button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #4F6F52;
+    -fx-text-fill: #D2E3C8FF;
+}
+
+/*DASHBOARD ADMIN*/
+.bottoneDashboardAdmin{
+    -fx-background-color: linear-gradient(to bottom, #4F6F52, #D2E3C8FF);
+    -fx-text-fill: #4F6F52;
+    -fx-border-color: transparent;
+}
+.sfondoD{
+    -fx-background-color: #D2E3C8FF;
+}
+.bottoneDashboardAdmin:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #D2E3C8FF;
+}
+.riga-dashboard{
+    -fx-background-color: #D2E3C8FF;
+}
+.bottoneAddUtente {
+    -fx-background-color: #4F6F52;
+    -fx-text-fill: #D2E3C8FF;
+}
+
+.card{
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, rgb(210, 227, 200) 0%, rgb(79, 111, 82) 99%);
+}
+
+.bottoni_offerte{
+    -fx-background-color: #4F6F52;
+    -fx-text-fill: #D2E3C8;
+}
+
+.bottoni_offerte:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #739072;
+    -fx-text-fill: #D2E3C8FF;
+    -fx-fill: #D2E3C8FF;
+}
+.chart-pie .default-color0 {
+    -fx-pie-color: #4F6F52;
+}
+.chart-pie .default-color1 {
+    -fx-pie-color: #739072;
+}
+.chart-pie .default-color2 {
+    -fx-pie-color: #4F6F52;
+}
+.tortaGenere.chart-pie {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-effect: none;
+}
+.tortaGenere.chart-pie .chart-plot-background {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.tortaGenere.chart-pie .chart-legend {
+    -fx-background-color: transparent;
+}
+.tortaGenere.chart-pie .chart-title {
+    -fx-background-color: transparent;
+}

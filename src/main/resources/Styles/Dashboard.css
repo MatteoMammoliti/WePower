@@ -27,6 +27,13 @@
     -fx-padding: 10 30;
     -fx-pref-width: 200;
 }
+
+.logout_button {
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+    -fx-padding: 10 10;
+}
+
 .footer {
      -fx-spacing: 20;
  }

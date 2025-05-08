@@ -80,7 +80,7 @@
 /*REGISTRAZIONE E LOGIN*/
 
 .right_side_pane{
-    -fx-background-image: url("../Images/background_login_form.png")
+    -fx-background-image: url("../Images/background_login_form_temaBlu.png")
 }
 .input_login{
     -fx-background-color: transparent;
@@ -124,6 +124,15 @@
     -fx-text-fill: #DDE6EDFF;
     -fx-fill: #DDE6EDFF;
 }
+
+.logout_button {
+    -fx-background-color: #dde6ed;
+}
+.logout_button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #27374d;
+}
+
 .my_button_window FontAwesomeIconView{
     -fx-fill: #526D82;
 }
@@ -269,6 +278,12 @@
     -fx-text-fill: #27374D;
 }
 #tendina_grafico .menu-item{
+    -fx-text-fill: #27374D;
+    -fx-background-color:#9DB2BF ;
+    -fx-border-color: #DDE6ED;
+}
+
+#tendina_grafico .list-cell{
     -fx-text-fill: #27374D;
     -fx-background-color:#9DB2BF ;
     -fx-border-color: #DDE6ED;

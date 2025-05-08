@@ -1,5 +1,6 @@
 package com.wepower.wepower.Models;
 
+import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra;
 import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
 import com.wepower.wepower.Views.AlertHelper;
@@ -380,6 +381,7 @@ public class DatiSessioneCliente {
             ImageView icon = new ImageView(new Image(DatiSessioneCliente.class.getResourceAsStream("/Images/IconeAlert/question.png")));
             DialogPane dialogPane = conferma.getDialogPane();
             dialogPane.getStylesheets().add(DatiSessioneCliente.class.getResource("/Styles/alertStyle.css").toExternalForm());
+            dialogPane.getStylesheets().add(ControlloTemi.getInstance().getCssTemaCorrente());
             conferma.setGraphic(icon);
 
             Optional<ButtonType> resultat = conferma.showAndWait();
