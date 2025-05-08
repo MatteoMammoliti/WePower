@@ -38,9 +38,11 @@ public class TabellaUtentiDashboardAdmin {
                 LEFT JOIN TipoAbbonamento t ON a.IdTipoAbbonamento = t.IdTipoAbbonamento
                 LEFT JOIN CredenzialiCliente cc ON c.IdCliente = cc.IdCliente""";
 
+        PreparedStatement datiClienti = null;
+        ResultSet risultatoTuttiClienti = null;
         try {
-            PreparedStatement datiClienti = conn.prepareStatement(query);
-            ResultSet risultatoTuttiClienti = datiClienti.executeQuery();
+            datiClienti = conn.prepareStatement(query);
+            risultatoTuttiClienti = datiClienti.executeQuery();
 
             //Per ogni utente creo un oggetto di tipo riga
             while (risultatoTuttiClienti.next()) {
@@ -66,6 +68,13 @@ public class TabellaUtentiDashboardAdmin {
             }
         } catch (Exception e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto durante il caricamento degli utenti", null, Alert.AlertType.ERROR);
+        } finally {
+            if (risultatoTuttiClienti != null) {
+                try { risultatoTuttiClienti.close(); } catch (SQLException ignored) {}
+            }
+            if (datiClienti != null) {
+                try { datiClienti.close(); } catch (SQLException ignored) {}
+            }
         }
         return ris;
     }
@@ -76,13 +85,19 @@ public class TabellaUtentiDashboardAdmin {
 
         String eliminaUtente = "DELETE FROM Cliente WHERE IdCliente = ?";
         int risultatoEliminazione;
+
+        PreparedStatement elimina = null;
         try {
-            PreparedStatement elimina = conn.prepareStatement(eliminaUtente);
+            elimina = conn.prepareStatement(eliminaUtente);
             elimina.setInt(1, id);
             risultatoEliminazione = elimina.executeUpdate();
             return risultatoEliminazione > 0;
         } catch (Exception e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nell'eliminazione", null, Alert.AlertType.ERROR);
+        } finally {
+            if (elimina != null) {
+                try { elimina.close(); } catch (SQLException ignored) {}
+            }
         }
         return false;
     }
@@ -99,14 +114,14 @@ public class TabellaUtentiDashboardAdmin {
             //Preparo la query
             String queryUpdateCliente = "UPDATE Cliente SET Nome = ?, Cognome=?, DataNascita=? WHERE IdCliente = ?";
             //Aggiorno i dati
+
             try (PreparedStatement psCliente = conn.prepareStatement(queryUpdateCliente)) {
                 psCliente.setString(1, nome);
                 psCliente.setString(2, cognome);
                 psCliente.setString(3, dataNascita);
                 psCliente.setInt(4, id);
                 psCliente.executeUpdate();
-            }
-            catch (SQLException e) {
+            } catch (SQLException e) {
                 AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel salvataggio delle modifiche", null, Alert.AlertType.ERROR);
             }
 
@@ -157,8 +172,9 @@ public class TabellaUtentiDashboardAdmin {
         String query = "SELECT NomeAbbonamento FROM TipoAbbonamento";
 
         //Eseguo la query
+        PreparedStatement psTipi = null;
         try {
-            PreparedStatement psTipi = conn.prepareStatement(query);
+            psTipi = conn.prepareStatement(query);
             ResultSet rs = psTipi.executeQuery();
 
             //Salvo i vari abbonamenti in tipi
@@ -167,6 +183,10 @@ public class TabellaUtentiDashboardAdmin {
             }
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel reperimento degli abbonamenti", null, Alert.AlertType.ERROR);
+        } finally {
+            if (psTipi != null) {
+                try { psTipi.close(); } catch (SQLException ignored) {}
+            }
         }
 
         //Restituisco un ArrayList contenente tutti gli abbonamenti disponibili
@@ -180,8 +200,10 @@ public class TabellaUtentiDashboardAdmin {
 
         //Preparo la query
         String query="SELECT IdTipoAbbonamento FROM TipoAbbonamento WHERE NomeAbbonamento = ?";
+
+        PreparedStatement psIdTipo = null;
         try {
-            PreparedStatement psIdTipo=conn.prepareStatement(query);
+            psIdTipo=conn.prepareStatement(query);
             psIdTipo.setString(1, nomeTipoAbbonamento);
             ResultSet rs=psIdTipo.executeQuery();
 
@@ -191,7 +213,12 @@ public class TabellaUtentiDashboardAdmin {
             }
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto", null, Alert.AlertType.ERROR);
+        } finally {
+            if (psIdTipo != null) {
+                try { psIdTipo.close(); } catch (SQLException ignored) {}
+            }
         }
+
         return 0;
     }
 
@@ -202,8 +229,9 @@ public class TabellaUtentiDashboardAdmin {
 
         //Preparo la query
         String query="SELECT Durata FROM TipoAbbonamento WHERE NomeAbbonamento = ?";
+        PreparedStatement psDurata =  null;
         try {
-            PreparedStatement psDurata=conn.prepareStatement(query);
+            psDurata=conn.prepareStatement(query);
             psDurata.setString(1, nomeTipoAbbonamento);
             ResultSet rs = psDurata.executeQuery();
 
@@ -214,6 +242,10 @@ public class TabellaUtentiDashboardAdmin {
 
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto", null, Alert.AlertType.ERROR);
+        } finally {
+            if (psDurata != null) {
+                try { psDurata.close(); } catch (SQLException ignored) {}
+            }
         }
         return 0;
     }

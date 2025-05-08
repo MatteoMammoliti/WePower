@@ -65,8 +65,6 @@ public class AdminUtentiController implements Initializable {
                     try {
                         RigaDashboardAdmin riga = getTableView().getItems().get(getIndex());
                         onModifica(riga, btnModifica);
-
-
                     } catch (IOException e) {
                         AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto", null, Alert.AlertType.ERROR);
                     }

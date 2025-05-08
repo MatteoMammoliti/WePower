@@ -28,9 +28,12 @@ public class ModelTabellaCertificati {
 
         ObservableList<RigaTabellaCertificati> clienti= FXCollections.observableArrayList();
         String dati="SELECT c.IdCliente,c.Nome,c.Cognome,ce.DataCaricamentoCertificato From Cliente c JOIN Certificato ce on c.IdCliente=ce.IdCliente AND ce.Stato='Attesa' ";
+
+        PreparedStatement preparoQuery = null;
+        ResultSet risultati = null;
         try {
-            PreparedStatement preparoQuery=conn.prepareStatement(dati);
-            ResultSet risultati=preparoQuery.executeQuery();
+            preparoQuery=conn.prepareStatement(dati);
+            risultati=preparoQuery.executeQuery();
             //In questo ciclo while, per ogni riga della tabella, creo un oggetto RigaTabellaCertificati e lo aggiungo alla lista
             while (risultati.next()){
                 //Inizializzo le variabili con i dati della tabella
@@ -44,6 +47,13 @@ public class ModelTabellaCertificati {
             }
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il reperimento dei dati", null, Alert.AlertType.ERROR);
+        } finally {
+            if (preparoQuery != null) {
+                try { preparoQuery.close(); } catch (SQLException ignored) {}
+            }
+            if (risultati != null) {
+                try { risultati.close(); } catch (SQLException ignored) {}
+            }
         }
         return clienti;
     }
@@ -52,10 +62,12 @@ public class ModelTabellaCertificati {
         Connection conn = ConnessioneDatabase.getConnection();
 
         String immagine="SELECT ImgCertificato from Certificato WHERE IDCliente=?";
+        PreparedStatement preparoQuery = null;
+        ResultSet risultati = null;
         try {
-            PreparedStatement preparoQuery=conn.prepareStatement(immagine);
+            preparoQuery=conn.prepareStatement(immagine);
             preparoQuery.setInt(1,id);
-            ResultSet risultati=preparoQuery.executeQuery();
+            risultati=preparoQuery.executeQuery();
             if(risultati.next()){
                 byte[] byteImage=risultati.getBytes("ImgCertificato");
                 InputStream is=new ByteArrayInputStream(byteImage);
@@ -65,6 +77,13 @@ public class ModelTabellaCertificati {
             }
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il prelevamento dell'immagine del certificato", null, Alert.AlertType.ERROR);
+        } finally {
+            if (preparoQuery != null) {
+                try { preparoQuery.close(); } catch (SQLException ignored) {}
+            }
+            if (risultati != null) {
+                try { risultati.close(); } catch (SQLException ignored) {}
+            }
         }
         return null;
     }
@@ -75,16 +94,20 @@ public class ModelTabellaCertificati {
 
         String aggiornoCertificato="UPDATE Certificato SET Stato='Accettato' WHERE IdCliente=?";
         String aggiornoCliente="UPDATE Cliente SET CertificatoValido=2 WHERE IdCliente=?";
+
+        PreparedStatement preparoQuery = null;
+        PreparedStatement preparoQuery2 = null;
         try {
             conn.setAutoCommit(false);
-            PreparedStatement preparoQuery=conn.prepareStatement(aggiornoCertificato);
+            preparoQuery=conn.prepareStatement(aggiornoCertificato);
             preparoQuery.setInt(1,id);
             int righeModificate=preparoQuery.executeUpdate();
             if(righeModificate<=0){
                 conn.rollback();
                 return false;
             }
-            PreparedStatement preparoQuery2=conn.prepareStatement(aggiornoCliente);
+
+            preparoQuery2=conn.prepareStatement(aggiornoCliente);
             preparoQuery2.setInt(1,id);
             int righeModificate2=preparoQuery2.executeUpdate();
             if(righeModificate2<=0){
@@ -95,6 +118,13 @@ public class ModelTabellaCertificati {
             return true;
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto", null, Alert.AlertType.ERROR);
+        } finally {
+            if (preparoQuery != null) {
+                try { preparoQuery.close(); } catch (SQLException ignored) {}
+            }
+            if (preparoQuery2 != null) {
+                try { preparoQuery2.close(); } catch (SQLException ignored) {}
+            }
         }
         return false;
     }
@@ -105,9 +135,12 @@ public class ModelTabellaCertificati {
 
         String eliminoCertificato="DELETE FROM Certificato WHERE IdCliente=?";
         String aggiornoCliente="UPDATE Cliente SET CertificatoValido=0 WHERE IdCliente=?";
+
+        PreparedStatement preparoQuery = null;
+        PreparedStatement preparoQuery2 = null;
         try {
             conn.setAutoCommit(false);
-            PreparedStatement preparoQuery=conn.prepareStatement(eliminoCertificato);
+            preparoQuery=conn.prepareStatement(eliminoCertificato);
             preparoQuery.setInt(1,id);
             int riga=preparoQuery.executeUpdate();
 
@@ -116,7 +149,7 @@ public class ModelTabellaCertificati {
                 return false;
             }
 
-            PreparedStatement preparoQuery2=conn.prepareStatement(aggiornoCliente);
+            preparoQuery2=conn.prepareStatement(aggiornoCliente);
             preparoQuery2.setInt(1,id);
             int righeModificate=preparoQuery2.executeUpdate();
 
@@ -129,6 +162,13 @@ public class ModelTabellaCertificati {
             return true;
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto", null, Alert.AlertType.ERROR);
+        } finally {
+            if (preparoQuery != null) {
+                try { preparoQuery.close(); } catch (SQLException ignored) {}
+            }
+            if (preparoQuery2 != null) {
+                try { preparoQuery2.close(); } catch (SQLException ignored) {}
+            }
         }
         return false;
     }

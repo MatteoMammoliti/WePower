@@ -16,12 +16,14 @@ public class ModelSchedaAllenamentoCliente {
         String creazioneScheda = "INSERT INTO SchedaAllenamento (IdCliente) VALUES (?)";
         String prelevaIDScheda = "SELECT IdScheda FROM SchedaAllenamento WHERE IdCliente = ? AND SchedaAncoraInUso = 1 LIMIT 1";
 
+        PreparedStatement inserimentoScheda = null;
+        PreparedStatement prelevaIdScheda = null;
         try{
-            PreparedStatement inserimentoScheda = conn.prepareStatement(creazioneScheda);
+            inserimentoScheda = conn.prepareStatement(creazioneScheda);
             inserimentoScheda.setInt(1, DatiSessioneCliente.getIdUtente());
             inserimentoScheda.executeUpdate();
 
-            PreparedStatement prelevaIdScheda = conn.prepareStatement(prelevaIDScheda);
+            prelevaIdScheda = conn.prepareStatement(prelevaIDScheda);
             prelevaIdScheda.setInt(1, DatiSessioneCliente.getIdUtente());
             ResultSet resultSet = prelevaIdScheda.executeQuery();
             if (resultSet.next()) {
@@ -33,6 +35,13 @@ public class ModelSchedaAllenamentoCliente {
             }
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nella crezione della scheda", null, Alert.AlertType.ERROR);
+        } finally {
+            if (inserimentoScheda != null) {
+                try { inserimentoScheda.close(); } catch (SQLException ignored) {}
+            }
+            if (prelevaIdScheda != null) {
+                try { prelevaIdScheda.close(); } catch (SQLException ignored) {}
+            }
         }
     }
 
@@ -42,13 +51,15 @@ public class ModelSchedaAllenamentoCliente {
         String creazioneScheda = "INSERT INTO SchedaAllenamento (IdCliente, IdAdmin) VALUES (?, ?)";
         String prelevaIDScheda = "SELECT IdScheda FROM SchedaAllenamento WHERE IdCliente = ? AND SchedaAncoraInUso = 1 AND IdAdmin = 1 AND SchedaCompilata = 0 LIMIT 1";
 
+        PreparedStatement inserimentoScheda = null;
+        PreparedStatement prelevaIdScheda = null;
         try {
-            PreparedStatement inserimentoScheda = conn.prepareStatement(creazioneScheda);
+            inserimentoScheda = conn.prepareStatement(creazioneScheda);
             inserimentoScheda.setInt(1, DatiSessioneCliente.getIdUtente());
             inserimentoScheda.setInt(2, 1);
             inserimentoScheda.executeUpdate();
 
-            PreparedStatement prelevaIdScheda = conn.prepareStatement(prelevaIDScheda);
+            prelevaIdScheda = conn.prepareStatement(prelevaIDScheda);
             prelevaIdScheda.setInt(1, DatiSessioneCliente.getIdUtente());
             ResultSet resultSet = prelevaIdScheda.executeQuery();
             if (resultSet.next()) {
@@ -61,6 +72,13 @@ public class ModelSchedaAllenamentoCliente {
             }
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nella richiesta della scheda", null, Alert.AlertType.ERROR);
+        } finally {
+            if (inserimentoScheda != null) {
+                try { inserimentoScheda.close(); } catch (SQLException ignored) {}
+            }
+            if (prelevaIdScheda != null) {
+                try { prelevaIdScheda.close(); } catch (SQLException ignored) {}
+            }
         }
     }
 
@@ -70,8 +88,9 @@ public class ModelSchedaAllenamentoCliente {
         String inserimentoEsercizio = "INSERT INTO ComposizioneSchedaAllenamento (NomeEsercizio, IdSchedaAllenamento, NumeroRipetizioni, NumeroSerie) " +
                 "VALUES (?, ?, ?, ?)";
 
+        PreparedStatement inserimentoScheda = null;
         try {
-            PreparedStatement inserimentoScheda = conn.prepareStatement(inserimentoEsercizio);
+            inserimentoScheda = conn.prepareStatement(inserimentoEsercizio);
             inserimentoScheda.setString(1, nomeEsercizio);
             inserimentoScheda.setInt(2, idSchedaAllenamento);
             inserimentoScheda.setString(3, numeroRipetizioni);
@@ -79,6 +98,10 @@ public class ModelSchedaAllenamentoCliente {
             inserimentoScheda.executeUpdate();
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nell'inserimento", null, Alert.AlertType.ERROR);
+        } finally {
+            if (inserimentoScheda != null) {
+                try { inserimentoScheda.close(); } catch (SQLException ignored) {}
+            }
         }
     }
 
@@ -87,8 +110,9 @@ public class ModelSchedaAllenamentoCliente {
 
         String eliminaEsercizio = "DELETE FROM ComposizioneSchedaAllenamento WHERE NomeEsercizio = ? AND IdSchedaAllenamento = ?";
 
+        PreparedStatement eliminazione = null;
         try {
-            PreparedStatement eliminazione = conn.prepareStatement(eliminaEsercizio);
+            eliminazione = conn.prepareStatement(eliminaEsercizio);
             eliminazione.setString(1, nomeEsercizio);
             eliminazione.setInt(2, idSchedaAllenamento);
             eliminazione.executeUpdate();
@@ -97,6 +121,10 @@ public class ModelSchedaAllenamentoCliente {
             Model.getInstance().getSchedaController().loadEsercizi();
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nella rimozione", null, Alert.AlertType.ERROR);
+        } finally {
+            if (eliminazione != null) {
+                try { eliminazione.close(); } catch (SQLException ignored) {}
+            }
         }
     }
 
@@ -105,8 +133,9 @@ public class ModelSchedaAllenamentoCliente {
 
         String massimale = "INSERT INTO MassimaleImpostatoCliente (IdCliente, NomeEsercizio, DataInserimento, Peso) VALUES (?, ?, ?, ?)";
 
+        PreparedStatement inserimento = null;
         try {
-            PreparedStatement inserimento = conn.prepareStatement(massimale);
+            inserimento = conn.prepareStatement(massimale);
             inserimento.setInt(1, idUtente);
             inserimento.setString(2, nomeEsercizio);
             inserimento.setString(3, dataInserimento);
@@ -119,6 +148,10 @@ public class ModelSchedaAllenamentoCliente {
             DatiSessioneCliente.aggiungiEsercizioConMassimale(nomeEsercizio);
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nell'aggiunta di un nuovo massimale", null, Alert.AlertType.ERROR);
+        } finally {
+            if (inserimento != null) {
+                try { inserimento.close(); } catch (SQLException ignored) {}
+            }
         }
     }
 
@@ -126,8 +159,10 @@ public class ModelSchedaAllenamentoCliente {
         Connection conn = ConnessioneDatabase.getConnection();
 
         String updateMassimale = "UPDATE MassimaleImpostatoCliente SET Peso = ? WHERE IdCliente = ? AND NomeEsercizio = ?";
+
+        PreparedStatement inserimento = null;
         try {
-            PreparedStatement inserimento = conn.prepareStatement(updateMassimale);
+            inserimento = conn.prepareStatement(updateMassimale);
             inserimento.setDouble(1, nuovoMassimale);
             inserimento.setInt(2, idCliente);
             inserimento.setString(3, nomeEsercizio);
@@ -137,6 +172,10 @@ public class ModelSchedaAllenamentoCliente {
             Model.getInstance().getViewFactoryClient().invalidateDashboard();
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nell'aggiornamento del massimale", null, Alert.AlertType.ERROR);
+        } finally {
+            if (inserimento != null) {
+                try { inserimento.close(); } catch (SQLException ignored) {}
+            }
         }
     }
 
@@ -146,12 +185,17 @@ public class ModelSchedaAllenamentoCliente {
         String eliminazioneScheda = "DELETE FROM SchedaAllenamento WHERE IdScheda = ?";
         int statusQuery = 0;
 
+        PreparedStatement eliminazione = null;
         try {
-            PreparedStatement eliminazione = conn.prepareStatement(eliminazioneScheda);
+            eliminazione = conn.prepareStatement(eliminazioneScheda);
             eliminazione.setInt(1, idScheda);
             statusQuery = eliminazione.executeUpdate();
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nell'eliminazione della scheda", null, Alert.AlertType.ERROR);
+        } finally {
+            if (eliminazione != null) {
+                try { eliminazione.close(); } catch (SQLException ignored) {}
+            }
         }
 
         if(statusQuery == 0) return;

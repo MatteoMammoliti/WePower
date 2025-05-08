@@ -40,14 +40,3 @@ public class GiornoCalendario  extends Button {
     }
     public void setChiusura(boolean chiuso) {this.chiuso = chiuso;}
 }
-
-
-
-
-
-
-
-
-
-
-

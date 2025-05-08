@@ -34,9 +34,11 @@ public class Abbonamento {
         ArrayList<Abbonamento> abbonamenti=new ArrayList<>();
         String prendiDati="SELECT * FROM TipoAbbonamento";
 
+        PreparedStatement preparo = null;
+        ResultSet risultato = null;
         try {
-            PreparedStatement preparo=conn.prepareStatement(prendiDati);
-            ResultSet risultato=preparo.executeQuery();
+            preparo=conn.prepareStatement(prendiDati);
+            risultato=preparo.executeQuery();
 
             while(risultato.next()){
                 Abbonamento nuovo=new Abbonamento(risultato.getString("NomeAbbonamento"),risultato.getString("Descrizione"),risultato.getInt("Costo"),risultato.getString("Durata"));
@@ -44,6 +46,13 @@ public class Abbonamento {
             }
         } catch(SQLException e){
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel prelevamento dei dati", null, Alert.AlertType.ERROR);
+        } finally {
+            if (preparo != null) {
+                try { preparo.close(); } catch (SQLException ignored) {}
+            }
+            if (risultato != null) {
+                try { risultato.close(); } catch (SQLException ignored) {}
+            }
         }
         return abbonamenti;
     }

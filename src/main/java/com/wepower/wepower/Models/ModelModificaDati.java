@@ -3,7 +3,6 @@ package com.wepower.wepower.Models;
 import com.wepower.wepower.Controllers.Client.ClientDashboardController;
 import com.wepower.wepower.Views.AlertHelper;
 import javafx.scene.control.Alert;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,10 +20,12 @@ public class ModelModificaDati {
         String aggiornaDatiCredenziali="UPDATE CredenzialiCliente SET Email=?,Telefono=? WHERE IdCliente=?";
         String aggiornaPeso="INSERT INTO PesoCliente (IdCliente,Peso,DataRegistrazionePeso) VALUES (?,?,?)";
 
+        PreparedStatement datiCliente = null;
+        PreparedStatement datiCredenziali = null;
         try {
             conn.setAutoCommit(false);
 
-            PreparedStatement datiCliente = conn.prepareStatement(aggiornaDati);
+            datiCliente = conn.prepareStatement(aggiornaDati);
             datiCliente.setString(1,nome);
             datiCliente.setString(2,cogn);
             datiCliente.setString(3,Data);
@@ -44,7 +45,7 @@ public class ModelModificaDati {
                 return false;
             }
 
-            PreparedStatement datiCredenziali=conn.prepareStatement(aggiornaDatiCredenziali);
+            datiCredenziali=conn.prepareStatement(aggiornaDatiCredenziali);
             datiCredenziali.setString(1,email);
             datiCredenziali.setString(2,telefono);
             datiCredenziali.setInt(3,id);
@@ -88,6 +89,13 @@ public class ModelModificaDati {
             return true;
         }catch (SQLException e){
             AlertHelper.showAlert("Questo non doveva succedere", "Errore durante la modifica attuale", null, Alert.AlertType.ERROR);
+        }  finally {
+            if (datiCredenziali != null) {
+                try { datiCredenziali.close(); } catch (SQLException ignored) {}
+            }
+            if(datiCliente != null) {
+                try { datiCredenziali.close(); } catch (SQLException ignored) {}
+            }
         }
         return false;
     }

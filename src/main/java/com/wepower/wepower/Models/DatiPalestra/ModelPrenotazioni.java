@@ -25,8 +25,9 @@ public class ModelPrenotazioni {
 
         String inserimentoPrenotazione = "INSERT into PrenotazioneSalaPesi (IdCliente,IdSalaPesi,DataPrenotazione,OrarioPrenotazione) VALUES (?,?,?,?)";
 
+        PreparedStatement dati = null;
         try {
-            PreparedStatement dati = conn.prepareStatement(inserimentoPrenotazione);
+            dati = conn.prepareStatement(inserimentoPrenotazione);
             dati.setInt(1, idUtente);
             dati.setInt(2, 1);
             dati.setString(3, data);
@@ -42,6 +43,10 @@ public class ModelPrenotazioni {
 
         } catch (SQLException e) {
             AlertHelper.showAlert("Errore", "Prenotazione già effettuata in questa giornata", null, Alert.AlertType.ERROR);
+        } finally {
+            if (dati != null) {
+                try { dati.close(); } catch (SQLException ignored) {}
+            }
         }
         return false;
     }
@@ -55,8 +60,9 @@ public class ModelPrenotazioni {
         }
         String rimuoviPrenotazione = "DELETE FROM PrenotazioneSalaPesi WHERE IdCliente=? AND DataPrenotazione=? AND OrarioPrenotazione=?";
 
+        PreparedStatement dati = null;
         try {
-            PreparedStatement dati = conn.prepareStatement(rimuoviPrenotazione);
+            dati = conn.prepareStatement(rimuoviPrenotazione);
             dati.setInt(1, idUtente);
             dati.setString(2, data);
             dati.setString(3, orario);
@@ -71,6 +77,10 @@ public class ModelPrenotazioni {
 
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Errore durante l'eliminazione della prenotazione", null, Alert.AlertType.ERROR);
+        } finally {
+            if (dati != null) {
+                try { dati.close(); } catch (SQLException ignored) {}
+            }
         }
         return false;
     }

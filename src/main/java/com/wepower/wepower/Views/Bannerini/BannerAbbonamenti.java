@@ -62,10 +62,14 @@ public class BannerAbbonamenti extends VBox {
 
     static public ArrayList<BannerAbbonamenti> getBannerAbbonamentiDB() {
         ArrayList<BannerAbbonamenti> bannerAbbonamenti = new ArrayList<>();
-        try (Connection conn = ConnessioneDatabase.getConnection()) {
+        Connection conn = ConnessioneDatabase.getConnection();
+        PreparedStatement dati = null;
+        ResultSet risultato = null;
+
+        try {
             String query = "SELECT * FROM TipoAbbonamento";
-            PreparedStatement dati = conn.prepareStatement(query);
-            ResultSet risultato = dati.executeQuery();
+            dati = conn.prepareStatement(query);
+            risultato = dati.executeQuery();
 
             while (risultato.next()) {
                 //String urlImmagine = risultato.getString("UrlImmagine");
@@ -88,6 +92,13 @@ public class BannerAbbonamenti extends VBox {
             }
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", " Qualcosa è andato storto", null, Alert.AlertType.ERROR);
+        } finally {
+            if(dati != null) {
+                try { dati.close(); } catch (SQLException ignored) {}
+            }
+            if(risultato != null) {
+                try { risultato.close(); } catch (SQLException ignored) {}
+            }
         }
         return bannerAbbonamenti;
     }

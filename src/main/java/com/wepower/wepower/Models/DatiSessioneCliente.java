@@ -4,12 +4,15 @@ import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra;
 import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
 import com.wepower.wepower.Views.AlertHelper;
+import javafx.application.Preloader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Pair;
+
+import javax.naming.ldap.Rdn;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -82,17 +85,27 @@ public class DatiSessioneCliente {
     public static String getTipoAbbonamentoAttivo(){
         String abbonamentoAttivo;
         String nomeTipoAbbonamento="SELECT t.NomeAbbonamento from TipoAbbonamento t join AbbonamentoCliente a on t.IdTipoAbbonamento=a.IdTipoAbbonamento where a.IdCliente=?";
+
+        PreparedStatement nomeAbbonamento = null;
+        ResultSet risultato = null;
         try {
             Connection conn = ConnessioneDatabase.getConnection();
-            PreparedStatement nomeAbbonamento=conn.prepareStatement(nomeTipoAbbonamento);
+            nomeAbbonamento=conn.prepareStatement(nomeTipoAbbonamento);
             nomeAbbonamento.setInt(1,idUtente);
-            ResultSet risultato=nomeAbbonamento.executeQuery();
+            risultato=nomeAbbonamento.executeQuery();
             if(risultato.next()){
                 abbonamentoAttivo=risultato.getString("NomeAbbonamento");
                 return abbonamentoAttivo;
             }
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel reperimento del tipo di abbonamento", null, Alert.AlertType.ERROR);
+        } finally {
+            if (nomeAbbonamento != null) {
+                try { nomeAbbonamento.close(); } catch (SQLException ignored) {}
+            }
+            if(risultato != null) {
+                try { risultato.close(); } catch (SQLException ignored) {}
+            }
         }
         return null;
     }
@@ -100,14 +113,24 @@ public class DatiSessioneCliente {
     //RECUPERO DATA INIZIO ABBONAMENTO ATTIVO DEL CLIENTE
     public static String getDataInizioAbbonamentoAttivo(){
         String dataInizioAbbonamento="SELECT ac.DataInizioAbbonamento from AbbonamentoCliente ac where ac.IdCliente=? and ac.StatoAbbonamento=1";
+
+        PreparedStatement dataInizio = null;
+        ResultSet risultato = null;
         try {
             Connection conn = ConnessioneDatabase.getConnection();
-            PreparedStatement dataInizio=conn.prepareStatement(dataInizioAbbonamento);
+            dataInizio=conn.prepareStatement(dataInizioAbbonamento);
             dataInizio.setInt(1,idUtente);
-            ResultSet risultato=dataInizio.executeQuery();
+            risultato=dataInizio.executeQuery();
             if(risultato.next()) return risultato.getString("DataInizioAbbonamento");
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel reperimento della data inizio dell'abbonamento", null, Alert.AlertType.ERROR);
+        } finally {
+            if (dataInizio != null) {
+                try { dataInizio.close(); } catch (SQLException ignored) {}
+            }
+            if(risultato != null) {
+                try { risultato.close(); } catch (SQLException ignored) {}
+            }
         }
         return null;
     }
@@ -115,15 +138,25 @@ public class DatiSessioneCliente {
     //RECUPERO DATA FINE ABBONAMENTO ATTIVO DEL CLIENTE
     public static String getDataFineAbbonamentoAttivo() throws SQLException {
         String dataFineAbbonamentoAttivo="SELECT ac.DataFineAbbonamento from AbbonamentoCliente ac where ac.IdCliente= ? and ac.StatoAbbonamento=1";
+
+        PreparedStatement dataFine = null;
+        ResultSet risultato = null;
         try {
             Connection conn = ConnessioneDatabase.getConnection();
-            PreparedStatement dataFine=conn.prepareStatement(dataFineAbbonamentoAttivo);
+            dataFine=conn.prepareStatement(dataFineAbbonamentoAttivo);
             dataFine.setInt(1, idUtente);
-            ResultSet risultato=dataFine.executeQuery();
+            risultato=dataFine.executeQuery();
             if (risultato.next()) return risultato.getString("DataFineAbbonamento");
 
         }catch (SQLException e){
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel reperimento della data fine dell'abbonamento", null, Alert.AlertType.ERROR);
+        } finally {
+            if (dataFine != null) {
+                try { dataFine.close(); } catch (SQLException ignored) {}
+            }
+            if(risultato != null) {
+                try { risultato.close(); } catch (SQLException ignored) {}
+            }
         }
         return null;
     }
@@ -132,18 +165,28 @@ public class DatiSessioneCliente {
     public static ArrayList<PrenotazioneSalaPesi> getDateAllenamentiEffettuati(){
         ArrayList<PrenotazioneSalaPesi> prenotazioni=new ArrayList<>();
         String cerco="SELECT DataPrenotazione,OrarioPrenotazione FROM PrenotazioneSalaPesi WHERE IdCliente=? AND DataPrenotazione < ?  ORDER BY DataPrenotazione DESC";
+
+        PreparedStatement prelevamento = null;
+        ResultSet rs = null;
         try {
             Connection conn = ConnessioneDatabase.getConnection();
-            PreparedStatement prelevamento=conn.prepareStatement(cerco);
+            prelevamento=conn.prepareStatement(cerco);
             prelevamento.setInt(1,DatiSessioneCliente.getIdUtente());
             prelevamento.setString(2,LocalDate.now().toString());;
-            ResultSet rs=prelevamento.executeQuery();
+            rs=prelevamento.executeQuery();
             while(rs.next()){
                 PrenotazioneSalaPesi p=new PrenotazioneSalaPesi(rs.getString("DataPrenotazione"),rs.getString("OrarioPrenotazione"));
                 prenotazioni.add(p);
             }
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel reperimento degli allenamenti effettuati", null, Alert.AlertType.ERROR);
+        } finally {
+            if (prelevamento != null) {
+                try { prelevamento.close(); } catch (SQLException ignored) {}
+            }
+            if(rs != null) {
+                try { rs.close(); } catch (SQLException ignored) {}
+            }
         }
         return prenotazioni;
     }
@@ -152,12 +195,15 @@ public class DatiSessioneCliente {
     public static ArrayList<PrenotazioneSalaPesi> getDateAllenamentiDaFare() {
         ArrayList<PrenotazioneSalaPesi> date=new ArrayList<>();
         String cerco="SELECT DataPrenotazione,OrarioPrenotazione FROM PrenotazioneSalaPesi WHERE IdCliente=? AND DataPrenotazione >= ? ORDER BY DataPrenotazione ASC LIMIT 8";
+
+        PreparedStatement prelevamento = null;
+        ResultSet rs = null;
         try {
             Connection conn = ConnessioneDatabase.getConnection();
-            PreparedStatement prelevamento=conn.prepareStatement(cerco);
+            prelevamento=conn.prepareStatement(cerco);
             prelevamento.setInt(1,DatiSessioneCliente.getIdUtente());
             prelevamento.setString(2,LocalDate.now().toString());
-            ResultSet rs=prelevamento.executeQuery();
+            rs=prelevamento.executeQuery();
             while(rs.next()){
                 PrenotazioneSalaPesi nuova=new PrenotazioneSalaPesi(rs.getString("DataPrenotazione"),rs.getString("OrarioPrenotazione"));
                 date.add(nuova);
@@ -165,6 +211,13 @@ public class DatiSessioneCliente {
             return date;
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel reperimento degli allenamenti da fare", null, Alert.AlertType.ERROR);
+        } finally {
+            if (prelevamento != null) {
+                try { prelevamento.close(); } catch (SQLException ignored) {}
+            }
+            if(rs != null) {
+                try { rs.close(); } catch (SQLException ignored) {}
+            }
         }
         return date;
     }
@@ -275,26 +328,34 @@ public class DatiSessioneCliente {
         //Quindi, dato che la funzione richiede un oggetto di tipo Path, e con .getAbsolutePath otteniamo il percorso sotto forma di String
         //dobbiamo convertire la stringa ottenuta in un Path.
 
+        PreparedStatement immagineProfilo = null;
         try {
             Connection conn = ConnessioneDatabase.getConnection();
-            PreparedStatement immagineProfilo = conn.prepareStatement(salvaImmagine);
+            immagineProfilo = conn.prepareStatement(salvaImmagine);
             //Passo il contenuto dell'immagine,è uno stream binario
             immagineProfilo.setBytes(1, imageBytes);
             immagineProfilo.setInt(2, idUtente);
             immagineProfilo.executeUpdate();
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel salvataggio dell'immagine profilo", null, Alert.AlertType.ERROR);
+        } finally {
+            if (immagineProfilo != null) {
+                try { immagineProfilo.close(); } catch (SQLException ignored) {}
+            }
         }
     }
 
     //CARICO L'IMMAGINE DEL CLIENTE DAL DB
     public static Image caricaImmagineProfiloUtente(int idUtente) throws SQLException {
         String caricaImmagine="Select ImmagineProfilo from Cliente where IdCliente=?";
+
+        PreparedStatement immagineProfilo = null;
+        ResultSet risultato = null;
         try {
             Connection conn = ConnessioneDatabase.getConnection();
-            PreparedStatement immagineProfilo=conn.prepareStatement(caricaImmagine);
+            immagineProfilo=conn.prepareStatement(caricaImmagine);
             immagineProfilo.setInt(1,idUtente);
-            ResultSet risultato=immagineProfilo.executeQuery();
+            risultato=immagineProfilo.executeQuery();
 
             if(risultato.next()){
                 //Usiamo un InputStream, rappresenta uno stream di byte in ingresso
@@ -307,6 +368,13 @@ public class DatiSessioneCliente {
             }
         }catch (SQLException e){
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel caricamento dell'immagine profilo", null, Alert.AlertType.ERROR);
+        } finally {
+            if (risultato != null) {
+                try { risultato.close(); } catch (SQLException ignored) {}
+            }
+            if(immagineProfilo != null) {
+                try { immagineProfilo.close(); } catch (SQLException ignored) {}
+            }
         }
         return null;
     }
@@ -322,10 +390,11 @@ public class DatiSessioneCliente {
 
         if(certificatoBytes.length==0) return false;
 
+        PreparedStatement datiCertificato = null;
         try {
             Connection conn = ConnessioneDatabase.getConnection();
             conn.setAutoCommit(false);
-            PreparedStatement datiCertificato=conn.prepareStatement(caricoCertificato);
+            datiCertificato=conn.prepareStatement(caricoCertificato);
             datiCertificato.setInt(1, idUtente);
             datiCertificato.setString(2,"Attesa");
             datiCertificato.setBytes(3,certificatoBytes);
@@ -336,8 +405,9 @@ public class DatiSessioneCliente {
                 return false;
             }
 
+            PreparedStatement datiCliente = null;
             try {
-                PreparedStatement datiCliente=conn.prepareStatement(aggiornoCliente);
+                datiCliente=conn.prepareStatement(aggiornoCliente);
                 datiCliente.setInt(1, idUtente);
                 int risultato=datiCliente.executeUpdate();
 
@@ -351,10 +421,18 @@ public class DatiSessioneCliente {
             catch (SQLException e){
                 conn.rollback();
                 AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel salvataggio del certificato", null, Alert.AlertType.ERROR);
+            } finally {
+                if (datiCliente != null) {
+                    try { datiCliente.close(); } catch (SQLException ignored) {}
+                }
             }
 
         }catch (SQLException e){
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel salvataggio del certificato", null, Alert.AlertType.ERROR);
+        } finally {
+            if (datiCertificato != null) {
+                try { datiCertificato.close(); } catch (SQLException ignored) {}
+            }
         }
         return false;
     }
@@ -369,9 +447,11 @@ public class DatiSessioneCliente {
     //ELIMINA UTENTE
     public static boolean onClickEliminaUtente(int id) throws SQLException {
         String eliminaUtente="DELETE FROM Cliente WHERE IdCliente=?";
+
+        PreparedStatement datiEliminaUtente = null;
         try {
             Connection conn = ConnessioneDatabase.getConnection();
-            PreparedStatement datiEliminaUtente=conn.prepareStatement(eliminaUtente);
+            datiEliminaUtente=conn.prepareStatement(eliminaUtente);
             datiEliminaUtente.setInt(1,id);
 
             Alert conferma=new Alert(Alert.AlertType.CONFIRMATION);
@@ -398,6 +478,10 @@ public class DatiSessioneCliente {
             }
         } catch (Exception e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nell'eliminazione dell'utente", null, Alert.AlertType.ERROR);
+        } finally {
+            if (datiEliminaUtente != null) {
+                try { datiEliminaUtente.close(); } catch (SQLException ignored) {}
+            }
         }
         return false;
     }
@@ -406,16 +490,25 @@ public class DatiSessioneCliente {
     public static void caricaPesoAttuale(int IdUtente) {
         String caricaPeso="SELECT Peso FROM PesoCliente WHERE IdCliente=? ORDER BY DataRegistrazionePeso DESC LIMIT 1";
 
+        PreparedStatement datiCaricaPeso = null;
+        ResultSet risultato = null;
         try {
             Connection conn = ConnessioneDatabase.getConnection();
-            PreparedStatement datiCaricaPeso=conn.prepareStatement(caricaPeso);
+            datiCaricaPeso=conn.prepareStatement(caricaPeso);
             datiCaricaPeso.setInt(1,IdUtente);
-            ResultSet risultato=datiCaricaPeso.executeQuery();
+            risultato=datiCaricaPeso.executeQuery();
             if(risultato.next()){
                 pesoAttuale=risultato.getInt("Peso");
             }
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel caricamento del peso", null, Alert.AlertType.ERROR);
+        } finally {
+            if (datiCaricaPeso != null) {
+                try { datiCaricaPeso.close(); } catch (SQLException ignored) {}
+            }
+            if(risultato != null) {
+                try { risultato.close(); } catch (SQLException ignored) {}
+            }
         }
     }
 
@@ -424,11 +517,13 @@ public class DatiSessioneCliente {
         ArrayList<Pair<String,Integer>> storicoPesi=new ArrayList<>();
         String caricaStoricoPesi="SELECT DataRegistrazionePeso,Peso FROM PesoCliente WHERE IdCliente=? ORDER BY DataRegistrazionePeso DESC LIMIT 10";
 
+        PreparedStatement datiCaricaStorico = null;
+        ResultSet risultato = null;
         try {
             Connection conn = ConnessioneDatabase.getConnection();
-            PreparedStatement datiCaricaStorico=conn.prepareStatement(caricaStoricoPesi);
+            datiCaricaStorico=conn.prepareStatement(caricaStoricoPesi);
             datiCaricaStorico.setInt(1,IdUtente);
-            ResultSet risultato=datiCaricaStorico.executeQuery();
+            risultato=datiCaricaStorico.executeQuery();
 
             while(risultato.next()){
                 Pair<String,Integer> peso=new Pair<>(risultato.getString("DataRegistrazionePeso"),risultato.getInt("Peso"));
@@ -437,6 +532,13 @@ public class DatiSessioneCliente {
             return storicoPesi;
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel caricamento dello storico dei pesi", null, Alert.AlertType.ERROR);
+        } finally {
+            if (datiCaricaStorico != null) {
+                try { datiCaricaStorico.close(); } catch (SQLException ignored) {}
+            }
+            if(risultato != null) {
+                try { risultato.close(); } catch (SQLException ignored) {}
+            }
         }
         return storicoPesi;
     }
@@ -447,12 +549,14 @@ public class DatiSessioneCliente {
         String prelevamento = "SELECT Peso, DataInserimento FROM MassimaleImpostatoCliente WHERE IDCliente = ? AND NomeEsercizio = ? ORDER BY DataInserimento DESC LIMIT 10";
         ArrayList<Pair<String,Number>> lista = new ArrayList<>();
 
+        PreparedStatement prelievo = null;
+        ResultSet rs = null;
         try {
             Connection conn = ConnessioneDatabase.getConnection();
-            PreparedStatement prelievo = conn.prepareStatement(prelevamento);
+            prelievo = conn.prepareStatement(prelevamento);
             prelievo.setInt(1, DatiSessioneCliente.getIdUtente());
             prelievo.setString(2, esercizio);
-            ResultSet rs = prelievo.executeQuery();
+            rs = prelievo.executeQuery();
 
             while(rs.next()) {
 
@@ -468,6 +572,13 @@ public class DatiSessioneCliente {
 
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel caricamento degli esercizi con massimali", null, Alert.AlertType.ERROR);
+        } finally {
+            if (prelievo != null) {
+                try { prelievo.close(); } catch (SQLException ignored) {}
+            }
+            if(rs != null) {
+                try { rs.close(); } catch (SQLException ignored) {}
+            }
         }
         return lista;
     }
@@ -478,11 +589,13 @@ public class DatiSessioneCliente {
         String prelevaPrenotazioni = "SELECT SUBSTR(DataPrenotazione, 1, 7) AS Mese, COUNT(*) AS numeroPrenotazioni FROM PrenotazioneSalaPesi WHERE IdCliente = ? GROUP BY Mese ORDER BY Mese";
         ArrayList<Pair<String,Number>> lista = new ArrayList<>();
 
+        PreparedStatement prelevamento = null;
+        ResultSet rs = null;
         try {
             Connection conn = ConnessioneDatabase.getConnection();
-            PreparedStatement prelevamento = conn.prepareStatement(prelevaPrenotazioni);
+            prelevamento = conn.prepareStatement(prelevaPrenotazioni);
             prelevamento.setInt(1, IdUtente);
-            ResultSet rs = prelevamento.executeQuery();
+            rs = prelevamento.executeQuery();
 
             while(rs.next()) {
                 String mese = rs.getString("Mese");
@@ -494,6 +607,13 @@ public class DatiSessioneCliente {
             return lista;
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel caricamento dello storico delle prenotazioni", null, Alert.AlertType.ERROR);
+        } finally {
+            if (prelevamento != null) {
+                try { prelevamento.close(); } catch (SQLException ignored) {}
+            }
+            if(rs != null) {
+                try { rs.close(); } catch (SQLException ignored) {}
+            }
         }
         return lista;
     }
@@ -502,15 +622,24 @@ public class DatiSessioneCliente {
     public static String caricaDataScadenzaAbbonamento(int IdUtente) {
         String fetchDataScadenza = "SELECT DataFineAbbonamento FROM AbbonamentoCliente WHERE IdCliente = ? AND StatoAbbonamento = 1";
 
+        PreparedStatement prelevamento = null;
+        ResultSet rs = null;
         try {
             Connection conn = ConnessioneDatabase.getConnection();
-            PreparedStatement prelevamento = conn.prepareStatement(fetchDataScadenza);
+            prelevamento = conn.prepareStatement(fetchDataScadenza);
             prelevamento.setInt(1, IdUtente);
-            ResultSet rs = prelevamento.executeQuery();
+            rs = prelevamento.executeQuery();
 
             if (rs.next()) return rs.getString("DataFineAbbonamento");
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel caricamento della data di scadenza abbonamento", null, Alert.AlertType.ERROR);
+        } finally {
+            if (prelevamento != null) {
+                try { prelevamento.close(); } catch (SQLException ignored) {}
+            }
+            if(rs != null) {
+                try { rs.close(); } catch (SQLException ignored) {}
+            }
         }
         return null;
     }
@@ -519,16 +648,25 @@ public class DatiSessioneCliente {
     public static int caricaPresenzaCertificato(int IdUtente) {
         String fetchCertificato = "SELECT IdCertificato FROM Certificato WHERE IdCliente = ?";
 
+        PreparedStatement prelevamento = null;
+        ResultSet rs = null;
         try {
             Connection conn = ConnessioneDatabase.getConnection();
-            PreparedStatement prelevamento = conn.prepareStatement(fetchCertificato);
+            prelevamento = conn.prepareStatement(fetchCertificato);
             prelevamento.setInt(1, IdUtente);
-            ResultSet rs = prelevamento.executeQuery();
+            rs = prelevamento.executeQuery();
 
             if (rs.next()) return rs.getInt("IdCertificato");
 
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel caricamento del certificato", null, Alert.AlertType.ERROR);
+        } finally {
+            if (prelevamento != null) {
+                try { prelevamento.close(); } catch (SQLException ignored) {}
+            }
+            if(rs != null) {
+                try { rs.close(); } catch (SQLException ignored) {}
+            }
         }
         return 0;
     }

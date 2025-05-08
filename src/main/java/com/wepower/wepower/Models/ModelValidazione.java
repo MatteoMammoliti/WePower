@@ -28,14 +28,23 @@ public class ModelValidazione {
 
         String cerco="SELECT Email FROM CredenzialiCliente WHERE Email=?";
 
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
-            PreparedStatement ps=conn.prepareStatement(cerco);
+            ps=conn.prepareStatement(cerco);
             ps.setString(1,emailLower);
-            ResultSet rs=ps.executeQuery();
+            rs=ps.executeQuery();
 
             if(rs.next()) return true;
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", " Errore durante la verifica campo email", null, Alert.AlertType.ERROR);
+        } finally {
+            if(rs != null) {
+                try { rs.close(); } catch (SQLException ignored) {}
+            }
+            if(ps != null) {
+                try { ps.close(); } catch (SQLException ignored) {}
+            }
         }
         return false;
     }

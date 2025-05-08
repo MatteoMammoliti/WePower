@@ -5,6 +5,8 @@ import com.wepower.wepower.Models.ModelValidazione;
 import com.wepower.wepower.Views.AlertHelper;
 import javafx.scene.control.Alert;
 import javafx.util.Pair;
+
+import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,16 +19,25 @@ import java.util.Map;
 public class ModelDashboardAdmin {
 
     //Conto il numero di abbonamenti attivi
-    public static int numeroAbbonamentiAttivi(){
+    public static int numeroAbbonamentiAttivi() {
         Connection conn = ConnessioneDatabase.getConnection();
 
-        String numeroAbbonamenti="SELECT COUNT(*) FROM AbbonamentoCliente WHERE StatoAbbonamento=1";
+        String numeroAbbonamenti = "SELECT COUNT(*) FROM AbbonamentoCliente WHERE StatoAbbonamento=1";
+        PreparedStatement pst = null;
+        ResultSet rs = null;
         try {
-            PreparedStatement pst = conn.prepareStatement(numeroAbbonamenti);
-            ResultSet rs=pst.executeQuery();
-            if(rs.next()) return rs.getInt(1);
-        }catch (Exception e){
+            pst = conn.prepareStatement(numeroAbbonamenti);
+            rs = pst.executeQuery();
+            if (rs.next()) return rs.getInt(1);
+        } catch (Exception e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il reperimento degli abbonamenti attivi", null, Alert.AlertType.ERROR);
+        } finally {
+            if (rs != null) {
+                try { rs.close(); } catch (SQLException ignored) {}
+            }
+            if (pst != null) {
+                try { pst.close(); } catch (SQLException ignored) {}
+            }
         }
         return 0;
     }
@@ -36,12 +47,21 @@ public class ModelDashboardAdmin {
         Connection conn = ConnessioneDatabase.getConnection();
 
         String numeroCertificati="SELECT COUNT(*) FROM Certificato WHERE Stato='Attesa'";
+        PreparedStatement pst = null;
+        ResultSet rs = null;
         try {
-            PreparedStatement pst=conn.prepareStatement(numeroCertificati);
-            ResultSet rs=pst.executeQuery();
+            pst=conn.prepareStatement(numeroCertificati);
+            rs=pst.executeQuery();
             if(rs.next())return rs.getInt(1);
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il reperimento dei certificati in attesa", null, Alert.AlertType.ERROR);
+        } finally {
+            if (rs != null) {
+                try { rs.close(); } catch (SQLException ignored) {}
+            }
+            if (pst != null) {
+                try { pst.close(); } catch (SQLException ignored) {}
+            }
         }
         return 0;
     }
@@ -51,15 +71,24 @@ public class ModelDashboardAdmin {
         Connection conn = ConnessioneDatabase.getConnection();
 
         String numeroPrenotatiOggi="SELECT COUNT(*) FROM PrenotazioneSalaPesi WHERE DataPrenotazione=?";
+        PreparedStatement pst = null;
+        ResultSet rs = null;
         try {
-            PreparedStatement pst=conn.prepareStatement(numeroPrenotatiOggi);
+            pst=conn.prepareStatement(numeroPrenotatiOggi);
             pst.setString(1, LocalDate.now().toString());
-            ResultSet rs=pst.executeQuery();
+            rs=pst.executeQuery();
 
             if(rs.next()) return rs.getInt(1);
 
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il reperimento dei prenotati per oggi", null, Alert.AlertType.ERROR);
+        } finally {
+            if (rs != null) {
+                try { rs.close(); } catch (SQLException ignored) {}
+            }
+            if (pst != null) {
+                try { pst.close(); } catch (SQLException ignored) {}
+            }
         }
         return 0;
     }
@@ -71,9 +100,11 @@ public class ModelDashboardAdmin {
         ArrayList<Pair<String,String>> promozioniAttive=new ArrayList<>();
         String promozioni="SELECT NomeAbbonamento,Costo FROM TipoAbbonamento";
 
+        PreparedStatement pst = null;
+        ResultSet rs = null;
         try {
-            PreparedStatement pst=conn.prepareStatement(promozioni);
-            ResultSet rs=pst.executeQuery();
+            pst=conn.prepareStatement(promozioni);
+            rs=pst.executeQuery();
 
             while(rs.next()){
                 String nomeAbbonamento=rs.getString("NomeAbbonamento");
@@ -83,6 +114,13 @@ public class ModelDashboardAdmin {
 
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il prelevamento delle promozioni", null, Alert.AlertType.ERROR);
+        } finally {
+            if (rs != null) {
+                try { rs.close(); } catch (SQLException ignored) {}
+            }
+            if (pst != null) {
+                try { pst.close(); } catch (SQLException ignored) {}
+            }
         }
         return promozioniAttive;
     }
@@ -93,14 +131,19 @@ public class ModelDashboardAdmin {
 
         String eliminaPromozione="DELETE FROM TipoAbbonamento WHERE NomeAbbonamento=?";
 
+        PreparedStatement caricoDati = null;
         try{
-            PreparedStatement caricoDati=conn.prepareStatement(eliminaPromozione);
+            caricoDati=conn.prepareStatement(eliminaPromozione);
             caricoDati.setString(1,nome);
             int righeModificate=caricoDati.executeUpdate();
             return righeModificate > 0;
         }catch (SQLException e){
             e.printStackTrace();
             AlertHelper.showAlert("Questo non doveva succedere", "Errore durante l'eliminazione della promozione", null, Alert.AlertType.ERROR);
+        } finally {
+            if (caricoDati != null) {
+                try { caricoDati.close(); } catch (SQLException ignored) {}
+            }
         }
         return false;
     }
@@ -110,16 +153,24 @@ public class ModelDashboardAdmin {
         Connection conn = ConnessioneDatabase.getConnection();
 
         String cerco="SELECT NomeAbbonamento FROM TipoAbbonamento WHERE NomeAbbonamento=?";
-
+        PreparedStatement caricoDati = null;
+        ResultSet risultato = null;
         try {
-            PreparedStatement caricoDati=conn.prepareStatement(cerco);
+            caricoDati=conn.prepareStatement(cerco);
             caricoDati.setString(1,nome);
-            ResultSet risultato=caricoDati.executeQuery();
+            risultato=caricoDati.executeQuery();
 
             if(risultato.next()) return true;
 
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Errore durante la ricerca", null, Alert.AlertType.ERROR);
+        } finally {
+            if (caricoDati != null) {
+                try { caricoDati.close(); } catch (SQLException ignored) {}
+            }
+            if (risultato != null) {
+                try { risultato.close(); } catch (SQLException ignored) {}
+            }
         }
         return false;
     }
@@ -151,8 +202,10 @@ public class ModelDashboardAdmin {
             return false;
         }
 
+        PreparedStatement caricoDati = null;
+
         try {
-            PreparedStatement caricoDati=conn.prepareStatement(aggiungo);
+            caricoDati=conn.prepareStatement(aggiungo);
             caricoDati.setString(1,nome);
             caricoDati.setString(2,descrizione);
             caricoDati.setString(3,costo);
@@ -166,6 +219,10 @@ public class ModelDashboardAdmin {
 
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Errore durante l'aggiunta della promozione", null, Alert.AlertType.ERROR);
+        } finally {
+            if (caricoDati != null) {
+                try { caricoDati.close(); } catch (SQLException ignored) {}
+            }
         }
         return false;
     }
@@ -175,11 +232,16 @@ public class ModelDashboardAdmin {
         Connection conn = ConnessioneDatabase.getConnection();
 
         String conto="SELECT COUNT(*) AS numSchede FROM SchedaAllenamento WHERE IdAdmin=1 AND SchedaAncoraInUso=1 AND SchedaCompilata=0";
+        PreparedStatement preparo = null;
         try {
-            PreparedStatement preparo=conn.prepareStatement(conto);
+            preparo=conn.prepareStatement(conto);
             return preparo.executeQuery().getInt("numSchede");
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il prelevamento delle richieste delle schede", null, Alert.AlertType.ERROR);
+        } finally {
+            if (preparo != null) {
+                try { preparo.close(); } catch (SQLException ignored) {}
+            }
         }
         return 0;
     }
@@ -190,8 +252,9 @@ public class ModelDashboardAdmin {
         String genere="SELECT Genere, NSesso FROM GraficoPerGenere";
         ArrayList<Pair<String,Integer>> lista=new ArrayList<>();
 
+        PreparedStatement preparo = null;
         try {
-            PreparedStatement preparo=conn.prepareStatement(genere);
+            preparo=conn.prepareStatement(genere);
             ResultSet rs=preparo.executeQuery();
 
             while(rs.next()){
@@ -203,6 +266,10 @@ public class ModelDashboardAdmin {
             return lista;
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il prelevamento del genere", null, Alert.AlertType.ERROR);
+        } finally {
+            if (preparo != null) {
+                try { preparo.close(); } catch (SQLException ignored) {}
+            }
         }
         return lista;
     }
@@ -214,8 +281,9 @@ public class ModelDashboardAdmin {
         ArrayList<Integer> lista=new ArrayList<>();
         String anni="SELECT DISTINCT ANNO FROM Ab ORDER  BY Anno DESC";
 
+        PreparedStatement preparo = null;
         try {
-            PreparedStatement preparo=conn.prepareStatement(anni);
+            preparo=conn.prepareStatement(anni);
             ResultSet rs=preparo.executeQuery();
 
             while(rs.next()){
@@ -225,6 +293,10 @@ public class ModelDashboardAdmin {
         }
          catch (SQLException e) {
              AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il reperimento degli anni", null, Alert.AlertType.ERROR);
+        } finally {
+            if (preparo != null) {
+                try { preparo.close(); } catch (SQLException ignored) {}
+            }
         }
         return lista;
     }
@@ -249,8 +321,9 @@ public class ModelDashboardAdmin {
 
         //Prelevo per ogni mese il numero di abbonamenti attivati
         String Dati="SELECT Mese, Totale FROM Ab Where Anno=?";
+        PreparedStatement preparo = null;
         try {
-            PreparedStatement preparo=conn.prepareStatement(Dati);
+            preparo=conn.prepareStatement(Dati);
             preparo.setString(1,anno);
             ResultSet rs=preparo.executeQuery();
             //Salvo tutto nella mappa
@@ -270,6 +343,10 @@ public class ModelDashboardAdmin {
         }
         catch(SQLException e){
             AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il reperimento dei dati", null, Alert.AlertType.ERROR);
+        } finally {
+            if (preparo != null) {
+                try { preparo.close(); } catch (SQLException ignored) {}
+            }
         }
         return mappa;
     }

@@ -41,9 +41,11 @@ public class DatiSessionePalestra {
                 "  AND s.SchedaAncoraInUso = 1\n" +
                 "  AND s.SchedaCompilata = 0;\n";
 
+        PreparedStatement preparo = null;
+        ResultSet rs = null;
         try {
-            PreparedStatement preparo=conn.prepareStatement(prendoIClienti);
-            ResultSet rs=preparo.executeQuery();
+            preparo=conn.prepareStatement(prendoIClienti);
+            rs=preparo.executeQuery();
             //In questo ciclo while, per ogni riga della tabella, creo un oggetto RigaTabellaRichiesteScheda e lo aggiungo alla lista
             while (rs.next()){
                 RigaTabellaRichiesteScheda utente=new RigaTabellaRichiesteScheda(rs.getInt("IdCliente"),rs.getString("Nome"),rs.getString("Cognome"),rs.getInt("Peso"),rs.getString("Sesso"));
@@ -51,6 +53,13 @@ public class DatiSessionePalestra {
             }
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel prelevamento delle schede richieste", null, Alert.AlertType.ERROR);
+        } finally {
+            if (preparo != null) {
+                try { preparo.close(); } catch (SQLException ignored) {}
+            }
+            if (rs != null) {
+                try { rs.close(); } catch (SQLException ignored) {}
+            }
         }
         return utenti;
     }
@@ -71,14 +80,23 @@ public class DatiSessionePalestra {
 
         String query="SELECT NumeriPostiMassimo FROM SalaPesi WHERE IdSalaPesi=1";
 
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
-            PreparedStatement ps=conn.prepareStatement(query);
-            ResultSet rs=ps.executeQuery();
+            ps=conn.prepareStatement(query);
+            rs=ps.executeQuery();
             if(rs.next()) {
                 numeroMassimePrenotazioniPerFascieOrarie=rs.getInt("NumeriPostiMassimo");
             }
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nell'impostazione", null, Alert.AlertType.ERROR);
+        } finally {
+            if (ps != null) {
+                try { ps.close(); } catch (SQLException ignored) {}
+            }
+            if (rs != null) {
+                try { rs.close(); } catch (SQLException ignored) {}
+            }
         }
     }
 

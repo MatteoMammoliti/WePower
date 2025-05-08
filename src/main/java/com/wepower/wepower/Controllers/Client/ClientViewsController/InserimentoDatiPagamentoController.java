@@ -85,11 +85,14 @@ public class InserimentoDatiPagamentoController implements Initializable {
         String controlloBonamentoGiàEsistente="SELECT * from AbbonamentoCliente WHERE StatoAbbonamento=1 and IdCliente=?";
         String cercoIdAbbonamento="SELECT IdTipoAbbonamento,Durata from TipoAbbonamento WHERE NomeAbbonamento=?";
         String aggiungoAbbonamento="INSERT INTO AbbonamentoCliente (IdCliente,IdTipoAbbonamento,DataInizioAbbonamento,DataFineAbbonamento,StatoAbbonamento) VALUES (?,?,?,?,?)";
+
+        PreparedStatement caricoDati = null;
+        ResultSet risultatoPrimaQuery = null;
         try {
             conn.setAutoCommit(false);
-            PreparedStatement caricoDati= conn.prepareStatement(controlloBonamentoGiàEsistente);
+            caricoDati= conn.prepareStatement(controlloBonamentoGiàEsistente);
             caricoDati.setInt(1,DatiSessioneCliente.getIdUtente());
-            ResultSet risultatoPrimaQuery = caricoDati.executeQuery();
+            risultatoPrimaQuery = caricoDati.executeQuery();
 
             if(risultatoPrimaQuery.next()){
                 AlertHelper.showAlert("Attenzione", "Hai già un abbonamento attivo", null, Alert.AlertType.ERROR);
@@ -97,13 +100,15 @@ public class InserimentoDatiPagamentoController implements Initializable {
                 return;
             }
 
+            PreparedStatement abbonamento = null;
+            ResultSet risultatoSecondaQuery = null;
             try {
-                PreparedStatement abbonamento=conn.prepareStatement(cercoIdAbbonamento);
+                abbonamento=conn.prepareStatement(cercoIdAbbonamento);
                 String testoLabel = labelNomeAbbonamento.getText();
                 String nomeAbbonamento = testoLabel.substring(testoLabel.indexOf(':') + 1).trim();
                 abbonamento.setString(1,nomeAbbonamento);
 
-                ResultSet risultatoSecondaQuery = abbonamento.executeQuery();
+                risultatoSecondaQuery = abbonamento.executeQuery();
 
                 if(risultatoSecondaQuery.next()){
                     idAbbonamento= risultatoSecondaQuery.getInt("IdTipoAbbonamento");
@@ -119,10 +124,19 @@ public class InserimentoDatiPagamentoController implements Initializable {
                 conn.rollback();
                 AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto", null, Alert.AlertType.ERROR);
                 return;
+            } finally {
+                if(abbonamento != null) {
+                    try { abbonamento.close(); } catch (SQLException ignored) {}
+                }
+
+                if(risultatoSecondaQuery != null) {
+                    try { risultatoSecondaQuery.close(); } catch (SQLException ignored) {}
+                }
             }
 
+            PreparedStatement caricoAbbonamento = null;
             try {
-                PreparedStatement caricoAbbonamento=conn.prepareStatement(aggiungoAbbonamento);
+                caricoAbbonamento=conn.prepareStatement(aggiungoAbbonamento);
                 caricoAbbonamento.setInt(1,DatiSessioneCliente.getIdUtente());
                 caricoAbbonamento.setInt(2,idAbbonamento);
                 caricoAbbonamento.setString(3, LocalDate.now().toString());
@@ -153,9 +167,22 @@ public class InserimentoDatiPagamentoController implements Initializable {
             } catch (SQLException e) {
                 conn.rollback();
                 AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto nel caricamento dell'abbonamento", null, Alert.AlertType.ERROR);
+            } finally {
+                if(caricoAbbonamento != null) {
+                    try { caricoAbbonamento.close(); } catch (SQLException ignored) {}
+                }
             }
+
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Errore durante il pagamento", null, Alert.AlertType.ERROR);
+        } finally {
+            if(caricoDati != null) {
+                try { caricoDati.close(); } catch (SQLException ignored) {}
+            }
+
+            if(risultatoPrimaQuery != null) {
+                try { risultatoPrimaQuery.close(); } catch (SQLException ignored) {}
+            }
         }
     }
 }

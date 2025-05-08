@@ -14,15 +14,24 @@ public class ModelRegistrazione {
         String emailLower = email.toLowerCase();
         String query="SELECT * FROM CredenzialiCliente WHERE Email = ?";
 
+        PreparedStatement dati = null;
+        ResultSet risultato = null;
         try {
-            PreparedStatement dati=conn.prepareStatement(query);
+            dati=conn.prepareStatement(query);
             dati.setString(1,emailLower);
-            ResultSet risultato=dati.executeQuery();
+            risultato=dati.executeQuery();
 
             if(risultato.next()) return true;
 
         }catch(SQLException e){
             AlertHelper.showAlert("Questo non doveva succedere", " Errore durante la verifica campo email", null, Alert.AlertType.ERROR);
+        } finally {
+            if (dati != null) {
+                try { dati.close(); } catch (SQLException ignored) {}
+            }
+            if(risultato != null) {
+                try { risultato.close(); } catch (SQLException ignored) {}
+            }
         }
         return false;
     }
@@ -35,11 +44,14 @@ public class ModelRegistrazione {
         String insertCliente = "INSERT INTO Cliente (Nome, Cognome, DataNascita) VALUES (?, ?, ?)";
         String insertCredenziali = "INSERT INTO CredenzialiCliente (Email, Password, IdCliente) VALUES (?, ?, ?)";
 
+        PreparedStatement datiCliente = null;
+        ResultSet generatedKeys = null;
+        PreparedStatement psCredenziali = null;
         try {
             conn.setAutoCommit(false);
 
             // 1. Inserisci cliente
-            PreparedStatement datiCliente = conn.prepareStatement(insertCliente, Statement.RETURN_GENERATED_KEYS);
+            datiCliente = conn.prepareStatement(insertCliente, Statement.RETURN_GENERATED_KEYS);
             datiCliente.setString(1, nome);
             datiCliente.setString(2, cognome);
             datiCliente.setString(3, dataNascita.toString());
@@ -52,12 +64,12 @@ public class ModelRegistrazione {
             }
 
             // 2. Recupera ID cliente
-            ResultSet generatedKeys = datiCliente.getGeneratedKeys();
+            generatedKeys = datiCliente.getGeneratedKeys();
             if (generatedKeys.next()) {
                 int idCliente = generatedKeys.getInt(1);
 
                 // 3. Inserisci credenziali
-                PreparedStatement psCredenziali = conn.prepareStatement(insertCredenziali);
+                psCredenziali = conn.prepareStatement(insertCredenziali);
                 psCredenziali.setString(1, emailLower);
                 psCredenziali.setString(2, password);
                 psCredenziali.setInt(3, idCliente);
@@ -74,6 +86,15 @@ public class ModelRegistrazione {
             AlertHelper.showAlert("Questo non doveva succedere", " Errore durante la registrazione", null, Alert.AlertType.ERROR);
         } finally {
             conn.setAutoCommit(true);
+            if (psCredenziali != null) {
+                try { psCredenziali.close(); } catch (SQLException ignored) {}
+            }
+            if(generatedKeys != null) {
+                try { generatedKeys.close(); } catch (SQLException ignored) {}
+            }
+            if(datiCliente != null) {
+                try { datiCliente.close(); } catch (SQLException ignored) {}
+            }
         }
         return false;
     }

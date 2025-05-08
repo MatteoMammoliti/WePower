@@ -14,13 +14,18 @@ public class ModelMassimoPrenotazioni {
 
         String query="UPDATE SalaPesi SET NumeriPostiMassimo = ? WHERE IdSalaPesi = 1";
 
+        PreparedStatement caricoDati = null;
         try {
-            PreparedStatement caricoDati = conn.prepareStatement(query);
+            caricoDati = conn.prepareStatement(query);
             caricoDati.setInt(1, nuovaCapienza);
             caricoDati.executeUpdate();
 
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Errore durante l'aggiornamento della capienza", null, Alert.AlertType.ERROR);
+        } finally {
+            if(caricoDati != null) {
+                try { caricoDati.close(); } catch (SQLException ignored) {}
+            }
         }
     }
 }

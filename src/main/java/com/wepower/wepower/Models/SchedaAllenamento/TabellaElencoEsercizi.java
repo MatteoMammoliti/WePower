@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TabellaElencoEsercizi {
@@ -21,9 +22,11 @@ public class TabellaElencoEsercizi {
 
         String query = "SELECT NomeEsercizio, DescrizioneEsercizio, PercorsoImmagine FROM Esercizio";
 
+        PreparedStatement datiEsercizi = null;
+        ResultSet risultatoTuttiEsercizi = null;
         try {
-            PreparedStatement datiEsercizi = conn.prepareStatement(query);
-            ResultSet risultatoTuttiEsercizi = datiEsercizi.executeQuery();
+            datiEsercizi = conn.prepareStatement(query);
+            risultatoTuttiEsercizi = datiEsercizi.executeQuery();
 
             while (risultatoTuttiEsercizi.next()) {
                 String NomeEsercizio = risultatoTuttiEsercizi.getString("NomeEsercizio");
@@ -38,6 +41,13 @@ public class TabellaElencoEsercizi {
             }
         } catch (Exception e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto :(", null, Alert.AlertType.ERROR);
+        } finally {
+            if (datiEsercizi != null) {
+                try { datiEsercizi.close(); } catch (SQLException ignored) {}
+            }
+            if (risultatoTuttiEsercizi != null) {
+                try { risultatoTuttiEsercizi.close(); } catch (SQLException ignored) {}
+            }
         }
         return ris;
     }
@@ -49,9 +59,11 @@ public class TabellaElencoEsercizi {
 
         String query = "SELECT NomeEsercizio, DescrizioneEsercizio, PercorsoImmagine FROM Esercizio";
 
+        PreparedStatement datiEsercizi = null;
+        ResultSet risultatoTuttiEsercizi = null;
         try {
-            PreparedStatement datiEsercizi = conn.prepareStatement(query);
-            ResultSet risultatoTuttiEsercizi = datiEsercizi.executeQuery();
+            datiEsercizi = conn.prepareStatement(query);
+            risultatoTuttiEsercizi = datiEsercizi.executeQuery();
 
             while (risultatoTuttiEsercizi.next()) {
                 String NomeEsercizio = risultatoTuttiEsercizi.getString("NomeEsercizio");
@@ -66,13 +78,19 @@ public class TabellaElencoEsercizi {
             }
         } catch (Exception e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto :(", null, Alert.AlertType.ERROR);
+        } finally {
+            if (datiEsercizi != null) {
+                try { datiEsercizi.close(); } catch (SQLException ignored) {}
+            }
+            if (risultatoTuttiEsercizi != null) {
+                try { risultatoTuttiEsercizi.close(); } catch (SQLException ignored) {}
+            }
         }
         return ris;
     }
 
     public static ArrayList<RigaEsercizioSchedaClient> riempiRigaEsercizioScheda() {
         Connection conn = ConnessioneDatabase.getConnection();
-
 
         ArrayList<RigaEsercizioSchedaClient> ris = new ArrayList<RigaEsercizioSchedaClient>();
 
@@ -95,10 +113,12 @@ public class TabellaElencoEsercizi {
                 ") m ON csa.NomeEsercizio = m.NomeEsercizio AND m.IdCliente = s.IdCliente\n" +
                 "WHERE s.IdCliente = ? AND s.SchedaAncoraInUso = 1\n";
 
+        PreparedStatement datiEsercizi = null;
+        ResultSet risultatoTuttiEsercizi = null;
         try {
-            PreparedStatement datiEsercizi = conn.prepareStatement(query);
+            datiEsercizi = conn.prepareStatement(query);
             datiEsercizi.setInt(1, DatiSessioneCliente.getIdUtente());
-            ResultSet risultatoTuttiEsercizi = datiEsercizi.executeQuery();
+            risultatoTuttiEsercizi = datiEsercizi.executeQuery();
 
             while (risultatoTuttiEsercizi.next()) {
                 String NomeEsercizio = risultatoTuttiEsercizi.getString("NomeEsercizio");
@@ -126,6 +146,13 @@ public class TabellaElencoEsercizi {
             }
         } catch (Exception e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto :(", null, Alert.AlertType.ERROR);
+        } finally {
+            if (datiEsercizi != null) {
+                try { datiEsercizi.close(); } catch (SQLException ignored) {}
+            }
+            if (risultatoTuttiEsercizi != null) {
+                try { risultatoTuttiEsercizi.close(); } catch (SQLException ignored) {}
+            }
         }
         return ris;
     }

@@ -22,12 +22,14 @@ public class ModelAutenticazione {
         String loginCliente ="SELECT c.IdCliente,c.CertificatoValido,c.Nome, c.Cognome,c.DataNascita, cc.Email,cc.Telefono, c.ImmagineProfilo, c.Altezza,c.Sesso FROM CredenzialiCliente cc JOIN Cliente c ON cc.idCliente=c.idCliente WHERE cc.Email = ? AND cc.Password = ?";
 
         // prelievo dati in base al tipo di utente
+        PreparedStatement datiCliente = null;
+        ResultSet risultatoClienti = null;
         try {
             Connection conn = ConnessioneDatabase.getConnection();
-            PreparedStatement datiCliente = conn.prepareStatement(loginCliente);
+            datiCliente = conn.prepareStatement(loginCliente);
             datiCliente.setString(1, email);
             datiCliente.setString(2, password);
-            ResultSet risultatoClienti = datiCliente.executeQuery();
+            risultatoClienti = datiCliente.executeQuery();
 
             //Prelevo i dati del cliente
                 if (risultatoClienti.next()) {
@@ -76,10 +78,12 @@ public class ModelAutenticazione {
                     // prelievo dell'id scheda allenamento del cliente
                     String querySchedaAllenamento = "SELECT IdScheda, IdAdmin FROM SchedaAllenamento WHERE IdCliente = ? AND SchedaAncoraInUso = 1";
 
+                    PreparedStatement datiSchedaAllenamento = null;
+                    ResultSet risultatoScheda = null;
                     try {
-                        PreparedStatement datiSchedaAllenamento = conn.prepareStatement(querySchedaAllenamento);
+                        datiSchedaAllenamento = conn.prepareStatement(querySchedaAllenamento);
                         datiSchedaAllenamento.setInt(1, DatiSessioneCliente.getIdUtente());
-                        ResultSet risultatoScheda = datiSchedaAllenamento.executeQuery();
+                        risultatoScheda = datiSchedaAllenamento.executeQuery();
 
                         if (risultatoScheda.next()) {
                             DatiSessioneCliente.setIdSchedaAllenamento(risultatoScheda.getInt("IdScheda"));
@@ -94,15 +98,24 @@ public class ModelAutenticazione {
                         return true;
                     } catch (SQLException e) {
                         AlertHelper.showAlert("Questo non doveva succedere", "Errore durante l'autenticazione", null, Alert.AlertType.ERROR);
+                    } finally {
+                        if(datiSchedaAllenamento != null) {
+                            try { datiSchedaAllenamento.close(); } catch (SQLException ignored) {}
+                        }
+                        if(risultatoScheda != null) {
+                            try { risultatoScheda.close(); } catch (SQLException ignored) {}
+                        }
                     }
                 }
 
+                PreparedStatement datiAdmin = null;
+                ResultSet risultatoAdmin = null;
                 try {
                     //Se non trovo il cliente, vado a vedere se è un admin e prelevo i suoi dati
-                    PreparedStatement datiAdmin =conn.prepareStatement(loginAdmin);
+                    datiAdmin =conn.prepareStatement(loginAdmin);
                     datiAdmin.setString(1, email);
                     datiAdmin.setString(2, password);
-                    ResultSet risultatoAdmin = datiAdmin.executeQuery();
+                    risultatoAdmin = datiAdmin.executeQuery();
 
                     if(risultatoAdmin.next()) {
                         DatiSessioneCliente.setNomeUtente("Admin");
@@ -110,9 +123,23 @@ public class ModelAutenticazione {
                     }
                 } catch (SQLException e) {
                     AlertHelper.showAlert("Questo non doveva succedere", "Errore durante l'autenticazione", null, Alert.AlertType.ERROR);
+                } finally {
+                    if(datiAdmin != null) {
+                        try { datiCliente.close(); } catch (SQLException ignored) {}
+                    }
+                    if(risultatoAdmin != null) {
+                        try { risultatoAdmin.close(); } catch (SQLException ignored) {}
+                    }
                 }
         } catch (Exception e) {
             AlertHelper.showAlert("Questo non doveva succedere", " Errore durante l'autenticazione", null, Alert.AlertType.ERROR);
+        } finally {
+            if(risultatoClienti != null) {
+                try { risultatoClienti.close(); } catch (SQLException ignored) {}
+            }
+            if(datiCliente != null) {
+                try { datiCliente.close(); } catch (SQLException ignored) {}
+            }
         }
         return false;
     }
@@ -121,17 +148,26 @@ public class ModelAutenticazione {
     public static void prelevaDatiPalestra() {
         String prelevaDatiPrenotazioniSalaPesi="SELECT * FROM PrenotazioneSalaPesi";
         Connection conn = ConnessioneDatabase.getConnection();
+
+        PreparedStatement datiPrenotazioni = null;
+        ResultSet risultato = null;
         try {
-            PreparedStatement datiPrenotazioni = conn.prepareStatement(prelevaDatiPrenotazioniSalaPesi);
-            ResultSet risultato = datiPrenotazioni.executeQuery();
+            datiPrenotazioni = conn.prepareStatement(prelevaDatiPrenotazioniSalaPesi);
+            risultato = datiPrenotazioni.executeQuery();
 
             while (risultato.next()) {
                 PrenotazioneSalaPesiCliente prenotazione = new PrenotazioneSalaPesiCliente(risultato.getInt("IdCliente"), risultato.getString("DataPrenotazione"), risultato.getString("OrarioPrenotazione"));
                 DatiSessionePalestra.aggiungiPrenotazioneSalaPesi(prenotazione);
             }
-
         } catch (Exception e) {
             AlertHelper.showAlert("Questo non doveva succedere", " Errore durante il prelevamento dei dati della palestra", null, Alert.AlertType.ERROR);
+        } finally {
+            if(datiPrenotazioni != null) {
+                try { datiPrenotazioni.close(); } catch (SQLException ignored) {}
+            }
+            if(risultato != null) {
+                try { risultato.close(); } catch (SQLException ignored) {}
+            }
         }
     };
 
@@ -142,11 +178,14 @@ public class ModelAutenticazione {
         Connection conn = ConnessioneDatabase.getConnection();
 
         String query = "SELECT DataPrenotazione, OrarioPrenotazione FROM PrenotazioneSalaPesi WHERE idCliente = ?";
+
+        PreparedStatement datiPrenotazione = null;
+        ResultSet risultatoPrenotazioni = null;
         try {
-            PreparedStatement datiPrenotazione = conn.prepareStatement(query);
+            datiPrenotazione = conn.prepareStatement(query);
 
             datiPrenotazione.setInt(1, idUtente);
-            ResultSet risultatoPrenotazioni = datiPrenotazione.executeQuery();
+            risultatoPrenotazioni = datiPrenotazione.executeQuery();
 
             while (risultatoPrenotazioni.next()) {
                 String data = risultatoPrenotazioni.getString("DataPrenotazione");
@@ -156,6 +195,13 @@ public class ModelAutenticazione {
             }
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", "Impossibile prelevare le prenotazioni in sala pesi", null, Alert.AlertType.ERROR);
+        } finally {
+            if(datiPrenotazione != null) {
+                try { datiPrenotazione.close(); } catch (SQLException ignored) {}
+            }
+            if(risultatoPrenotazioni != null) {
+                try { risultatoPrenotazioni.close(); } catch (SQLException ignored) {}
+            }
         }
         return datePrenotazioni;
     }
@@ -164,10 +210,13 @@ public class ModelAutenticazione {
     public static void riempiListaEserciziConMassimali(int Id) {
         Connection conn = ConnessioneDatabase.getConnection();
         String query = "SELECT NomeEsercizio FROM MassimaleImpostatoCliente WHERE IdCliente = ?";
+
+        PreparedStatement datiEsercizi = null;
+        ResultSet risultatoTuttiEsercizi = null;
         try {
-            PreparedStatement datiEsercizi = conn.prepareStatement(query);
+            datiEsercizi = conn.prepareStatement(query);
             datiEsercizi.setInt(1, Id);
-            ResultSet risultatoTuttiEsercizi = datiEsercizi.executeQuery();
+            risultatoTuttiEsercizi = datiEsercizi.executeQuery();
 
             while (risultatoTuttiEsercizi.next()) {
                 String NomeEsercizio = risultatoTuttiEsercizi.getString("NomeEsercizio");
@@ -175,6 +224,13 @@ public class ModelAutenticazione {
             }
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", " Errore durante il prelevamento degli esercizi con massimali", null, Alert.AlertType.ERROR);
+        } finally {
+            if(datiEsercizi != null) {
+                try { datiEsercizi.close(); } catch (SQLException ignored) {}
+            }
+            if(risultatoTuttiEsercizi != null) {
+                try { risultatoTuttiEsercizi.close(); } catch (SQLException ignored) {}
+            }
         }
     }
 
@@ -183,10 +239,12 @@ public class ModelAutenticazione {
         String fetchEsercizi = "SELECT NomeEsercizio FROM Esercizio";
         ArrayList<String> eserciziInPalestra = new ArrayList<>();
 
+        PreparedStatement esercizi = null;
+        ResultSet risultato = null;
         try {
             Connection conn = ConnessioneDatabase.getConnection();
-            PreparedStatement esercizi =  conn.prepareStatement(fetchEsercizi);
-            ResultSet risultato = esercizi.executeQuery();
+            esercizi =  conn.prepareStatement(fetchEsercizi);
+            risultato = esercizi.executeQuery();
 
             while (risultato.next()) {
                 eserciziInPalestra.add(risultato.getString("NomeEsercizio"));
@@ -194,6 +252,13 @@ public class ModelAutenticazione {
             return eserciziInPalestra;
         } catch (SQLException e) {
             AlertHelper.showAlert("Questo non doveva succedere", " Errore durante il prelevamento degli esercizi della palestra", null, Alert.AlertType.ERROR);
+        } finally {
+            if(esercizi != null) {
+                try { esercizi.close(); } catch (SQLException ignored) {}
+            }
+            if(risultato != null) {
+                try { risultato.close(); } catch (SQLException ignored) {}
+            }
         }
         return eserciziInPalestra;
     }
