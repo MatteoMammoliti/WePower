@@ -11,6 +11,8 @@ import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioSchedaAdmin;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -19,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
@@ -41,6 +44,7 @@ public class SchermataCreazioneSchedaAdmin implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.splitPane.setDividerPositions(0.5);
         Model.getInstance().setSchermataCreazioneSchedaAdminController(this);
+
         try {
             loadEsercizi();
             loadSchedaAllenamento();
@@ -52,9 +56,14 @@ public class SchermataCreazioneSchedaAdmin implements Initializable {
     // carichiamo la scheda di allenamento dell'utente
     public void loadSchedaAllenamento() throws SQLException {
         Label titolo = new Label("Scheda allenamento");
+        titolo.getStyleClass().add("label_testo_scuro");
+        titolo.getStyleClass().add("titoloContenitore");
+
         Button confermaScheda = new Button("Conferma scheda");
+        confermaScheda.getStyleClass().add("btnScheda");
         ArrayList<RigaEsercizioSchedaAdmin> schedaAllenamento = DatiSessioneAdmin.getEserciziSchedaTemp();
         containerSchedaAllenamento.getChildren().clear();
+        containerSchedaAllenamento.setAlignment(Pos.CENTER);
 
         if (!schedaAllenamento.isEmpty()) {
             containerSchedaAllenamento.getChildren().add(titolo);
@@ -62,6 +71,8 @@ public class SchermataCreazioneSchedaAdmin implements Initializable {
             containerSchedaAllenamento.getChildren().addAll(schedaAllenamento);
         } else {
             Label nessunEsercizio = new Label("Nessun esercizio presente nella scheda. Componila!");
+            nessunEsercizio.getStyleClass().add("label_testo_scuro");
+            nessunEsercizio.getStyleClass().add("titoloContenitore");
             containerSchedaAllenamento.getChildren().add(nessunEsercizio);
         }
 
@@ -80,7 +91,6 @@ public class SchermataCreazioneSchedaAdmin implements Initializable {
     // carichiamo gli esercizi disponibili in palestra
     public void loadEsercizi() throws SQLException {
         Label titolo = new Label("Esercizi disponibili in palestra");
-
         titolo.getStyleClass().add("label_testo_scuro");
         titolo.getStyleClass().add("titoloContenitore");
 
@@ -88,6 +98,7 @@ public class SchermataCreazioneSchedaAdmin implements Initializable {
         containerEsercizi.getChildren().clear();
         containerEsercizi.getChildren().add(titolo);
         containerEsercizi.getChildren().addAll(esercizi);
+        containerEsercizi.setAlignment(Pos.CENTER);
     }
 
     public void setIdCliente(int idUtente) { this.idUtente = idUtente; }
@@ -113,7 +124,15 @@ public class SchermataCreazioneSchedaAdmin implements Initializable {
 
         String cssTema= SchermataCreazioneSchedaAdmin.class.getResource("/Styles/scheda.css").toExternalForm();
         ControlloTemi.getInstance().aggiungiScena(scene,cssTema);
+
+        Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+
+        double pct = 0.8;
+        stage.setWidth(bounds.getWidth() * pct);
+        stage.setHeight(bounds.getHeight() * pct);
+
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.showAndWait();
     }
 }

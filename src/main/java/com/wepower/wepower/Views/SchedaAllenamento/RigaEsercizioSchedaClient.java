@@ -8,7 +8,10 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -30,6 +33,7 @@ public class RigaEsercizioSchedaClient extends HBox {
         this.nomeEsercizio = new Label(nomeEsercizio);
         this.nomeEsercizio.setMaxWidth(250);
         this.nomeEsercizio.setPrefWidth(250);
+
         this.numeroSerie = new Label("Numero serie: " + numeroSerie);
         this.numeroRipetizioni = new Label("Numero ripetizioni: " + numeroRipetizioni);
 
@@ -50,9 +54,10 @@ public class RigaEsercizioSchedaClient extends HBox {
         this.numeroSerie.getStyleClass().add("label_testo_scuro");
         this.numeroSerie.getStyleClass().add("stile_predefinito");
 
-
         this.massimaleAttuale.getStyleClass().add("dettagliMassimale");
         this.massimaleAttuale.getStyleClass().add("label_testo_chiaro");
+        this.massimaleAttuale.setWrapText(true);
+        this.massimaleAttuale.setMaxWidth(250);
 
         this.dataImpostazioneMassimale.getStyleClass().add("dettagliMassimale");
         this.dataImpostazioneMassimale.getStyleClass().add("label_testo_chiaro");
@@ -97,6 +102,7 @@ public class RigaEsercizioSchedaClient extends HBox {
         VBox centroDestra = new VBox();
         centroDestra.getChildren().addAll(this.massimaleAttuale, this.dataImpostazioneMassimale);
         centroDestra.setSpacing(10);
+        VBox.setVgrow(this.massimaleAttuale, Priority.ALWAYS);
         centroDestra.setPadding(new Insets(10));
         centro.getChildren().addAll(centroSinistra, centroDestra);
 

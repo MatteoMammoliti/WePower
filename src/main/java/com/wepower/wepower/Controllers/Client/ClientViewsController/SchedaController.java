@@ -62,7 +62,7 @@ public class SchedaController implements Initializable {
     public void loadSchedaAllenamento() throws SQLException {
         Label titolo = new Label("Scheda allenamento");
         titolo.getStyleClass().add("label_testo_scuro");
-        titolo.getStyleClass().add("titoloEsercizio");
+        titolo.getStyleClass().add("titoloContenitore");
 
         ArrayList<RigaEsercizioSchedaClient> schedaAllenamento = TabellaElencoEsercizi.riempiRigaEsercizioScheda();
         containerSchedaAllenamento.getChildren().clear();
@@ -73,6 +73,7 @@ public class SchedaController implements Initializable {
             containerSchedaAllenamento.getChildren().addAll(schedaAllenamento);
         } else {
             Label nessunEsercizio = new Label("");
+            nessunEsercizio.setWrapText(true);
             nessunEsercizio.getStyleClass().add("label_testo_scuro");
             nessunEsercizio.getStyleClass().add("titoloContenitore");
             if(!DatiSessioneCliente.getSeSchedaRichiesta()) {

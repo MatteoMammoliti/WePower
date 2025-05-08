@@ -104,12 +104,13 @@ public class ClientDashboardController implements Initializable {
         String msg = "Ciao " + DatiSessioneCliente.getNomeUtente() + ", sono Powerino il chat bot virtuale di WePower." + "\n";
         HBox messaggioIniziale =  new HBox(10);
         Label messaggioInizialeApertura = new Label(msg);
+        messaggioIniziale.setMaxWidth(300);
+        messaggioInizialeApertura.setWrapText(true);
         messaggioInizialeApertura.maxWidthProperty().bind(scrollPaneChatArea.widthProperty().subtract(50));
         VBox.setVgrow(messaggioInizialeApertura, Priority.ALWAYS);
         messaggioInizialeApertura.getStyleClass().add("rispostaBot");
-        messaggioInizialeApertura.setWrapText(true);
         messaggioIniziale.getChildren().addAll(messaggioInizialeApertura);
-        messaggioIniziale.setAlignment(Pos.CENTER);
+        messaggioIniziale.setAlignment(Pos.CENTER_LEFT);
 
         VBox.setVgrow(messaggioIniziale, Priority.ALWAYS);
         this.chatVBox.getChildren().add(messaggioIniziale);

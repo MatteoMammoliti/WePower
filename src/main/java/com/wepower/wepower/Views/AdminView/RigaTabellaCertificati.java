@@ -1,7 +1,9 @@
 package com.wepower.wepower.Views.AdminView;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class RigaTabellaCertificati {
     //Usiamo SimpleStringProperty e SimpleIntegerProperty per le proprietà della tabella, in questo modo la stringa
@@ -23,6 +25,13 @@ public class RigaTabellaCertificati {
         this.dataCaricamento = new SimpleStringProperty(dataCaricamento);
     }
 
+    //Questi metodi getter servono per restituire i valori delle proprietà(nome,cognome,id)
+    //Accede al valore attuale del campo e lo restituisce
+    public StringProperty nomeProperty() {return nome;}
+    public StringProperty cognomeProperty() {return cognome;}
+    public IntegerProperty idProperty() {return id;}
+    public StringProperty dataCaricamentoProperty() {return dataCaricamento;}
+    public String dataCaricamento(){return dataCaricamento.get();}
     public String nome(){return nome.get();}
     public String cognome(){return cognome.get();}
     public int id(){return id.get();}

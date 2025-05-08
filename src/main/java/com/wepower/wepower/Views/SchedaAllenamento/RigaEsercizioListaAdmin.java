@@ -28,21 +28,23 @@ public class RigaEsercizioListaAdmin extends HBox {
         this.descrizioneEsercizio = new Label(descrizioneEsercizio);
         this.descrizioneEsercizio.setWrapText(true);
 
-        InputStream is = getClass().getResourceAsStream("/" + percorsoImmagine);
-        Image image = new Image(is);
-        this.imageEsercizio = new ImageView(image);
-        this.imageEsercizio.setFitWidth(200);
-        this.imageEsercizio.setFitHeight(200);
-        this.imageEsercizio.setPreserveRatio(true);
-        this.imageEsercizio.setSmooth(true);
-
         this.nomeEsercizio.getStyleClass().add("label_testo_scuro");
         this.nomeEsercizio.getStyleClass().add("titoloEsercizio");
-
+        this.nomeEsercizio.setMaxWidth(250);
+        this.nomeEsercizio.setPrefWidth(250);
+        this.descrizioneEsercizio.setMaxWidth(250);
+        this.descrizioneEsercizio.setPrefWidth(250);
         this.descrizioneEsercizio.getStyleClass().add("stile_predefinito");
         this.descrizioneEsercizio.getStyleClass().add("label_testo_chiaro");
 
         this.getStyleClass().add("rigaEsercizio");
+        InputStream is = getClass().getResourceAsStream("/" + percorsoImmagine);
+        Image image = new Image(is);
+        this.imageEsercizio = new ImageView(image);
+        this.imageEsercizio.setFitWidth(140);
+        this.imageEsercizio.setFitHeight(140);
+        this.imageEsercizio.setPreserveRatio(true);
+        this.imageEsercizio.setSmooth(true);
 
         this.numeroSerie = new TextField();
         this.numeroSerie.setPromptText("Numero serie");

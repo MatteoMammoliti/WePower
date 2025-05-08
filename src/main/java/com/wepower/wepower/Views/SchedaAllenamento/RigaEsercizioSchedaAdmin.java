@@ -24,9 +24,11 @@ public class RigaEsercizioSchedaAdmin extends HBox {
     private Button rimuoviSchedaEsercizio;
 
     public RigaEsercizioSchedaAdmin(String nomeEsercizio, String numeroSerie, String numeroRipetizioni, String percorsoImmagine) {
-        this.getStyleClass().add("rigaEsercizio");
 
+        this.getStyleClass().add("rigaEsercizio");
         this.nomeEsercizio = new Label(nomeEsercizio);
+        this.nomeEsercizio.setMaxWidth(250);
+        this.nomeEsercizio.setPrefWidth(250);
 
         this.numeroSerie = new Label("Numero serie: " + numeroSerie);
         this.numeroRipetizioni = new Label("Numero ripetizioni: " + numeroRipetizioni);
@@ -39,7 +41,6 @@ public class RigaEsercizioSchedaAdmin extends HBox {
 
         this.numeroSerie.getStyleClass().add("label_testo_scuro");
         this.numeroSerie.getStyleClass().add("stile_predefinito");
-
 
 
         InputStream is = getClass().getResourceAsStream("/" + percorsoImmagine);
