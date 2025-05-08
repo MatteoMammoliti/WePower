@@ -167,6 +167,7 @@ public class AdminUtentiController implements Initializable {
         stage.setTitle("Modifica");
         stage.setResizable(false);
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(ControlloTemi.getInstance().getCssTemaCorrente());
         stage.setScene(scene);
         scene.getStylesheets().add(ControlloTemi.getInstance().getCssTemaCorrente());
         stage.initModality(Modality.WINDOW_MODAL);

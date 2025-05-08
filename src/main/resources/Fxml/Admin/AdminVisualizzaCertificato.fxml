@@ -24,12 +24,12 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnRifiuta" mnemonicParsing="false" prefWidth="57.0" styleClass="bottone_scheda" text="Rifiuta">
+            <Button fx:id="btnRifiuta" mnemonicParsing="false" prefWidth="57.0" styleClass="btnCreaChiediElimina" text="Rifiuta">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnApprova" mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" styleClass="bottone_scheda" text="Approva">
+            <Button fx:id="btnApprova" mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" styleClass="btnCreaChiediElimina" text="Approva">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>

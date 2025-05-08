@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="291.0" prefWidth="484.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.SettaggioNumeroMassimoPrenotazioniController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="291.0" prefWidth="484.0" styleClass="background_chiaro" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wepower.wepower.Controllers.Admin.SettaggioNumeroMassimoPrenotazioniController">
    <top>
       <Label text="Gestisci la capienza massima" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -23,7 +23,7 @@
    <center>
       <VBox alignment="TOP_CENTER" prefHeight="198.0" prefWidth="484.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Inserisci il numero massimo di prenotazioni giornaliere:">
+            <Label styleClass="label_testo_scuro" text="Inserisci il numero massimo di prenotazioni giornaliere:">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
@@ -42,8 +42,8 @@
    <bottom>
       <HBox alignment="TOP_RIGHT" prefHeight="58.0" prefWidth="484.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnSalva" mnemonicParsing="false" text="Salva" />
-            <Button fx:id="btnAnnulla" mnemonicParsing="false" text="Annulla">
+            <Button fx:id="btnSalva" mnemonicParsing="false" styleClass="btnCreaChiediElimina" text="Salva" />
+            <Button fx:id="btnAnnulla" mnemonicParsing="false" styleClass="btnCreaChiediElimina" text="Annulla">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>

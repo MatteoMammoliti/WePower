@@ -530,5 +530,28 @@
     -fx-text-fill: #DDE6EDFF;
     -fx-fill: #DDE6EDFF;
 }
-
+.chart-pie .default-color0 {
+    -fx-pie-color: #27374d;
+}
+.chart-pie .default-color1 {
+    -fx-pie-color: #526D82;
+}
+.chart-pie .default-color2 {
+    -fx-pie-color: #BBE1FA;
+}
+.tortaGenere.chart-pie {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-effect: none;
+}
+.tortaGenere.chart-pie .chart-plot-background {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.tortaGenere.chart-pie .chart-legend {
+    -fx-background-color: transparent;
+}
+.tortaGenere.chart-pie .chart-title {
+    -fx-background-color: transparent;
+}
 

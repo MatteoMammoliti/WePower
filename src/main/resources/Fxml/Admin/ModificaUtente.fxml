@@ -25,13 +25,13 @@
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="212.0" prefWidth="300.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Label styleClass="label_admin" stylesheets="@../../Styles/login.css" text="Nome:">
+            <Label styleClass="label_testo_scuro" stylesheets="@../../Styles/login.css" text="Nome:">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
             <TextField fx:id="inputNuovoNome" styleClass="input_login" stylesheets="@../../Styles/login.css" />
-            <Label styleClass="label_admin" text="Cognome:">
+            <Label styleClass="label_testo_scuro" text="Cognome:">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -49,13 +49,13 @@
    <right>
       <VBox alignment="TOP_CENTER" prefHeight="370.0" prefWidth="300.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Label styleClass="label_admin" text="Data di nascita:">
+            <Label styleClass="label_testo_scuro" text="Data di nascita:">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
             <DatePicker fx:id="inputNuovaDataNascita" prefHeight="26.0" prefWidth="314.0" styleClass="input_login" stylesheets="@../../Styles/login.css" />
-            <Label styleClass="label_admin" text="Seleziona tipo abbonamento:">
+            <Label styleClass="label_testo_scuro" text="Seleziona tipo abbonamento:">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -77,12 +77,12 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="75.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="inputAnnulla" mnemonicParsing="false" styleClass="bottone_scheda" text="Annulla">
+            <Button fx:id="inputAnnulla" mnemonicParsing="false" styleClass="btnCreaChiediElimina" text="Annulla">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="inputSalva" mnemonicParsing="false" onAction="#salvaModificheUtente" styleClass="bottone_scheda" text="Salva le modifiche">
+            <Button fx:id="inputSalva" mnemonicParsing="false" onAction="#salvaModificheUtente" styleClass="btnCreaChiediElimina" text="Salva le modifiche">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
