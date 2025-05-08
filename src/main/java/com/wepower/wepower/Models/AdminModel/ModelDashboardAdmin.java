@@ -99,6 +99,7 @@ public class ModelDashboardAdmin {
             int righeModificate=caricoDati.executeUpdate();
             return righeModificate > 0;
         }catch (SQLException e){
+            e.printStackTrace();
             AlertHelper.showAlert("Questo non doveva succedere", "Errore durante l'eliminazione della promozione", null, Alert.AlertType.ERROR);
         }
         return false;
