@@ -35,6 +35,9 @@ public class AdminModificaUtenteController implements Initializable {
     //Pagina utente admin
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        this.inputNuovaDataNascita.setEditable(false);
+
         //Prelevo i tipi di abbonamento disponibili e li carico nella comboBox
         ArrayList<String> tipiAbbonamenti = TabellaUtentiDashboardAdmin.prelevaTipiAbbonamenti();
         inputIdTipoAbbonamento.getItems().setAll(tipiAbbonamenti);
