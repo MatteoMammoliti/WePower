@@ -40,6 +40,7 @@ public class SignUpController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.dataNascitaText.setEditable(false);
         sincronizzaPassword();
         loginButton.setOnAction(event -> onLogin());
 
@@ -101,10 +102,10 @@ public class SignUpController implements Initializable {
             passwordRipetuta= repeatPasswordField.getText();
         }
 
-
         String nome = textNome.getText();
         String cognome = textCognome.getText();
         String email = emailText.getText();
+
         LocalDate dataNascita = dataNascitaText.getValue();
 
         if(password.isEmpty() || passwordRipetuta.isEmpty() || nome.isEmpty() || cognome.isEmpty() || email.isEmpty() || dataNascitaText.getValue() == null){
