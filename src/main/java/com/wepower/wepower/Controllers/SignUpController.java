@@ -108,7 +108,7 @@ public class SignUpController implements Initializable {
         LocalDate dataNascita = dataNascitaText.getValue();
 
         if(password.isEmpty() || passwordRipetuta.isEmpty() || nome.isEmpty() || cognome.isEmpty() || email.isEmpty() || dataNascitaText.getValue() == null){
-            AlertHelper.showAlert("Errore", "Compiòa tutti i campi", null,  Alert.AlertType.ERROR);
+            AlertHelper.showAlert("Errore", "Compila tutti i campi", null,  Alert.AlertType.ERROR);
             return;
         }
 

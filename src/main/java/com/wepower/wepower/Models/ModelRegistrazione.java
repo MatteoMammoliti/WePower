@@ -2,6 +2,7 @@ package com.wepower.wepower.Models;
 
 import com.wepower.wepower.Views.AlertHelper;
 import javafx.scene.control.Alert;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -40,6 +41,7 @@ public class ModelRegistrazione {
         Connection conn = ConnessioneDatabase.getConnection();
 
         String emailLower = email.toLowerCase();
+        String pwcript = BCrypt.hashpw(password,BCrypt.gensalt(12));
 
         String insertCliente = "INSERT INTO Cliente (Nome, Cognome, DataNascita) VALUES (?, ?, ?)";
         String insertCredenziali = "INSERT INTO CredenzialiCliente (Email, Password, IdCliente) VALUES (?, ?, ?)";
@@ -71,7 +73,7 @@ public class ModelRegistrazione {
                 // 3. Inserisci credenziali
                 psCredenziali = conn.prepareStatement(insertCredenziali);
                 psCredenziali.setString(1, emailLower);
-                psCredenziali.setString(2, password);
+                psCredenziali.setString(2, pwcript);
                 psCredenziali.setInt(3, idCliente);
 
                 psCredenziali.executeUpdate();

@@ -123,7 +123,8 @@
                                        </opaqueInsets>
                                        <StackPane.margin>
                                           <Insets />
-                                       </StackPane.margin></PasswordField>
+                                       </StackPane.margin>
+                                    </PasswordField>
                                     <TextField fx:id="passwordVisibile" styleClass="input_login" stylesheets="@../Styles/login.css" visible="false" />
                                  </children>
                               </StackPane>
@@ -190,7 +191,7 @@
                         <Button fx:id="eyeButton" layoutX="605.0" layoutY="264.0" mnemonicParsing="false" styleClass="my_button_toggle_pasword" stylesheets="@../Styles/login.css" text="🔍" />
                      </children>
                   </Pane>
-                  <Label fx:id="labelPasswordDiverse" layoutX="69.0" layoutY="314.0" prefHeight="18.0" prefWidth="213.0" text="Password non uguali" textFill="#dc0303" visible="false" />
+                  <Label fx:id="labelPasswordDiverse" layoutX="64.0" layoutY="335.0" prefHeight="18.0" prefWidth="213.0" text="Password non uguali" textFill="#dc0303" visible="false" />
                </children>
             </AnchorPane>
          </children>

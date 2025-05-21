@@ -5,6 +5,8 @@ import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesiCliente;
 import com.wepower.wepower.Views.AlertHelper;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,10 +18,9 @@ public class ModelAutenticazione {
 
 
     public static boolean verificaCredenziali(String email, String password) {
-
         // query
-        String loginAdmin = "SELECT * FROM Admin WHERE Email = ? AND Password = ?";
-        String loginCliente ="SELECT c.IdCliente,c.CertificatoValido,c.Nome, c.Cognome,c.DataNascita, cc.Email,cc.Telefono, c.ImmagineProfilo, c.Altezza,c.Sesso FROM CredenzialiCliente cc JOIN Cliente c ON cc.idCliente=c.idCliente WHERE cc.Email = ? AND cc.Password = ?";
+        String loginAdmin = "SELECT * FROM Admin WHERE Email = ?";
+        String loginCliente ="SELECT c.IdCliente,c.CertificatoValido,c.Nome, c.Cognome,c.DataNascita, cc.Email,cc.Telefono, c.ImmagineProfilo, c.Altezza,c.Sesso, cc.Password FROM CredenzialiCliente cc left JOIN Cliente c ON cc.idCliente=c.idCliente WHERE cc.Email = ?";
 
         // prelievo dati in base al tipo di utente
         PreparedStatement datiCliente = null;
@@ -28,11 +29,16 @@ public class ModelAutenticazione {
             Connection conn = ConnessioneDatabase.getConnection();
             datiCliente = conn.prepareStatement(loginCliente);
             datiCliente.setString(1, email);
-            datiCliente.setString(2, password);
             risultatoClienti = datiCliente.executeQuery();
 
             //Prelevo i dati del cliente
                 if (risultatoClienti.next()) {
+                    // Verifica password
+                    String passcript = risultatoClienti.getString("Password");
+                    if(!BCrypt.checkpw(password, passcript)) {
+                        AlertHelper.showAlert("Attenzione", "Password errata", null, Alert.AlertType.ERROR);
+                        return false;
+                    }
 
                     DatiSessioneCliente.setIdUtente(risultatoClienti.getInt("IdCliente"));
                     DatiSessioneCliente.setNomeUtente(risultatoClienti.getString("Nome"));
@@ -72,6 +78,7 @@ public class ModelAutenticazione {
                             updateStato.executeUpdate();
                         } catch (SQLException e) {
                             AlertHelper.showAlert("Questo non doveva succedere", "Errore durante l'autenticazione", null, Alert.AlertType.ERROR);
+                            e.printStackTrace();
                         }
                     }
 
@@ -114,10 +121,14 @@ public class ModelAutenticazione {
                     //Se non trovo il cliente, vado a vedere se è un admin e prelevo i suoi dati
                     datiAdmin =conn.prepareStatement(loginAdmin);
                     datiAdmin.setString(1, email);
-                    datiAdmin.setString(2, password);
                     risultatoAdmin = datiAdmin.executeQuery();
 
                     if(risultatoAdmin.next()) {
+                        String pwcript=risultatoAdmin.getString("Password");
+                        if(!BCrypt.checkpw(password, pwcript)) {
+                            AlertHelper.showAlert("Attenzione", "Password errata", null, Alert.AlertType.ERROR);
+                            return false;
+                        }
                         DatiSessioneCliente.setNomeUtente("Admin");
                         return true;
                     }

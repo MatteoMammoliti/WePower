@@ -59,7 +59,7 @@
                               <Insets top="45.0" />
                            </VBox.margin>
                         </Separator>
-                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="23.0" prefWidth="311.0" styleClass="label_testo_scuro" text="Altezza:">
+                        <Label id="labelModificaDati" alignment="CENTER" prefHeight="23.0" prefWidth="311.0" styleClass="label_testo_scuro" text="Altezza(cm):">
                            <VBox.margin>
                               <Insets left="10.0" top="10.0" />
                            </VBox.margin>
