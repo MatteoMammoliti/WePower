@@ -94,12 +94,12 @@ public class RigaEsercizioListaClient extends HBox {
             return;
         }
 
-        if (!this.numeroSerie.getText().matches("\\d+") || Integer.parseInt(this.numeroSerie.getText()) <= 0) {
+        if (!this.numeroSerie.getText().matches("\\d+") || Integer.parseInt(this.numeroSerie.getText()) <= 0 || Integer.parseInt(this.numeroSerie.getText()) >= 10) {
             AlertHelper.showAlert("Errore", "Campo serie non valido", null, Alert.AlertType.ERROR );
             return;
         }
 
-        if (!this.numeroRipetizioni.getText().matches("\\d+") || Integer.parseInt(this.numeroRipetizioni.getText()) <= 0) {
+        if (!this.numeroRipetizioni.getText().matches("\\d+") || Integer.parseInt(this.numeroRipetizioni.getText()) <= 0 || Integer.parseInt(this.numeroRipetizioni.getText()) >= 20) {
             AlertHelper.showAlert("Errore", "Campo ripetizioni non valido", null, Alert.AlertType.ERROR );
             return;
         }

@@ -19,6 +19,7 @@ module com.wepower.wepower {
     requires com.google.gson;
     requires com.jfoenix;
     requires spring.security.crypto;
+    requires spring.core;
 
     opens com.wepower.wepower.Controllers to javafx.fxml;
     opens com.wepower.wepower.Controllers.Client to javafx.fxml;
