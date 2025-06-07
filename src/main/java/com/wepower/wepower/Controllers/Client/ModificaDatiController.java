@@ -49,7 +49,6 @@ public class ModificaDatiController implements Initializable {
         textEmail.setText(DatiSessioneCliente.getEmail());
 
         textDataNascita.setValue(LocalDate.parse(DatiSessioneCliente.getDataNascita()));
-        textDataNascita.setEditable(false);
 
         String telefono = DatiSessioneCliente.getTelefono();
 
@@ -133,7 +132,6 @@ public class ModificaDatiController implements Initializable {
             AlertHelper.showAlert("Errore", "Altezza non valida", null,  Alert.AlertType.ERROR);
             return;
         }
-
         if(!ModelValidazione.controlloData(textDataNascita.getValue())){
             AlertHelper.showAlert("Errore", "Data non valida", null,  Alert.AlertType.ERROR);
             return;
