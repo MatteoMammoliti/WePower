@@ -77,8 +77,8 @@ public class ProfiloController implements Initializable {
         instance=this;
         Model.getInstance().setProfiloController(this);
         contenitoreMioProfilo.setFocusTraversable(false);
-        contenitoreDati1.prefWidthProperty().bind(contenitoreMioProfilo.widthProperty().multiply(0.35));
-        contenitoreDati2.prefWidthProperty().bind(contenitoreMioProfilo.widthProperty().multiply(0.35));
+        contenitoreDati1.prefWidthProperty().bind(contenitoreMioProfilo.widthProperty().multiply(0.50));
+        contenitoreDati2.prefWidthProperty().bind(contenitoreMioProfilo.widthProperty().multiply(0.50));
 
         try {
             caricaInterfacciaDatiUtente();
