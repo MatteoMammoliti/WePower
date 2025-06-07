@@ -197,7 +197,7 @@ public class Llama4_API {
                         chatHistory.add(Map.of("role", "assistant", "content", rispostaFinale.toString()));
                     }
                 } catch (Exception e) {
-                    Platform.runLater(() -> risposta.accept("❌ Sembra ci sia stato qualche problema.\n"));;
+                    Platform.runLater(() -> risposta.accept("❌ Sembra ci sia stato qualche problema.\n"));
                 }
             }
         });

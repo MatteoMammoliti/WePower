@@ -11,10 +11,7 @@ public class ControlloTemi {
     private final List<Scene> scene = new ArrayList<>();
     private String cssTemaCorrente;
 
-    private ControlloTemi() {
-    }
-
-    ;
+    private ControlloTemi() {}
 
     public static ControlloTemi getInstance() {
         return istanza;

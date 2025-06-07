@@ -172,7 +172,7 @@ public class DatiSessioneCliente {
             Connection conn = ConnessioneDatabase.getConnection();
             prelevamento=conn.prepareStatement(cerco);
             prelevamento.setInt(1,DatiSessioneCliente.getIdUtente());
-            prelevamento.setString(2,LocalDate.now().toString());;
+            prelevamento.setString(2,LocalDate.now().toString());
             rs=prelevamento.executeQuery();
             while(rs.next()){
                 PrenotazioneSalaPesi p=new PrenotazioneSalaPesi(rs.getString("DataPrenotazione"),rs.getString("OrarioPrenotazione"));
