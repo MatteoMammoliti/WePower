@@ -1,5 +1,6 @@
 package com.wepower.wepower.Controllers;
 
+import com.wepower.wepower.Models.ConnessioneDatabase;
 import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.ModelAutenticazione;
 import com.wepower.wepower.Models.DatiSessioneCliente;

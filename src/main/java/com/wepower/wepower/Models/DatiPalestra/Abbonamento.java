@@ -15,8 +15,6 @@ public class Abbonamento {
     private String descrizioneAbbonamento;
     private int costo;
     private String durataAbbonamento;
-    static Connection conn = ConnessioneDatabase.getConnection();
-
     public Abbonamento(String nome,String descrizione,int costo,String durata){
         this.nomeAbbonamento=nome;
         this.descrizioneAbbonamento=descrizione;
@@ -30,14 +28,14 @@ public class Abbonamento {
     public int getCosto() {return costo;}
     public String getDurataAbbonamento() {return durataAbbonamento;}
 
-    public static ArrayList<Abbonamento> getAbbonamentiDb() throws SQLException {
+    public static ArrayList<Abbonamento> getAbbonamentiDb() {
         ArrayList<Abbonamento> abbonamenti=new ArrayList<>();
         String prendiDati="SELECT * FROM TipoAbbonamento";
 
         PreparedStatement preparo = null;
         ResultSet risultato = null;
         try {
-            preparo=conn.prepareStatement(prendiDati);
+            preparo=ConnessioneDatabase.getConnection().prepareStatement(prendiDati);
             risultato=preparo.executeQuery();
 
             while(risultato.next()){

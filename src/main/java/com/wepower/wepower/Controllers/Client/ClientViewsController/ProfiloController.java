@@ -22,6 +22,7 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.security.spec.ECField;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -327,7 +328,6 @@ public class ProfiloController implements Initializable {
         //Passo lo stage al controller
         controller.setStage(stage);
         stage.showAndWait();
-
     }
 
     public void onClickModificaDati() throws IOException {

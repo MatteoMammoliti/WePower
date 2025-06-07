@@ -99,7 +99,7 @@ public class RigaEsercizioListaClient extends HBox {
             return;
         }
 
-        if (!this.numeroRipetizioni.getText().matches("\\d+") || Integer.parseInt(this.numeroRipetizioni.getText()) <= 0 || Integer.parseInt(this.numeroRipetizioni.getText()) >= 20) {
+        if (!this.numeroRipetizioni.getText().matches("\\d+") || Integer.parseInt(this.numeroRipetizioni.getText()) <= 0 || Integer.parseInt(this.numeroRipetizioni.getText()) >= 30) {
             AlertHelper.showAlert("Errore", "Campo ripetizioni non valido", null, Alert.AlertType.ERROR );
             return;
         }

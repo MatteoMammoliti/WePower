@@ -111,5 +111,5 @@ public class ModelValidazione {
 
     public static boolean controlloPrezzoOfferta(String prezzo){ return Pattern.matches("^[1-9][0-9]{0,3}$",prezzo); }
 
-    public static boolean controlloDurataOfferta(String durata){ return Pattern.matches("^[1-9][0-9]*$",durata); }
+    public static boolean controlloDurataOfferta(String durata){ return Pattern.matches("^[1-9][0-9]*$",durata) && Integer.parseInt(durata) > 0 &&  Integer.parseInt(durata) <= 24; }
 }
