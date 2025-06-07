@@ -1,24 +1,28 @@
 package com.wepower.wepower.Controllers.Client.ClientViewsController;
 
+import com.wepower.wepower.ControlloTemi;
+import com.wepower.wepower.Models.AdminModel.TabellaUtentiDashboardAdmin;
 import com.wepower.wepower.Models.DatiSessioneCliente;
 import com.wepower.wepower.Models.Model;
 import com.wepower.wepower.Models.SchedaAllenamento.ModelSchedaAllenamentoCliente;
 import com.wepower.wepower.Models.SchedaAllenamento.TabellaElencoEsercizi;
+import com.wepower.wepower.Views.AdminView.RigaUtentiAdmin;
 import com.wepower.wepower.Views.AlertHelper;
 import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioListaClient;
 import com.wepower.wepower.Views.SchedaAllenamento.RigaEsercizioSchedaClient;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SchedaController implements Initializable {
@@ -51,10 +55,24 @@ public class SchedaController implements Initializable {
         }
 
         this.eliminaSchedaButton.setOnAction(e -> {
-            try {
-                ModelSchedaAllenamentoCliente.eliminaSchedaAllenamento(DatiSessioneCliente.getIdSchedaAllenamento());
-            } catch (SQLException ex) {
-                AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto :(", null, Alert.AlertType.ERROR);
+            Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
+            conferma.setTitle("Conferma eliminazione");
+            conferma.setHeaderText("Sei sicuro di voler eliminare questa scheda?");
+            ImageView icon = new ImageView(new Image(DatiSessioneCliente.class.getResourceAsStream("/Images/IconeAlert/question.png")));
+            DialogPane dialogPane = conferma.getDialogPane();
+            dialogPane.getStylesheets().add(DatiSessioneCliente.class.getResource("/Styles/alertStyle.css").toExternalForm());
+            Stage alertStage = (Stage) dialogPane.getScene().getWindow();
+            alertStage.getIcons().add(new Image(getClass().getResource("/Images/favicon.png").toExternalForm()));
+            dialogPane.getStylesheets().add(ControlloTemi.getInstance().getCssTemaCorrente());
+            conferma.setGraphic(icon);
+
+            Optional<ButtonType> resultConferma = conferma.showAndWait();
+            if (resultConferma.isPresent() && resultConferma.get() == ButtonType.OK) {
+                try {
+                    ModelSchedaAllenamentoCliente.eliminaSchedaAllenamento(DatiSessioneCliente.getIdSchedaAllenamento());
+                } catch (SQLException ex) {
+                    AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto :(", null, Alert.AlertType.ERROR);
+                }
             }
         });
     }
