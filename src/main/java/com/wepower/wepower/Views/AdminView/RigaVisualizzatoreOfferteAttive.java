@@ -1,6 +1,7 @@
 package com.wepower.wepower.Views.AdminView;
 
 import com.wepower.wepower.Controllers.Admin.AdminDashboardController;
+import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.AdminModel.ModelDashboardAdmin;
 import com.wepower.wepower.Views.AlertHelper;
 import javafx.geometry.Pos;
@@ -43,6 +44,7 @@ public class RigaVisualizzatoreOfferteAttive extends HBox {
                 ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("/Images/IconeAlert/question.png")));
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.getStylesheets().add(getClass().getResource("/Styles/alertStyle.css").toExternalForm());
+                dialogPane.getStylesheets().add(ControlloTemi.getInstance().getCssTemaCorrente());
                 alert.setGraphic(icon);
 
                 // Mostro la finestra e aspetto la risposta
