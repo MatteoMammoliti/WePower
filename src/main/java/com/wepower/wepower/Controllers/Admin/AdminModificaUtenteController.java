@@ -3,7 +3,7 @@ package com.wepower.wepower.Controllers.Admin;
 import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.AdminModel.TabellaUtentiDashboardAdmin;
 import com.wepower.wepower.Models.ModelValidazione;
-import com.wepower.wepower.Views.AdminView.RigaDashboardAdmin;
+import com.wepower.wepower.Views.AdminView.RigaUtentiAdmin;
 import com.wepower.wepower.Views.AlertHelper;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,7 +28,7 @@ public class AdminModificaUtenteController implements Initializable {
     private Stage dialogStage;
 
     //Inizializzo una RigaDashboardAdmin
-    private RigaDashboardAdmin riga;
+    private RigaUtentiAdmin riga;
 
     public AdminModificaUtenteController() {}
 
@@ -48,7 +48,7 @@ public class AdminModificaUtenteController implements Initializable {
     }
 
     //Inizializzo i dati con quelli attuali dell'utente da modificare
-    public void setUtente(RigaDashboardAdmin riga) {
+    public void setUtente(RigaUtentiAdmin riga) {
         //Setto la riga nella quale è stata chiamata la funzione onModifica
         this.riga = riga;
         //Inizializzo i vari campi

@@ -1,10 +1,9 @@
 package com.wepower.wepower.Controllers.Admin;
 
 import com.wepower.wepower.ControlloTemi;
-import com.wepower.wepower.Models.AdminModel.ModelDashboardAdmin;
 import com.wepower.wepower.Models.AdminModel.TabellaUtentiDashboardAdmin;
 import com.wepower.wepower.Models.DatiSessioneCliente;
-import com.wepower.wepower.Views.AdminView.RigaDashboardAdmin;
+import com.wepower.wepower.Views.AdminView.RigaUtentiAdmin;
 import com.wepower.wepower.Views.AlertHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,19 +27,19 @@ import java.util.ResourceBundle;
 public class AdminUtentiController implements Initializable {
 
     @FXML private Button btnGestisciCapienza;
-    @FXML private TableView<RigaDashboardAdmin> tableUtenti;
-    @FXML private TableColumn<RigaDashboardAdmin, Number> colId;
-    @FXML private TableColumn<RigaDashboardAdmin, String> colNome;
-    @FXML private TableColumn<RigaDashboardAdmin, String> colCognome;
-    @FXML private TableColumn<RigaDashboardAdmin,String> colDataNascita;
-    @FXML private TableColumn<RigaDashboardAdmin, String> colEmail;
-    @FXML private TableColumn<RigaDashboardAdmin, String> colStatoAbbonamento;
-    @FXML private TableColumn<RigaDashboardAdmin, String> colDataRinnovo;
-    @FXML private TableColumn<RigaDashboardAdmin, String> colDataScadenza;
-    @FXML private TableColumn<RigaDashboardAdmin, String> colSesso;
-    @FXML private TableColumn<RigaDashboardAdmin, String> colCertificato;
-    @FXML private TableColumn<RigaDashboardAdmin, Void> colModifica;
-    @FXML private TableColumn<RigaDashboardAdmin, Void> colElimina;
+    @FXML private TableView<RigaUtentiAdmin> tableUtenti;
+    @FXML private TableColumn<RigaUtentiAdmin, Number> colId;
+    @FXML private TableColumn<RigaUtentiAdmin, String> colNome;
+    @FXML private TableColumn<RigaUtentiAdmin, String> colCognome;
+    @FXML private TableColumn<RigaUtentiAdmin,String> colDataNascita;
+    @FXML private TableColumn<RigaUtentiAdmin, String> colEmail;
+    @FXML private TableColumn<RigaUtentiAdmin, String> colStatoAbbonamento;
+    @FXML private TableColumn<RigaUtentiAdmin, String> colDataRinnovo;
+    @FXML private TableColumn<RigaUtentiAdmin, String> colDataScadenza;
+    @FXML private TableColumn<RigaUtentiAdmin, String> colSesso;
+    @FXML private TableColumn<RigaUtentiAdmin, String> colCertificato;
+    @FXML private TableColumn<RigaUtentiAdmin, Void> colModifica;
+    @FXML private TableColumn<RigaUtentiAdmin, Void> colElimina;
 
     public AdminUtentiController() {}
 
@@ -57,13 +56,13 @@ public class AdminUtentiController implements Initializable {
         colDataRinnovo.setCellValueFactory(cellData -> cellData.getValue().dataRinnovoProperty());
         colDataScadenza.setCellValueFactory(cellData -> cellData.getValue().dataScadenzaProperty());
         colSesso.setCellValueFactory(cellData -> cellData.getValue().sessoProperty());
-        colModifica.setCellFactory(column -> new TableCell<RigaDashboardAdmin, Void>() {
+        colModifica.setCellFactory(column -> new TableCell<RigaUtentiAdmin, Void>() {
 
             private final Button btnModifica = new Button("Modifica");
             {
                 btnModifica.setOnAction(event ->  {
                     try {
-                        RigaDashboardAdmin riga = getTableView().getItems().get(getIndex());
+                        RigaUtentiAdmin riga = getTableView().getItems().get(getIndex());
                         onModifica(riga, btnModifica);
                     } catch (IOException e) {
                         AlertHelper.showAlert("Questo non doveva succedere", "Qualcosa è andato storto", null, Alert.AlertType.ERROR);
@@ -82,7 +81,7 @@ public class AdminUtentiController implements Initializable {
             }
         });
 
-        colElimina.setCellFactory(column -> new TableCell<RigaDashboardAdmin, Void>() {
+        colElimina.setCellFactory(column -> new TableCell<RigaUtentiAdmin, Void>() {
             private final Button btnElimina = new Button("Elimina");
 
             {
@@ -100,7 +99,7 @@ public class AdminUtentiController implements Initializable {
 
                     Optional<ButtonType> resultConferma = conferma.showAndWait();
                     if (resultConferma.isPresent() && resultConferma.get() == ButtonType.OK) {
-                        RigaDashboardAdmin riga = getTableView().getItems().get(getIndex());
+                        RigaUtentiAdmin riga = getTableView().getItems().get(getIndex());
                         getTableView().getItems().remove(riga);
                         int id=riga.idClienteProperty().get();
 
@@ -126,7 +125,7 @@ public class AdminUtentiController implements Initializable {
         });
 
 
-        ObservableList<RigaDashboardAdmin> utentiData = FXCollections.observableArrayList();
+        ObservableList<RigaUtentiAdmin> utentiData = FXCollections.observableArrayList();
 
         btnGestisciCapienza.setOnAction(event -> {
             try{
@@ -160,7 +159,7 @@ public class AdminUtentiController implements Initializable {
         stage.showAndWait();
     }
 
-    private void onModifica(RigaDashboardAdmin riga, Button bottoneModifica) throws IOException {
+    private void onModifica(RigaUtentiAdmin riga, Button bottoneModifica) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Admin/ModificaUtente.fxml"));
         Parent root = loader.load();
         AdminModificaUtenteController controller = loader.getController();

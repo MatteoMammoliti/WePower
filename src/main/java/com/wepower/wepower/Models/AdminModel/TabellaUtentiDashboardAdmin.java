@@ -1,7 +1,7 @@
 package com.wepower.wepower.Models.AdminModel;
 
 import com.wepower.wepower.Models.ConnessioneDatabase;
-import com.wepower.wepower.Views.AdminView.RigaDashboardAdmin;
+import com.wepower.wepower.Views.AdminView.RigaUtentiAdmin;
 import com.wepower.wepower.Views.AlertHelper;
 import javafx.scene.control.Alert;
 
@@ -14,10 +14,10 @@ import java.util.ArrayList;
 public class TabellaUtentiDashboardAdmin {
 
     //Prelevo dal database tutti gli utenti per riempire la tabella utenti
-    public static ArrayList<RigaDashboardAdmin> riempiRiga() throws SQLException {
+    public static ArrayList<RigaUtentiAdmin> riempiRiga() throws SQLException {
         Connection conn = ConnessioneDatabase.getConnection();
 
-        ArrayList<RigaDashboardAdmin> ris = new ArrayList<RigaDashboardAdmin>();
+        ArrayList<RigaUtentiAdmin> ris = new ArrayList<RigaUtentiAdmin>();
 
         //Prelevo i dati dal database
         String query = """
@@ -62,7 +62,7 @@ public class TabellaUtentiDashboardAdmin {
 
                 String email = risultatoTuttiClienti.getString("Email");
                 String sesso = risultatoTuttiClienti.getString("Sesso");
-                RigaDashboardAdmin A = new RigaDashboardAdmin(IdCliente, Nome, Cognome,DataNascita, StatoAbbonamento, CertificatoValido, DataInizioAbbonamento, DataFineAbbonamento, email, sesso);
+                RigaUtentiAdmin A = new RigaUtentiAdmin(IdCliente, Nome, Cognome,DataNascita, StatoAbbonamento, CertificatoValido, DataInizioAbbonamento, DataFineAbbonamento, email, sesso);
                 //Aggiungo la riga a ris per poi creare la tabella utenti
                 ris.add(A);
             }

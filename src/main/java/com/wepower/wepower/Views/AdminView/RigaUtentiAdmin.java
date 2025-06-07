@@ -3,7 +3,7 @@ package com.wepower.wepower.Views.AdminView;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class RigaDashboardAdmin {
+public class RigaUtentiAdmin {
 
     private final SimpleIntegerProperty idCliente;
     private final SimpleStringProperty nome;
@@ -17,7 +17,7 @@ public class RigaDashboardAdmin {
     private final SimpleStringProperty statoCertificato;
 
 
-    public RigaDashboardAdmin(int id, String nome, String cognome, String dataNascita, int statoAbbonamento, int statoCertificato, String dataRinnovo, String dataScadenza,String email, String sesso) {
+    public RigaUtentiAdmin(int id, String nome, String cognome, String dataNascita, int statoAbbonamento, int statoCertificato, String dataRinnovo, String dataScadenza, String email, String sesso) {
         this.idCliente = new SimpleIntegerProperty(id);
         this.nome = new SimpleStringProperty(nome);
         this.cognome = new SimpleStringProperty(cognome);
