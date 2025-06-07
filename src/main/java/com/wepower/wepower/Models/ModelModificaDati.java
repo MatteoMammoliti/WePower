@@ -94,7 +94,7 @@ public class ModelModificaDati {
                 try { datiCredenziali.close(); } catch (SQLException ignored) {}
             }
             if(datiCliente != null) {
-                try { datiCredenziali.close(); } catch (SQLException ignored) {}
+                try { datiCliente.close(); } catch (SQLException ignored) {}
             }
         }
         return false;

@@ -159,6 +159,8 @@ public class AdminDashboardController implements Initializable {
 
             observableList.add(new PieChart.Data(nome,numero));
         }
+
+
         //Aggiorno il grafico
         tortaGenere.setTitle("Percentuale iscritti per genere");
         tortaGenere.setData(observableList);
