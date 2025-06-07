@@ -63,6 +63,7 @@ public class RigaEsercizioSchedaClient extends HBox {
         this.dataImpostazioneMassimale.getStyleClass().add("label_testo_chiaro");
 
         InputStream is = getClass().getResourceAsStream("/" + percorsoImmagine);
+        assert is != null;
         Image image = new Image(is);
         this.imageEsercizio = new ImageView(image);
         this.imageEsercizio.setFitHeight(140);
@@ -76,6 +77,10 @@ public class RigaEsercizioSchedaClient extends HBox {
             if (this.aggiungiNuovoMassimale.getText().isEmpty()) return;
 
             if (Integer.parseInt(this.aggiungiNuovoMassimale.getText()) <= 0) {
+                AlertHelper.showAlert("Attenzione", "Valore massimale non valido", null, Alert.AlertType.ERROR );
+                this.aggiungiNuovoMassimale.clear();
+            }
+            else if (Integer.parseInt(this.aggiungiNuovoMassimale.getText()) > 350) {
                 AlertHelper.showAlert("Attenzione", "Valore massimale non valido", null, Alert.AlertType.ERROR );
                 this.aggiungiNuovoMassimale.clear();
             }
