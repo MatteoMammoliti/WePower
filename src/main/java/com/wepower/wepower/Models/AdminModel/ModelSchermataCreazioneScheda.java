@@ -75,8 +75,8 @@ public class ModelSchermataCreazioneScheda {
                     PreparedStatement inserimentoEsercizio = conn.prepareStatement(inserimento);
                     inserimentoEsercizio.setString(1, nomeEsercizio);
                     inserimentoEsercizio.setInt(2, idSchedaAllenamento);
-                    inserimentoEsercizio.setString(4, numeroRipetizioni);
-                    inserimentoEsercizio.setString(3, numeroSerie);
+                    inserimentoEsercizio.setString(3, numeroRipetizioni);
+                    inserimentoEsercizio.setString(4, numeroSerie);
                     statusUpdate = inserimentoEsercizio.executeUpdate();
 
                     if(statusUpdate == 0) {

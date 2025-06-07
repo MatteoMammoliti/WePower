@@ -89,7 +89,7 @@ public class ModelValidazione {
 
         if (!Pattern.matches("^[0-9]{1,3}$", altezza)) { return false; }
 
-        return Integer.parseInt(altezza) >= 50 && Integer.parseInt(altezza) <= 250;
+        return Integer.parseInt(altezza) >= 50 && Integer.parseInt(altezza) <= 210;
     }
 
     public static boolean controlloData(LocalDate data){

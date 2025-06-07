@@ -4,20 +4,20 @@ import com.wepower.wepower.ControlloTemi;
 import com.wepower.wepower.Models.DatiPalestra.DatiSessionePalestra;
 import com.wepower.wepower.Models.DatiPalestra.PrenotazioneSalaPesi;
 import com.wepower.wepower.Views.AlertHelper;
-import javafx.application.Preloader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Pair;
-
-import javax.naming.ldap.Rdn;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
@@ -564,12 +564,14 @@ public class DatiSessioneCliente {
 
             while(rs.next()) {
 
-                long dataInserimento = rs.getLong("DataInserimento");
+                String dataInserimento = rs.getString("DataInserimento");
+                LocalDate ld =  LocalDate.parse(dataInserimento);
+                Date dataUtil = Date.from(ld.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                String dataFormattata = new SimpleDateFormat("dd/MM/yyyy").format(dataUtil);
+
                 double peso = rs.getDouble("Peso");
 
-                // Converti il timestamp in una stringa formattata
-                String data = new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(dataInserimento));
-                Pair<String,Number> pair = new Pair<>(data,peso);
+                Pair<String,Number> pair = new Pair<>(dataFormattata,peso);
                 lista.addFirst(pair);
             }
             return lista;

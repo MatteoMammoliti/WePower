@@ -33,8 +33,8 @@ public class ModelModificaDati {
             if(sesso!=null) datiCliente.setString(4,sesso);
             else datiCliente.setNull(4, java.sql.Types.VARCHAR);
 
-           if(alt!=null) datiCliente.setString(5,alt);
-           else datiCliente.setNull(5, java.sql.Types.VARCHAR);
+            if(alt!=null) datiCliente.setString(5,alt);
+            else datiCliente.setNull(5, java.sql.Types.VARCHAR);
 
            datiCliente.setInt(6,id);
 

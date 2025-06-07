@@ -237,9 +237,9 @@ public class ClientDashboardController implements Initializable {
         XYChart.Series<String, Number> peso = new XYChart.Series<>();
 
         peso.setName("Andamento peso corporeo");
-        for(int i=0;i<storico.size();i++){
-            String data = storico.get(i).getKey();
-            int pesoValore = storico.get(i).getValue();
+        for (Pair<String, Integer> stringIntegerPair : storico) {
+            String data = stringIntegerPair.getKey();
+            int pesoValore = stringIntegerPair.getValue();
 
             // aggiunta del punto al grafico
             peso.getData().add(new XYChart.Data<>(data, pesoValore));
@@ -248,10 +248,22 @@ public class ClientDashboardController implements Initializable {
         if (!storico.isEmpty()) {
             Pair<String, Integer> min = storico.getFirst();
             Pair<String, Integer> max = storico.getLast();
-            int minY = min.getValue();
-            int maxY = max.getValue();
-            yAxisPesoCorporeo.setLowerBound(minY - 5);
-            yAxisPesoCorporeo.setUpperBound(maxY + 5);
+
+            int minY = 0;
+            int maxY = 0;
+
+            if(min.getValue() > max.getValue()) {
+                minY = max.getValue();
+                maxY = min.getValue();
+                yAxisPesoCorporeo.setLowerBound(minY + 5);
+                yAxisPesoCorporeo.setUpperBound(maxY - 5);
+            }
+            else {
+                minY = min.getValue();
+                maxY = max.getValue();
+                yAxisPesoCorporeo.setLowerBound(minY - 5);
+                yAxisPesoCorporeo.setUpperBound(maxY + 5);
+            }
         }
 
         yAxisPesoCorporeo.setAutoRanging(false);
