@@ -63,3 +63,7 @@ This software was developed as the final project for the User Interface Design c
 * View the number of bookings for the current day  
 * Monitor membership trends via line chart  
 * View, edit, and delete user data  
+
+![Immagine 2025-06-07 154656](https://github.com/user-attachments/assets/b76698ac-ba2e-44ab-b7c8-f0af8aa5991b)
+
+![Immagine 2025-06-07 154800](https://github.com/user-attachments/assets/c646bb22-ef9d-40f7-b2e3-b263934562b0)
