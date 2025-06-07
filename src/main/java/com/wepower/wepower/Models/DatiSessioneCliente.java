@@ -351,6 +351,7 @@ public class DatiSessioneCliente {
 
         PreparedStatement immagineProfilo = null;
         ResultSet risultato = null;
+        InputStream stream = null;
         try {
             Connection conn = ConnessioneDatabase.getConnection();
             immagineProfilo=conn.prepareStatement(caricaImmagine);
@@ -360,7 +361,7 @@ public class DatiSessioneCliente {
             if(risultato.next()){
                 //Usiamo un InputStream, rappresenta uno stream di byte in ingresso
                 //un "tubo" in cui scorrono byte da una fonte esterna.
-                InputStream stream=risultato.getBinaryStream("ImmagineProfilo");
+                stream=risultato.getBinaryStream("ImmagineProfilo");
                 // .getBinaryStream restituisce un InputStream
                 if(stream!=null){
                     return new Image(stream);
@@ -374,6 +375,9 @@ public class DatiSessioneCliente {
             }
             if(immagineProfilo != null) {
                 try { immagineProfilo.close(); } catch (SQLException ignored) {}
+            }
+            if (stream != null){
+                try {stream.close();} catch (IOException ignored) {}
             }
         }
         return null;
