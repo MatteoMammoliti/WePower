@@ -101,25 +101,15 @@ public class ClientDashboardController implements Initializable {
         this.chatVBox.minHeightProperty().bind(scrollPaneChatArea.heightProperty().multiply(1));
         this.chatVBox.setFillWidth(true);
 
-        String msg = "Ciao " + DatiSessioneCliente.getNomeUtente() + ", sono Powerino il chat bot virtuale di WePower." + "\n";
-        HBox messaggioIniziale =  new HBox(10);
-        Label messaggioInizialeApertura = new Label(msg);
-        messaggioIniziale.setMaxWidth(300);
-        messaggioInizialeApertura.setWrapText(true);
-        messaggioInizialeApertura.maxWidthProperty().bind(scrollPaneChatArea.widthProperty().subtract(50));
-        VBox.setVgrow(messaggioInizialeApertura, Priority.ALWAYS);
-        messaggioInizialeApertura.getStyleClass().add("rispostaBot");
-        messaggioIniziale.getChildren().addAll(messaggioInizialeApertura);
-        messaggioIniziale.setAlignment(Pos.CENTER_LEFT);
-
-        VBox.setVgrow(messaggioIniziale, Priority.ALWAYS);
-        this.chatVBox.getChildren().add(messaggioIniziale);
-        this.inviaButton.setOnAction(event -> onChiediPowerino());
+        this.inviaButton.setOnAction(event -> onChiediPowerino(""));
 
         caricaEserciziSchedaMenuGrafico();
         loadGraficoPrenotazioni();
         loadGraficoPeso();
         Platform.runLater(this::loadAlert);
+
+        String inputInizialePowerino = "Ciao chi sei?";
+        onChiediPowerino(inputInizialePowerino);
     }
 
     // -- FUNZIONI DISPLAYER COMPONENTI DELLA DASHBOARD
@@ -316,33 +306,39 @@ public class ClientDashboardController implements Initializable {
     }
 
     // -- SEZIONE POWERINO
-    private void onChiediPowerino() {
-        String messaggioUtente = this.inputField.getText();
-        if (messaggioUtente.isEmpty()) return;
+    private void onChiediPowerino(String messaggioPreimpostato) {
+        String messaggioUtente = "";
 
-        HBox messaggio = new HBox(10);
-        messaggio.setMaxWidth(Double.MAX_VALUE);
-        messaggio.setAlignment(Pos.CENTER_RIGHT);
+        if(!messaggioPreimpostato.isEmpty()){
+            messaggioUtente = messaggioPreimpostato;
+        }
+        else {
+            messaggioUtente = this.inputField.getText();
 
-        Label messaggioLabel = new Label(messaggioUtente);
-        messaggioLabel.maxWidthProperty().bind(scrollPaneChatArea.widthProperty().subtract(50));
-        messaggioLabel.setWrapText(true);
-        messaggioLabel.getStyleClass().add("rispostaBot");
-        messaggio.getChildren().addAll(messaggioLabel);
+            if (messaggioUtente.isEmpty()) return;
 
-       VBox.setVgrow(messaggio, Priority.ALWAYS);
-        this.chatVBox.getChildren().add(messaggio);
-        chatVBox.heightProperty().addListener((observable, oldValue, newValue) -> {
-            scrollPaneChatArea.setVvalue(1.0);
-        });
-        this.inputField.clear();
+            HBox messaggio = new HBox(10);
+            messaggio.setMaxWidth(Double.MAX_VALUE);
+            messaggio.setAlignment(Pos.CENTER_RIGHT);
 
-        Platform.runLater(() -> {
-            scrollPaneChatArea.layout();
-            scrollPaneChatArea.setVvalue(1.0);
-        });
+            Label messaggioLabel = new Label(messaggioUtente);
+            messaggioLabel.maxWidthProperty().bind(scrollPaneChatArea.widthProperty().subtract(50));
+            messaggioLabel.setWrapText(true);
+            messaggioLabel.getStyleClass().add("rispostaBot");
+            messaggio.getChildren().addAll(messaggioLabel);
 
+            VBox.setVgrow(messaggio, Priority.ALWAYS);
+            this.chatVBox.getChildren().add(messaggio);
+            chatVBox.heightProperty().addListener((observable, oldValue, newValue) -> {
+                scrollPaneChatArea.setVvalue(1.0);
+            });
+            this.inputField.clear();
 
+            Platform.runLater(() -> {
+                scrollPaneChatArea.layout();
+                scrollPaneChatArea.setVvalue(1.0);
+            });
+        }
         Llama4_API.sendMessage(messaggioUtente, risposta -> {
             Platform.runLater(() -> {
 
