@@ -8,7 +8,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnessioneDatabase {
-    private static final String DB_URL ="jdbc:sqlite:Database/database.db";
+    private static final String DB_URL ="jdbc:sqlite:database/database.db";
     private static Connection conn = null;
 
     public static Connection getConnection() {

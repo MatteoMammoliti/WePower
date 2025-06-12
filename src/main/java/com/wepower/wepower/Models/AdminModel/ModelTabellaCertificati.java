@@ -72,7 +72,6 @@ public class ModelTabellaCertificati {
                 byte[] byteImage=risultati.getBytes("ImgCertificato");
                 InputStream is=new ByteArrayInputStream(byteImage);
                 Image image=new Image(is);
-                System.out.println("ttttt");
                 return image;
             }
         } catch (SQLException e) {

@@ -142,6 +142,13 @@ public class SignUpController implements Initializable {
             labelDataErrata.setVisible(false);
         }
 
+        if(password.length()<8){
+            AlertHelper.showAlert("Campo password non valido", "La password deve contere almeno 8 caratteri", null, Alert.AlertType.ERROR);
+            this.passwordField.clear();
+            this.repeatPasswordField.clear();
+            return;
+        }
+
         if (ModelRegistrazione.registraUtente(nome,cognome,dataNascita,email,password)) {
             AlertHelper.showAlert("Registrazione effettuata", "Registrazione effettuata con successo", null,  Alert.AlertType.INFORMATION);
             onLogin();
