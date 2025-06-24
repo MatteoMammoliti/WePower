@@ -26,8 +26,8 @@ import java.util.regex.Pattern;
 
 public class Llama4_API {
 
-    private static final String API_KEY = "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";
-    private static final String ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
+    private static final String API_KEY = "";
+    private static final String ENDPOINT = "";
 
     private static final OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
