@@ -1,7 +1,7 @@
-# WePower - Gestionale della palestra [IT]
+# WePower - Gestionale di una palestra [IT]
 
 ### Overview del progetto 
-Questo software è stato realizzato come progetto conclusivo del corso di User Interface Design course (Università della Calabria - Cds in Informatica). Il gruppo è così composto:
+Questo software è stato realizzato come progetto conclusivo del corso di User Interfaces Design (Università della Calabria - CdS in Informatica). Il gruppo è così composto:
 
 - **Matteo Mammoliti**: scheletro dell'applicazione (menu e cambio view), sistema di composizione e visualizzazione delle schede di allenamento (lato cliente e admin), chatbot AI basato sul modello LLama4, grafici della dashboard, gestione delle eccezioni;
 - **Angelo Vivacqua**: gestione del Database (implementazione in SQLlite), sistema di prenotazione alla sala pesi, sistema di caricamento e approvazione del certificato medico, sistema di caricamento e visualizzazione delle promozioni, sistema di modifica e visualizzazione dei dati utente, sistema di cambio tema grafico;  
