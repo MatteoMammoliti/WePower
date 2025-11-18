@@ -4,8 +4,8 @@
 Questo software è stato realizzato come progetto conclusivo del corso di User Interfaces Design (Università della Calabria - CdS in Informatica). Il gruppo è così composto:
 
 - **Matteo Mammoliti**: scheletro dell'applicazione (menu e cambio view), sistema di composizione e visualizzazione delle schede di allenamento (lato cliente e admin), chatbot AI basato sul modello LLama4, grafici della dashboard, gestione delle eccezioni;
-- **Angelo Vivacqua**: gestione del Database (implementazione in SQLlite), sistema di prenotazione alla sala pesi, sistema di caricamento e approvazione del certificato medico, sistema di caricamento e visualizzazione delle promozioni, sistema di modifica e visualizzazione dei dati utente, sistema di cambio tema grafico;  
-- **Cristian Loria**: composizione della dashboard lato admin, sistema di visualizzazione e modifica dei clienti della palestra, schermate di login e registrazione;
+- [@Angelo Vivacqua](https://github.com/AngeloVivacqua): gestione del Database (implementazione in SQLlite), sistema di prenotazione alla sala pesi, sistema di caricamento e approvazione del certificato medico, sistema di caricamento e visualizzazione delle promozioni, sistema di modifica e visualizzazione dei dati utente, sistema di cambio tema grafico;  
+- [@Cristian Saverio Loria](https://github.com/loriacristian): composizione della dashboard lato admin, sistema di visualizzazione e modifica dei clienti della palestra, schermate di login e registrazione;
 
 ---
 
